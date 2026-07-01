@@ -1,7 +1,7 @@
 table 材料_値上げイベント_仕入
 	lineageTag: a0b1c2d3-e4f5-4a67-8b9c-0d1e2f3a4b5c
 
-	measure 月別_単価改定額ABS_合計_材料 = ```
+	measure 月別_単価改定額ABS_合計_材料_仕入 = ```
 
 			SUMX (
 			    '材料_値上げイベント_仕入',
@@ -13,7 +13,7 @@ table 材料_値上げイベント_仕入
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 1件あたり_単価改定額ABS_平均_材料 = ```
+	measure 1件あたり_単価改定額ABS_平均_材料_仕入 = ```
 
 			AVERAGEX (
 			    '材料_値上げイベント_仕入',
@@ -25,7 +25,7 @@ table 材料_値上げイベント_仕入
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 月別_値上げ額_合計_材料 =
+	measure 月別_値上げ額_合計_材料_仕入 =
 
 			CALCULATE (
 			    SUM ( '材料_値上げイベント_仕入'[値上げ額] ),
@@ -35,7 +35,7 @@ table 材料_値上げイベント_仕入
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 月別_値下げ額_合計_材料 =
+	measure 月別_値下げ額_合計_材料_仕入 =
 
 			CALCULATE (
 			    SUM ( '材料_値上げイベント_仕入'[値上げ額] ),
@@ -45,7 +45,7 @@ table 材料_値上げイベント_仕入
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 1件あたり_値上げ額_平均_材料 =
+	measure 1件あたり_値上げ額_平均_材料_仕入 =
 
 			AVERAGEX (
 			    FILTER ( '材料_値上げイベント_仕入', '材料_値上げイベント_仕入'[値上げ額] > 0 ),
@@ -55,7 +55,7 @@ table 材料_値上げイベント_仕入
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 1件あたり_値下げ額_平均_材料 =
+	measure 1件あたり_値下げ額_平均_材料_仕入 =
 
 			AVERAGEX (
 			    FILTER ( '材料_値上げイベント_仕入', '材料_値上げイベント_仕入'[値上げ額] < 0 ),
@@ -65,7 +65,7 @@ table 材料_値上げイベント_仕入
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 月別_純増減額合計_材料_明細 =
+	measure 月別_純増減額合計_材料_明細_仕入 =
 
 			SUMX (
 			    VALUES ( '材料_値上げイベント_仕入'[月次キー] ),
@@ -79,7 +79,7 @@ table 材料_値上げイベント_仕入
 			)
 		lineageTag: a7b8c9d0-e1f2-4034-5b6c-7d8e9f0a1b2c
 
-	measure 月別_純値上げ額合計_材料_明細 =
+	measure 月別_純値上げ額合計_材料_明細_仕入 =
 
 			SUMX (
 			    VALUES ( '材料_値上げイベント_仕入'[月次キー] ),
@@ -95,7 +95,7 @@ table 材料_値上げイベント_仕入
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 月別_純値下げ額合計_材料_明細 =
+	measure 月別_純値下げ額合計_材料_明細_仕入 =
 
 			SUMX (
 			    VALUES ( '材料_値上げイベント_仕入'[月次キー] ),
