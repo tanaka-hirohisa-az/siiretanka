@@ -1,0 +1,385 @@
+table 材料_値上げイベント_仕入
+	lineageTag: a0b1c2d3-e4f5-4a67-8b9c-0d1e2f3a4b5c
+
+	measure 月別_単価改定額ABS_合計_材料 = ```
+
+			SUMX (
+			    '材料_値上げイベント_仕入',
+			    ABS ( '材料_値上げイベント_仕入'[値上げ額] )
+			)
+
+			```
+		lineageTag: a1b2c3d4-e5f6-4a78-9b0c-1d2e3f4a5b6c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 1件あたり_単価改定額ABS_平均_材料 = ```
+
+			AVERAGEX (
+			    '材料_値上げイベント_仕入',
+			    ABS ( '材料_値上げイベント_仕入'[値上げ額] )
+			)
+
+			```
+		lineageTag: b2c3d4e5-f6a7-4b89-0c1d-2e3f4a5b6c7d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 月別_値上げ額_合計_材料 =
+
+			CALCULATE (
+			    SUM ( '材料_値上げイベント_仕入'[値上げ額] ),
+			    '材料_値上げイベント_仕入'[値上げ額] > 0
+			)
+		lineageTag: c3d4e5f6-a7b8-4c90-1d2e-3f4a5b6c7d8e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 月別_値下げ額_合計_材料 =
+
+			CALCULATE (
+			    SUM ( '材料_値上げイベント_仕入'[値上げ額] ),
+			    '材料_値上げイベント_仕入'[値上げ額] < 0
+			)
+		lineageTag: d4e5f6a7-b8c9-4d01-2e3f-4a5b6c7d8e9f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 1件あたり_値上げ額_平均_材料 =
+
+			AVERAGEX (
+			    FILTER ( '材料_値上げイベント_仕入', '材料_値上げイベント_仕入'[値上げ額] > 0 ),
+			    '材料_値上げイベント_仕入'[値上げ額]
+			)
+		lineageTag: e5f6a7b8-c9d0-4e12-3f4a-5b6c7d8e9f0a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 1件あたり_値下げ額_平均_材料 =
+
+			AVERAGEX (
+			    FILTER ( '材料_値上げイベント_仕入', '材料_値上げイベント_仕入'[値上げ額] < 0 ),
+			    '材料_値上げイベント_仕入'[値上げ額]
+			)
+		lineageTag: f6a7b8c9-d0e1-4f23-4a5b-6c7d8e9f0a1b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 月別_純増減額合計_材料_明細 =
+
+			SUMX (
+			    VALUES ( '材料_値上げイベント_仕入'[月次キー] ),
+			    CALCULATE (
+			        MAX ( '材料_月別純増減_仕入'[純増減額] ),
+			        TREATAS (
+			            VALUES ( '材料_値上げイベント_仕入'[月次キー] ),
+			            '材料_月別純増減_仕入'[月次キー]
+			        )
+			    )
+			)
+		lineageTag: a7b8c9d0-e1f2-4034-5b6c-7d8e9f0a1b2c
+
+	measure 月別_純値上げ額合計_材料_明細 =
+
+			SUMX (
+			    VALUES ( '材料_値上げイベント_仕入'[月次キー] ),
+			    CALCULATE (
+			        MAX ( '材料_月別純増減_仕入'[月別_純値上げ額合計_材料] ),
+			        TREATAS (
+			            VALUES ( '材料_値上げイベント_仕入'[月次キー] ),
+			            '材料_月別純増減_仕入'[月次キー]
+			        )
+			    )
+			)
+		lineageTag: b8c9d0e1-f2a3-4145-6c7d-8e9f0a1b2c3d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 月別_純値下げ額合計_材料_明細 =
+
+			SUMX (
+			    VALUES ( '材料_値上げイベント_仕入'[月次キー] ),
+			    CALCULATE (
+			        MAX ( '材料_月別純増減_仕入'[月別_純値下げ額合計_材料] ),
+			        TREATAS (
+			            VALUES ( '材料_値上げイベント_仕入'[月次キー] ),
+			            '材料_月別純増減_仕入'[月次キー]
+			        )
+			    )
+			)
+		lineageTag: c9d0e1f2-a3b4-4256-7d8e-9f0a1b2c3d4e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column F_材料番号
+		lineageTag: d0e1f2a3-b4c5-4367-8e9f-0a1b2c3d4e5f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 材料_仕入単価履歴[F_材料番号]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_開始日
+		formatString: General Date
+		lineageTag: e1f2a3b4-c5d6-4478-9f0a-1b2c3d4e5f6a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 材料_仕入単価履歴[F_開始日]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_仕入先番号
+		lineageTag: f2a3b4c5-d6e7-4589-0a1b-2c3d4e5f6a7b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 材料_仕入単価履歴[F_仕入先番号]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_契約単価
+		lineageTag: a3b4c5d6-e7f8-4690-1b2c-3d4e5f6a7b8c
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: 材料_仕入単価履歴[F_契約単価]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column F_終了日
+		formatString: General Date
+		lineageTag: b4c5d6e7-f8a9-4801-2c3d-4e5f6a7b8c9d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 材料_仕入単価履歴[F_終了日]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_仕入先略称
+		lineageTag: c5d6e7f8-a9b0-4912-3d4e-5f6a7b8c9d0e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 材料_仕入単価履歴[F_仕入先略称]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 前回単価
+		lineageTag: d6e7f8a9-b0c1-4023-4e5f-6a7b8c9d0e1f
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: 材料_仕入単価履歴[前回単価]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 値上げ額
+		lineageTag: e7f8a9b0-c1d2-4134-5f6a-7b8c9d0e1f2a
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: 材料_仕入単価履歴[値上げ額]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 値上げ率
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: f8a9b0c1-d2e3-4245-6a7b-8c9d0e1f2a3b
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [値上げ率]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 改定方向
+		lineageTag: a9b0c1d2-e3f4-4356-7b8c-9d0e1f2a3b4c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [改定方向]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 絶対値上げ額
+		lineageTag: b0c1d2e3-f4a5-4467-8c9d-0e1f2a3b4c5d
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [絶対値上げ額]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 外れ値フラグ
+		formatString: 0
+		lineageTag: c1d2e3f4-a5b6-4578-9d0e-1f2a3b4c5d6e
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [外れ値フラグ]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_開始月
+		formatString: General Date
+		lineageTag: d2e3f4a5-b6c7-4689-0e1f-2a3b4c5d6e7f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 材料_仕入単価履歴[F_開始月]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 年間予測影響額
+		lineageTag: e3f4a5b6-c7d8-4790-1f2a-3b4c5d6e7f8a
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [年間予測影響額]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 値上げ額_値上げのみ
+		lineageTag: f4a5b6c7-d8e9-4801-2a3b-4c5d6e7f8a9b
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [値上げ額_値上げのみ]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 値下げ額_値下げのみ
+		lineageTag: a5b6c7d8-e9f0-4912-3b4c-5d6e7f8a9b0c
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [値下げ額_値下げのみ]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 値下げ額_値下げのみ_絶対値
+		lineageTag: b6c7d8e9-f0a1-4023-4c5d-6e7f8a9b0c1d
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [値下げ額_値下げのみ_絶対値]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 年間予測影響額_値上げのみ
+		lineageTag: c7d8e9f0-a1b2-4134-5d6e-7f8a9b0c1d2e
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [年間予測影響額_値上げのみ]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 年間予測影響額_値下げのみ
+		lineageTag: d8e9f0a1-b2c3-4245-6e7f-8a9b0c1d2e3f
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [年間予測影響額_値下げのみ]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 年間予測影響額_値下げのみ_絶対値
+		lineageTag: e9f0a1b2-c3d4-4356-7f8a-9b0c1d2e3f4a
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [年間予測影響額_値下げのみ_絶対値]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 直近12か月稼働量
+		lineageTag: f0a1b2c3-d4e5-4467-8a9b-0c1d2e3f4a5b
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [直近12か月稼働量]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 月次キー
+		lineageTag: a1b2c3d4-e5f6-4578-9b0c-1d2e3f4a5b6c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [月次キー]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 材料_値上げイベント_仕入 = calculated
+		mode: import
+		source =
+
+				VAR __Ev0 =
+				    FILTER (
+				        '材料_仕入単価履歴',
+				        NOT ISBLANK ( '材料_仕入単価履歴'[値上げ額] )
+				            && '材料_仕入単価履歴'[値上げ額] <> 0
+				    )
+
+				VAR __EvWithQty =
+				    ADDCOLUMNS (
+				        __Ev0,
+
+				        "月次キー",
+				            FORMAT ( [F_開始月], "yyyymmdd" ) & "|"
+				                & [F_材料番号] & "|"
+				                & [F_仕入先番号],
+
+				        "直近12か月稼働量",
+				            LOOKUPVALUE (
+				                '材料_年平均稼働量_仕入'[直近12か月稼働量],
+				                '材料_年平均稼働量_仕入'[F_材料番号], [F_材料番号]
+				            )
+				    )
+
+				RETURN
+				    ADDCOLUMNS (
+				        __EvWithQty,
+
+				        "値上げ率",
+				            DIVIDE ( [値上げ額], [前回単価] ),
+
+				        "改定方向",
+				            IF ( [値上げ額] > 0, "値上げ", "値下げ" ),
+
+				        "絶対値上げ額",
+				            ABS ( [値上げ額] ),
+
+				        "外れ値フラグ",
+				            IF ( ABS ( [値上げ額] ) >= 50000, 1, 0 ),
+
+				        "年間予測影響額",
+				            [値上げ額] * [直近12か月稼働量],
+
+				        "値上げ額_値上げのみ",
+				            IF ( [値上げ額] > 0, [値上げ額], BLANK () ),
+
+				        "値下げ額_値下げのみ",
+				            IF ( [値上げ額] < 0, [値上げ額], BLANK () ),
+
+				        "値下げ額_値下げのみ_絶対値",
+				            IF ( [値上げ額] < 0, ABS ( [値上げ額] ), BLANK () ),
+
+				        "年間予測影響額_値上げのみ",
+				            IF ( [値上げ額] > 0, [値上げ額] * [直近12か月稼働量], BLANK () ),
+
+				        "年間予測影響額_値下げのみ",
+				            IF ( [値上げ額] < 0, [値上げ額] * [直近12か月稼働量], BLANK () ),
+
+				        "年間予測影響額_値下げのみ_絶対値",
+				            IF ( [値上げ額] < 0, ABS ( [値上げ額] * [直近12か月稼働量] ), BLANK () )
+				    )
+
+	annotation PBI_Id = a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5
+

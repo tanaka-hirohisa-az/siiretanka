@@ -20,13 +20,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料_値上げイベント"
+                      "Entity": "材料_値上げイベント_仕入"
                     }
                   },
                   "Property": "F_材料番号"
                 }
               },
-              "queryRef": "材料_値上げイベント.F_材料番号",
+              "queryRef": "材料_値上げイベント_仕入.F_材料番号",
               "nativeQueryRef": "F_材料番号",
               "active": true
             }
@@ -41,7 +41,7 @@
                     "Column": {
                       "Expression": {
                         "SourceRef": {
-                          "Entity": "材料_値上げイベント"
+                          "Entity": "材料_値上げイベント_仕入"
                         }
                       },
                       "Property": "年間予測影響額"
@@ -50,7 +50,7 @@
                   "Function": 0
                 }
               },
-              "queryRef": "Sum(材料_値上げイベント.年間予測影響額)",
+              "queryRef": "Sum(材料_値上げイベント_仕入.年間予測影響額)",
               "nativeQueryRef": "年間予測影響額 の合計"
             }
           ]
@@ -65,7 +65,7 @@
                   "Column": {
                     "Expression": {
                       "SourceRef": {
-                        "Entity": "材料_値上げイベント"
+                        "Entity": "材料_値上げイベント_仕入"
                       }
                     },
                     "Property": "年間予測影響額"

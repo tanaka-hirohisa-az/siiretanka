@@ -1,0 +1,116 @@
+table 材料_年平均稼働量_仕入
+	lineageTag: b1a2c3d4-e5f6-4a78-9b0c-d1e2f3a4b5c6
+
+	column F_材料番号
+		lineageTag: c2b3d4e5-f6a7-4b89-0c1d-e2f3a4b5c6d7
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_材料番号]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 直近12か月稼働量
+		lineageTag: d3c4e5f6-a7b8-4c90-1d2e-f3a4b5c6d7e8
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [直近12か月稼働量]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 過去5年平均年間稼働量
+		lineageTag: e4d5f6a7-b8c9-4d01-2e3f-a4b5c6d7e8f9
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [過去5年平均年間稼働量]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 材料_年平均稼働量_仕入 = calculated
+		mode: import
+		source =
+
+				VAR __End0 =
+				    EOMONTH ( TODAY (), -1 )
+
+				VAR __Periods =
+				    SELECTCOLUMNS (
+				        GENERATESERIES ( 0, 4, 1 ),
+				        "p", [Value]
+				    )
+
+				VAR __Ev0 =
+				    FILTER (
+				        'TB_仕入実績情報',
+				        NOT ISBLANK ( 'TB_仕入実績情報'[F_品目番号] )
+				            && NOT ISBLANK ( 'TB_仕入実績情報'[F_仕入日] )
+				            && NOT ISBLANK ( 'TB_仕入実績情報'[F_仕入数] )
+				    )
+
+				VAR __Ev =
+				    ADDCOLUMNS (
+				        __Ev0,
+				        "__材料番号",
+				            TRIM (
+				                SUBSTITUTE (
+				                    'TB_仕入実績情報'[F_品目番号],
+				                    UNICHAR ( 12288 ),
+				                    " "
+				                )
+				            ) & "",
+				        "__日付", DATEVALUE ( 'TB_仕入実績情報'[F_仕入日] ),
+				        "__数",   'TB_仕入実績情報'[F_仕入数]
+				    )
+
+				VAR __ByMatPeriod =
+				    ADDCOLUMNS (
+				        CROSSJOIN (
+				            SUMMARIZE ( __Ev, [__材料番号] ),
+				            __Periods
+				        ),
+				        "年稼働合計_12M",
+				            VAR k = [__材料番号]
+				            VAR p = [p]
+				            VAR e = EOMONTH ( __End0, -12 * p )
+				            VAR s = EOMONTH ( e, -12 ) + 1
+				            RETURN
+				                COALESCE (
+				                    SUMX (
+				                        FILTER (
+				                            __Ev,
+				                            [__材料番号] = k
+				                                && [__日付] >= s
+				                                && [__日付] <= e
+				                        ),
+				                        [__数]
+				                    ),
+				                    0
+				                )
+				    )
+
+				VAR __Agg =
+				    GROUPBY (
+				        __ByMatPeriod,
+				        [__材料番号],
+				        "過去5年平均年間稼働量",
+				            AVERAGEX ( CURRENTGROUP (), [年稼働合計_12M] ),
+				        "直近12か月稼働量",
+				            MAXX (
+				                CURRENTGROUP (),
+				                IF ( [p] = 0, [年稼働合計_12M] )
+				            )
+				    )
+
+				RETURN
+				    SELECTCOLUMNS (
+				        __Agg,
+				        "F_材料番号",            [__材料番号],
+				        "過去5年平均年間稼働量", [過去5年平均年間稼働量],
+				        "直近12か月稼働量",       [直近12か月稼働量]
+				    )
+
+	annotation PBI_Id = f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6
+
