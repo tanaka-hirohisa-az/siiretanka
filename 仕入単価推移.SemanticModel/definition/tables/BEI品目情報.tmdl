@@ -1,0 +1,180 @@
+table BEI品目情報
+	lineageTag: cd483ce7-e9c1-44ce-9c4d-b092a232247b
+
+	column F_納入品目番号
+		dataType: string
+		lineageTag: 57404f3f-46c7-44bf-a93b-e0b32259e203
+		summarizeBy: none
+		sourceColumn: F_納入品目番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_英語名称
+		dataType: string
+		lineageTag: 43665a5c-68fd-4251-9c94-1f6f718d6433
+		summarizeBy: none
+		sourceColumn: F_英語名称
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_得意先番号
+		dataType: string
+		lineageTag: a6aa53b6-9a54-4c48-a625-4e6797703747
+		summarizeBy: none
+		sourceColumn: F_得意先番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_重量
+		dataType: string
+		lineageTag: 2d8c0ff6-2485-44b4-b1a3-8bde7c5636df
+		summarizeBy: none
+		sourceColumn: F_重量
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_回路数
+		dataType: string
+		lineageTag: cfd9edeb-655f-4a12-b3f6-03c2c421e3cd
+		summarizeBy: none
+		sourceColumn: F_回路数
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_装置番号
+		dataType: string
+		lineageTag: 4046771c-ddc9-4d4d-95c4-20100468b628
+		summarizeBy: none
+		sourceColumn: F_装置番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_品目分類
+		dataType: string
+		lineageTag: 7b1aec5d-3ba4-444c-8e8c-72c8cc0fceb6
+		summarizeBy: none
+		sourceColumn: F_品目分類
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_ＢＥＩ指示
+		dataType: string
+		lineageTag: 2a1367ce-2d6a-437e-9b6b-d7be1dfcc9d8
+		summarizeBy: none
+		sourceColumn: F_ＢＥＩ指示
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_在庫場所
+		dataType: string
+		lineageTag: 8e5867d4-4f83-4e98-992f-d3134855d2da
+		summarizeBy: none
+		sourceColumn: F_在庫場所
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_備考
+		dataType: string
+		lineageTag: 5ccc3989-5803-4736-a8f5-45d7d247ce62
+		summarizeBy: none
+		sourceColumn: F_備考
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_ＢＥＩ見積日
+		dataType: string
+		lineageTag: 47f471d8-2005-463f-aa7c-2f58896139aa
+		summarizeBy: none
+		sourceColumn: F_ＢＥＩ見積日
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_ＢＥＩ計算材料費
+		dataType: string
+		lineageTag: 30e03a94-baa0-4489-b18c-36e2b8588d60
+		summarizeBy: none
+		sourceColumn: F_ＢＥＩ計算材料費
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_開始日
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: eaa28d61-2779-4083-9e66-e170b79422df
+		summarizeBy: none
+		sourceColumn: F_開始日
+
+		variation バリエーション
+			isDefault
+			relationship: 4e62cb5d-ca42-47a4-835c-ab04aa8ec525
+			defaultHierarchy: LocalDateTable_631baba4-cc14-4fcd-ba5c-f2b05d016e75.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column F_契約単価
+		dataType: string
+		lineageTag: daea8569-1f2b-4246-ae96-5378b2710a45
+		summarizeBy: none
+		sourceColumn: F_契約単価
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_担当者
+		dataType: string
+		lineageTag: 205dadf6-dc6f-41fb-a3d3-1f6e14d4b22b
+		summarizeBy: none
+		sourceColumn: F_担当者
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_依頼者
+		dataType: string
+		lineageTag: 490617db-01da-4a00-b1d5-048238238bcf
+		summarizeBy: none
+		sourceColumn: F_依頼者
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_登録日
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 17873777-b8e8-4cea-a881-b871e987cc50
+		summarizeBy: none
+		sourceColumn: F_登録日
+
+		variation バリエーション
+			isDefault
+			relationship: 591299a7-18e9-4f3a-892a-7412b0ad33a1
+			defaultHierarchy: LocalDateTable_8771fdda-d5c0-4f5a-afa9-d07f3d485cd1.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_更新日
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: c1d73c38-adcc-4446-8ee1-70a47df7ff49
+		summarizeBy: none
+		sourceColumn: F_更新日
+
+		variation バリエーション
+			isDefault
+			relationship: 371f0c88-274b-4818-be99-21a436a88261
+			defaultHierarchy: LocalDateTable_820baa60-f5cc-4164-be03-182858dbb2b9.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	partition BEI品目情報 = m
+		mode: import
+		source =
+				let
+				    ソース = Sql.Database("ob7e4ay7l6juflutzrdmf3fx4i-5je6jcvp7ozufin2iqecmsnlgi.datawarehouse.fabric.microsoft.com", "dw_bee_genka-00001"),
+				    dbo_BEI品目情報 = ソース{[Schema="dbo",Item="BEI品目情報"]}[Data]
+				in
+				    dbo_BEI品目情報
+
+	annotation PBI_NavigationStepName = ナビゲーション
+
+	annotation PBI_ResultType = Table
+

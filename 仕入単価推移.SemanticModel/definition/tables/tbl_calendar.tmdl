@@ -1,0 +1,192 @@
+table tbl_calendar
+	lineageTag: 77eae020-c626-4775-af5e-9af2dfc6681f
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 11081b40-10d3-403e-9d41-19bab45780c5
+		summarizeBy: none
+		sourceColumn: Date
+
+		variation バリエーション
+			isDefault
+			relationship: a161e5a1-c5b7-47a2-929e-3d4e80e6f937
+			defaultHierarchy: LocalDateTable_066d204b-a3ec-45ba-b96f-987e5d673fef.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 年_数値
+		dataType: double
+		lineageTag: 63355097-692b-48dc-b12e-6b12fa11169d
+		summarizeBy: sum
+		sourceColumn: 年_数値
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 年_yyyy年
+		dataType: string
+		lineageTag: a1f7aada-6d34-4ada-b433-2264635e917c
+		summarizeBy: none
+		sourceColumn: 年_yyyy年
+
+		annotation SummarizationSetBy = Automatic
+
+	column 月_数値
+		dataType: double
+		lineageTag: 9d4c2ee6-5c44-49a9-8d92-6bfaf72e6b93
+		summarizeBy: sum
+		sourceColumn: 月_数値
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 月_MM月
+		dataType: string
+		lineageTag: 2f420ec3-1d0e-4889-9227-904f54df4217
+		summarizeBy: none
+		sourceColumn: 月_MM月
+
+		annotation SummarizationSetBy = Automatic
+
+	column 日_数値
+		dataType: double
+		lineageTag: 25852db0-413f-42c5-b55c-9cbd7f212a97
+		summarizeBy: sum
+		sourceColumn: 日_数値
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 日_DD日
+		dataType: string
+		lineageTag: 3be41f9d-df68-49f6-9859-139b70f00c60
+		summarizeBy: none
+		sourceColumn: 日_DD日
+
+		annotation SummarizationSetBy = Automatic
+
+	column 年月_数値
+		dataType: double
+		lineageTag: 420b66ec-f89f-4f88-9458-3dae390e98b3
+		summarizeBy: sum
+		sourceColumn: 年月_数値
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 年月_yy年MM月
+		dataType: string
+		lineageTag: 37fdf292-afe2-4c61-aba6-eb46207db3b8
+		summarizeBy: none
+		sourceColumn: 年月_yy年MM月
+
+		annotation SummarizationSetBy = Automatic
+
+	column 年度_数値
+		dataType: double
+		lineageTag: ff371572-3959-4c1d-bc12-350ff5c43de3
+		summarizeBy: sum
+		sourceColumn: 年度_数値
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 年度_0年度
+		dataType: string
+		lineageTag: 95961ef8-8d9d-4972-935f-df331b075060
+		summarizeBy: none
+		sourceColumn: 年度_0年度
+
+		annotation SummarizationSetBy = Automatic
+
+	column 年度四半期_数値
+		dataType: double
+		lineageTag: 73ef8c78-a25f-42c4-90c7-d18c167a4604
+		summarizeBy: sum
+		sourceColumn: 年度四半期_数値
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 年度四半期_0Q
+		dataType: string
+		lineageTag: 0cbe6846-3e86-417a-b894-75bedafeaeb2
+		summarizeBy: none
+		sourceColumn: 年度四半期_0Q
+
+		annotation SummarizationSetBy = Automatic
+
+	column 年四半期_0Q
+		dataType: string
+		lineageTag: c80ed029-7a38-493b-8c10-d307cab01c16
+		summarizeBy: none
+		sourceColumn: 年四半期_0Q
+
+		annotation SummarizationSetBy = Automatic
+
+	column 週_数値
+		dataType: double
+		lineageTag: 72e3f707-df89-4f37-97e9-559a53ae157b
+		summarizeBy: sum
+		sourceColumn: 週_数値
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 週_第00週
+		dataType: string
+		lineageTag: 116759a3-4481-4a0f-8bf3-54568e2dcad0
+		summarizeBy: none
+		sourceColumn: 週_第00週
+
+		annotation SummarizationSetBy = Automatic
+
+	column 曜日番号月曜から_数値
+		dataType: double
+		lineageTag: 05cc4234-c581-42e6-82b0-a73ce945c618
+		summarizeBy: sum
+		sourceColumn: 曜日番号月曜から_数値
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 曜日_aaa
+		dataType: string
+		lineageTag: f16b35bd-6137-42e2-9676-69aaaeffe7a8
+		summarizeBy: none
+		sourceColumn: 曜日_aaa
+
+		annotation SummarizationSetBy = Automatic
+
+	column 日と曜日
+		dataType: string
+		lineageTag: 56f2ae67-7e5b-4dfa-9c2c-eef6c3d045c7
+		summarizeBy: none
+		sourceColumn: 日と曜日
+
+		annotation SummarizationSetBy = Automatic
+
+	partition tbl_calendar = m
+		mode: import
+		source =
+				let
+				    ソース = Sql.Database("ob7e4ay7l6juflutzrdmf3fx4i-5je6jcvp7ozufin2iqecmsnlgi.datawarehouse.fabric.microsoft.com", "dw_bee_genka-00001"),
+				    dbo_tbl_calendar = ソース{[Schema="dbo",Item="tbl_calendar"]}[Data]
+				in
+				    dbo_tbl_calendar
+
+	annotation PBI_NavigationStepName = ナビゲーション
+
+	annotation PBI_ResultType = Table
+

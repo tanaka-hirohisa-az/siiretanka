@@ -1,0 +1,116 @@
+table LocalDateTable_d8d73c44-5977-403b-8fa5-09806e48570c
+	isHidden
+	showAsVariationsOnly
+	lineageTag: 0272b8ed-ca2f-47e3-b4b8-413811e3ad94
+
+	column Date
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: 910d84f8-88e1-4187-a5a4-75b804dcd8c1
+		dataCategory: PaddedDateTableDates
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = User
+
+	column 年 = YEAR([Date])
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 1c56b613-a0f2-4255-9531-83622dbc9217
+		dataCategory: Years
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = Year
+
+	column MonthNo = MONTH([Date])
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ea93b391-48b1-42ae-b8e2-12bf5c3c1f38
+		dataCategory: MonthOfYear
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = MonthNumber
+
+	column 月 = FORMAT([Date], "MMMM")
+		dataType: string
+		isHidden
+		lineageTag: 223f7de0-619c-4537-873e-24bb45661c03
+		dataCategory: Months
+		summarizeBy: none
+		sortByColumn: MonthNo
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = Month
+
+	column QuarterNo = INT(([MonthNo] + 2) / 3)
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 964ccb6c-548b-4b38-bb4b-f13ff4eeab42
+		dataCategory: QuarterOfYear
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = QuarterNumber
+
+	column 四半期 = "Qtr " & [QuarterNo]
+		dataType: string
+		isHidden
+		lineageTag: c8eb7a93-6ed4-4cab-8dc8-2d2d9a7d2a0c
+		dataCategory: Quarters
+		summarizeBy: none
+		sortByColumn: QuarterNo
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = Quarter
+
+	column 日 = DAY([Date])
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ee5f90e3-1a3a-4e09-a3a4-c047154c8c1f
+		dataCategory: DayOfMonth
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = Day
+
+	hierarchy 日付の階層
+		lineageTag: 39fe7e61-2286-4817-bf8d-a28922c61c23
+
+		level 年
+			lineageTag: 722f03d1-9d2a-4b93-b4dc-da77f3c20b58
+			column: 年
+
+		level 四半期
+			lineageTag: e0466414-1af2-4e04-9a53-efeb6bc5540c
+			column: 四半期
+
+		level 月
+			lineageTag: 3b1f195a-5243-497d-90ab-3190d961d625
+			column: 月
+
+		level 日
+			lineageTag: 28b88e26-aca4-4816-820a-4aa6776d17ec
+			column: 日
+
+		annotation TemplateId = DateHierarchy
+
+	partition LocalDateTable_d8d73c44-5977-403b-8fa5-09806e48570c = calculated
+		mode: import
+		source = Calendar(Date(Year(MIN('材料一覧_稼働判定'[最終受入日])), 1, 1), Date(Year(MAX('材料一覧_稼働判定'[最終受入日])), 12, 31))
+
+	annotation __PBI_LocalDateTable = true
+

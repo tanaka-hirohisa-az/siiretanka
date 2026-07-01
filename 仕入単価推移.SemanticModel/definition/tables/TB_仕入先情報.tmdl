@@ -1,0 +1,274 @@
+table TB_仕入先情報
+	lineageTag: e4007b45-658f-4e95-8127-5e1e4ddab4e2
+
+	column F_仕入先番号
+		dataType: string
+		lineageTag: b7f2b517-d10b-4dbe-8256-fef22abdca2e
+		summarizeBy: none
+		sourceColumn: F_仕入先番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_仕入区分
+		dataType: string
+		lineageTag: 7d64b857-b468-4291-a64d-8e94d5276f98
+		summarizeBy: none
+		sourceColumn: F_仕入区分
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_仕入先名称
+		dataType: string
+		lineageTag: 9bbfc14b-f0e8-4c89-a60f-5a5dfcc7b24d
+		summarizeBy: none
+		sourceColumn: F_仕入先名称
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_仕入先略称
+		dataType: string
+		lineageTag: a9e4e78f-968d-46c4-9bba-b61980cbba9f
+		summarizeBy: none
+		sourceColumn: F_仕入先略称
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_敬称
+		dataType: string
+		lineageTag: 1d426d19-3f2e-40b9-b1c8-38c1a30a5963
+		summarizeBy: none
+		sourceColumn: F_敬称
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_英語名称
+		dataType: string
+		lineageTag: 0e822324-6d10-490d-96da-3fa572931c23
+		summarizeBy: none
+		sourceColumn: F_英語名称
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_先担当部課
+		dataType: string
+		lineageTag: b064d83d-83a8-4a68-804f-532b324be8b2
+		summarizeBy: none
+		sourceColumn: F_先担当部課
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_先担当
+		dataType: string
+		lineageTag: 92ac3641-8580-48c7-8669-ac34fad3c71f
+		summarizeBy: none
+		sourceColumn: F_先担当
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_先担当敬称
+		dataType: string
+		lineageTag: cc0b17e7-4efa-41fb-b511-c45eddec47f7
+		summarizeBy: none
+		sourceColumn: F_先担当敬称
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_経理担当部課
+		dataType: string
+		lineageTag: a1afbc0b-0488-413a-bdf8-0a3bde7f1c88
+		summarizeBy: none
+		sourceColumn: F_経理担当部課
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_経理担当
+		dataType: string
+		lineageTag: b9af6669-7ce1-4df7-b6fe-718f6ae63a83
+		summarizeBy: none
+		sourceColumn: F_経理担当
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_経理担当敬称
+		dataType: string
+		lineageTag: bbf89b56-9384-425a-8157-c14cb3de47cc
+		summarizeBy: none
+		sourceColumn: F_経理担当敬称
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_郵便番号
+		dataType: string
+		lineageTag: 22022b6c-768e-4982-b1e6-22aa701bfa2a
+		summarizeBy: none
+		sourceColumn: F_郵便番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_住所１
+		dataType: string
+		lineageTag: 53ed6900-43f5-44b0-a05f-e5c5c9504c70
+		summarizeBy: none
+		sourceColumn: F_住所１
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_住所２
+		dataType: string
+		lineageTag: 859cb7e0-ffad-43e3-88ef-97d2617cac00
+		summarizeBy: none
+		sourceColumn: F_住所２
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_住所３
+		dataType: string
+		lineageTag: c082e318-5172-421f-a5ab-af0e12b7e8c9
+		summarizeBy: none
+		sourceColumn: F_住所３
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_英語住所１
+		dataType: string
+		lineageTag: b2dae0ad-76f4-4863-8fd9-89a1e891f8c6
+		summarizeBy: none
+		sourceColumn: F_英語住所１
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_英語住所２
+		dataType: string
+		lineageTag: b8264f2e-81a3-451d-813b-d8141598e094
+		summarizeBy: none
+		sourceColumn: F_英語住所２
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_電話番号
+		dataType: string
+		lineageTag: 98d26952-a9b3-4a9d-8dc6-0b26a9293190
+		summarizeBy: none
+		sourceColumn: F_電話番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_ＦＡＸ番号１
+		dataType: string
+		lineageTag: 7a268c82-037a-41de-a20d-9eeebcac3e9a
+		summarizeBy: none
+		sourceColumn: F_ＦＡＸ番号１
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_ＦＡＸ番号２
+		dataType: string
+		lineageTag: 0c9fcdd1-d0f0-42ef-978a-1a33b5dcaaac
+		summarizeBy: none
+		sourceColumn: F_ＦＡＸ番号２
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_ＦＴＰファイル
+		dataType: string
+		lineageTag: cc2bbb21-6f9f-4f4a-8e95-98dbac161e1c
+		summarizeBy: none
+		sourceColumn: F_ＦＴＰファイル
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_支払先番号
+		dataType: string
+		lineageTag: c1625e58-d3e7-4cb5-8a5d-1b307d3227d8
+		summarizeBy: none
+		sourceColumn: F_支払先番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_注文書発行
+		dataType: string
+		lineageTag: 9338ecee-a3bd-4dfb-8cb6-8e6605b07996
+		summarizeBy: none
+		sourceColumn: F_注文書発行
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_担当者
+		dataType: string
+		lineageTag: 78573310-49d0-4f4c-bcf2-2042de9aa21b
+		summarizeBy: none
+		sourceColumn: F_担当者
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_更新日付
+		dataType: string
+		lineageTag: 1a7fce5f-ad23-4aa1-8c0b-05e677f29555
+		summarizeBy: none
+		sourceColumn: F_更新日付
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_更新時刻
+		dataType: string
+		lineageTag: d812aa33-97d0-4079-a6db-b75eef600f30
+		summarizeBy: none
+		sourceColumn: F_更新時刻
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_照会項目
+		dataType: string
+		lineageTag: efadfb25-515e-4355-9cfd-7c29f8bb1d39
+		summarizeBy: none
+		sourceColumn: F_照会項目
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_登録日
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: c186c120-56a9-4fd9-b105-2bb70f1f78e5
+		summarizeBy: none
+		sourceColumn: F_登録日
+
+		variation バリエーション
+			isDefault
+			relationship: fb19e049-366f-4bf9-8b9f-9167cfd76529
+			defaultHierarchy: LocalDateTable_3281f2c1-2b38-43d4-96d6-6f7fd187288a.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_更新日
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 08dc4b30-43aa-4699-a09c-6b6c2ad35b05
+		summarizeBy: none
+		sourceColumn: F_更新日
+
+		variation バリエーション
+			isDefault
+			relationship: 708d8263-934c-400e-9426-08e44e7e16ee
+			defaultHierarchy: LocalDateTable_4c13f904-6b58-488c-8c99-553143f6b057.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_ＬＴ
+		dataType: double
+		lineageTag: 3b6382eb-dbd9-4334-b063-6e0537e1ec49
+		summarizeBy: sum
+		sourceColumn: F_ＬＴ
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition TB_仕入先情報 = m
+		mode: import
+		source =
+				let
+				    ソース = Sql.Database("ob7e4ay7l6juflutzrdmf3fx4i-5je6jcvp7ozufin2iqecmsnlgi.datawarehouse.fabric.microsoft.com", "dw_bee_genka-00001"),
+				    dbo_TB_仕入先情報 = ソース{[Schema="dbo",Item="TB_仕入先情報"]}[Data]
+				in
+				    dbo_TB_仕入先情報
+

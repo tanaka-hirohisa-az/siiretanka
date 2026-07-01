@@ -1,0 +1,356 @@
+table 納入品目_値上げイベント
+	lineageTag: d73ec0a7-0f39-40c7-a9e2-03ef3185ba60
+
+	measure '月別 単価改定額（ABS）合計' = ```
+			
+			SUMX (
+			    '納入品目_値上げイベント',
+			    ABS ( '納入品目_値上げイベント'[値上げ額] )
+			)
+			
+			```
+		lineageTag: 1553f32b-e3cb-4cb9-9004-b46e9d210c73
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 1件あたり単価改定額（ABS）平均 = ```
+			
+			AVERAGEX (
+			    '納入品目_値上げイベント',
+			    ABS ( '納入品目_値上げイベント'[値上げ額] )
+			)
+			
+			```
+		lineageTag: 298a1407-5126-4de2-ab8e-e7e59e29f3a9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 月別_値上げ額_合計_品目 =
+			
+			CALCULATE (
+			    SUM ( '納入品目_値上げイベント'[値上げ額] ),
+			    '納入品目_値上げイベント'[値上げ額] > 0
+			)
+		lineageTag: 70af26c2-ba2a-44dc-8084-5e608c69004d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 月別_値下げ額_合計_品目 =
+			
+			CALCULATE (
+			    SUM ( '納入品目_値上げイベント'[値上げ額] ),
+			    '納入品目_値上げイベント'[値上げ額] < 0
+			)
+		lineageTag: 31f5b2f5-5b65-40e8-81a8-165e4fd7a6f1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 1件あたり_値上げ額_平均_品目 =
+			
+			AVERAGEX (
+			    FILTER ( '納入品目_値上げイベント', '納入品目_値上げイベント'[値上げ額] > 0 ),
+			    '納入品目_値上げイベント'[値上げ額]
+			)
+		lineageTag: df82e47a-5536-4194-baa5-8d2322396592
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 1件あたり_値下げ額_平均_品目 =
+			
+			AVERAGEX (
+			    FILTER ( '納入品目_値上げイベント', '納入品目_値上げイベント'[値上げ額] < 0 ),
+			    '納入品目_値上げイベント'[値上げ額]
+			)
+		lineageTag: 98e5ba1e-2c84-45f9-a6b2-f0cb7adcefa7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 外れ値フラグ
+		formatString: 0
+		lineageTag: 503bd173-7ffc-4abf-9be1-389554527322
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [外れ値フラグ]
+
+		annotation SummarizationSetBy = Automatic
+
+	column イベントキー = ```
+			
+			'納入品目_値上げイベント'[F_納入品目番号]
+			& "|"
+			& FORMAT ( '納入品目_値上げイベント'[F_仕入先番号], "0" )
+			& "|"
+			& FORMAT ( '納入品目_値上げイベント'[F_開始日], "yyyymmdd" )
+			
+			```
+		lineageTag: 97016d4d-1012-4324-8037-1f5120d5727d
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_納入品目番号
+		lineageTag: 5a8b43da-0efd-4033-b8e5-2b254dbb0aca
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 納入品目_仕入単価履歴[F_納入品目番号]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_開始日
+		formatString: General Date
+		lineageTag: 81396c67-9f04-4a14-a97d-f3d4196180ef
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 納入品目_仕入単価履歴[F_開始日]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_契約単価
+		lineageTag: 849cb0bf-9b11-4271-b50e-4b0fb15614da
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: 納入品目_仕入単価履歴[F_契約単価]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column F_終了日
+		formatString: General Date
+		lineageTag: 197f357a-b728-4df8-a09a-150459470e19
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 納入品目_仕入単価履歴[F_終了日]
+
+		variation バリエーション
+			isDefault
+			relationship: d92476e5-0a2d-4510-9ae3-51aea1feddea
+			defaultHierarchy: LocalDateTable_82b6739c-5818-43fc-9a6c-e734b702791a.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_仕入先略称
+		lineageTag: b710b05b-d01d-4084-a85f-bc51a203a31d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 納入品目_仕入単価履歴[F_仕入先略称]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_仕入先番号
+		lineageTag: 228d95e1-4ccc-4d50-bb2a-cc05a55e334a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 納入品目_仕入単価履歴[F_仕入先番号]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 前回単価
+		lineageTag: b43fa1c8-525f-4974-ad15-722b0f12ecac
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: 納入品目_仕入単価履歴[前回単価]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 値上げ額
+		lineageTag: 35ee6877-b540-47d7-9155-1eb4b0f65eda
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: 納入品目_仕入単価履歴[値上げ額]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 値上げ率
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 37dd4a54-7228-415c-8144-dbda0db2df7d
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [値上げ率]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 改定方向
+		lineageTag: d5a6245e-7c63-4f6d-9f45-b294be10ff96
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [改定方向]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 絶対値上げ額
+		lineageTag: f3cf41ed-9034-476d-89f2-8f36e1703097
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [絶対値上げ額]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column F_開始月
+		formatString: General Date
+		lineageTag: 62aa37f0-0042-463f-a134-561266ae3421
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 納入品目_仕入単価履歴[F_開始月]
+
+		variation バリエーション
+			isDefault
+			relationship: 38ea2f28-e827-4e7d-b006-92c6b040ce3e
+			defaultHierarchy: LocalDateTable_94ee4ce6-2960-45d5-97ab-bf71320ce4d3.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_開始月_YYYYMM
+		formatString: 0
+		lineageTag: fef5a919-7b93-40bf-bd12-17e73ebb6757
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: 納入品目_仕入単価履歴[F_開始月_YYYYMM]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 年間予測影響額
+		lineageTag: 8ef5f4d4-d83a-42cb-b6dc-cb74abb8dd44
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [年間予測影響額]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 値上げ額_値上げのみ
+		lineageTag: 37e1bb9a-30f4-4670-8b62-0ac8faa30c47
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [値上げ額_値上げのみ]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 値下げ額_値下げのみ
+		lineageTag: 622073f0-1a7f-4f76-91fe-4957d37aed05
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [値下げ額_値下げのみ]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 値下げ額_値下げのみ_絶対値
+		lineageTag: 3423b499-d0e1-4025-b20b-c60e0cbab5cc
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [値下げ額_値下げのみ_絶対値]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 年間予測影響額_値上げのみ
+		lineageTag: 4125b1e0-1537-4cf3-9d49-b1aebfee70c5
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [年間予測影響額_値上げのみ]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 年間予測影響額_値下げのみ
+		lineageTag: 189b4c0e-093c-4a7d-81c0-984392cba6dd
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [年間予測影響額_値下げのみ]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 年間予測影響額_値下げのみ_絶対値
+		lineageTag: dd23ce32-393b-41e5-a382-9b2f925580ff
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [年間予測影響額_値下げのみ_絶対値]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 納入品目_値上げイベント = calculated
+		mode: import
+		source =
+				
+				ADDCOLUMNS (
+				    FILTER (
+				        '納入品目_仕入単価履歴',
+				        NOT ISBLANK ( '納入品目_仕入単価履歴'[値上げ額] )
+				            && '納入品目_仕入単価履歴'[値上げ額] <> 0
+				    ),
+				
+				    "値上げ率",
+				        DIVIDE ( [値上げ額], [前回単価] ),
+				
+				    "改定方向",
+				        IF ( [値上げ額] > 0, "値上げ", "値下げ" ),
+				
+				    "絶対値上げ額",
+				        ABS ( [値上げ額] ),
+				
+				    "外れ値フラグ",
+				        IF ( ABS ( [値上げ額] ) >= 50000, 1, 0 ),
+				
+				    "年間予測影響額",
+				        [値上げ額]
+				            * LOOKUPVALUE (
+				                '納入品目_年平均稼働量'[直近12か月稼働量],
+				                '納入品目_年平均稼働量'[F_納入品目番号], [F_納入品目番号]
+				            ),
+				
+				    "値上げ額_値上げのみ",
+				        IF ( [値上げ額] > 0, [値上げ額], BLANK () ),
+				
+				    "値下げ額_値下げのみ",
+				        IF ( [値上げ額] < 0, [値上げ額], BLANK () ),
+				
+				    "値下げ額_値下げのみ_絶対値",
+				        IF ( [値上げ額] < 0, ABS ( [値上げ額] ), BLANK () ),
+				
+				    "年間予測影響額_値上げのみ",
+				        VAR qty_up =
+				            LOOKUPVALUE (
+				                '納入品目_年平均稼働量'[直近12か月稼働量],
+				                '納入品目_年平均稼働量'[F_納入品目番号], [F_納入品目番号]
+				            )
+				        RETURN
+				            IF ( [値上げ額] > 0, [値上げ額] * qty_up, BLANK () ),
+				
+				    "年間予測影響額_値下げのみ",
+				        VAR qty_down =
+				            LOOKUPVALUE (
+				                '納入品目_年平均稼働量'[直近12か月稼働量],
+				                '納入品目_年平均稼働量'[F_納入品目番号], [F_納入品目番号]
+				            )
+				        RETURN
+				            IF ( [値上げ額] < 0, [値上げ額] * qty_down, BLANK () ),
+				
+				    "年間予測影響額_値下げのみ_絶対値",
+				        VAR qty_down_abs =
+				            LOOKUPVALUE (
+				                '納入品目_年平均稼働量'[直近12か月稼働量],
+				                '納入品目_年平均稼働量'[F_納入品目番号], [F_納入品目番号]
+				            )
+				        RETURN
+				            IF ( [値上げ額] < 0, ABS ( [値上げ額] * qty_down_abs ), BLANK () )
+				)
+
+	annotation PBI_Id = 6466698a0a864d0cbc2aada4f4d477d9
+

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "仕入単価推移"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "c973d07b-3a9f-4e1d-bace-9099767074fa"
+  }
+}

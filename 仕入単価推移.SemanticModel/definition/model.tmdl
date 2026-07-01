@@ -1,0 +1,131 @@
+model Model
+	culture: ja-JP
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: ja-JP
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["TB_材料手配残","TB_材料入出庫実績情報","TB_納入品目改造指示情報","TB_材料在庫明細情報","TW_自動倉庫","TW_納入品目在庫履歴","TB_統合出荷情報","TB_得意先情報","TB_納入品目仕入先単価情報","TB_仕入先情報","TB_材料仕入先単価情報","tbl_calendar","BEI品目情報","材料情報","納入品目情報","品目分類情報","TB_仕入実績情報"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table TB_材料手配残
+ref table DateTableTemplate_443f74fa-5cae-4a72-a079-c72e5cc86871
+ref table LocalDateTable_69332adb-d59f-4001-bbc6-c1c38be4e30c
+ref table LocalDateTable_86495d89-e0a4-4910-a3d1-ae813f2e81c9
+ref table LocalDateTable_bb4be0f0-a6f7-4f81-9318-4dff96f68500
+ref table LocalDateTable_e36d3f54-6507-4d71-b274-7a65cbaf27fb
+ref table LocalDateTable_5c3618d5-1077-4aaf-a4e4-47dd612f3cef
+ref table LocalDateTable_71cd5a3e-c307-404c-b964-b2c4ea8eac7b
+ref table LocalDateTable_e12d49df-6a39-4302-8921-2f472bb0508f
+ref table TB_材料入出庫実績情報
+ref table LocalDateTable_7ad8affd-d960-4f78-aedf-665995e428b6
+ref table LocalDateTable_e0b50bf8-8763-4409-acef-437ed3e66c5c
+ref table LocalDateTable_b08cfb37-d597-4ad1-8a3d-5a6b95360449
+ref table LocalDateTable_4090bf2f-780b-4a2f-93ca-9314086a37fb
+ref table TB_納入品目改造指示情報
+ref table LocalDateTable_4ab5fe05-1977-4d78-9404-af733aee1e13
+ref table LocalDateTable_d49753c8-13d9-412b-85fa-fc4b55f16625
+ref table LocalDateTable_d6abf573-bc6c-4779-98d8-ac2e3c7feb4e
+ref table LocalDateTable_711ef33a-9dde-48ba-9172-8226ef934401
+ref table TB_材料在庫明細情報
+ref table LocalDateTable_9eafcf4e-421b-4ca4-889d-7da89cb97c8d
+ref table LocalDateTable_8a57b4bd-0202-447e-b319-9653c348f4eb
+ref table TW_自動倉庫
+ref table LocalDateTable_a75e4676-43bb-484b-9fd2-4d6173fd86bb
+ref table LocalDateTable_cab4eab7-89e6-4563-8a94-03f884565533
+ref table LocalDateTable_bd67e9dc-513a-4acf-b0ee-a894a6231f96
+ref table TW_納入品目在庫履歴
+ref table LocalDateTable_9a396e0a-f0f9-4b3b-8568-cb8cf2254cbf
+ref table TB_統合出荷情報
+ref table LocalDateTable_68cf4874-98ca-43ae-a169-5d0f0ff8fadd
+ref table LocalDateTable_d52511d2-39f0-41ab-8c3f-9ece49622b08
+ref table LocalDateTable_a9d9ddc7-2345-4940-9847-a917a37d7d42
+ref table LocalDateTable_2d51d937-fd00-4801-b35b-d21b2834032c
+ref table LocalDateTable_3362e295-35a1-49a3-abea-5014d7827430
+ref table LocalDateTable_ed9445fa-318e-4daf-8685-fba19f3cb190
+ref table 品目一覧_稼働判定
+ref table 明細_自動倉庫_稼働
+ref table 材料一覧_稼働判定
+ref table 明細_材料在庫_稼働
+ref table TB_得意先情報
+ref table LocalDateTable_448816cf-f74f-4b12-9440-5a8cb68a2a35
+ref table LocalDateTable_4629fbdc-7b76-4fbe-bc62-be879d9b210f
+ref table TB_納入品目仕入先単価情報
+ref table LocalDateTable_69cc372d-600d-4cea-94be-27282ea7bff2
+ref table LocalDateTable_51f29951-5473-4fd8-956d-174b1c482855
+ref table LocalDateTable_856343ab-e5d6-4ea6-b4e6-40026e95caf9
+ref table LocalDateTable_963a4f1b-3a8c-4622-b7c5-dc932242147d
+ref table LocalDateTable_79ec1cba-97d3-4ec9-8d60-c17fac0c0317
+ref table TB_仕入先情報
+ref table LocalDateTable_3281f2c1-2b38-43d4-96d6-6f7fd187288a
+ref table LocalDateTable_4c13f904-6b58-488c-8c99-553143f6b057
+ref table TB_材料仕入先単価情報
+ref table LocalDateTable_5b9c0d08-8ed6-4143-9721-b4e39f0d7159
+ref table LocalDateTable_88c872e8-b671-4b37-aa53-f5359da129e0
+ref table LocalDateTable_a0ae18ef-1df0-4546-9b1f-2b2fe714b4d1
+ref table LocalDateTable_c4d121e7-3686-4782-9603-bc0d81c7d8bd
+ref table LocalDateTable_eb9e47b2-1134-4452-aa03-a2c5609b07f0
+ref table LocalDateTable_1213fcfb-fb9d-464a-973a-144ae0957822
+ref table LocalDateTable_b479c222-4144-4a84-9ecb-1c9c8d1582c3
+ref table LocalDateTable_09778574-3d9b-45ba-a192-8f25091422ff
+ref table LocalDateTable_40f183ce-2bf8-4660-9095-274ff0b1bd81
+ref table LocalDateTable_85b30e30-ef2b-4847-b2d3-108e371c6b32
+ref table LocalDateTable_d8d73c44-5977-403b-8fa5-09806e48570c
+ref table 納入品目_仕入単価履歴
+ref table 納入品目_値上げイベント
+ref table Dim_納入品目
+ref table Dim_仕入先
+ref table 材料_仕入単価履歴
+ref table 材料_値上げイベント
+ref table LocalDateTable_bc909749-9355-4100-904e-9342a92693e2
+ref table LocalDateTable_ef1261b8-847c-4261-90e8-38f32ccf8211
+ref table LocalDateTable_c971b18c-8aa0-41d1-ade7-bc5899357ef9
+ref table 材料_年平均稼働量
+ref table tbl_calendar
+ref table LocalDateTable_066d204b-a3ec-45ba-b96f-987e5d673fef
+ref table 納入品目_年平均稼働量
+ref table 納入品目_月別純増減
+ref table LocalDateTable_4ceefe0d-e7b8-4dc7-96f4-c6a6b4d8d998
+ref table LocalDateTable_0659887d-690c-4315-a381-7b0681b4ca10
+ref table LocalDateTable_76d39f01-f637-4761-9d7c-f38e3f60025c
+ref table LocalDateTable_35f2fc56-6c27-4cd3-b970-6a4166696173
+ref table LocalDateTable_82b6739c-5818-43fc-9a6c-e734b702791a
+ref table LocalDateTable_94ee4ce6-2960-45d5-97ab-bf71320ce4d3
+ref table LocalDateTable_7a2c7f28-b37c-4521-97f7-89fbf84a5b6f
+ref table LocalDateTable_651c1b71-6ada-4349-9d71-bf0c8c781b41
+ref table LocalDateTable_c69050f3-6162-4da9-81cd-0192c24a0263
+ref table LocalDateTable_0478dcc6-3304-4091-8685-bf4c4ad16d92
+ref table LocalDateTable_5798f153-2ac6-4504-b216-bf62a030857f
+ref table 材料_月別純増減
+ref table LocalDateTable_40c51fa9-c18e-40a3-aea1-f9b6ab84421d
+ref table LocalDateTable_cc288090-5e4a-44ea-9090-b4b407ee41e0
+ref table LocalDateTable_8b5e9693-c99c-4a3a-bf24-32e01509bc9a
+ref table LocalDateTable_675e69f0-a443-423a-822e-fa71becf9663
+ref table LocalDateTable_ff757024-8af9-40bf-8170-5b4e6e43ced8
+ref table BEI品目情報
+ref table LocalDateTable_631baba4-cc14-4fcd-ba5c-f2b05d016e75
+ref table LocalDateTable_8771fdda-d5c0-4f5a-afa9-d07f3d485cd1
+ref table LocalDateTable_820baa60-f5cc-4164-be03-182858dbb2b9
+ref table 材料情報
+ref table LocalDateTable_b4fc430b-4ccf-434e-8bac-b2f0152f5aaa
+ref table LocalDateTable_cdb3f023-ccf7-4d3d-8a1a-a0b7eaffbe57
+ref table LocalDateTable_bd53d367-c6d5-42d6-8a8b-f20198e6ce5e
+ref table 納入品目情報
+ref table LocalDateTable_5a615103-2619-465c-b394-083ffb88e0d6
+ref table LocalDateTable_9e956124-af30-49f6-85f5-12bfb6cd85c8
+ref table LocalDateTable_14763c39-b6a6-4010-a9b9-47815b7e54f4
+ref table LocalDateTable_75849163-4145-4b37-ba22-4d9d2e10984d
+ref table LocalDateTable_eb8f76bc-4152-417d-a590-2d54b7bef351
+ref table 品目分類情報
+ref table LocalDateTable_4c5ed995-832a-40e9-a2ab-83f359bb6bbe
+ref table LocalDateTable_8def1ec7-8dbf-4e14-a4e8-e2296a2badb9
+ref table TB_仕入実績情報
+ref table LocalDateTable_97b79ad3-0e02-42c4-834a-ad9d8f6b67c1
+ref table LocalDateTable_92e7a8b3-e56a-4f2d-ac0b-a0a9053ced74
+
+ref cultureInfo ja-JP
+

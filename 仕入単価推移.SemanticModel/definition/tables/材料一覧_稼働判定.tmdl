@@ -1,0 +1,155 @@
+table 材料一覧_稼働判定
+	lineageTag: 54ab97e5-a957-4a34-b4a2-e877d26f9d22
+
+	column F_在庫材料番号
+		lineageTag: cbc28803-9ac7-469a-8a50-4a79fa18fcfe
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_在庫材料番号]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 最終稼働日
+		formatString: General Date
+		lineageTag: 001f99a6-febc-451a-8b6a-1229bbfac12f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [最終稼働日]
+
+		variation バリエーション
+			isDefault
+			relationship: 12c78857-e06b-4166-ae7d-93adf96083bb
+			defaultHierarchy: LocalDateTable_85b30e30-ef2b-4847-b2d3-108e371c6b32.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column 稼働区分
+		lineageTag: cb0bc765-e9f3-4eb0-8ce0-538dfb885378
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [稼働区分]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 稼働区分Sort
+		formatString: 0
+		lineageTag: f94b76bc-8a5c-4d79-9328-e1f497098d85
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [稼働区分Sort]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 最終受入日
+		formatString: General Date
+		lineageTag: 53057ca5-7d3a-47ba-b381-94e0f27ae940
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [最終受入日]
+
+		variation バリエーション
+			isDefault
+			relationship: 32a2155a-c544-4a52-b795-668adca54b98
+			defaultHierarchy: LocalDateTable_d8d73c44-5977-403b-8fa5-09806e48570c.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 材料一覧_稼働判定 = calculated
+		mode: import
+		source = ```
+				
+				/* ベース：在庫場所 S3000/S4000 の在庫材料番号（正規化キーでユニーク） */
+				VAR __BaseItems =
+				    DISTINCT (
+				        SELECTCOLUMNS (
+				            FILTER (
+				                'TB_材料在庫明細情報',
+				                'TB_材料在庫明細情報'[F_在庫場所] = "S3000"
+				                    || 'TB_材料在庫明細情報'[F_在庫場所] = "S4000"
+				            ),
+				            "F_在庫材料番号",
+				                TRIM (
+				                    SUBSTITUTE ( 'TB_材料在庫明細情報'[F_在庫材料番号], UNICHAR ( 12288 ), " " )
+				                )
+				        )
+				    )
+				
+				/* 1段目：最終稼働日（入出庫区分=02 の最新入出庫日）と最終受入日（手配残） */
+				VAR __WithDates =
+				    ADDCOLUMNS (
+				        __BaseItems,
+				
+				        "最終稼働日",
+				            VAR k = [F_在庫材料番号]
+				            RETURN
+				                CALCULATE (
+				                    MAX ( 'TB_材料入出庫実績情報'[F_入出庫日] ),
+				                    FILTER (
+				                        ALL ( 'TB_材料入出庫実績情報' ),
+				                        'TB_材料入出庫実績情報'[F_入出庫区分] = "02"
+				                            && TRIM (
+				                                SUBSTITUTE ( 'TB_材料入出庫実績情報'[F_品目番号], UNICHAR ( 12288 ), " " )
+				                            ) = k
+				                    )
+				                ),
+				
+				        "最終受入日",
+				            VAR k = [F_在庫材料番号]
+				            RETURN
+				                CALCULATE (
+				                    MAX ( 'TB_材料手配残'[F_最終受入日] ),
+				                    FILTER (
+				                        ALL ( 'TB_材料手配残' ),
+				                        TRIM (
+				                            SUBSTITUTE ( 'TB_材料手配残'[F_材料番号], UNICHAR ( 12288 ), " " )
+				                        ) = k
+				                    )
+				                )
+				    )
+				
+				/* 2段目：稼働区分付与（元ロジック完全一致） */
+				RETURN
+				    ADDCOLUMNS (
+				        __WithDates,
+				
+				        "稼働区分",
+				            VAR d_work = [最終稼働日]
+				            VAR d_recv = [最終受入日]
+				            VAR d = IF ( NOT ISBLANK ( d_work ), d_work, d_recv )
+				            VAR diff = IF ( ISBLANK ( d ), BLANK (), INT ( TODAY () ) - INT ( d ) )
+				            RETURN
+				                IF (
+				                    ISBLANK ( d ),
+				                    BLANK (),
+				                    SWITCH (
+				                        TRUE (),
+				                        diff <= 365,  "1年以内",
+				                        diff <= 730,  "2年以内",
+				                        diff <= 1825, "5年以内",
+				                        "5年以上"
+				                    )
+				                ),
+				
+				        "稼働区分Sort",
+				            VAR d_work = [最終稼働日]
+				            VAR d_recv = [最終受入日]
+				            VAR d = IF ( NOT ISBLANK ( d_work ), d_work, d_recv )
+				            VAR diff = IF ( ISBLANK ( d ), BLANK (), INT ( TODAY () ) - INT ( d ) )
+				            RETURN
+				                IF (
+				                    ISBLANK ( d ),
+				                    BLANK (),
+				                    SWITCH (
+				                        TRUE (),
+				                        diff <= 365,  1,
+				                        diff <= 730,  2,
+				                        diff <= 1825, 3,
+				                        4
+				                    )
+				                )
+				    )
+				
+				```
+
+	annotation PBI_Id = 4c235e892f3348db8aa336602f470473
+

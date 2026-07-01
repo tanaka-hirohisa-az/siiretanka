@@ -1,0 +1,139 @@
+table TB_納入品目改造指示情報
+	lineageTag: dbba3416-48c8-4f3c-a522-8d791c39eeb6
+
+	column F_製造指示番号
+		dataType: int64
+		formatString: 0
+		lineageTag: 66988a80-902c-4371-852d-de818ad3a049
+		summarizeBy: sum
+		sourceColumn: F_製造指示番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_納入品目番号
+		dataType: string
+		lineageTag: 41f85aa9-ce66-443d-a271-9339b0570951
+		summarizeBy: none
+		sourceColumn: F_納入品目番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_改造元品目番号
+		dataType: string
+		lineageTag: 57f07878-8630-4009-ad33-250cbe63f6c1
+		summarizeBy: none
+		sourceColumn: F_改造元品目番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_指示先番号
+		dataType: string
+		lineageTag: 7980ba56-4bd8-47c2-a724-f76071a68207
+		summarizeBy: none
+		sourceColumn: F_指示先番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_手配納期
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 18d1d683-f6e1-400f-9ec1-3b0112c4a9d3
+		summarizeBy: none
+		sourceColumn: F_手配納期
+
+		variation バリエーション
+			isDefault
+			relationship: c750445d-7499-483c-8d1a-8d29abf7b66a
+			defaultHierarchy: LocalDateTable_4ab5fe05-1977-4d78-9404-af733aee1e13.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column F_製造納期
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: dd0320c0-5f39-47bc-9813-48f1cc6b5793
+		summarizeBy: none
+		sourceColumn: F_製造納期
+
+		variation バリエーション
+			isDefault
+			relationship: 4fd40180-6e1d-4c30-86a5-626e8c6145a0
+			defaultHierarchy: LocalDateTable_d49753c8-13d9-412b-85fa-fc4b55f16625.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column F_指示数
+		dataType: double
+		lineageTag: 419599fb-9086-408d-82d6-334c5873ce7e
+		summarizeBy: sum
+		sourceColumn: F_指示数
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column F_得意先番号
+		dataType: string
+		lineageTag: 19ea4b25-24c1-4429-b18f-319e1852a5d4
+		summarizeBy: none
+		sourceColumn: F_得意先番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_担当者
+		dataType: string
+		lineageTag: 59e61b88-2a2b-466b-b8b0-7bc168c99975
+		summarizeBy: none
+		sourceColumn: F_担当者
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_備考
+		dataType: string
+		lineageTag: 09e6d466-1afd-44d4-8229-ef6adb0c954e
+		summarizeBy: none
+		sourceColumn: F_備考
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_登録日
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 6f1d0217-ff75-4b39-a55b-34f99acaf39c
+		summarizeBy: none
+		sourceColumn: F_登録日
+
+		variation バリエーション
+			isDefault
+			relationship: 929fbec7-4b6b-43b1-ab0c-0467e07ba33c
+			defaultHierarchy: LocalDateTable_d6abf573-bc6c-4779-98d8-ac2e3c7feb4e.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_更新日
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 9ceeaee4-5dbf-42a9-be83-bc72ad435a8d
+		summarizeBy: none
+		sourceColumn: F_更新日
+
+		variation バリエーション
+			isDefault
+			relationship: b14ddcf5-4c39-45d3-a730-0f9e6372d3e2
+			defaultHierarchy: LocalDateTable_711ef33a-9dde-48ba-9172-8226ef934401.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	partition TB_納入品目改造指示情報 = m
+		mode: import
+		source =
+				let
+				    ソース = Sql.Database("ob7e4ay7l6juflutzrdmf3fx4i-5je6jcvp7ozufin2iqecmsnlgi.datawarehouse.fabric.microsoft.com", "dw_bee_genka-00001"),
+				    dbo_TB_納入品目改造指示情報 = ソース{[Schema="dbo",Item="TB_納入品目改造指示情報"]}[Data]
+				in
+				    dbo_TB_納入品目改造指示情報
+

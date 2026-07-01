@@ -1,0 +1,382 @@
+table 納入品目_月別純増減
+	lineageTag: c2eb528c-b7d3-4af3-bf16-627d7aa4792d
+
+	measure 月別_純増減額合計_品目_明細 =
+			
+			CALCULATE (
+			    SUM ( '納入品目_月別純増減'[純増減額] ),
+			    TREATAS (
+			        VALUES ( '納入品目_値上げイベント'[F_開始月] ),
+			        '納入品目_月別純増減'[F_開始月]
+			    ),
+			    TREATAS (
+			        VALUES ( '納入品目_値上げイベント'[F_納入品目番号] ),
+			        '納入品目_月別純増減'[F_納入品目番号]
+			    ),
+			    TREATAS (
+			        VALUES ( '納入品目_値上げイベント'[F_仕入先番号] ),
+			        '納入品目_月別純増減'[F_仕入先番号]
+			    )
+			)
+		lineageTag: 692ac25f-f71f-49c6-94c0-a1ac2d89906d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 月別_純値下げ額合計_品目 =
+			
+			VAR vMonth =
+			    SELECTEDVALUE ( '納入品目_値上げイベント'[F_開始月] )
+			VAR vItem =
+			    SELECTEDVALUE ( '納入品目_値上げイベント'[F_納入品目番号] )
+			RETURN
+			    CALCULATE (
+			        SUMX (
+			            FILTER ( '納入品目_月別純増減', '納入品目_月別純増減'[純増減額] < 0 ),
+			            '納入品目_月別純増減'[純増減額]
+			        ),
+			        REMOVEFILTERS ( '納入品目_値上げイベント' ),
+			        TREATAS ( { vMonth }, '納入品目_月別純増減'[F_開始月] ),
+			        TREATAS ( { vItem }, '納入品目_月別純増減'[F_納入品目番号] )
+			    )
+		lineageTag: 2f71c3a4-d318-425d-845f-2766316705b9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 月別_純値上げ額合計_品目 =
+			
+			VAR vMonth =
+			    SELECTEDVALUE ( '納入品目_値上げイベント'[F_開始月] )
+			VAR vItem =
+			    SELECTEDVALUE ( '納入品目_値上げイベント'[F_納入品目番号] )
+			RETURN
+			    CALCULATE (
+			        SUMX (
+			            FILTER ( '納入品目_月別純増減', '納入品目_月別純増減'[純増減額] > 0 ),
+			            '納入品目_月別純増減'[純増減額]
+			        ),
+			        REMOVEFILTERS ( '納入品目_値上げイベント' ),
+			        TREATAS ( { vMonth }, '納入品目_月別純増減'[F_開始月] ),
+			        TREATAS ( { vItem }, '納入品目_月別純増減'[F_納入品目番号] )
+			    )
+		lineageTag: fcf2797c-a30d-4f5d-b732-00a73ce57c23
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column F_開始月
+		formatString: General Date
+		lineageTag: ac6d96f2-33d3-44df-8be3-ccc5302c0e12
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 納入品目_仕入単価履歴[F_開始月]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_納入品目番号
+		lineageTag: 403ae53d-2180-48d5-99c5-8a3fde248278
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 納入品目_仕入単価履歴[F_納入品目番号]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_仕入先番号
+		lineageTag: 936aa585-157d-4e09-9ee9-fab7440264e6
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 納入品目_仕入単価履歴[F_仕入先番号]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_仕入先略称
+		lineageTag: 559f7cd6-045f-482d-8928-e73cd0d7b264
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_仕入先略称]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 月内イベント件数
+		formatString: 0
+		lineageTag: e2a1da0e-1682-4c60-956a-f19daee31150
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [月内イベント件数]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 純増減額
+		lineageTag: 9893d9c2-1b88-488e-a17c-e269602e5909
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [純増減額]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 月内最終開始日
+		formatString: General Date
+		lineageTag: 2a87d54f-5b68-4ac6-b67f-6d32dfd2e0e1
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [月内最終開始日]
+
+		variation バリエーション
+			isDefault
+			relationship: bd1c0266-77fd-4bed-b42f-8adad2b0c70a
+			defaultHierarchy: LocalDateTable_35f2fc56-6c27-4cd3-b970-6a4166696173.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column 月内最終単価
+		lineageTag: 6f95a0cd-f151-4b07-a81f-4b06a5d8d4f3
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [月内最終単価]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 月初時点単価
+		lineageTag: ba5a36a9-751c-452a-a426-86245ccf348b
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [月初時点単価]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 納入品目_月別純増減 = calculated
+		mode: import
+		source =
+				
+				VAR __Base =
+				    SUMMARIZE (
+				        '納入品目_仕入単価履歴',
+				        '納入品目_仕入単価履歴'[F_開始月],
+				        '納入品目_仕入単価履歴'[F_納入品目番号],
+				        '納入品目_仕入単価履歴'[F_仕入先番号]
+				    )
+				RETURN
+				    FILTER (
+				        ADDCOLUMNS (
+				            __Base,
+				
+				            "F_仕入先略称",
+				                LOOKUPVALUE (
+				                    'TB_仕入先情報'[F_仕入先略称],
+				                    'TB_仕入先情報'[F_仕入先番号], [F_仕入先番号]
+				                ),
+				
+				            "月内イベント件数",
+				                VAR m  = [F_開始月]
+				                VAR ms = m
+				                VAR me = EOMONTH ( m, 0 )
+				                VAR k1 = [F_納入品目番号]
+				                VAR k2 = [F_仕入先番号]
+				                RETURN
+				                    COUNTROWS (
+				                        FILTER (
+				                            ALL ( '納入品目_仕入単価履歴' ),
+				                            '納入品目_仕入単価履歴'[F_納入品目番号] = k1
+				                                && '納入品目_仕入単価履歴'[F_仕入先番号] = k2
+				                                && '納入品目_仕入単価履歴'[F_開始日] >= ms
+				                                && '納入品目_仕入単価履歴'[F_開始日] <= me
+				                        )
+				                    ),
+				
+				            "月内最終開始日",
+				                VAR m  = [F_開始月]
+				                VAR ms = m
+				                VAR me = EOMONTH ( m, 0 )
+				                VAR k1 = [F_納入品目番号]
+				                VAR k2 = [F_仕入先番号]
+				                RETURN
+				                    MAXX (
+				                        FILTER (
+				                            ALL ( '納入品目_仕入単価履歴' ),
+				                            '納入品目_仕入単価履歴'[F_納入品目番号] = k1
+				                                && '納入品目_仕入単価履歴'[F_仕入先番号] = k2
+				                                && '納入品目_仕入単価履歴'[F_開始日] >= ms
+				                                && '納入品目_仕入単価履歴'[F_開始日] <= me
+				                        ),
+				                        '納入品目_仕入単価履歴'[F_開始日]
+				                    ),
+				
+				            "月内最終単価",
+				                VAR m  = [F_開始月]
+				                VAR ms = m
+				                VAR me = EOMONTH ( m, 0 )
+				                VAR k1 = [F_納入品目番号]
+				                VAR k2 = [F_仕入先番号]
+				                VAR dLast =
+				                    MAXX (
+				                        FILTER (
+				                            ALL ( '納入品目_仕入単価履歴' ),
+				                            '納入品目_仕入単価履歴'[F_納入品目番号] = k1
+				                                && '納入品目_仕入単価履歴'[F_仕入先番号] = k2
+				                                && '納入品目_仕入単価履歴'[F_開始日] >= ms
+				                                && '納入品目_仕入単価履歴'[F_開始日] <= me
+				                        ),
+				                        '納入品目_仕入単価履歴'[F_開始日]
+				                    )
+				                RETURN
+				                    MAXX (
+				                        FILTER (
+				                            ALL ( '納入品目_仕入単価履歴' ),
+				                            '納入品目_仕入単価履歴'[F_納入品目番号] = k1
+				                                && '納入品目_仕入単価履歴'[F_仕入先番号] = k2
+				                                && '納入品目_仕入単価履歴'[F_開始日] = dLast
+				                        ),
+				                        '納入品目_仕入単価履歴'[F_契約単価]
+				                    ),
+				
+				            "月初時点単価",
+				                VAR m  = [F_開始月]
+				                VAR ms = m
+				                VAR me = EOMONTH ( m, 0 )
+				                VAR k1 = [F_納入品目番号]
+				                VAR k2 = [F_仕入先番号]
+				
+				                VAR dPrev =
+				                    MAXX (
+				                        FILTER (
+				                            ALL ( '納入品目_仕入単価履歴' ),
+				                            '納入品目_仕入単価履歴'[F_納入品目番号] = k1
+				                                && '納入品目_仕入単価履歴'[F_仕入先番号] = k2
+				                                && '納入品目_仕入単価履歴'[F_開始日] < ms
+				                                && NOT ISBLANK ( '納入品目_仕入単価履歴'[F_契約単価] )
+				                        ),
+				                        '納入品目_仕入単価履歴'[F_開始日]
+				                    )
+				
+				                VAR prevPrice =
+				                    MAXX (
+				                        FILTER (
+				                            ALL ( '納入品目_仕入単価履歴' ),
+				                            '納入品目_仕入単価履歴'[F_納入品目番号] = k1
+				                                && '納入品目_仕入単価履歴'[F_仕入先番号] = k2
+				                                && '納入品目_仕入単価履歴'[F_開始日] = dPrev
+				                        ),
+				                        '納入品目_仕入単価履歴'[F_契約単価]
+				                    )
+				
+				                VAR dFirstInMonth =
+				                    MINX (
+				                        FILTER (
+				                            ALL ( '納入品目_仕入単価履歴' ),
+				                            '納入品目_仕入単価履歴'[F_納入品目番号] = k1
+				                                && '納入品目_仕入単価履歴'[F_仕入先番号] = k2
+				                                && '納入品目_仕入単価履歴'[F_開始日] >= ms
+				                                && '納入品目_仕入単価履歴'[F_開始日] <= me
+				                        ),
+				                        '納入品目_仕入単価履歴'[F_開始日]
+				                    )
+				
+				                VAR firstInMonthPrice =
+				                    MAXX (
+				                        FILTER (
+				                            ALL ( '納入品目_仕入単価履歴' ),
+				                            '納入品目_仕入単価履歴'[F_納入品目番号] = k1
+				                                && '納入品目_仕入単価履歴'[F_仕入先番号] = k2
+				                                && '納入品目_仕入単価履歴'[F_開始日] = dFirstInMonth
+				                        ),
+				                        '納入品目_仕入単価履歴'[F_契約単価]
+				                    )
+				
+				                RETURN
+				                    COALESCE ( prevPrice, firstInMonthPrice ),
+				
+				            "純増減額",
+				                VAR m  = [F_開始月]
+				                VAR ms = m
+				                VAR me = EOMONTH ( m, 0 )
+				                VAR k1 = [F_納入品目番号]
+				                VAR k2 = [F_仕入先番号]
+				
+				                VAR dLast =
+				                    MAXX (
+				                        FILTER (
+				                            ALL ( '納入品目_仕入単価履歴' ),
+				                            '納入品目_仕入単価履歴'[F_納入品目番号] = k1
+				                                && '納入品目_仕入単価履歴'[F_仕入先番号] = k2
+				                                && '納入品目_仕入単価履歴'[F_開始日] >= ms
+				                                && '納入品目_仕入単価履歴'[F_開始日] <= me
+				                        ),
+				                        '納入品目_仕入単価履歴'[F_開始日]
+				                    )
+				
+				                VAR lastPrice =
+				                    MAXX (
+				                        FILTER (
+				                            ALL ( '納入品目_仕入単価履歴' ),
+				                            '納入品目_仕入単価履歴'[F_納入品目番号] = k1
+				                                && '納入品目_仕入単価履歴'[F_仕入先番号] = k2
+				                                && '納入品目_仕入単価履歴'[F_開始日] = dLast
+				                        ),
+				                        '納入品目_仕入単価履歴'[F_契約単価]
+				                    )
+				
+				                VAR dPrev =
+				                    MAXX (
+				                        FILTER (
+				                            ALL ( '納入品目_仕入単価履歴' ),
+				                            '納入品目_仕入単価履歴'[F_納入品目番号] = k1
+				                                && '納入品目_仕入単価履歴'[F_仕入先番号] = k2
+				                                && '納入品目_仕入単価履歴'[F_開始日] < ms
+				                                && NOT ISBLANK ( '納入品目_仕入単価履歴'[F_契約単価] )
+				                        ),
+				                        '納入品目_仕入単価履歴'[F_開始日]
+				                    )
+				
+				                VAR prevPrice =
+				                    MAXX (
+				                        FILTER (
+				                            ALL ( '納入品目_仕入単価履歴' ),
+				                            '納入品目_仕入単価履歴'[F_納入品目番号] = k1
+				                                && '納入品目_仕入単価履歴'[F_仕入先番号] = k2
+				                                && '納入品目_仕入単価履歴'[F_開始日] = dPrev
+				                        ),
+				                        '納入品目_仕入単価履歴'[F_契約単価]
+				                    )
+				
+				                VAR dFirstInMonth =
+				                    MINX (
+				                        FILTER (
+				                            ALL ( '納入品目_仕入単価履歴' ),
+				                            '納入品目_仕入単価履歴'[F_納入品目番号] = k1
+				                                && '納入品目_仕入単価履歴'[F_仕入先番号] = k2
+				                                && '納入品目_仕入単価履歴'[F_開始日] >= ms
+				                                && '納入品目_仕入単価履歴'[F_開始日] <= me
+				                        ),
+				                        '納入品目_仕入単価履歴'[F_開始日]
+				                    )
+				
+				                VAR firstInMonthPrice =
+				                    MAXX (
+				                        FILTER (
+				                            ALL ( '納入品目_仕入単価履歴' ),
+				                            '納入品目_仕入単価履歴'[F_納入品目番号] = k1
+				                                && '納入品目_仕入単価履歴'[F_仕入先番号] = k2
+				                                && '納入品目_仕入単価履歴'[F_開始日] = dFirstInMonth
+				                        ),
+				                        '納入品目_仕入単価履歴'[F_契約単価]
+				                    )
+				
+				                VAR basePrice =
+				                    COALESCE ( prevPrice, firstInMonthPrice )
+				
+				                RETURN
+				                    IF (
+				                        ISBLANK ( basePrice ) || ISBLANK ( lastPrice ),
+				                        BLANK (),
+				                        lastPrice - basePrice
+				                    )
+				        ),
+				        [月内イベント件数] > 0
+				    )
+
+	annotation PBI_Id = 97a610f554814201a035ab780694db7a
+

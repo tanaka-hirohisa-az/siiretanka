@@ -1,0 +1,145 @@
+table TB_材料仕入先単価情報
+	lineageTag: 1ec32ba4-8040-4d46-9996-f6bc99218883
+
+	column F_材料番号
+		dataType: string
+		lineageTag: 9310217f-18c2-4d11-83c6-08fa5da953f7
+		summarizeBy: none
+		sourceColumn: F_材料番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_仕入先番号
+		dataType: string
+		lineageTag: a7f9a57d-af5f-4d9c-8f08-24263e27fcab
+		summarizeBy: none
+		sourceColumn: F_仕入先番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_開始日
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 482b4779-700c-4463-9781-d4f26c83c81e
+		summarizeBy: none
+		sourceColumn: F_開始日
+
+		variation バリエーション
+			isDefault
+			relationship: 1ba31d2a-ff91-47c1-87d2-246a98ec3085
+			defaultHierarchy: LocalDateTable_5b9c0d08-8ed6-4143-9721-b4e39f0d7159.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column F_契約単価
+		dataType: double
+		lineageTag: d725fa0a-0821-4f4a-8d75-5246eb2fd323
+		summarizeBy: sum
+		sourceColumn: F_契約単価
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column F_最小発注数
+		dataType: double
+		lineageTag: 1ce76193-8228-4de3-bb5f-268c2c21a6e7
+		summarizeBy: sum
+		sourceColumn: F_最小発注数
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column F_手配ＬＴ
+		dataType: int64
+		formatString: 0
+		lineageTag: 80bd27cf-d9ce-4221-9ca8-b4c858ebbf00
+		summarizeBy: sum
+		sourceColumn: F_手配ＬＴ
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_担当者
+		dataType: string
+		lineageTag: 2f2829f0-679a-4cf0-a32c-94c0dd64ce35
+		summarizeBy: none
+		sourceColumn: F_担当者
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_依頼者
+		dataType: string
+		lineageTag: 9650b30b-ea3c-4033-8d2d-80b5d1fa2c53
+		summarizeBy: none
+		sourceColumn: F_依頼者
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_摘要
+		dataType: string
+		lineageTag: f987deb7-e5d7-476a-b65c-9604e280390d
+		summarizeBy: none
+		sourceColumn: F_摘要
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_照会項目
+		dataType: string
+		lineageTag: decba34d-57c1-47aa-807b-ba0db7a0a292
+		summarizeBy: none
+		sourceColumn: F_照会項目
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_登録日
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 9c691486-8e54-44a3-adfc-f6cd0acc1be7
+		summarizeBy: none
+		sourceColumn: F_登録日
+
+		variation バリエーション
+			isDefault
+			relationship: cd16d154-4c2e-481e-ab36-7313c9210a72
+			defaultHierarchy: LocalDateTable_88c872e8-b671-4b37-aa53-f5359da129e0.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_更新日
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 9752b481-5700-4afd-b26d-c0c449600ebd
+		summarizeBy: none
+		sourceColumn: F_更新日
+
+		variation バリエーション
+			isDefault
+			relationship: 900e3e72-6c1d-4cb1-8934-43d16eb5498e
+			defaultHierarchy: LocalDateTable_a0ae18ef-1df0-4546-9b1f-2b2fe714b4d1.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_通貨コード
+		dataType: string
+		lineageTag: d2405e01-a228-4261-b9b9-c805d8fa07ad
+		summarizeBy: none
+		sourceColumn: F_通貨コード
+
+		annotation SummarizationSetBy = Automatic
+
+	partition TB_材料仕入先単価情報 = m
+		mode: import
+		source =
+				let
+				    ソース = Sql.Database("ob7e4ay7l6juflutzrdmf3fx4i-5je6jcvp7ozufin2iqecmsnlgi.datawarehouse.fabric.microsoft.com", "dw_bee_genka-00001"),
+				    dbo_TB_材料仕入先単価情報 = ソース{[Schema="dbo",Item="TB_材料仕入先単価情報"]}[Data]
+				in
+				    dbo_TB_材料仕入先単価情報
+
+	annotation PBI_NavigationStepName = ナビゲーション
+
+	annotation PBI_ResultType = Table
+

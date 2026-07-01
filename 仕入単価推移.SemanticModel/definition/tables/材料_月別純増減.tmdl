@@ -1,0 +1,246 @@
+table 材料_月別純増減
+	lineageTag: 2537d640-3f75-40b0-886a-7c019e318e48
+
+	column F_仕入先略称
+		lineageTag: 94b657e4-9d71-4cb1-93ba-13507bc40dd4
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_仕入先略称]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 月内イベント件数
+		formatString: 0
+		lineageTag: 081402c5-ef6a-4197-b54c-1ee406543231
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [月内イベント件数]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 月内最終開始日
+		formatString: General Date
+		lineageTag: 792ab97e-01d4-4548-b6cc-a9ba29b7f91f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [月内最終開始日]
+
+		variation バリエーション
+			isDefault
+			relationship: 436e13d9-4ad7-43b7-8f73-a92594eee93e
+			defaultHierarchy: LocalDateTable_8b5e9693-c99c-4a3a-bf24-32e01509bc9a.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column 月内最終単価
+		lineageTag: 541cd890-b89a-4fe7-95bb-55ed90475dc3
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [月内最終単価]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 月初時点単価
+		lineageTag: 440712ef-5c05-42ae-8bf1-37cca5532a2e
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [月初時点単価]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 純増減額
+		lineageTag: 03850bcd-c474-47a4-bde3-726b5ee7bec7
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [純増減額]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 月別_純値上げ額合計_材料
+		lineageTag: 487f4506-b409-4b81-94d5-111e3d96d08b
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [月別_純値上げ額合計_材料]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 月別_純値下げ額合計_材料
+		lineageTag: 8337b661-dc8b-4a85-b682-4e182a5dd80b
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [月別_純値下げ額合計_材料]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column F_開始月
+		formatString: General Date
+		lineageTag: 501ea76d-ffd5-44ad-a732-6a6b471a1467
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 材料_値上げイベント[F_開始月]
+
+		variation バリエーション
+			isDefault
+			relationship: 407be0a8-7a5e-425b-8bca-3f763a3d68b9
+			defaultHierarchy: LocalDateTable_675e69f0-a443-423a-822e-fa71becf9663.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_材料番号
+		lineageTag: cf660362-5c92-4c38-bbce-93942336ef04
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 材料_値上げイベント[F_材料番号]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_仕入先番号
+		lineageTag: 1ccdada0-2ee4-4adb-bb85-f1bc309cf8c5
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 材料_値上げイベント[F_仕入先番号]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 月次キー
+		lineageTag: c6aea7c8-1d11-488c-a31e-5c19ebe7696d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 材料_値上げイベント[月次キー]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 月内最初開始日
+		formatString: General Date
+		lineageTag: a346a722-bd58-4c7e-8bd1-c9882d17cf4e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [月内最初開始日]
+
+		variation バリエーション
+			isDefault
+			relationship: e3410f13-581a-43a7-a508-dae85325853d
+			defaultHierarchy: LocalDateTable_ff757024-8af9-40bf-8170-5b4e6e43ced8.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 材料_月別純増減 = calculated
+		mode: import
+		source =
+				
+				VAR __Ev =
+				    '材料_値上げイベント'
+				
+				VAR __Base =
+				    SUMMARIZE (
+				        __Ev,
+				        [F_開始月],
+				        [F_材料番号],
+				        [F_仕入先番号],
+				        [月次キー]
+				    )
+				
+				RETURN
+				    ADDCOLUMNS (
+				        __Base,
+				
+				        "F_仕入先略称",
+				            LOOKUPVALUE (
+				                'TB_仕入先情報'[F_仕入先略称],
+				                'TB_仕入先情報'[F_仕入先番号], [F_仕入先番号]
+				            ),
+				
+				        "月内イベント件数",
+				            VAR k = [月次キー]
+				            RETURN
+				                COUNTROWS (
+				                    FILTER ( __Ev, [月次キー] = k )
+				                ),
+				
+				        "月内最初開始日",
+				            VAR k = [月次キー]
+				            RETURN
+				                MINX (
+				                    FILTER ( __Ev, [月次キー] = k ),
+				                    [F_開始日]
+				                ),
+				
+				        "月内最終開始日",
+				            VAR k = [月次キー]
+				            RETURN
+				                MAXX (
+				                    FILTER ( __Ev, [月次キー] = k ),
+				                    [F_開始日]
+				                ),
+				
+				        "月初時点単価",
+				            VAR k = [月次キー]
+				            VAR dFirst =
+				                MINX (
+				                    FILTER ( __Ev, [月次キー] = k ),
+				                    [F_開始日]
+				                )
+				            RETURN
+				                MAXX (
+				                    FILTER (
+				                        __Ev,
+				                        [月次キー] = k
+				                            && [F_開始日] = dFirst
+				                    ),
+				                    [前回単価]
+				                ),
+				
+				        "月内最終単価",
+				            VAR k = [月次キー]
+				            VAR dLast =
+				                MAXX (
+				                    FILTER ( __Ev, [月次キー] = k ),
+				                    [F_開始日]
+				                )
+				            RETURN
+				                MAXX (
+				                    FILTER (
+				                        __Ev,
+				                        [月次キー] = k
+				                            && [F_開始日] = dLast
+				                    ),
+				                    [F_契約単価]
+				                ),
+				
+				        "純増減額",
+				            VAR k = [月次キー]
+				            RETURN
+				                SUMX (
+				                    FILTER ( __Ev, [月次キー] = k ),
+				                    [値上げ額]
+				                ),
+				
+				        "月別_純値上げ額合計_材料",
+				            VAR k = [月次キー]
+				            RETURN
+				                SUMX (
+				                    FILTER ( __Ev, [月次キー] = k && [値上げ額] > 0 ),
+				                    [値上げ額]
+				                ),
+				
+				        "月別_純値下げ額合計_材料",
+				            VAR k = [月次キー]
+				            RETURN
+				                SUMX (
+				                    FILTER ( __Ev, [月次キー] = k && [値上げ額] < 0 ),
+				                    [値上げ額]
+				                )
+				    )
+
+	annotation PBI_Id = cd01f56f58e7482997559a5de8ab3a5f
+

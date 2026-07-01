@@ -1,0 +1,229 @@
+table 材料_仕入単価履歴
+	lineageTag: 1082d04a-de8f-4bbf-832c-b825d2b29920
+
+	column F_材料番号
+		lineageTag: d67b95fc-78c8-4ca6-9f1d-325377ee18aa
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_材料番号]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_開始日
+		formatString: General Date
+		lineageTag: 41041a87-b056-4025-af73-6df476e95409
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_開始日]
+
+		variation バリエーション
+			isDefault
+			relationship: 0c26d663-013d-498c-9ac9-258d5047c85a
+			defaultHierarchy: LocalDateTable_bc909749-9355-4100-904e-9342a92693e2.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_仕入先番号
+		lineageTag: 7fdb911f-6fd2-463a-9535-23379f9472b3
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_仕入先番号]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_契約単価
+		lineageTag: 9398fbd6-39ed-4384-96bc-4ba803409167
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [F_契約単価]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column F_終了日
+		formatString: General Date
+		lineageTag: 1de5eb9f-b30b-4c14-9b63-f196d22a400c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_終了日]
+
+		variation バリエーション
+			isDefault
+			relationship: 2cb9cbca-8e10-467c-bb38-c370cd5c9a1e
+			defaultHierarchy: LocalDateTable_ef1261b8-847c-4261-90e8-38f32ccf8211.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_仕入先略称
+		lineageTag: d76afc0a-baa7-42a3-a2e6-48869a280882
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_仕入先略称]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 前回単価
+		lineageTag: 29cff1aa-fe22-49dc-b9ed-2d13df4a4ccd
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [前回単価]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 値上げ額
+		lineageTag: e10620b9-5af4-42a0-94fd-cc60be7be277
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [値上げ額]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column F_開始月
+		formatString: General Date
+		lineageTag: 09520f91-6f88-47a0-be61-ee529f06569e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_開始月]
+
+		variation バリエーション
+			isDefault
+			relationship: ad20f89d-550f-47c9-8bb9-c32883e69d47
+			defaultHierarchy: LocalDateTable_c971b18c-8aa0-41d1-ade7-bc5899357ef9.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 材料_仕入単価履歴 = calculated
+		mode: import
+		source = ```
+				
+				VAR __Base =
+				    SELECTCOLUMNS (
+				        'TB_材料仕入先単価情報',
+				        "F_材料番号",
+				            TRIM (
+				                SUBSTITUTE (
+				                    'TB_材料仕入先単価情報'[F_材料番号],
+				                    UNICHAR ( 12288 ),
+				                    " "
+				                )
+				            ),
+				        "F_開始日",
+				            VAR d = 'TB_材料仕入先単価情報'[F_開始日]
+				            RETURN
+				                DATE (
+				                    IF ( YEAR ( d ) < 1900, YEAR ( d ) + 1800, YEAR ( d ) ),
+				                    MONTH ( d ),
+				                    DAY ( d )
+				                ),
+				        "F_仕入先番号", 'TB_材料仕入先単価情報'[F_仕入先番号],
+				        "F_契約単価",   'TB_材料仕入先単価情報'[F_契約単価]
+				    )
+				
+				VAR __Filtered =
+				    FILTER (
+				        __Base,
+				        NOT ISBLANK ( [F_材料番号] )
+				            && NOT ISBLANK ( [F_開始日] )
+				            && NOT ISBLANK ( [F_仕入先番号] )
+				    )
+				
+				RETURN
+				    ADDCOLUMNS (
+				        __Filtered,
+				
+				        // 月キー（列）：月初日（※月別軸はこれを使う）
+				        "F_開始月",
+				            DATE ( YEAR ( [F_開始日] ), MONTH ( [F_開始日] ), 1 ),
+				
+				        // 1) 終了日（次開始日の前日）
+				        "F_終了日",
+				            VAR k1 = [F_材料番号]
+				            VAR k2 = [F_仕入先番号]
+				            VAR d0 = [F_開始日]
+				            VAR nextD =
+				                MINX (
+				                    FILTER (
+				                        __Filtered,
+				                        [F_材料番号] = k1
+				                            && [F_仕入先番号] = k2
+				                            && [F_開始日] > d0
+				                    ),
+				                    [F_開始日]
+				                )
+				            RETURN
+				                IF ( ISBLANK ( nextD ), BLANK (), nextD - 1 ),
+				
+				        // 2) 仕入先略称
+				        "F_仕入先略称",
+				            LOOKUPVALUE (
+				                'TB_仕入先情報'[F_仕入先略称],
+				                'TB_仕入先情報'[F_仕入先番号], [F_仕入先番号]
+				            ),
+				
+				        // 3) 前回単価
+				        "前回単価",
+				            VAR k1 = [F_材料番号]
+				            VAR k2 = [F_仕入先番号]
+				            VAR d0 = [F_開始日]
+				            VAR prevD =
+				                MAXX (
+				                    FILTER (
+				                        __Filtered,
+				                        [F_材料番号] = k1
+				                            && [F_仕入先番号] = k2
+				                            && [F_開始日] < d0
+				                            && NOT ISBLANK ( [F_契約単価] )
+				                    ),
+				                    [F_開始日]
+				                )
+				            RETURN
+				                MAXX (
+				                    FILTER (
+				                        __Filtered,
+				                        [F_材料番号] = k1
+				                            && [F_仕入先番号] = k2
+				                            && [F_開始日] = prevD
+				                    ),
+				                    [F_契約単価]
+				                ),
+				
+				        // 4) 値上げ額（兄弟列参照禁止なのでここで完結）
+				        "値上げ額",
+				            VAR cur = [F_契約単価]
+				            VAR k1 = [F_材料番号]
+				            VAR k2 = [F_仕入先番号]
+				            VAR d0 = [F_開始日]
+				            VAR prevD =
+				                MAXX (
+				                    FILTER (
+				                        __Filtered,
+				                        [F_材料番号] = k1
+				                            && [F_仕入先番号] = k2
+				                            && [F_開始日] < d0
+				                            && NOT ISBLANK ( [F_契約単価] )
+				                    ),
+				                    [F_開始日]
+				                )
+				            VAR prev =
+				                MAXX (
+				                    FILTER (
+				                        __Filtered,
+				                        [F_材料番号] = k1
+				                            && [F_仕入先番号] = k2
+				                            && [F_開始日] = prevD
+				                    ),
+				                    [F_契約単価]
+				                )
+				            RETURN
+				                IF ( ISBLANK ( prev ) || ISBLANK ( cur ), BLANK (), cur - prev )
+				    )
+				
+				```
+
+	annotation PBI_Id = 11e3304641c940e89b5e3ac5623c67bd
+

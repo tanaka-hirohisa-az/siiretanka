@@ -1,0 +1,26 @@
+table Dim_納入品目
+	lineageTag: 32ed40b9-0adc-4add-8e7a-bed8095c98b3
+
+	column F_納入品目番号
+		lineageTag: e2d12f9e-7997-4ea9-b022-48780f26945a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_納入品目番号]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_納入品目 = calculated
+		mode: import
+		source = ```
+				
+				DISTINCT (
+				    SELECTCOLUMNS (
+				        '納入品目_仕入単価履歴',
+				        "F_納入品目番号", '納入品目_仕入単価履歴'[F_納入品目番号]
+				    )
+				)
+				
+				```
+
+	annotation PBI_Id = cd3c1c5b0703435997e9fbe7c849f524
+

@@ -1,0 +1,135 @@
+table TW_納入品目在庫履歴
+	lineageTag: b40047e7-f731-4b98-966f-b7929d19f828
+
+	column F_納入品目番号
+		dataType: string
+		lineageTag: 19bf8952-a1b4-44a0-a679-e7b5e80dc6e1
+		summarizeBy: none
+		sourceColumn: F_納入品目番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_日時
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 11c9c562-5542-4ae8-9a00-2864421170fd
+		summarizeBy: none
+		sourceColumn: F_日時
+
+		variation バリエーション
+			isDefault
+			relationship: e24ca461-2454-4bd2-aa89-11bb6bebdaae
+			defaultHierarchy: LocalDateTable_9a396e0a-f0f9-4b3b-8568-cb8cf2254cbf.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_倉庫CD
+		dataType: string
+		lineageTag: 78d85965-2b8c-4c3d-8e0a-eaf179503561
+		summarizeBy: none
+		sourceColumn: F_倉庫CD
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_区分
+		dataType: string
+		lineageTag: d5e6bff0-bd8d-480f-ae23-9ddf0f422a84
+		summarizeBy: none
+		sourceColumn: F_区分
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_元在庫数
+		dataType: int64
+		formatString: 0
+		lineageTag: af859b89-e62f-4060-bca6-cc863828d8ba
+		summarizeBy: sum
+		sourceColumn: F_元在庫数
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_現在庫数
+		dataType: int64
+		formatString: 0
+		lineageTag: e374e0de-9ece-48d8-9d8e-878666885566
+		summarizeBy: sum
+		sourceColumn: F_現在庫数
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_PG_ID
+		dataType: string
+		lineageTag: b77e77ce-5e1b-4475-afdb-66cc59063e2c
+		summarizeBy: none
+		sourceColumn: F_PG_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_理由
+		dataType: string
+		lineageTag: 64b99ef2-ae7b-49a4-8f7f-cf3297ba46ae
+		summarizeBy: none
+		sourceColumn: F_理由
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_備考
+		dataType: string
+		lineageTag: c9f39ec8-3e1c-4611-9c28-4fde1c873111
+		summarizeBy: none
+		sourceColumn: F_備考
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_担当者
+		dataType: string
+		lineageTag: e151b457-8182-4b8f-ba2c-5c5a237bce09
+		summarizeBy: none
+		sourceColumn: F_担当者
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_注文番号
+		dataType: string
+		lineageTag: 80eef43d-6151-42b2-b395-356ee027c995
+		summarizeBy: none
+		sourceColumn: F_注文番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_出荷番号
+		dataType: int64
+		formatString: 0
+		lineageTag: a3e5a55e-e667-431e-b8c8-ace5c9188443
+		summarizeBy: sum
+		sourceColumn: F_出荷番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_受入番号
+		dataType: int64
+		formatString: 0
+		lineageTag: 72c4bd0d-c8df-473f-82d1-cc7fe6689d99
+		summarizeBy: sum
+		sourceColumn: F_受入番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_指示番号
+		dataType: int64
+		formatString: 0
+		lineageTag: 6ad1b201-f88b-4f15-a23b-96459ff1250b
+		summarizeBy: sum
+		sourceColumn: F_指示番号
+
+		annotation SummarizationSetBy = Automatic
+
+	partition TW_納入品目在庫履歴 = m
+		mode: import
+		source =
+				let
+				    ソース = Sql.Database("ob7e4ay7l6juflutzrdmf3fx4i-5je6jcvp7ozufin2iqecmsnlgi.datawarehouse.fabric.microsoft.com", "dw_bee_genka-00001"),
+				    dbo_TW_納入品目在庫履歴 = ソース{[Schema="dbo",Item="TW_納入品目在庫履歴"]}[Data]
+				in
+				    dbo_TW_納入品目在庫履歴
+

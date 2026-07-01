@@ -1,0 +1,333 @@
+table 明細_自動倉庫_稼働
+	lineageTag: 8b3cdf08-c70b-4bf1-b3b6-6a0621fbbd34
+
+	measure 品目数 = ```
+			
+			COUNTROWS('明細_自動倉庫_稼働')
+			
+			```
+		formatString: 0
+		lineageTag: 5e0fd434-1f5f-4d20-95d7-8ada36266a94
+
+	measure 明細行数_品目 =
+			
+			COUNTROWS('明細_自動倉庫_稼働')
+		formatString: 0
+		lineageTag: a8f4f3ff-d9d5-49f0-b7de-a9f95f9c21c1
+
+	column F_納入品目番号
+		lineageTag: 2f615641-84e6-4726-a315-ef41a3e38d77
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_納入品目番号]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_状態区分
+		lineageTag: c0abedb6-7f75-4eff-ad0e-54c5097cfbaf
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_状態区分]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_登録時間
+		formatString: General Date
+		lineageTag: 595d79e3-eeb4-45ff-8c04-886e8ce6b4de
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_登録時間]
+
+		variation バリエーション
+			isDefault
+			relationship: 8c38aada-e547-46e0-a768-b1caf0930742
+			defaultHierarchy: LocalDateTable_eb9e47b2-1134-4452-aa03-a2c5609b07f0.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_ファイル抽出時間
+		formatString: General Date
+		lineageTag: 7b720f86-1e12-43e0-aa2d-cc36de09c598
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_ファイル抽出時間]
+
+		variation バリエーション
+			isDefault
+			relationship: db3222e8-11e0-473c-982a-4376b37f0e51
+			defaultHierarchy: LocalDateTable_1213fcfb-fb9d-464a-973a-144ae0957822.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_更新時間
+		formatString: General Date
+		lineageTag: fd812d38-18cc-4a93-b0ec-ef6e5271e555
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_更新時間]
+
+		variation バリエーション
+			isDefault
+			relationship: 9c9b4609-e6d9-43a0-8a69-6e48cb376ffd
+			defaultHierarchy: LocalDateTable_b479c222-4144-4a84-9ecb-1c9c8d1582c3.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_自動倉庫在庫数
+		lineageTag: b7f17b5b-63dd-4c97-8c33-3a9396ee0314
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [F_自動倉庫在庫数]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column F_平置在庫数
+		lineageTag: 8f1b7445-763c-43f0-85ae-07be1475b563
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [F_平置在庫数]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column F_合計在庫数
+		lineageTag: f4694d58-afaf-49b7-b3b9-8a7face405f1
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [F_合計在庫数]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 最終日付
+		formatString: Short Date
+		lineageTag: 223ba5b6-94b3-42b1-86e7-71b827cd7356
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [最終日付]
+
+		variation バリエーション
+			isDefault
+			relationship: dca963de-208a-4d16-9ed2-9a33f8a6cbb1
+			defaultHierarchy: LocalDateTable_09778574-3d9b-45ba-a192-8f25091422ff.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column 稼働区分
+		lineageTag: 35eb86ae-af0b-41c5-918c-96a6de22c1ee
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [稼働区分]
+		sortByColumn: 稼働区分Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column 稼働区分Sort
+		formatString: 0
+		lineageTag: 359b9686-265d-4471-9657-bc03c1f2696e
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [稼働区分Sort]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 最終日付_取得先区分
+		lineageTag: 9647274b-bae0-4c5d-91ac-50a9d60d99d8
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [最終日付_取得先区分]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 最終得意先略称
+		lineageTag: 76c93ed8-df71-4575-a3d3-f9575515ad93
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [最終得意先略称]
+
+		annotation SummarizationSetBy = Automatic
+
+	column R_仕入先番号
+		lineageTag: 043e44ae-c6a1-48ee-98f2-c35efe0f6d36
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [R_仕入先番号]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_契約単価
+		lineageTag: c7a5649a-2cf8-4030-9b93-d9661e9f1643
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [F_契約単価]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 在庫金額
+		lineageTag: 374c1c75-380f-4b5c-94ea-96aa78467389
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [在庫金額]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column F_仕入先略称
+		lineageTag: 4b3b3529-baca-4e63-9f68-b7611ef46745
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_仕入先略称]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 直近単価日付
+		formatString: General Date
+		lineageTag: 7a9fca20-4052-463d-ab96-e50d72130acc
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [直近単価日付]
+
+		variation バリエーション
+			isDefault
+			relationship: 34e3b328-3cc6-4112-b1be-f1653995b058
+			defaultHierarchy: LocalDateTable_40f183ce-2bf8-4660-9095-274ff0b1bd81.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 明細_自動倉庫_稼働 = calculated
+		mode: import
+		source = ```
+				
+				VAR __Base =
+				    SELECTCOLUMNS (
+				        'TW_自動倉庫',
+				        "F_納入品目番号",        'TW_自動倉庫'[F_納入品目番号],
+				        "F_状態区分",            'TW_自動倉庫'[F_状態区分],
+				        "F_登録時間",            'TW_自動倉庫'[F_登録時間],
+				        "F_ファイル抽出時間",    'TW_自動倉庫'[F_ファイル抽出時間],
+				        "F_更新時間",            'TW_自動倉庫'[F_更新時間],
+				        "F_自動倉庫在庫数",      'TW_自動倉庫'[F_自動倉庫在庫数],
+				        "F_平置在庫数",          'TW_自動倉庫'[F_平置在庫数],
+				        "F_合計在庫数",          'TW_自動倉庫'[合計在庫数]
+				    )
+				
+				/* Step1：稼働判定＋最新仕入単価（開始日最大） */
+				VAR __Step1 =
+				    ADDCOLUMNS (
+				        __Base,
+				
+				        /* 稼働判定系 */
+				        "最終日付",
+				            LOOKUPVALUE (
+				                '品目一覧_稼働判定'[最終日付],
+				                '品目一覧_稼働判定'[F_納入品目番号], [F_納入品目番号]
+				            ),
+				
+				        "稼働区分",
+				            LOOKUPVALUE (
+				                '品目一覧_稼働判定'[稼働区分],
+				                '品目一覧_稼働判定'[F_納入品目番号], [F_納入品目番号]
+				            ),
+				
+				        "稼働区分Sort",
+				            LOOKUPVALUE (
+				                '品目一覧_稼働判定'[稼働区分Sort],
+				                '品目一覧_稼働判定'[F_納入品目番号], [F_納入品目番号]
+				            ),
+				
+				        "最終日付_取得先区分",
+				            LOOKUPVALUE (
+				                '品目一覧_稼働判定'[最終日付_取得先区分],
+				                '品目一覧_稼働判定'[F_納入品目番号], [F_納入品目番号]
+				            ),
+				
+				        "最終得意先略称",
+				            LOOKUPVALUE (
+				                '品目一覧_稼働判定'[最終得意先略称],
+				                '品目一覧_稼働判定'[F_納入品目番号], [F_納入品目番号]
+				            ),
+				
+				        /* ===== 最新仕入単価（F_開始日が最新） ===== */
+				
+				        "R_仕入先番号",
+				            VAR k =
+				                TRIM ( SUBSTITUTE ( [F_納入品目番号], UNICHAR ( 12288 ), " " ) )
+				            VAR tLatest =
+				                TOPN (
+				                    1,
+				                    FILTER (
+				                        ALL ( 'TB_納入品目仕入先単価情報' ),
+				                        TRIM ( SUBSTITUTE ( 'TB_納入品目仕入先単価情報'[F_納入品目番号], UNICHAR ( 12288 ), " " ) ) = k
+				                            && NOT ISBLANK ( 'TB_納入品目仕入先単価情報'[F_開始日] )
+				                    ),
+				                    'TB_納入品目仕入先単価情報'[F_開始日], DESC
+				                )
+				            RETURN
+				                MAXX ( tLatest, 'TB_納入品目仕入先単価情報'[F_仕入先番号] ),
+				
+				        "F_契約単価",
+				            VAR k =
+				                TRIM ( SUBSTITUTE ( [F_納入品目番号], UNICHAR ( 12288 ), " " ) )
+				            VAR tLatest =
+				                TOPN (
+				                    1,
+				                    FILTER (
+				                        ALL ( 'TB_納入品目仕入先単価情報' ),
+				                        TRIM ( SUBSTITUTE ( 'TB_納入品目仕入先単価情報'[F_納入品目番号], UNICHAR ( 12288 ), " " ) ) = k
+				                            && NOT ISBLANK ( 'TB_納入品目仕入先単価情報'[F_開始日] )
+				                    ),
+				                    'TB_納入品目仕入先単価情報'[F_開始日], DESC
+				                )
+				            RETURN
+				                MAXX ( tLatest, 'TB_納入品目仕入先単価情報'[F_契約単価] ),
+				
+				        /* 今回追加：直近単価日付（F_開始日） */
+				        "直近単価日付",
+				            VAR k =
+				                TRIM ( SUBSTITUTE ( [F_納入品目番号], UNICHAR ( 12288 ), " " ) )
+				            VAR tLatest =
+				                TOPN (
+				                    1,
+				                    FILTER (
+				                        ALL ( 'TB_納入品目仕入先単価情報' ),
+				                        TRIM ( SUBSTITUTE ( 'TB_納入品目仕入先単価情報'[F_納入品目番号], UNICHAR ( 12288 ), " " ) ) = k
+				                            && NOT ISBLANK ( 'TB_納入品目仕入先単価情報'[F_開始日] )
+				                    ),
+				                    'TB_納入品目仕入先単価情報'[F_開始日], DESC
+				                )
+				            RETURN
+				                MAXX ( tLatest, 'TB_納入品目仕入先単価情報'[F_開始日] )
+				    )
+				
+				/* Step2：在庫金額＋仕入先略称 */
+				VAR __Step2 =
+				    ADDCOLUMNS (
+				        __Step1,
+				
+				        "在庫金額",
+				            VAR qty = [F_合計在庫数]
+				            VAR price = [F_契約単価]
+				            RETURN
+				                IF ( ISBLANK ( qty ) || ISBLANK ( price ), BLANK (), qty * price ),
+				
+				        "F_仕入先略称",
+				            LOOKUPVALUE (
+				                'TB_仕入先情報'[F_仕入先略称],
+				                'TB_仕入先情報'[F_仕入先番号], [R_仕入先番号]
+				            )
+				    )
+				
+				RETURN
+				    __Step2
+				
+				```
+
+	annotation PBI_Id = ce5fddc572fd42caa45ff93e3aeb323b
+

@@ -1,0 +1,262 @@
+table 材料情報
+	lineageTag: c6e79f19-ea5b-41ae-ac52-2b817ab2ca1b
+
+	column F_材料番号
+		dataType: string
+		lineageTag: 133fdd35-c18c-4be2-b0ed-1488188951e8
+		summarizeBy: none
+		sourceColumn: F_材料番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_材料名称
+		dataType: string
+		lineageTag: a5fb4f5c-1191-46ca-979e-fd72d35f0f5a
+		summarizeBy: none
+		sourceColumn: F_材料名称
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_英語名称
+		dataType: string
+		lineageTag: 0c39231c-9ef4-4e6a-8908-37ddd506f9d0
+		summarizeBy: none
+		sourceColumn: F_英語名称
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_在庫材料番号
+		dataType: string
+		lineageTag: 3f2271ea-70cb-4cef-afeb-96ea6e72006d
+		summarizeBy: none
+		sourceColumn: F_在庫材料番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_指示先番号
+		dataType: string
+		lineageTag: 435f3cbf-e59b-431d-a281-2ee0606dc5e0
+		summarizeBy: none
+		sourceColumn: F_指示先番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_矢崎品番
+		dataType: string
+		lineageTag: 12f4ad6f-fb6b-4657-8366-239728a1ff24
+		summarizeBy: none
+		sourceColumn: F_矢崎品番
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_ヒタコ
+		dataType: string
+		lineageTag: e41d9c99-7fe9-444c-9dbe-3c149bace6cb
+		summarizeBy: none
+		sourceColumn: F_ヒタコ
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_品目分類
+		dataType: string
+		lineageTag: c44b25a6-8887-4d61-a224-fcca6d887906
+		summarizeBy: none
+		sourceColumn: F_品目分類
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_仕様図面
+		dataType: string
+		lineageTag: c93a9c5e-b797-4e67-b8dd-2911953af69f
+		summarizeBy: none
+		sourceColumn: F_仕様図面
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_仕様図面格納場所
+		dataType: string
+		lineageTag: 99688513-7683-40ba-bda8-661f91fd5e56
+		summarizeBy: none
+		sourceColumn: F_仕様図面格納場所
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_ＫＥＳ書類
+		dataType: string
+		lineageTag: 12822d14-8185-4945-bc33-32f6d669996e
+		summarizeBy: none
+		sourceColumn: F_ＫＥＳ書類
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_ＫＥＳ書類格納場所
+		dataType: string
+		lineageTag: ccef6f3e-6b1c-4e6f-b819-6fd6cc887a24
+		summarizeBy: none
+		sourceColumn: F_ＫＥＳ書類格納場所
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_最小梱包重量
+		dataType: string
+		lineageTag: d7930abd-ff37-4e91-a5e8-9f847c25d0be
+		summarizeBy: none
+		sourceColumn: F_最小梱包重量
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_在庫場所
+		dataType: string
+		lineageTag: 1f0dfde6-e84e-48c6-b973-be2daa6342cc
+		summarizeBy: none
+		sourceColumn: F_在庫場所
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_棚番
+		dataType: string
+		lineageTag: b7f4d0f5-c90d-4533-9eb1-d455732bf3a1
+		summarizeBy: none
+		sourceColumn: F_棚番
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_手配区分
+		dataType: string
+		lineageTag: 1f3eeb07-1709-44a9-9bf3-1b22bec767c9
+		summarizeBy: none
+		sourceColumn: F_手配区分
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_最小梱包数
+		dataType: string
+		lineageTag: 0ef73462-c461-4582-a146-aa26031622a4
+		summarizeBy: none
+		sourceColumn: F_最小梱包数
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_安全在庫数
+		dataType: string
+		lineageTag: d69b9697-d4b6-43c6-ad29-d2e8a4d2a29c
+		summarizeBy: none
+		sourceColumn: F_安全在庫数
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_備考
+		dataType: string
+		lineageTag: b3247ec6-9a8c-4bca-b928-d54faf657ca0
+		summarizeBy: none
+		sourceColumn: F_備考
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_払出区分
+		dataType: string
+		lineageTag: da604880-bdaf-4109-8a89-4aec04f7f759
+		summarizeBy: none
+		sourceColumn: F_払出区分
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_担当者
+		dataType: string
+		lineageTag: 25996ec8-0cc3-4273-be4c-b717d49febd9
+		summarizeBy: none
+		sourceColumn: F_担当者
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_依頼者
+		dataType: string
+		lineageTag: 1754ee2b-5dcc-4dfb-9a1e-a30c9c3428a6
+		summarizeBy: none
+		sourceColumn: F_依頼者
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_照会項目
+		dataType: string
+		lineageTag: 6edc1550-98df-4d16-9e8b-adc4976611cf
+		summarizeBy: none
+		sourceColumn: F_照会項目
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_登録日
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 9febae1e-de28-4ac5-848b-cfd750387ba0
+		summarizeBy: none
+		sourceColumn: F_登録日
+
+		variation バリエーション
+			isDefault
+			relationship: 8f4e667d-ada5-4c96-bbcb-fffded00372f
+			defaultHierarchy: LocalDateTable_b4fc430b-4ccf-434e-8bac-b2f0152f5aaa.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_更新日
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: cf7e095e-1159-4c2b-9dc7-32933e3ff3d8
+		summarizeBy: none
+		sourceColumn: F_更新日
+
+		variation バリエーション
+			isDefault
+			relationship: 0f990267-c9bb-4196-b3df-28079fda536b
+			defaultHierarchy: LocalDateTable_cdb3f023-ccf7-4d3d-8a1a-a0b7eaffbe57.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_BEI材料番号
+		dataType: string
+		lineageTag: 14f8f200-6b28-46af-b9fa-e5f19bed200d
+		summarizeBy: none
+		sourceColumn: F_BEI材料番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_原産地
+		dataType: string
+		lineageTag: 7acb1b11-1b45-49fd-82ce-15b14a258034
+		summarizeBy: none
+		sourceColumn: F_原産地
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_単位
+		dataType: string
+		lineageTag: 4773cdb5-ac6f-442a-87d9-92e11e76904a
+		summarizeBy: none
+		sourceColumn: F_単位
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_TOBEI_DATE
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 747e154f-41be-44b1-a264-66f66d57730f
+		summarizeBy: none
+		sourceColumn: F_TOBEI_DATE
+
+		variation バリエーション
+			isDefault
+			relationship: dfc3c762-cbd6-450a-90d2-833dfe9c08f6
+			defaultHierarchy: LocalDateTable_bd53d367-c6d5-42d6-8a8b-f20198e6ce5e.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 材料情報 = m
+		mode: import
+		source =
+				let
+				    ソース = Sql.Database("ob7e4ay7l6juflutzrdmf3fx4i-5je6jcvp7ozufin2iqecmsnlgi.datawarehouse.fabric.microsoft.com", "dw_bee_genka-00001"),
+				    dbo_材料情報 = ソース{[Schema="dbo",Item="材料情報"]}[Data]
+				in
+				    dbo_材料情報
+

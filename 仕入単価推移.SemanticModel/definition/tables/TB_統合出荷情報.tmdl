@@ -1,0 +1,305 @@
+table TB_統合出荷情報
+	lineageTag: 228c03ff-5e9e-4ddb-8904-19848021c46e
+
+	measure 最終日付 = ```
+			
+			VAR d_ship =
+			    CALCULATE( MAX ( 'TB_統合出荷情報'[F_出荷日] ) )
+			VAR d_order =
+			    CALCULATE( MAX ( 'TB_納入品目改造指示情報'[F_手配納期] ) )
+			VAR d_stock =
+			    CALCULATE( MAX ( 'TW_納入品目在庫履歴'[F_日時]) )
+			RETURN
+			MAXX(
+			    FILTER(
+			        UNION(
+			            ROW("d", d_ship),
+			            ROW("d", d_order),
+			            ROW("d", d_stock)
+			        ),
+			        NOT ISBLANK([d])
+			    ),
+			    [d]
+			)
+			
+			```
+		formatString: General Date
+		lineageTag: c03618d9-b9d4-473c-89d4-a6ad1d454fa4
+
+	column F_出荷番号
+		dataType: int64
+		formatString: 0
+		lineageTag: 25b02081-6c7a-41d7-a80b-ce1401af88e2
+		summarizeBy: sum
+		sourceColumn: F_出荷番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_注文番号
+		dataType: string
+		lineageTag: 71536463-b737-451b-8735-0975be93e408
+		summarizeBy: none
+		sourceColumn: F_注文番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_得意先
+		dataType: string
+		lineageTag: f489d655-f87b-4bc7-8b67-09a634b10983
+		summarizeBy: none
+		sourceColumn: F_得意先
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_区分
+		dataType: string
+		lineageTag: b35e39f7-1832-4638-b1a8-cf72514f74df
+		summarizeBy: none
+		sourceColumn: F_区分
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_納入先
+		dataType: string
+		lineageTag: 5b1f3947-7fe1-4ee2-bc2e-674072f8c919
+		summarizeBy: none
+		sourceColumn: F_納入先
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_在庫場所
+		dataType: string
+		lineageTag: ee1581e1-d7cf-4578-a358-1aafe08e737a
+		summarizeBy: none
+		sourceColumn: F_在庫場所
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_出荷日
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 6b71a1c7-e4ab-4427-a269-6f7a9e45e95f
+		summarizeBy: none
+		sourceColumn: F_出荷日
+
+		variation バリエーション
+			isDefault
+			relationship: 18d9e81e-dda6-4e75-b152-a42303484618
+			defaultHierarchy: LocalDateTable_68cf4874-98ca-43ae-a169-5d0f0ff8fadd.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column F_納入品目番号
+		dataType: string
+		lineageTag: 24a0b46b-5057-45c3-b5f1-78af3863ae77
+		summarizeBy: none
+		sourceColumn: F_納入品目番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_在庫品目番号
+		dataType: string
+		lineageTag: e6ee9501-0809-486f-9a8e-10eaa5604137
+		summarizeBy: none
+		sourceColumn: F_在庫品目番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_規格寸法
+		dataType: string
+		lineageTag: 639f35e1-3840-47c2-865e-4627e9e1cfc5
+		summarizeBy: none
+		sourceColumn: F_規格寸法
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_工事番号
+		dataType: string
+		lineageTag: 34c4ff06-6b0e-4026-a38a-a7e133b674b6
+		summarizeBy: none
+		sourceColumn: F_工事番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_納期
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 952cd973-a566-4efb-8f83-476120dea0be
+		summarizeBy: none
+		sourceColumn: F_納期
+
+		variation バリエーション
+			isDefault
+			relationship: 15d762bb-ca0e-4284-b102-13b3e09de8e4
+			defaultHierarchy: LocalDateTable_d52511d2-39f0-41ab-8c3f-9ece49622b08.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column F_出荷数
+		dataType: double
+		lineageTag: da7c0dda-6d03-4ae2-83ff-48399aa83dc6
+		summarizeBy: sum
+		sourceColumn: F_出荷数
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column F_荷姿
+		dataType: string
+		lineageTag: 9806ba69-1ed5-4993-bf2e-3af4f85e52a7
+		summarizeBy: none
+		sourceColumn: F_荷姿
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_梱包NO
+		dataType: int64
+		formatString: 0
+		lineageTag: b5a703b2-4f7d-44c4-81e1-1c5742b13f35
+		summarizeBy: sum
+		sourceColumn: F_梱包NO
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_パッキングＮＯ
+		dataType: string
+		lineageTag: 50b4c1a5-9700-4853-86f2-5ef5f987624f
+		summarizeBy: none
+		sourceColumn: F_パッキングＮＯ
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_出荷案内
+		dataType: string
+		lineageTag: 5dce1c18-02da-4183-8edd-62e8b5a85eb4
+		summarizeBy: none
+		sourceColumn: F_出荷案内
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_出荷指示書
+		dataType: string
+		lineageTag: 7e4a2169-439b-4337-acd9-042ba97fb91c
+		summarizeBy: none
+		sourceColumn: F_出荷指示書
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_売上計上日
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f286451d-b588-4d47-b228-11d33e39eb8e
+		summarizeBy: none
+		sourceColumn: F_売上計上日
+
+		variation バリエーション
+			isDefault
+			relationship: d14a40b1-2109-430a-80a4-70edeef38c8d
+			defaultHierarchy: LocalDateTable_a9d9ddc7-2345-4940-9847-a917a37d7d42.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column F_日付Ａ
+		dataType: string
+		lineageTag: 6d8d1cb2-369a-4b75-8e9e-8d526f7da0b9
+		summarizeBy: none
+		sourceColumn: F_日付Ａ
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_日付Ｂ
+		dataType: string
+		lineageTag: c14812ba-e6b7-4029-a972-525efc56de58
+		summarizeBy: none
+		sourceColumn: F_日付Ｂ
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_更新担当
+		dataType: string
+		lineageTag: 0d1b06bc-53bc-4a5e-8485-d91355b7c4a5
+		summarizeBy: none
+		sourceColumn: F_更新担当
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_照会項目
+		dataType: string
+		lineageTag: 65fc4d99-f519-4e4b-b528-3b3ad42f5628
+		summarizeBy: none
+		sourceColumn: F_照会項目
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_登録日
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: a4ccb14b-df6c-4327-8685-0e7edb9366c0
+		summarizeBy: none
+		sourceColumn: F_登録日
+
+		variation バリエーション
+			isDefault
+			relationship: bfc67399-b7ec-40a2-803f-2027d84a0bea
+			defaultHierarchy: LocalDateTable_2d51d937-fd00-4801-b35b-d21b2834032c.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_更新日
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: f07cbadc-e664-4be2-8607-7c697f986c2f
+		summarizeBy: none
+		sourceColumn: F_更新日
+
+		variation バリエーション
+			isDefault
+			relationship: f075fa66-616e-419e-aea2-7fde7c5831ab
+			defaultHierarchy: LocalDateTable_3362e295-35a1-49a3-abea-5014d7827430.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_出荷区分
+		dataType: string
+		lineageTag: c3328cbe-e497-4db0-8416-fb66d521a5cb
+		summarizeBy: none
+		sourceColumn: F_出荷区分
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_品目区分
+		dataType: string
+		lineageTag: 80d10949-2959-423a-a9cd-bdcf8c473523
+		summarizeBy: none
+		sourceColumn: F_品目区分
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_コンテナCD
+		dataType: string
+		lineageTag: cdfce4c8-2726-4d23-90e2-c7a9bce5db13
+		summarizeBy: none
+		sourceColumn: F_コンテナCD
+
+		annotation SummarizationSetBy = Automatic
+
+	partition TB_統合出荷情報 = m
+		mode: import
+		source =
+				let
+				    ソース = Sql.Database("ob7e4ay7l6juflutzrdmf3fx4i-5je6jcvp7ozufin2iqecmsnlgi.datawarehouse.fabric.microsoft.com", "dw_bee_genka-00001"),
+				    dbo_TB_統合出荷情報 = ソース{[Schema="dbo",Item="TB_統合出荷情報"]}[Data]
+				in
+				    dbo_TB_統合出荷情報
+
+	annotation PBI_NavigationStepName = ナビゲーション
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,121 @@
+table 納入品目_年平均稼働量
+	lineageTag: a5cd605f-85bd-490d-a82a-25fa7373659d
+
+	column F_納入品目番号
+		lineageTag: a948b52d-333a-4ef5-a364-a725273ec0de
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_納入品目番号]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 過去5年平均年間稼働量
+		lineageTag: ca85fac6-6668-4fcc-a706-c735251f0f2b
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [過去5年平均年間稼働量]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 直近12か月稼働量
+		lineageTag: 133c4771-35a5-49d3-ab64-9d11ad7ad246
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [直近12か月稼働量]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 納入品目_年平均稼働量 = calculated
+		mode: import
+		source =
+				
+				VAR __End0 =
+				    EOMONTH ( TODAY (), -1 )   -- 基準：前月末
+				
+				/* 直近5本（0=直近、1=1年前、…） */
+				VAR __Periods =
+				    SELECTCOLUMNS (
+				        GENERATESERIES ( 0, 4, 1 ),
+				        "p", [Value]
+				    )
+				
+				/* 元データ（出荷） */
+				VAR __Ev0 =
+				    FILTER (
+				        'TB_統合出荷情報',
+				        NOT ISBLANK ( 'TB_統合出荷情報'[F_在庫品目番号] )
+				            && NOT ISBLANK ( 'TB_統合出荷情報'[F_出荷日] )
+				            && NOT ISBLANK ( 'TB_統合出荷情報'[F_出荷数] )
+				    )
+				
+				/* 品目番号＋日付＋数量 */
+				VAR __Ev =
+				    ADDCOLUMNS (
+				        __Ev0,
+				        "__品目番号",
+				            TRIM (
+				                SUBSTITUTE (
+				                    'TB_統合出荷情報'[F_在庫品目番号],
+				                    UNICHAR ( 12288 ),
+				                    " "
+				                )
+				            ) & "",
+				        "__日付", 'TB_統合出荷情報'[F_出荷日],
+				        "__数",   'TB_統合出荷情報'[F_出荷数]
+				    )
+				
+				/* 品目×期間(p)ごとの12か月合計 */
+				VAR __ByItemPeriod =
+				    ADDCOLUMNS (
+				        CROSSJOIN (
+				            SUMMARIZE ( __Ev, [__品目番号] ),
+				            __Periods
+				        ),
+				        "年稼働合計_12M",
+				            VAR k = [__品目番号]
+				            VAR p = [p]
+				            VAR e = EOMONTH ( __End0, -12 * p )
+				            VAR s = EOMONTH ( e, -12 ) + 1
+				            RETURN
+				                COALESCE (
+				                    SUMX (
+				                        FILTER (
+				                            __Ev,
+				                            [__品目番号] = k
+				                                && [__日付] >= s
+				                                && [__日付] <= e
+				                        ),
+				                        [__数]
+				                    ),
+				                    0
+				                )
+				    )
+				
+				/* 品目ごとに5年平均と直近12か月 */
+				VAR __Agg =
+				    GROUPBY (
+				        __ByItemPeriod,
+				        [__品目番号],
+				        "過去5年平均年間稼働量",
+				            AVERAGEX ( CURRENTGROUP (), [年稼働合計_12M] ),
+				        "直近12か月稼働量",
+				            MAXX (
+				                CURRENTGROUP (),
+				                IF ( [p] = 0, [年稼働合計_12M] )
+				            )
+				    )
+				
+				RETURN
+				    SELECTCOLUMNS (
+				        __Agg,
+				        "F_納入品目番号", [__品目番号],
+				        "過去5年平均年間稼働量", [過去5年平均年間稼働量],
+				        "直近12か月稼働量", [直近12か月稼働量]
+				    )
+
+	annotation PBI_Id = eb2b7432a5d14d39a9c94f3d94b88d28
+

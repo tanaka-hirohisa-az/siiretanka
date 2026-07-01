@@ -1,0 +1,168 @@
+table TB_納入品目仕入先単価情報
+	lineageTag: c3f5e4c8-ab1f-4047-ab91-d958c1ae874e
+
+	column F_納入品目番号
+		dataType: string
+		lineageTag: 50887d2f-c72b-4290-a7d8-d9520176de4f
+		summarizeBy: none
+		sourceColumn: F_納入品目番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_仕入先番号
+		dataType: string
+		lineageTag: ffb94771-58ec-48d8-8c24-4a13c11dbea8
+		summarizeBy: none
+		sourceColumn: F_仕入先番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_開始日
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: a41813bb-62a4-4622-8bd8-ba8e2836cf0b
+		summarizeBy: none
+		sourceColumn: F_開始日
+
+		variation バリエーション
+			isDefault
+			relationship: 96ae5d2a-efcc-460e-bbad-baaad6793bb6
+			defaultHierarchy: LocalDateTable_69cc372d-600d-4cea-94be-27282ea7bff2.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column F_契約単価
+		dataType: double
+		lineageTag: ab70d9a3-7cd7-4c05-9883-f9391bd86e57
+		summarizeBy: sum
+		sourceColumn: F_契約単価
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column F_担当者
+		dataType: string
+		lineageTag: 70b8d339-09c6-4aa8-a062-190312c09290
+		summarizeBy: none
+		sourceColumn: F_担当者
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_依頼者
+		dataType: string
+		lineageTag: 88672780-d662-4c46-a80a-2519140b8b45
+		summarizeBy: none
+		sourceColumn: F_依頼者
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_摘要
+		dataType: string
+		lineageTag: 0dabf44e-c6d8-4217-808e-a633d6f61367
+		summarizeBy: none
+		sourceColumn: F_摘要
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_照会項目
+		dataType: string
+		lineageTag: 584572a9-af77-4a35-89b5-a12e870b1f11
+		summarizeBy: none
+		sourceColumn: F_照会項目
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_登録日
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 5b5d7465-8dd4-490e-9eac-a2911b8ab8cb
+		summarizeBy: none
+		sourceColumn: F_登録日
+
+		variation バリエーション
+			isDefault
+			relationship: e49e2c10-899c-4002-abf1-87f0fdd8d5c4
+			defaultHierarchy: LocalDateTable_51f29951-5473-4fd8-956d-174b1c482855.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_更新日
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 6feb6451-16ed-4fa3-9706-f116c7c382dc
+		summarizeBy: none
+		sourceColumn: F_更新日
+
+		variation バリエーション
+			isDefault
+			relationship: c9a8626b-a980-4dd5-9f05-12222f01888b
+			defaultHierarchy: LocalDateTable_856343ab-e5d6-4ea6-b4e6-40026e95caf9.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_TOBEI_DATE
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 7eeef486-aabe-42ec-b7f1-eca506237adf
+		summarizeBy: none
+		sourceColumn: F_TOBEI_DATE
+
+		variation バリエーション
+			isDefault
+			relationship: 2c6ded89-a328-4634-9af1-2a5496138ac3
+			defaultHierarchy: LocalDateTable_963a4f1b-3a8c-4622-b7c5-dc932242147d.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_登録区分
+		dataType: string
+		lineageTag: edb02bee-8710-4013-aca0-aaf6159075f2
+		summarizeBy: none
+		sourceColumn: F_登録区分
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_仕入先担当
+		dataType: string
+		lineageTag: 6da4aaef-ca9f-4e6c-9723-b7f770378596
+		summarizeBy: none
+		sourceColumn: F_仕入先担当
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_合意日
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e355d2c8-820f-46d9-ac78-9093d0d36344
+		summarizeBy: none
+		sourceColumn: F_合意日
+
+		variation バリエーション
+			isDefault
+			relationship: aa44a5ba-2c85-4384-9873-62c0e55825ea
+			defaultHierarchy: LocalDateTable_79ec1cba-97d3-4ec9-8d60-c17fac0c0317.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column F_メモ
+		dataType: string
+		lineageTag: ec71b14b-ea20-4a76-8688-ccfec7573001
+		summarizeBy: none
+		sourceColumn: F_メモ
+
+		annotation SummarizationSetBy = Automatic
+
+	partition TB_納入品目仕入先単価情報 = m
+		mode: import
+		source =
+				let
+				    ソース = Sql.Database("ob7e4ay7l6juflutzrdmf3fx4i-5je6jcvp7ozufin2iqecmsnlgi.datawarehouse.fabric.microsoft.com", "dw_bee_genka-00001"),
+				    dbo_TB_納入品目仕入先単価情報 = ソース{[Schema="dbo",Item="TB_納入品目仕入先単価情報"]}[Data]
+				in
+				    dbo_TB_納入品目仕入先単価情報
+

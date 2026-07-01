@@ -1,0 +1,201 @@
+table TB_材料在庫明細情報
+	lineageTag: 9cc8cc58-2751-46a9-815b-90326dc16d02
+
+	column F_在庫明細番号
+		dataType: int64
+		formatString: 0
+		lineageTag: d32d762c-cd09-4db4-9971-65a748f15780
+		summarizeBy: sum
+		sourceColumn: F_在庫明細番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_区分
+		dataType: string
+		lineageTag: 1d2f3240-af6a-4245-a224-998c515bc99f
+		summarizeBy: none
+		sourceColumn: F_区分
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_処理番号
+		dataType: int64
+		formatString: 0
+		lineageTag: 998b379c-f347-4a3b-954c-5c5c3c9041e2
+		summarizeBy: sum
+		sourceColumn: F_処理番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_明細番号Ｂ
+		dataType: string
+		lineageTag: 25acb6d3-650d-41e1-b567-f308ee9852fd
+		summarizeBy: none
+		sourceColumn: F_明細番号Ｂ
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_在庫場所
+		dataType: string
+		lineageTag: d818b11e-1dad-4e2f-adab-ba7ef1cfee0b
+		summarizeBy: none
+		sourceColumn: F_在庫場所
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_在庫材料番号
+		dataType: string
+		lineageTag: 6cc85ff8-016c-477d-b4cd-8ba08b6270b9
+		summarizeBy: none
+		sourceColumn: F_在庫材料番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_材料番号Ｂ
+		dataType: string
+		lineageTag: 18865885-eef5-4fff-bfa1-fc106f100119
+		summarizeBy: none
+		sourceColumn: F_材料番号Ｂ
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_処理日
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: cb26df2d-10bd-4f9f-a4e3-7159f848d441
+		summarizeBy: none
+		sourceColumn: F_処理日
+
+		variation バリエーション
+			isDefault
+			relationship: 1038d756-f5a6-4634-9854-deb64fb706c8
+			defaultHierarchy: LocalDateTable_9eafcf4e-421b-4ca4-889d-7da89cb97c8d.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column F_処理時刻
+		dataType: string
+		lineageTag: 30b8e977-bccc-4d85-8a0b-c08193edebf1
+		summarizeBy: none
+		sourceColumn: F_処理時刻
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_数量
+		dataType: double
+		lineageTag: a6be3645-aa9e-4439-a776-f69c043e89aa
+		summarizeBy: sum
+		sourceColumn: F_数量
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column F_手配担当
+		dataType: string
+		lineageTag: 9c45bc44-a4bc-4c42-bf04-3894bd8c34b6
+		summarizeBy: none
+		sourceColumn: F_手配担当
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_手配担当名
+		dataType: string
+		lineageTag: 92129b24-69a0-4a21-88b1-57f0d805db35
+		summarizeBy: none
+		sourceColumn: F_手配担当名
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_手配依頼
+		dataType: string
+		lineageTag: 88e92de5-928f-43cd-832b-c27197c7eeac
+		summarizeBy: none
+		sourceColumn: F_手配依頼
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_手配依頼名
+		dataType: string
+		lineageTag: 8ed577c3-f733-4ce5-b09a-9f851dfdb7f8
+		summarizeBy: none
+		sourceColumn: F_手配依頼名
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_処理担当
+		dataType: string
+		lineageTag: 805cf85d-8f28-4637-a95a-47a4b54ea4a4
+		summarizeBy: none
+		sourceColumn: F_処理担当
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_処理担当名
+		dataType: string
+		lineageTag: 97092df8-43b7-4e6e-8dd3-9d5060723ff7
+		summarizeBy: none
+		sourceColumn: F_処理担当名
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_照会項目
+		dataType: string
+		lineageTag: ec282776-866d-43ff-b5f8-1156b476a47b
+		summarizeBy: none
+		sourceColumn: F_照会項目
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_登録日
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 58a8ea4f-195f-4817-9db7-6a313b82a55e
+		summarizeBy: none
+		sourceColumn: F_登録日
+
+		variation バリエーション
+			isDefault
+			relationship: cf7fe091-74d7-4fad-9277-486c4ec76634
+			defaultHierarchy: LocalDateTable_8a57b4bd-0202-447e-b319-9653c348f4eb.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_引当
+		dataType: double
+		lineageTag: 6fa1d083-21f3-4522-86dd-a658bf6f6565
+		summarizeBy: sum
+		sourceColumn: F_引当
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column F_注文番号
+		dataType: int64
+		formatString: 0
+		lineageTag: ed2e876f-d3c8-4b6c-859a-82c0fc66a7fc
+		summarizeBy: sum
+		sourceColumn: F_注文番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_ロット番号
+		dataType: string
+		lineageTag: a36dd2d6-acb0-4bdf-8370-7678709a9ab6
+		summarizeBy: none
+		sourceColumn: F_ロット番号
+
+		annotation SummarizationSetBy = Automatic
+
+	partition TB_材料在庫明細情報 = m
+		mode: import
+		source =
+				let
+				    ソース = Sql.Database("ob7e4ay7l6juflutzrdmf3fx4i-5je6jcvp7ozufin2iqecmsnlgi.datawarehouse.fabric.microsoft.com", "dw_bee_genka-00001"),
+				    dbo_TB_材料在庫明細情報 = ソース{[Schema="dbo",Item="TB_材料在庫明細情報"]}[Data]
+				in
+				    dbo_TB_材料在庫明細情報
+

@@ -1,0 +1,35 @@
+table Dim_仕入先
+	lineageTag: 3e8f6ea5-13fb-41f7-8224-5ecc739b23d6
+
+	column F_仕入先番号
+		lineageTag: db35d73c-935b-4739-9aad-e9770ebea37f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_仕入先番号]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_仕入先略称
+		lineageTag: 3b6a97ac-13f4-41de-a3a5-cb8315b05ea6
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_仕入先略称]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_仕入先 = calculated
+		mode: import
+		source = ```
+				
+				DISTINCT (
+				    SELECTCOLUMNS (
+				        '納入品目_仕入単価履歴',
+				        "F_仕入先番号", '納入品目_仕入単価履歴'[F_仕入先番号],
+				        "F_仕入先略称", '納入品目_仕入単価履歴'[F_仕入先略称]
+				    )
+				)
+				
+				```
+
+	annotation PBI_Id = be72c5236ce44125aad8bd0591b4f25d
+

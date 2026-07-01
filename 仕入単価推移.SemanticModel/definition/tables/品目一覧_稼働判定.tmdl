@@ -1,0 +1,303 @@
+table 品目一覧_稼働判定
+	lineageTag: 45324d44-18c6-44d9-ae5d-d3479d033fc7
+
+	column F_納入品目番号
+		lineageTag: a86f4023-1f55-4172-b8ac-e602401b3635
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_納入品目番号]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 最終日付
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 1ca993e0-ba1e-48ed-9737-e276dfb5259e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [最終日付]
+
+		variation バリエーション
+			isDefault
+			relationship: e66ecb29-0339-46aa-9783-fa0fdab12e3e
+			defaultHierarchy: LocalDateTable_c4d121e7-3686-4782-9603-bc0d81c7d8bd.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 稼働区分
+		lineageTag: 6a878847-6d09-42a5-8719-790023b5ae18
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [稼働区分]
+		sortByColumn: 稼働区分Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column 稼働区分Sort
+		formatString: 0
+		lineageTag: 2b59d1d4-461a-4a66-9951-b383fa9c80ae
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [稼働区分Sort]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 最終日付_取得先区分
+		lineageTag: e3395303-7561-417e-ae95-90a3470b30a9
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [最終日付_取得先区分]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 最終得意先番号
+		lineageTag: b955ea1e-d4a5-4c45-bd99-23836c4710d4
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [最終得意先番号]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 最終得意先略称
+		lineageTag: acc8c5c8-d2b7-45d7-9250-cab1387a5621
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [最終得意先略称]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 品目一覧_稼働判定 = calculated
+		mode: import
+		source = ```
+				
+				VAR __Items =
+				    DISTINCT (
+				        SELECTCOLUMNS (
+				            'TW_自動倉庫',
+				            "F_納入品目番号", 'TW_自動倉庫'[F_納入品目番号]
+				        )
+				    )
+				
+				/* Step1：最終日付（元コードそのまま） */
+				VAR __Step1 =
+				    ADDCOLUMNS (
+				        __Items,
+				        "最終日付",
+				            VAR k = TRIM ( SUBSTITUTE ( [F_納入品目番号], UNICHAR ( 12288 ), " " ) )
+				
+				            VAR tShip =
+				                TOPN (
+				                    1,
+				                    FILTER (
+				                        ALL ( 'TB_統合出荷情報' ),
+				                        TRIM ( SUBSTITUTE ( 'TB_統合出荷情報'[F_在庫品目番号], UNICHAR ( 12288 ), " " ) ) = k
+				                            && NOT ISBLANK ( 'TB_統合出荷情報'[F_出荷日] )
+				                    ),
+				                    'TB_統合出荷情報'[F_出荷日], DESC
+				                )
+				            VAR dShip = MAXX ( tShip, 'TB_統合出荷情報'[F_出荷日] )
+				
+				            VAR tOrder =
+				                TOPN (
+				                    1,
+				                    FILTER (
+				                        ALL ( 'TB_納入品目改造指示情報' ),
+				                        TRIM ( SUBSTITUTE ( 'TB_納入品目改造指示情報'[F_改造元品目番号], UNICHAR ( 12288 ), " " ) ) = k
+				                            && NOT ISBLANK ( 'TB_納入品目改造指示情報'[F_手配納期] )
+				                    ),
+				                    'TB_納入品目改造指示情報'[F_手配納期], DESC
+				                )
+				            VAR dOrder = MAXX ( tOrder, 'TB_納入品目改造指示情報'[F_手配納期] )
+				
+				            VAR tRelay =
+				                TOPN (
+				                    1,
+				                    FILTER (
+				                        ALL ( 'TW_納入品目在庫履歴' ),
+				                        TRIM ( SUBSTITUTE ( 'TW_納入品目在庫履歴'[F_納入品目番号], UNICHAR ( 12288 ), " " ) ) = k
+				                            && NOT ISBLANK ( 'TW_納入品目在庫履歴'[F_日時] )
+				                            && NOT ISBLANK ( 'TW_納入品目在庫履歴'[F_備考] )
+				                            && CONTAINSSTRING ( 'TW_納入品目在庫履歴'[F_備考], "RBX:" )
+				                    ),
+				                    'TW_納入品目在庫履歴'[F_日時], DESC
+				                )
+				            VAR dRelay = MAXX ( tRelay, 'TW_納入品目在庫履歴'[F_日時] )
+				
+				            RETURN
+				                MAXX (
+				                    FILTER (
+				                        UNION (
+				                            ROW ( "d", dShip ),
+				                            ROW ( "d", dOrder ),
+				                            ROW ( "d", dRelay )
+				                        ),
+				                        NOT ISBLANK ( [d] )
+				                    ),
+				                    [d]
+				                )
+				    )
+				
+				/* Step2：取得先区分（順序も元コード完全一致） */
+				VAR __Step2 =
+				    ADDCOLUMNS (
+				        __Step1,
+				        "最終日付_取得先区分",
+				            VAR k = TRIM ( SUBSTITUTE ( [F_納入品目番号], UNICHAR ( 12288 ), " " ) )
+				            VAR dFinal = [最終日付]
+				
+				            VAR tShip =
+				                TOPN (
+				                    1,
+				                    FILTER (
+				                        ALL ( 'TB_統合出荷情報' ),
+				                        TRIM ( SUBSTITUTE ( 'TB_統合出荷情報'[F_在庫品目番号], UNICHAR ( 12288 ), " " ) ) = k
+				                            && NOT ISBLANK ( 'TB_統合出荷情報'[F_出荷日] )
+				                    ),
+				                    'TB_統合出荷情報'[F_出荷日], DESC
+				                )
+				            VAR dShip = MAXX ( tShip, 'TB_統合出荷情報'[F_出荷日] )
+				
+				            VAR tOrder =
+				                TOPN (
+				                    1,
+				                    FILTER (
+				                        ALL ( 'TB_納入品目改造指示情報' ),
+				                        TRIM ( SUBSTITUTE ( 'TB_納入品目改造指示情報'[F_改造元品目番号], UNICHAR ( 12288 ), " " ) ) = k
+				                            && NOT ISBLANK ( 'TB_納入品目改造指示情報'[F_手配納期] )
+				                    ),
+				                    'TB_納入品目改造指示情報'[F_手配納期], DESC
+				                )
+				            VAR dOrder = MAXX ( tOrder, 'TB_納入品目改造指示情報'[F_手配納期] )
+				
+				            VAR tRelay =
+				                TOPN (
+				                    1,
+				                    FILTER (
+				                        ALL ( 'TW_納入品目在庫履歴' ),
+				                        TRIM ( SUBSTITUTE ( 'TW_納入品目在庫履歴'[F_納入品目番号], UNICHAR ( 12288 ), " " ) ) = k
+				                            && NOT ISBLANK ( 'TW_納入品目在庫履歴'[F_日時] )
+				                            && NOT ISBLANK ( 'TW_納入品目在庫履歴'[F_備考] )
+				                            && CONTAINSSTRING ( 'TW_納入品目在庫履歴'[F_備考], "RBX:" )
+				                    ),
+				                    'TW_納入品目在庫履歴'[F_日時], DESC
+				                )
+				            VAR dRelay = MAXX ( tRelay, 'TW_納入品目在庫履歴'[F_日時] )
+				
+				            RETURN
+				                IF (
+				                    ISBLANK ( dFinal ),
+				                    BLANK (),
+				                    SWITCH (
+				                        TRUE (),
+				                        dFinal = dShip,  "出荷",
+				                        dFinal = dOrder, "改造",
+				                        dFinal = dRelay, "リレー",
+				                        BLANK ()
+				                    )
+				                )
+				    )
+				
+				/* Step3：最終得意先番号（元コード完全一致） */
+				VAR __Step3 =
+				    ADDCOLUMNS (
+				        __Step2,
+				        "最終得意先番号",
+				            VAR k = TRIM ( SUBSTITUTE ( [F_納入品目番号], UNICHAR ( 12288 ), " " ) )
+				            VAR src = [最終日付_取得先区分]
+				            VAR dFinal = [最終日付]
+				
+				            VAR tShip =
+				                TOPN (
+				                    1,
+				                    FILTER (
+				                        ALL ( 'TB_統合出荷情報' ),
+				                        TRIM ( SUBSTITUTE ( 'TB_統合出荷情報'[F_在庫品目番号], UNICHAR ( 12288 ), " " ) ) = k
+				                            && NOT ISBLANK ( 'TB_統合出荷情報'[F_出荷日] )
+				                    ),
+				                    'TB_統合出荷情報'[F_出荷日], DESC
+				                )
+				            VAR dShip = MAXX ( tShip, 'TB_統合出荷情報'[F_出荷日] )
+				            VAR cShip = MAXX ( tShip, 'TB_統合出荷情報'[F_得意先] )
+				
+				            VAR tOrder =
+				                TOPN (
+				                    1,
+				                    FILTER (
+				                        ALL ( 'TB_納入品目改造指示情報' ),
+				                        TRIM ( SUBSTITUTE ( 'TB_納入品目改造指示情報'[F_改造元品目番号], UNICHAR ( 12288 ), " " ) ) = k
+				                            && NOT ISBLANK ( 'TB_納入品目改造指示情報'[F_手配納期] )
+				                    ),
+				                    'TB_納入品目改造指示情報'[F_手配納期], DESC
+				                )
+				            VAR dOrder = MAXX ( tOrder, 'TB_納入品目改造指示情報'[F_手配納期] )
+				            VAR cOrder = MAXX ( tOrder, 'TB_納入品目改造指示情報'[F_得意先番号] )
+				
+				            RETURN
+				                IF (
+				                    ISBLANK ( dFinal ),
+				                    BLANK (),
+				                    SWITCH (
+				                        TRUE (),
+				                        src = "出荷" && dFinal = dShip,  cShip,
+				                        src = "改造" && dFinal = dOrder, cOrder,
+				                        BLANK ()
+				                    )
+				                )
+				    )
+				
+				/* Step4：略称＋稼働区分 */
+				RETURN
+				    ADDCOLUMNS (
+				        __Step3,
+				
+				        "最終得意先略称",
+				            VAR c = [最終得意先番号]
+				            RETURN
+				                IF (
+				                    ISBLANK ( c ),
+				                    BLANK (),
+				                    LOOKUPVALUE (
+				                        'TB_得意先情報'[F_得意先略称],
+				                        'TB_得意先情報'[F_得意先番号], c
+				                    )
+				                ),
+				
+				        "稼働区分",
+				            VAR d = [最終日付]
+				            VAR diff = IF ( ISBLANK ( d ), BLANK (), INT ( TODAY () ) - INT ( d ) )
+				            RETURN
+				                IF (
+				                    ISBLANK ( d ),
+				                    BLANK (),
+				                    SWITCH (
+				                        TRUE (),
+				                        diff <= 365,  "1年以内",
+				                        diff <= 730,  "2年以内",
+				                        diff <= 1825, "5年以内",
+				                        "5年以上"
+				                    )
+				                ),
+				
+				        "稼働区分Sort",
+				            VAR d = [最終日付]
+				            VAR diff = IF ( ISBLANK ( d ), BLANK (), INT ( TODAY () ) - INT ( d ) )
+				            RETURN
+				                IF (
+				                    ISBLANK ( d ),
+				                    BLANK (),
+				                    SWITCH (
+				                        TRUE (),
+				                        diff <= 365,  1,
+				                        diff <= 730,  2,
+				                        diff <= 1825, 3,
+				                        4
+				                    )
+				                )
+				    )
+				
+				```
+
+	annotation PBI_Id = 53309b617f3e412abd1c447875a30a7c
+

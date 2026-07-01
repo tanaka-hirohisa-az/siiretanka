@@ -1,0 +1,621 @@
+table 明細_材料在庫_稼働
+	lineageTag: 82786400-6f00-41e0-816f-9ea3869d9bc3
+
+	measure 明細行数_材料 = ```
+			
+			COUNTROWS('明細_材料在庫_稼働')
+			
+			```
+		formatString: 0
+		lineageTag: c5f49f16-1291-42d0-afc7-9cf5d19a534a
+
+	column F_在庫明細番号
+		formatString: 0
+		lineageTag: 3cb1a2c1-0ca2-43a4-9fd1-dcf22aae6540
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: TB_材料在庫明細情報[F_在庫明細番号]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_区分
+		lineageTag: 05399b82-2440-448e-ad84-42f52c937caf
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: TB_材料在庫明細情報[F_区分]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_処理番号
+		formatString: 0
+		lineageTag: 04d5b9cd-72bb-4d4f-8ad7-2ae050fabf32
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: TB_材料在庫明細情報[F_処理番号]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_明細番号Ｂ
+		lineageTag: e6747248-cbb3-4fea-a83f-9e29b356225a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: TB_材料在庫明細情報[F_明細番号Ｂ]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_在庫場所
+		lineageTag: e1523b2b-998e-4b6e-8a39-5ae084ac2c57
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: TB_材料在庫明細情報[F_在庫場所]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_在庫材料番号
+		lineageTag: 55d70766-47b7-4494-8c9f-f24cf4c65115
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: TB_材料在庫明細情報[F_在庫材料番号]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_材料番号Ｂ
+		lineageTag: 4958bc38-7dc8-4fb2-bc0a-2d4723784c5f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: TB_材料在庫明細情報[F_材料番号Ｂ]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_処理日
+		formatString: General Date
+		lineageTag: 5afd9213-d172-4ecc-9f0f-cb3a235a97db
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: TB_材料在庫明細情報[F_処理日]
+
+		variation バリエーション
+			isDefault
+			relationship: 4df8fa72-2be9-4a34-a330-127a5625251d
+			defaultHierarchy: LocalDateTable_7a2c7f28-b37c-4521-97f7-89fbf84a5b6f.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_処理時刻
+		lineageTag: f0c449c9-ec75-4ea6-9086-067bacaf86e2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: TB_材料在庫明細情報[F_処理時刻]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_数量
+		lineageTag: e203de1f-cd48-4f46-accc-12d3fff74c97
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: TB_材料在庫明細情報[F_数量]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column F_手配担当
+		lineageTag: 3467d14c-f813-4084-a0f4-465e1dadd687
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: TB_材料在庫明細情報[F_手配担当]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_手配担当名
+		lineageTag: 9eec9bbb-4e69-40e7-a4a6-4e4f8f202621
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: TB_材料在庫明細情報[F_手配担当名]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_手配依頼
+		lineageTag: 98c2e002-643a-4e3a-bb83-1bde734102ef
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: TB_材料在庫明細情報[F_手配依頼]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_手配依頼名
+		lineageTag: 728d9e09-2d2a-4260-82a4-81ba4fd8f67b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: TB_材料在庫明細情報[F_手配依頼名]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_処理担当
+		lineageTag: 60a4e8ce-9f8b-43f6-952a-4f0d5ce91a07
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: TB_材料在庫明細情報[F_処理担当]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_処理担当名
+		lineageTag: 8214d281-cf85-4a58-87a4-6e65633c38d3
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: TB_材料在庫明細情報[F_処理担当名]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_照会項目
+		lineageTag: d73e5816-ea1e-4268-a8eb-12db6edc09c6
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: TB_材料在庫明細情報[F_照会項目]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_登録日
+		formatString: General Date
+		lineageTag: 8c29f3ff-ca3e-45b5-b1c3-1741cf70a6ab
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: TB_材料在庫明細情報[F_登録日]
+
+		variation バリエーション
+			isDefault
+			relationship: f63c2231-eb4e-4244-9b3a-33d1f16ec645
+			defaultHierarchy: LocalDateTable_651c1b71-6ada-4349-9d71-bf0c8c781b41.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_引当
+		lineageTag: 2208fda6-2083-4791-8ca8-fe02015c4603
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: TB_材料在庫明細情報[F_引当]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column F_注文番号
+		formatString: 0
+		lineageTag: 48e15a52-b4d6-4254-bff3-3b0ec4ca5176
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: TB_材料在庫明細情報[F_注文番号]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_ロット番号
+		lineageTag: b9ced25a-cbba-4383-afa0-521e65fa36b5
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: TB_材料在庫明細情報[F_ロット番号]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 最終稼働日
+		formatString: General Date
+		lineageTag: b3da09f3-d70a-4bbe-916d-c6ef745483cb
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [最終稼働日]
+
+		variation バリエーション
+			isDefault
+			relationship: 6cde0d8f-467c-471c-81ab-b0208fc08749
+			defaultHierarchy: LocalDateTable_c69050f3-6162-4da9-81cd-0192c24a0263.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column 稼働区分
+		lineageTag: 25a5eb09-b893-4da4-a6af-912225967b65
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [稼働区分]
+		sortByColumn: 稼働区分Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column 稼働区分Sort
+		formatString: 0
+		lineageTag: 8b10bce8-d3c0-46a8-b88c-16cb406e575e
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [稼働区分Sort]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 最終受入日
+		formatString: Short Date
+		lineageTag: eca4e7e0-3d88-4124-a521-373116b8b60d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [最終受入日]
+
+		variation バリエーション
+			isDefault
+			relationship: 1eb04021-80e3-461d-88a0-99d8881add99
+			defaultHierarchy: LocalDateTable_0478dcc6-3304-4091-8685-bf4c4ad16d92.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column R_仕入先番号
+		lineageTag: 554a4c68-0615-4a61-b057-052347d5b920
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [R_仕入先番号]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_契約単価
+		lineageTag: 60480690-d8a7-42a1-b530-749331220052
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [F_契約単価]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 直近単価日付
+		formatString: Short Date
+		lineageTag: e7e8f937-0ecc-480f-a9fc-95b81c64d43f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [直近単価日付]
+
+		variation バリエーション
+			isDefault
+			relationship: 6da8c388-dbac-4ef3-a6f1-8c30766a5233
+			defaultHierarchy: LocalDateTable_5798f153-2ac6-4504-b216-bf62a030857f.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column 在庫金額
+		lineageTag: a93a9bcf-cbce-4a64-bb5d-5e1c8ca9e0db
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [在庫金額]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column F_仕入先略称
+		lineageTag: 44f9d47c-48df-43c7-8587-9cd5aa6e1ed0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_仕入先略称]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 年平均稼働量
+		lineageTag: 16c3faf3-2f46-488e-bebb-a3e9acb7baea
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [年平均稼働量]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 在庫消化予測年数
+		lineageTag: d09db674-976a-433f-be35-545dc9b64c82
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [在庫消化予測年数]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 予測区分
+		lineageTag: cca6707e-7093-436c-96d4-8a28b1281300
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [予測区分]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 予測区分Sort
+		formatString: 0
+		lineageTag: d4680edc-4c0e-48e7-b616-2defa6627e50
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [予測区分Sort]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 明細_材料在庫_稼働 = calculated
+		mode: import
+		source = ```
+				
+				VAR __Base =
+				    FILTER (
+				        'TB_材料在庫明細情報',
+				        'TB_材料在庫明細情報'[F_在庫場所] = "S3000"
+				            || 'TB_材料在庫明細情報'[F_在庫場所] = "S4000"
+				    )
+				
+				/* Base内（S3000/S4000）の材料別 在庫数量合計を1回だけ作る（※ALL禁止） */
+				VAR __StockByMat =
+				    GROUPBY (
+				        ADDCOLUMNS (
+				            __Base,
+				            "__k",
+				                TRIM (
+				                    SUBSTITUTE ( 'TB_材料在庫明細情報'[F_在庫材料番号], UNICHAR ( 12288 ), " " )
+				                )
+				        ),
+				        [__k],
+				        "__stock",
+				            SUMX ( CURRENTGROUP (), 'TB_材料在庫明細情報'[F_数量] )
+				    )
+				
+				/* Step1：最終稼働日（入出庫区分=02 の最新入出庫日）と最終受入日（手配残） */
+				VAR __Step1 =
+				    ADDCOLUMNS (
+				        __Base,
+				
+				        "最終稼働日",
+				            VAR k =
+				                TRIM (
+				                    SUBSTITUTE ( 'TB_材料在庫明細情報'[F_在庫材料番号], UNICHAR ( 12288 ), " " )
+				                )
+				            RETURN
+				                CALCULATE (
+				                    MAX ( 'TB_材料入出庫実績情報'[F_入出庫日] ),
+				                    FILTER (
+				                        ALL ( 'TB_材料入出庫実績情報' ),
+				                        'TB_材料入出庫実績情報'[F_入出庫区分] = "02"
+				                            && TRIM (
+				                                SUBSTITUTE ( 'TB_材料入出庫実績情報'[F_品目番号], UNICHAR ( 12288 ), " " )
+				                            ) = k
+				                    )
+				                ),
+				
+				        "最終受入日",
+				            VAR k =
+				                TRIM (
+				                    SUBSTITUTE ( 'TB_材料在庫明細情報'[F_在庫材料番号], UNICHAR ( 12288 ), " " )
+				                )
+				            RETURN
+				                CALCULATE (
+				                    MAX ( 'TB_材料手配残'[F_最終受入日] ),
+				                    FILTER (
+				                        ALL ( 'TB_材料手配残' ),
+				                        TRIM (
+				                            SUBSTITUTE ( 'TB_材料手配残'[F_材料番号], UNICHAR ( 12288 ), " " )
+				                        ) = k
+				                    )
+				                )
+				    )
+				
+				/* Step2：稼働区分（最終稼働日のみ）＋単価・仕入先（開始日最大） */
+				VAR __Step2 =
+				    ADDCOLUMNS (
+				        __Step1,
+				
+				        "稼働区分",
+				            VAR d_work = [最終稼働日]
+				            VAR diff =
+				                IF ( ISBLANK ( d_work ), BLANK (), INT ( TODAY () ) - INT ( d_work ) )
+				            RETURN
+				                IF (
+				                    ISBLANK ( d_work ),
+				                    BLANK (),
+				                    SWITCH (
+				                        TRUE (),
+				                        diff <= 365,  "1年以内",
+				                        diff <= 730,  "2年以内",
+				                        diff <= 1825, "5年以内",
+				                        "5年以上"
+				                    )
+				                ),
+				
+				        "稼働区分Sort",
+				            VAR d_work = [最終稼働日]
+				            VAR diff =
+				                IF ( ISBLANK ( d_work ), BLANK (), INT ( TODAY () ) - INT ( d_work ) )
+				            RETURN
+				                IF (
+				                    ISBLANK ( d_work ),
+				                    BLANK (),
+				                    SWITCH (
+				                        TRUE (),
+				                        diff <= 365,  1,
+				                        diff <= 730,  2,
+				                        diff <= 1825, 3,
+				                        4
+				                    )
+				                ),
+				
+				        "R_仕入先番号",
+				            VAR k =
+				                TRIM (
+				                    SUBSTITUTE ( 'TB_材料在庫明細情報'[F_在庫材料番号], UNICHAR ( 12288 ), " " )
+				                )
+				            VAR tLatest =
+				                TOPN (
+				                    1,
+				                    FILTER (
+				                        ALL ( 'TB_材料仕入先単価情報' ),
+				                        TRIM (
+				                            SUBSTITUTE ( 'TB_材料仕入先単価情報'[F_材料番号], UNICHAR ( 12288 ), " " )
+				                        ) = k
+				                            && NOT ISBLANK ( 'TB_材料仕入先単価情報'[F_開始日] )
+				                    ),
+				                    'TB_材料仕入先単価情報'[F_開始日], DESC
+				                )
+				            RETURN
+				                MAXX ( tLatest, 'TB_材料仕入先単価情報'[F_仕入先番号] ),
+				
+				        "F_契約単価",
+				            VAR k =
+				                TRIM (
+				                    SUBSTITUTE ( 'TB_材料在庫明細情報'[F_在庫材料番号], UNICHAR ( 12288 ), " " )
+				                )
+				            VAR tLatest =
+				                TOPN (
+				                    1,
+				                    FILTER (
+				                        ALL ( 'TB_材料仕入先単価情報' ),
+				                        TRIM (
+				                            SUBSTITUTE ( 'TB_材料仕入先単価情報'[F_材料番号], UNICHAR ( 12288 ), " " )
+				                        ) = k
+				                            && NOT ISBLANK ( 'TB_材料仕入先単価情報'[F_開始日] )
+				                    ),
+				                    'TB_材料仕入先単価情報'[F_開始日], DESC
+				                )
+				            RETURN
+				                MAXX ( tLatest, 'TB_材料仕入先単価情報'[F_契約単価] ),
+				
+				        "直近単価日付",
+				            VAR k =
+				                TRIM (
+				                    SUBSTITUTE ( 'TB_材料在庫明細情報'[F_在庫材料番号], UNICHAR ( 12288 ), " " )
+				                )
+				            VAR tLatest =
+				                TOPN (
+				                    1,
+				                    FILTER (
+				                        ALL ( 'TB_材料仕入先単価情報' ),
+				                        TRIM (
+				                            SUBSTITUTE ( 'TB_材料仕入先単価情報'[F_材料番号], UNICHAR ( 12288 ), " " )
+				                        ) = k
+				                            && NOT ISBLANK ( 'TB_材料仕入先単価情報'[F_開始日] )
+				                    ),
+				                    'TB_材料仕入先単価情報'[F_開始日], DESC
+				                )
+				            RETURN
+				                MAXX ( tLatest, 'TB_材料仕入先単価情報'[F_開始日] )
+				    )
+				
+				/* Step3：在庫金額＋仕入先略称＋年平均稼働量＋在庫消化予測年数＋予測区分（stockは__StockByMat参照） */
+				VAR __Step3 =
+				    ADDCOLUMNS (
+				        __Step2,
+				
+				        "在庫金額",
+				            VAR qty   = 'TB_材料在庫明細情報'[F_数量]
+				            VAR price = [F_契約単価]
+				            RETURN
+				                IF ( ISBLANK ( qty ) || ISBLANK ( price ), BLANK (), qty * price ),
+				
+				        "F_仕入先略称",
+				            LOOKUPVALUE (
+				                'TB_仕入先情報'[F_仕入先略称],
+				                'TB_仕入先情報'[F_仕入先番号], [R_仕入先番号]
+				            ),
+				
+				        "年平均稼働量",
+				            VAR k =
+				                TRIM (
+				                    SUBSTITUTE ( 'TB_材料在庫明細情報'[F_在庫材料番号], UNICHAR ( 12288 ), " " )
+				                )
+				            RETURN
+				                LOOKUPVALUE (
+				                    '材料_年平均稼働量'[過去5年平均年間稼働量],
+				                    '材料_年平均稼働量'[F_材料番号], k
+				                ),
+				
+				        "在庫消化予測年数",
+				            VAR k =
+				                TRIM (
+				                    SUBSTITUTE ( 'TB_材料在庫明細情報'[F_在庫材料番号], UNICHAR ( 12288 ), " " )
+				                )
+				            VAR stock =
+				                MAXX ( FILTER ( __StockByMat, [__k] = k ), [__stock] )
+				            VAR avgY =
+				                LOOKUPVALUE (
+				                    '材料_年平均稼働量'[過去5年平均年間稼働量],
+				                    '材料_年平均稼働量'[F_材料番号], k
+				                )
+				            RETURN
+				                IF (
+				                    ISBLANK ( avgY ) || avgY <= 0,
+				                    1 / 0,
+				                    DIVIDE ( COALESCE ( stock, 0 ), avgY )
+				                ),
+				
+				        "予測区分",
+				            VAR k =
+				                TRIM (
+				                    SUBSTITUTE ( 'TB_材料在庫明細情報'[F_在庫材料番号], UNICHAR ( 12288 ), " " )
+				                )
+				            VAR stock2 =
+				                MAXX ( FILTER ( __StockByMat, [__k] = k ), [__stock] )
+				            VAR avgY2 =
+				                LOOKUPVALUE (
+				                    '材料_年平均稼働量'[過去5年平均年間稼働量],
+				                    '材料_年平均稼働量'[F_材料番号], k
+				                )
+				            VAR y2 =
+				                IF (
+				                    ISBLANK ( avgY2 ) || avgY2 <= 0,
+				                    1 / 0,
+				                    DIVIDE ( COALESCE ( stock2, 0 ), avgY2 )
+				                )
+				            RETURN
+				                IF (
+				                    ISBLANK ( y2 ),
+				                    BLANK (),
+				                    IF (
+				                        ISBLANK ( avgY2 ) || avgY2 <= 0,
+				                        "5年以上",
+				                        SWITCH (
+				                            TRUE (),
+				                            y2 <= 1, "1年以内",
+				                            y2 <= 2, "2年以内",
+				                            y2 <= 5, "5年以内",
+				                            "5年以上"
+				                        )
+				                    )
+				                ),
+				
+				        "予測区分Sort",
+				            VAR k =
+				                TRIM (
+				                    SUBSTITUTE ( 'TB_材料在庫明細情報'[F_在庫材料番号], UNICHAR ( 12288 ), " " )
+				                )
+				            VAR stock3 =
+				                MAXX ( FILTER ( __StockByMat, [__k] = k ), [__stock] )
+				            VAR avgY3 =
+				                LOOKUPVALUE (
+				                    '材料_年平均稼働量'[過去5年平均年間稼働量],
+				                    '材料_年平均稼働量'[F_材料番号], k
+				                )
+				            VAR y3 =
+				                IF (
+				                    ISBLANK ( avgY3 ) || avgY3 <= 0,
+				                    1 / 0,
+				                    DIVIDE ( COALESCE ( stock3, 0 ), avgY3 )
+				                )
+				            RETURN
+				                IF (
+				                    ISBLANK ( y3 ),
+				                    BLANK (),
+				                    IF (
+				                        ISBLANK ( avgY3 ) || avgY3 <= 0,
+				                        4,
+				                        SWITCH (
+				                            TRUE (),
+				                            y3 <= 1, 1,
+				                            y3 <= 2, 2,
+				                            y3 <= 5, 3,
+				                            4
+				                        )
+				                    )
+				                )
+				    )
+				
+				RETURN
+				    __Step3
+				
+				```
+
+	annotation PBI_Id = e90ad39f1e41493db4b994a921a61f0e
+

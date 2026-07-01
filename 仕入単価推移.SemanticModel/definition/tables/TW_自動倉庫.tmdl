@@ -1,0 +1,134 @@
+table TW_自動倉庫
+	lineageTag: 6736c21a-067f-4129-8682-c565c7105dfe
+
+	column F_納入品目番号
+		dataType: string
+		lineageTag: f7715879-4c4f-4492-bbf7-2f3a84e5f0ee
+		summarizeBy: none
+		sourceColumn: F_納入品目番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_在庫用品目番号
+		dataType: string
+		lineageTag: 0a69664b-8d3c-48da-a221-7554270210db
+		summarizeBy: none
+		sourceColumn: F_在庫用品目番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_自動倉庫在庫数
+		dataType: double
+		lineageTag: 3a8feea7-0cf8-4842-9c10-1f9edf0a90c0
+		summarizeBy: sum
+		sourceColumn: F_自動倉庫在庫数
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column F_平置在庫数
+		dataType: double
+		lineageTag: 94437686-163e-4c19-8573-dc28352529dd
+		summarizeBy: sum
+		sourceColumn: F_平置在庫数
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column F_システム在庫数
+		dataType: double
+		lineageTag: d8042c8c-9f32-4542-9616-c06a2d32f73b
+		summarizeBy: sum
+		sourceColumn: F_システム在庫数
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column F_状態区分
+		dataType: string
+		lineageTag: 4623e8ef-0a73-446b-9526-9c6b01766415
+		summarizeBy: none
+		sourceColumn: F_状態区分
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_ファイル抽出時間
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 5f973552-46b2-45b2-9830-0d7eaf0936ce
+		summarizeBy: none
+		sourceColumn: F_ファイル抽出時間
+
+		variation バリエーション
+			isDefault
+			relationship: 547f2383-301c-4e30-8250-6dce58f2b998
+			defaultHierarchy: LocalDateTable_a75e4676-43bb-484b-9fd2-4d6173fd86bb.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_登録時間
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 4546e49f-1c3b-4b2e-bc7f-7f37cfec5dc3
+		summarizeBy: none
+		sourceColumn: F_登録時間
+
+		variation バリエーション
+			isDefault
+			relationship: b5174371-cc9c-43ba-8a2c-b38f936a1187
+			defaultHierarchy: LocalDateTable_cab4eab7-89e6-4563-8a94-03f884565533.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_更新時間
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: a21ceb00-3f16-4619-a5e8-8e5dc4f2f27d
+		summarizeBy: none
+		sourceColumn: F_更新時間
+
+		variation バリエーション
+			isDefault
+			relationship: d2678526-a156-4667-8c4a-43468a57de23
+			defaultHierarchy: LocalDateTable_bd67e9dc-513a-4acf-b0ee-a894a6231f96.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column 最終出荷日 = ```
+			
+			CALCULATE(
+			    MAX('TB_統合出荷情報'[F_出荷日])
+			)
+			
+			```
+		formatString: General Date
+		lineageTag: bf41286e-0597-4b9c-b4d4-fcd42f5988c9
+		summarizeBy: none
+
+		variation バリエーション
+			isDefault
+			relationship: e4143c72-2dee-41cf-b0e9-f20c6a7e0479
+			defaultHierarchy: LocalDateTable_ed9445fa-318e-4daf-8685-fba19f3cb190.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column 合計在庫数 = [F_平置在庫数] + [F_自動倉庫在庫数]
+		lineageTag: 7a859824-d1d6-47cf-bebc-f60e78eb8d57
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition TW_自動倉庫 = m
+		mode: import
+		source =
+				let
+				    ソース = Sql.Database("ob7e4ay7l6juflutzrdmf3fx4i-5je6jcvp7ozufin2iqecmsnlgi.datawarehouse.fabric.microsoft.com", "dw_bee_genka-00001"),
+				    dbo_TW_自動倉庫 = ソース{[Schema="dbo",Item="TW_自動倉庫"]}[Data]
+				in
+				    dbo_TW_自動倉庫
+

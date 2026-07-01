@@ -1,0 +1,100 @@
+table 品目分類情報
+	lineageTag: aa51ff2a-91f6-4ad0-a8b0-542f81c72e8a
+
+	measure 分類使用有無_材料 =
+			
+			IF (
+			    CALCULATE ( COUNTROWS ( '材料_値上げイベント' ) ) > 0,
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: 288b27e3-0961-495a-a458-66e39b56f223
+
+	measure 分類使用有無_品目 =
+			
+			IF (
+			    CALCULATE ( COUNTROWS ( '納入品目_値上げイベント' ) ) > 0,
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: efbfaa54-a6f3-449f-bde2-2a1d886b5d30
+
+	column F_番号
+		dataType: string
+		lineageTag: 0af6b7e7-458c-48ad-98e9-7063faa8eb38
+		summarizeBy: none
+		sourceColumn: F_番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_分類名
+		dataType: string
+		lineageTag: ce031e52-375a-4453-ba93-86df70840aba
+		summarizeBy: none
+		sourceColumn: F_分類名
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_払出区分
+		dataType: string
+		lineageTag: 93c3e565-6ec0-4745-854a-859cce24d514
+		summarizeBy: none
+		sourceColumn: F_払出区分
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_照会項目
+		dataType: string
+		lineageTag: 43e2bd32-0b0c-477c-bae4-334ce30a0cde
+		summarizeBy: none
+		sourceColumn: F_照会項目
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_登録日
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: f0ee781b-5af7-4804-b141-e8f3e008a4a9
+		summarizeBy: none
+		sourceColumn: F_登録日
+
+		variation バリエーション
+			isDefault
+			relationship: ecec9452-1c43-4d3d-ba37-c95acf46c4cd
+			defaultHierarchy: LocalDateTable_4c5ed995-832a-40e9-a2ab-83f359bb6bbe.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_更新日
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: e6d5826a-9d83-4a20-ac0b-c96e9173b674
+		summarizeBy: none
+		sourceColumn: F_更新日
+
+		variation バリエーション
+			isDefault
+			relationship: 34c06eee-c70f-48a4-9dd6-031b24219591
+			defaultHierarchy: LocalDateTable_8def1ec7-8dbf-4e14-a4e8-e2296a2badb9.日付の階層
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_英語名称
+		dataType: string
+		lineageTag: 08abe263-acdf-481d-b981-f323f265b799
+		summarizeBy: none
+		sourceColumn: F_英語名称
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 品目分類情報 = m
+		mode: import
+		source =
+				let
+				    ソース = Sql.Database("ob7e4ay7l6juflutzrdmf3fx4i-5je6jcvp7ozufin2iqecmsnlgi.datawarehouse.fabric.microsoft.com", "dw_bee_genka-00001"),
+				    dbo_品目分類情報 = ソース{[Schema="dbo",Item="品目分類情報"]}[Data]
+				in
+				    dbo_品目分類情報
+
