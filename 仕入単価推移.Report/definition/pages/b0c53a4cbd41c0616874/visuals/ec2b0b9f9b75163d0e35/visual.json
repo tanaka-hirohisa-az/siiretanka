@@ -1,0 +1,85 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "ec2b0b9f9b75163d0e35",
+  "position": {
+    "x": 382.24924012158056,
+    "y": 277.20364741641339,
+    "z": 6000,
+    "height": 133.25227963525836,
+    "width": 584.55927051671733,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "lineClusteredColumnComboChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "納入品目_値上げイベント"
+                    }
+                  },
+                  "Property": "F_納入品目番号"
+                }
+              },
+              "queryRef": "納入品目_値上げイベント.F_納入品目番号",
+              "nativeQueryRef": "F_納入品目番号",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "納入品目_値上げイベント"
+                        }
+                      },
+                      "Property": "年間予測影響額"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(納入品目_値上げイベント.年間予測影響額)",
+              "nativeQueryRef": "年間予測影響額 の合計"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "納入品目_値上げイベント"
+                      }
+                    },
+                    "Property": "年間予測影響額"
+                  }
+                },
+                "Function": 0
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

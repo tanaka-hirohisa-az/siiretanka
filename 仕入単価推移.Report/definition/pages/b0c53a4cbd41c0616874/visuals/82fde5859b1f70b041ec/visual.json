@@ -1,0 +1,349 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "82fde5859b1f70b041ec",
+  "position": {
+    "x": 0,
+    "y": 410.0502512562814,
+    "z": 0,
+    "height": 309.9497487437186,
+    "width": 1279.5979899497486,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "納入品目_値上げイベント"
+                    }
+                  },
+                  "Property": "F_開始日"
+                }
+              },
+              "queryRef": "納入品目_値上げイベント_拡張2.F_開始日",
+              "nativeQueryRef": "F_開始日"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "納入品目_値上げイベント"
+                    }
+                  },
+                  "Property": "F_納入品目番号"
+                }
+              },
+              "queryRef": "納入品目_値上げイベント_拡張2.F_納入品目番号",
+              "nativeQueryRef": "F_納入品目番号"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "品目分類情報"
+                    }
+                  },
+                  "Property": "F_分類名"
+                }
+              },
+              "queryRef": "品目分類情報.F_分類名",
+              "nativeQueryRef": "F_分類名"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "納入品目_値上げイベント"
+                    }
+                  },
+                  "Property": "F_仕入先略称"
+                }
+              },
+              "queryRef": "納入品目_値上げイベント_拡張2.F_仕入先略称",
+              "nativeQueryRef": "F_仕入先略称"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "納入品目_値上げイベント"
+                        }
+                      },
+                      "Property": "F_契約単価"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(納入品目_値上げイベント_拡張2.F_契約単価)",
+              "nativeQueryRef": "F_契約単価 の合計"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "納入品目_値上げイベント"
+                        }
+                      },
+                      "Property": "前回単価"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(納入品目_値上げイベント_拡張2.前回単価)",
+              "nativeQueryRef": "前回単価 の合計"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "納入品目_値上げイベント"
+                        }
+                      },
+                      "Property": "値上げ額"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(納入品目_値上げイベント_拡張2.値上げ額)",
+              "nativeQueryRef": "値上げ額 の合計"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "納入品目_値上げイベント"
+                        }
+                      },
+                      "Property": "値上げ率"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(納入品目_値上げイベント_拡張2.値上げ率)",
+              "nativeQueryRef": "値上げ率 の合計"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "納入品目_月別純増減"
+                    }
+                  },
+                  "Property": "月別_純増減額合計_品目_明細"
+                }
+              },
+              "queryRef": "納入品目_月別純増減.月別_純増減額合計_品目_明細",
+              "nativeQueryRef": "月別_純増減額合計_品目_明細"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "納入品目_値上げイベント"
+                        }
+                      },
+                      "Property": "年間予測影響額"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(納入品目_値上げイベント.年間予測影響額)",
+              "nativeQueryRef": "年間予測影響額 の合計"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "納入品目_月別純増減"
+                    }
+                  },
+                  "Property": "月別_純値上げ額合計_品目"
+                }
+              },
+              "queryRef": "納入品目_月別純増減.月別_純値上げ額合計_品目",
+              "nativeQueryRef": "月別_純値上げ額合計_品目"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "納入品目_月別純増減"
+                    }
+                  },
+                  "Property": "月別_純値下げ額合計_品目"
+                }
+              },
+              "queryRef": "納入品目_月別純増減.月別_純値下げ額合計_品目",
+              "nativeQueryRef": "月別_純値下げ額合計_品目"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "納入品目_年平均稼働量"
+                        }
+                      },
+                      "Property": "直近12か月稼働量"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(納入品目_年平均稼働量.直近12か月稼働量)",
+              "nativeQueryRef": "直近12か月稼働量 の合計"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "納入品目_年平均稼働量"
+                        }
+                      },
+                      "Property": "過去5年平均年間稼働量"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(納入品目_年平均稼働量.過去5年平均年間稼働量)",
+              "nativeQueryRef": "過去5年平均年間稼働量 の合計"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "品目分類情報"
+                  }
+                },
+                "Property": "F_分類名"
+              }
+            },
+            "direction": "Ascending"
+          },
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "納入品目_値上げイベント"
+                  }
+                },
+                "Property": "F_納入品目番号"
+              }
+            },
+            "direction": "Ascending"
+          },
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "納入品目_値上げイベント"
+                  }
+                },
+                "Property": "F_開始日"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "165.13065767534923D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "納入品目_値上げイベント_拡張2.F_仕入先略称"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "97.95981990032543D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Sum(納入品目_値上げイベント_拡張2.F_契約単価)"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "106.96996430745084D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "納入品目_月別純増減.月別_純増減額合計_品目_明細"
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

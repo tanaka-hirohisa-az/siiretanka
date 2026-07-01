@@ -1,0 +1,80 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "2b6e1f3d7511a233f0ce",
+  "displayName": "材料",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "pageBinding": {
+    "name": "8aef93a3fbd022fed2d3",
+    "type": "Default",
+    "parameters": []
+  },
+  "objects": {
+    "outspacePane": [
+      {
+        "properties": {
+          "width": {
+            "expr": {
+              "Literal": {
+                "Value": "191L"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "8bd405f761a16cd82ce9",
+      "target": "867d3656b1cc26da7504",
+      "type": "DataFilter"
+    },
+    {
+      "source": "8bd405f761a16cd82ce9",
+      "target": "302b3fa44a22d4e02bd6",
+      "type": "DataFilter"
+    },
+    {
+      "source": "867d3656b1cc26da7504",
+      "target": "302b3fa44a22d4e02bd6",
+      "type": "DataFilter"
+    },
+    {
+      "source": "302b3fa44a22d4e02bd6",
+      "target": "867d3656b1cc26da7504",
+      "type": "DataFilter"
+    },
+    {
+      "source": "b4f9bfada53a0ae3b606",
+      "target": "867d3656b1cc26da7504",
+      "type": "DataFilter"
+    },
+    {
+      "source": "b4f9bfada53a0ae3b606",
+      "target": "302b3fa44a22d4e02bd6",
+      "type": "DataFilter"
+    },
+    {
+      "source": "867d3656b1cc26da7504",
+      "target": "b4f9bfada53a0ae3b606",
+      "type": "DataFilter"
+    },
+    {
+      "source": "8bd405f761a16cd82ce9",
+      "target": "b4f9bfada53a0ae3b606",
+      "type": "DataFilter"
+    },
+    {
+      "source": "50ca3c5782aa63726baa",
+      "target": "b4f9bfada53a0ae3b606",
+      "type": "DataFilter"
+    },
+    {
+      "source": "50ca3c5782aa63726baa",
+      "target": "8bd405f761a16cd82ce9",
+      "type": "DataFilter"
+    }
+  ]
+}

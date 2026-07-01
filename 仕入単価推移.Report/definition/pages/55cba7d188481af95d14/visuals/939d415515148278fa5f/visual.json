@@ -1,0 +1,137 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "939d415515148278fa5f",
+  "position": {
+    "x": 429.3467336683417,
+    "y": 0,
+    "z": 1000,
+    "height": 239.99999999999997,
+    "width": 537.8894472361809,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "lineStackedColumnComboChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "材料_値上げイベント"
+                    }
+                  },
+                  "Property": "F_開始月"
+                }
+              },
+              "queryRef": "材料_値上げイベント.F_開始月",
+              "nativeQueryRef": "F_開始月",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "材料_値上げイベント"
+                        }
+                      },
+                      "Property": "年間予測影響額_値上げのみ"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(材料_値上げイベント.年間予測影響額_値上げのみ)",
+              "nativeQueryRef": "年間予測影響額_値上げのみ の合計"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "材料_値上げイベント"
+                        }
+                      },
+                      "Property": "年間予測影響額_値下げのみ"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(材料_値上げイベント.年間予測影響額_値下げのみ)",
+              "nativeQueryRef": "年間予測影響額_値下げのみ の合計"
+            }
+          ]
+        },
+        "Y2": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "材料_値上げイベント"
+                        }
+                      },
+                      "Property": "値上げ率"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Sum(材料_値上げイベント.値上げ率)",
+              "nativeQueryRef": "値上げ率 の平均"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "材料_値上げイベント"
+                  }
+                },
+                "Property": "F_開始月"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

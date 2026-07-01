@@ -1,0 +1,84 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "302b3fa44a22d4e02bd6",
+  "position": {
+    "x": 967.2361809045226,
+    "y": 0,
+    "z": 4000,
+    "height": 197.78894472361807,
+    "width": 312.3618090452261,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "材料_値上げイベント"
+                    }
+                  },
+                  "Property": "F_材料番号"
+                }
+              },
+              "queryRef": "材料_値上げイベント.F_材料番号",
+              "nativeQueryRef": "F_材料番号",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "材料_値上げイベント"
+                        }
+                      },
+                      "Property": "値上げ率"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(材料_値上げイベント.値上げ率)",
+              "nativeQueryRef": "値上げ率 の合計"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "材料_値上げイベント"
+                      }
+                    },
+                    "Property": "値上げ率"
+                  }
+                },
+                "Function": 0
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

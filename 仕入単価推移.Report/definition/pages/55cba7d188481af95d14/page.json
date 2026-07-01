@@ -1,0 +1,80 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "55cba7d188481af95d14",
+  "displayName": "材料 の複製",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "pageBinding": {
+    "name": "c4e8479d2e4d12b1b68c",
+    "type": "Default",
+    "parameters": []
+  },
+  "objects": {
+    "outspacePane": [
+      {
+        "properties": {
+          "width": {
+            "expr": {
+              "Literal": {
+                "Value": "191L"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "939d415515148278fa5f",
+      "target": "78449eb6ee2e95c2519a",
+      "type": "DataFilter"
+    },
+    {
+      "source": "939d415515148278fa5f",
+      "target": "936d016e490ecfba71d1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "78449eb6ee2e95c2519a",
+      "target": "936d016e490ecfba71d1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "936d016e490ecfba71d1",
+      "target": "78449eb6ee2e95c2519a",
+      "type": "DataFilter"
+    },
+    {
+      "source": "3600d46bf0aa9c230543",
+      "target": "78449eb6ee2e95c2519a",
+      "type": "DataFilter"
+    },
+    {
+      "source": "3600d46bf0aa9c230543",
+      "target": "936d016e490ecfba71d1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "78449eb6ee2e95c2519a",
+      "target": "3600d46bf0aa9c230543",
+      "type": "DataFilter"
+    },
+    {
+      "source": "939d415515148278fa5f",
+      "target": "3600d46bf0aa9c230543",
+      "type": "DataFilter"
+    },
+    {
+      "source": "6245739a3375f345a5d2",
+      "target": "3600d46bf0aa9c230543",
+      "type": "DataFilter"
+    },
+    {
+      "source": "6245739a3375f345a5d2",
+      "target": "939d415515148278fa5f",
+      "type": "DataFilter"
+    }
+  ]
+}

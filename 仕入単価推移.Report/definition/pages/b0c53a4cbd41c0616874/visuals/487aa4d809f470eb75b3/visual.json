@@ -1,0 +1,85 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "487aa4d809f470eb75b3",
+  "position": {
+    "x": 966.26158599382086,
+    "y": 204.3254376930999,
+    "z": 1000,
+    "height": 205.64366632337797,
+    "width": 313.7384140061792,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "納入品目_値上げイベント"
+                    }
+                  },
+                  "Property": "F_納入品目番号"
+                }
+              },
+              "queryRef": "納入品目_値上げイベント.F_納入品目番号",
+              "nativeQueryRef": "F_納入品目番号",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "納入品目_値上げイベント"
+                        }
+                      },
+                      "Property": "値上げ額"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(納入品目_値上げイベント.値上げ額)",
+              "nativeQueryRef": "値上げ額 の合計"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "納入品目_値上げイベント"
+                      }
+                    },
+                    "Property": "値上げ額"
+                  }
+                },
+                "Function": 0
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
