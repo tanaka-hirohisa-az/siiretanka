@@ -155,128 +155,79 @@ table 材料_移動平均単価_月次
 				        "__月額計", SUMX ( CURRENTGROUP (), [__額] )
 				    )
 
-				VAR __MinM =
-				    MINX ( __M, [__月] )
-
-				VAR __MaxM =
-				    MAXX ( __M, [__月] )
-
-				VAR __Cnt =
-				    DATEDIFF ( __MinM, __MaxM, MONTH )
-
-				VAR __Months =
+				VAR __Shift =
 				    SELECTCOLUMNS (
-				        GENERATESERIES ( 0, __Cnt, 1 ),
-				        "__基準月", EDATE ( __MinM, [Value] )
+				        CROSSJOIN (
+				            __M,
+				            SELECTCOLUMNS ( GENERATESERIES ( 0, 11, 1 ), "__k", [Value] )
+				        ),
+				        "__材料番号", [__材料番号],
+				        "__基準月",   EDATE ( [__月], [__k] ),
+				        "__数c",      [__月数計],
+				        "__額c",      [__月額計]
+				    )
+
+				VAR __Agg0 =
+				    GROUPBY (
+				        __Shift,
+				        [__材料番号],
+				        [__基準月],
+				        "__数計", SUMX ( CURRENTGROUP (), [__数c] ),
+				        "__額計", SUMX ( CURRENTGROUP (), [__額c] )
 				    )
 
 				VAR __Mats =
 				    GROUPBY (
 				        __M,
 				        [__材料番号],
-				        "__初月", MINX ( CURRENTGROUP (), [__月] ),
 				        "__終月", MAXX ( CURRENTGROUP (), [__月] )
 				    )
 
-				VAR __Grid =
-				    FILTER (
-				        CROSSJOIN ( __Mats, __Months ),
-				        [__基準月] >= [__初月]
-				            && [__基準月] <= [__終月]
-				    )
-
-				VAR __Calc =
+				VAR __Agg =
 				    ADDCOLUMNS (
-				        __Grid,
-				        "__数計",
-				            VAR k = [__材料番号]
-				            VAR s = EDATE ( [__基準月], -11 )
-				            VAR e = [__基準月]
-				            RETURN
-				                SUMX (
-				                    FILTER (
-				                        __M,
-				                        [__材料番号] = k
-				                            && [__月] >= s
-				                            && [__月] <= e
-				                    ),
-				                    [__月数計]
-				                ),
-				        "__額計",
-				            VAR k = [__材料番号]
-				            VAR s = EDATE ( [__基準月], -11 )
-				            VAR e = [__基準月]
-				            RETURN
-				                SUMX (
-				                    FILTER (
-				                        __M,
-				                        [__材料番号] = k
-				                            && [__月] >= s
-				                            && [__月] <= e
-				                    ),
-				                    [__月額計]
-				                ),
-				        "__月内数",
-				            VAR k = [__材料番号]
-				            VAR m = [__基準月]
-				            RETURN
-				                SUMX (
-				                    FILTER (
-				                        __M,
-				                        [__材料番号] = k
-				                            && [__月] = m
-				                    ),
-				                    [__月数計]
-				                ),
-				        "__月内額",
-				            VAR k = [__材料番号]
-				            VAR m = [__基準月]
-				            RETURN
-				                SUMX (
-				                    FILTER (
-				                        __M,
-				                        [__材料番号] = k
-				                            && [__月] = m
-				                    ),
-				                    [__月額計]
-				                )
-				    )
-
-				VAR __Avg =
-				    ADDCOLUMNS (
-				        FILTER ( __Calc, [__数計] > 0 ),
+				        FILTER (
+				            NATURALINNERJOIN ( __Agg0, __Mats ),
+				            [__基準月] <= [__終月]
+				                && [__数計] > 0
+				        ),
 				        "__移動平均単価", DIVIDE ( [__額計], [__数計] )
 				    )
 
-				VAR __Prev =
-				    ADDCOLUMNS (
-				        __Avg,
-				        "__前月単価",
-				            VAR k = [__材料番号]
-				            VAR pm = EDATE ( [__基準月], -1 )
-				            RETURN
-				                MAXX (
-				                    FILTER (
-				                        __Avg,
-				                        [__材料番号] = k
-				                            && [__基準月] = pm
-				                    ),
-				                    [__移動平均単価]
-				                ),
-				        "__稼働量",
-				            LOOKUPVALUE (
-				                '材料_年平均稼働量_仕入'[直近12か月稼働量],
-				                '材料_年平均稼働量_仕入'[F_材料番号], [__材料番号]
-				            )
+				VAR __PrevT =
+				    SELECTCOLUMNS (
+				        __Agg,
+				        "__材料番号", [__材料番号],
+				        "__基準月",   EDATE ( [__基準月], 1 ),
+				        "__前月単価", [__移動平均単価]
+				    )
+
+				VAR __Cur =
+				    SELECTCOLUMNS (
+				        __M,
+				        "__材料番号", [__材料番号],
+				        "__基準月",   [__月],
+				        "__月内数",   [__月数計],
+				        "__月内額",   [__月額計]
+				    )
+
+				VAR __J =
+				    NATURALLEFTOUTERJOIN (
+				        NATURALLEFTOUTERJOIN ( __Agg, __PrevT ),
+				        __Cur
 				    )
 
 				VAR __Final =
 				    ADDCOLUMNS (
-				        __Prev,
+				        __J,
 				        "__値上げ額",
 				            IF (
 				                NOT ISBLANK ( [__前月単価] ),
 				                [__移動平均単価] - [__前月単価]
+				            ),
+				        "__稼働量",
+				            LOOKUPVALUE (
+				                '材料_年平均稼働量_仕入'[直近12か月稼働量],
+				                '材料_年平均稼働量_仕入'[F_材料番号], [__材料番号]
 				            )
 				    )
 
