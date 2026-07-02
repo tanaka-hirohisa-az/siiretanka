@@ -140,16 +140,26 @@ table 材料_移動平均単価_月次
 				                    " "
 				                )
 				            ) & "",
-				        "__日付", DATEVALUE ( 'TB_仕入実績情報'[F_仕入日] ),
-				        "__数",   'TB_仕入実績情報'[F_仕入数],
-				        "__額",   'TB_仕入実績情報'[F_仕入数] * 'TB_仕入実績情報'[F_単価]
+				        "__月",
+				            EOMONTH ( DATEVALUE ( 'TB_仕入実績情報'[F_仕入日] ), -1 ) + 1,
+				        "__数", 'TB_仕入実績情報'[F_仕入数],
+				        "__額", 'TB_仕入実績情報'[F_仕入数] * 'TB_仕入実績情報'[F_単価]
+				    )
+
+				VAR __M =
+				    GROUPBY (
+				        __Ev,
+				        [__材料番号],
+				        [__月],
+				        "__月数計", SUMX ( CURRENTGROUP (), [__数] ),
+				        "__月額計", SUMX ( CURRENTGROUP (), [__額] )
 				    )
 
 				VAR __MinM =
-				    EOMONTH ( MINX ( __Ev, [__日付] ), -1 ) + 1
+				    MINX ( __M, [__月] )
 
 				VAR __MaxM =
-				    EOMONTH ( MAXX ( __Ev, [__日付] ), -1 ) + 1
+				    MAXX ( __M, [__月] )
 
 				VAR __Cnt =
 				    DATEDIFF ( __MinM, __MaxM, MONTH )
@@ -157,22 +167,22 @@ table 材料_移動平均単価_月次
 				VAR __Months =
 				    SELECTCOLUMNS (
 				        GENERATESERIES ( 0, __Cnt, 1 ),
-				        "__月", EDATE ( __MinM, [Value] )
+				        "__基準月", EDATE ( __MinM, [Value] )
 				    )
 
 				VAR __Mats =
 				    GROUPBY (
-				        __Ev,
+				        __M,
 				        [__材料番号],
-				        "__初日", MINX ( CURRENTGROUP (), [__日付] ),
-				        "__終日", MAXX ( CURRENTGROUP (), [__日付] )
+				        "__初月", MINX ( CURRENTGROUP (), [__月] ),
+				        "__終月", MAXX ( CURRENTGROUP (), [__月] )
 				    )
 
 				VAR __Grid =
 				    FILTER (
 				        CROSSJOIN ( __Mats, __Months ),
-				        [__月] >= EOMONTH ( [__初日], -1 ) + 1
-				            && [__月] <= EOMONTH ( [__終日], -1 ) + 1
+				        [__基準月] >= [__初月]
+				            && [__基準月] <= [__終月]
 				    )
 
 				VAR __Calc =
@@ -180,59 +190,55 @@ table 材料_移動平均単価_月次
 				        __Grid,
 				        "__数計",
 				            VAR k = [__材料番号]
-				            VAR s = EDATE ( [__月], -11 )
-				            VAR e = EDATE ( [__月], 1 )
+				            VAR s = EDATE ( [__基準月], -11 )
+				            VAR e = [__基準月]
 				            RETURN
 				                SUMX (
 				                    FILTER (
-				                        __Ev,
+				                        __M,
 				                        [__材料番号] = k
-				                            && [__日付] >= s
-				                            && [__日付] < e
+				                            && [__月] >= s
+				                            && [__月] <= e
 				                    ),
-				                    [__数]
+				                    [__月数計]
 				                ),
 				        "__額計",
 				            VAR k = [__材料番号]
-				            VAR s = EDATE ( [__月], -11 )
-				            VAR e = EDATE ( [__月], 1 )
+				            VAR s = EDATE ( [__基準月], -11 )
+				            VAR e = [__基準月]
 				            RETURN
 				                SUMX (
 				                    FILTER (
-				                        __Ev,
+				                        __M,
 				                        [__材料番号] = k
-				                            && [__日付] >= s
-				                            && [__日付] < e
+				                            && [__月] >= s
+				                            && [__月] <= e
 				                    ),
-				                    [__額]
+				                    [__月額計]
 				                ),
 				        "__月内数",
 				            VAR k = [__材料番号]
-				            VAR s = [__月]
-				            VAR e = EDATE ( [__月], 1 )
+				            VAR m = [__基準月]
 				            RETURN
 				                SUMX (
 				                    FILTER (
-				                        __Ev,
+				                        __M,
 				                        [__材料番号] = k
-				                            && [__日付] >= s
-				                            && [__日付] < e
+				                            && [__月] = m
 				                    ),
-				                    [__数]
+				                    [__月数計]
 				                ),
 				        "__月内額",
 				            VAR k = [__材料番号]
-				            VAR s = [__月]
-				            VAR e = EDATE ( [__月], 1 )
+				            VAR m = [__基準月]
 				            RETURN
 				                SUMX (
 				                    FILTER (
-				                        __Ev,
+				                        __M,
 				                        [__材料番号] = k
-				                            && [__日付] >= s
-				                            && [__日付] < e
+				                            && [__月] = m
 				                    ),
-				                    [__額]
+				                    [__月額計]
 				                )
 				    )
 
@@ -247,13 +253,13 @@ table 材料_移動平均単価_月次
 				        __Avg,
 				        "__前月単価",
 				            VAR k = [__材料番号]
-				            VAR pm = EDATE ( [__月], -1 )
+				            VAR pm = EDATE ( [__基準月], -1 )
 				            RETURN
 				                MAXX (
 				                    FILTER (
 				                        __Avg,
 				                        [__材料番号] = k
-				                            && [__月] = pm
+				                            && [__基準月] = pm
 				                    ),
 				                    [__移動平均単価]
 				                ),
@@ -278,7 +284,7 @@ table 材料_移動平均単価_月次
 				    SELECTCOLUMNS (
 				        __Final,
 				        "F_材料番号",     [__材料番号],
-				        "F_開始月",       [__月],
+				        "F_開始月",       [__基準月],
 				        "移動平均単価",   [__移動平均単価],
 				        "前月移動平均単価", [__前月単価],
 				        "月内仕入数",     [__月内数],
