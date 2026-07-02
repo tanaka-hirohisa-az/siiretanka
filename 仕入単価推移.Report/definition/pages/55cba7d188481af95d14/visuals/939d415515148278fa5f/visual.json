@@ -20,13 +20,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料_値上げイベント_仕入"
+                      "Entity": "材料_移動平均単価_月次"
                     }
                   },
                   "Property": "F_開始月"
                 }
               },
-              "queryRef": "材料_値上げイベント_仕入.F_開始月",
+              "queryRef": "材料_移動平均単価_月次.F_開始月",
               "nativeQueryRef": "F_開始月",
               "active": true
             }
@@ -41,7 +41,7 @@
                     "Column": {
                       "Expression": {
                         "SourceRef": {
-                          "Entity": "材料_値上げイベント_仕入"
+                          "Entity": "材料_移動平均単価_月次"
                         }
                       },
                       "Property": "年間予測影響額_値上げのみ"
@@ -50,7 +50,7 @@
                   "Function": 0
                 }
               },
-              "queryRef": "Sum(材料_値上げイベント_仕入.年間予測影響額_値上げのみ)",
+              "queryRef": "Sum(材料_移動平均単価_月次.年間予測影響額_値上げのみ)",
               "nativeQueryRef": "年間予測影響額_値上げのみ の合計"
             },
             {
@@ -60,7 +60,7 @@
                     "Column": {
                       "Expression": {
                         "SourceRef": {
-                          "Entity": "材料_値上げイベント_仕入"
+                          "Entity": "材料_移動平均単価_月次"
                         }
                       },
                       "Property": "年間予測影響額_値下げのみ"
@@ -69,7 +69,7 @@
                   "Function": 0
                 }
               },
-              "queryRef": "Sum(材料_値上げイベント_仕入.年間予測影響額_値下げのみ)",
+              "queryRef": "Sum(材料_移動平均単価_月次.年間予測影響額_値下げのみ)",
               "nativeQueryRef": "年間予測影響額_値下げのみ の合計"
             }
           ]
@@ -83,7 +83,7 @@
                     "Column": {
                       "Expression": {
                         "SourceRef": {
-                          "Entity": "材料_値上げイベント_仕入"
+                          "Entity": "材料_移動平均単価_月次"
                         }
                       },
                       "Property": "値上げ率"
@@ -92,7 +92,7 @@
                   "Function": 1
                 }
               },
-              "queryRef": "Sum(材料_値上げイベント_仕入.値上げ率)",
+              "queryRef": "Sum(材料_移動平均単価_月次.値上げ率)",
               "nativeQueryRef": "値上げ率 の平均"
             }
           ]
@@ -105,7 +105,7 @@
               "Column": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "材料_値上げイベント_仕入"
+                    "Entity": "材料_移動平均単価_月次"
                   }
                 },
                 "Property": "F_開始月"
