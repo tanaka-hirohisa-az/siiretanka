@@ -154,9 +154,30 @@ table 材料_移動平均単価_月次
 				        "__額", 'TB_仕入実績情報'[F_仕入数] * 'TB_仕入実績情報'[F_単価]
 				    )
 
+				VAR __MatSet =
+				    FILTER (
+				        DISTINCT (
+				            SELECTCOLUMNS (
+				                '材料情報',
+				                "__材料番号",
+				                    TRIM (
+				                        SUBSTITUTE (
+				                            '材料情報'[F_材料番号],
+				                            UNICHAR ( 12288 ),
+				                            " "
+				                        )
+				                    ) & ""
+				            )
+				        ),
+				        [__材料番号] <> ""
+				    )
+
+				VAR __EvM =
+				    NATURALINNERJOIN ( __Ev, __MatSet )
+
 				VAR __M =
 				    GROUPBY (
-				        __Ev,
+				        __EvM,
 				        [__材料番号],
 				        [__月],
 				        "__月数計", SUMX ( CURRENTGROUP (), [__数] ),
