@@ -117,6 +117,14 @@ table 材料_移動平均単価_月次
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	column F_在庫材料番号
+		lineageTag: e7f8a9b0-c1d2-4034-5f6a-7b8c3f4a5b6c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_在庫材料番号]
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 材料_移動平均単価_月次 = calculated
 		mode: import
 		source = ```
@@ -231,9 +239,27 @@ table 材料_移動平均単価_月次
 				            )
 				    )
 
+				VAR __Map0 =
+				    SELECTCOLUMNS (
+				        '材料情報',
+				        "__材料番号", '材料情報'[F_材料番号] & "",
+				        "__在k",      '材料情報'[F_在庫材料番号] & ""
+				    )
+
+				VAR __Map =
+				    GROUPBY (
+				        __Map0,
+				        [__材料番号],
+				        "__在庫番号", MAXX ( CURRENTGROUP (), [__在k] )
+				    )
+
+				VAR __J2 =
+				    NATURALLEFTOUTERJOIN ( __Final, __Map )
+
 				RETURN
 				    SELECTCOLUMNS (
-				        __Final,
+				        __J2,
+				        "F_在庫材料番号", [__在庫番号],
 				        "F_材料番号",     [__材料番号],
 				        "F_開始月",       [__基準月],
 				        "移動平均単価",   [__移動平均単価],
