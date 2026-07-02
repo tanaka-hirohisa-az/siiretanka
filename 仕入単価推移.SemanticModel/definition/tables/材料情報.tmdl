@@ -251,6 +251,13 @@ table 材料情報
 
 		annotation SummarizationSetBy = Automatic
 
+	column 材料番号_正規化 = TRIM ( SUBSTITUTE ( [F_材料番号], UNICHAR ( 12288 ), " " ) ) & ""
+		dataType: string
+		lineageTag: b0c1d2e3-f4a5-4167-8c9d-0e1f6a7b8c9d
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 材料情報 = m
 		mode: import
 		source =

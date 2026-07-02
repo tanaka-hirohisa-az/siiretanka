@@ -130,6 +130,7 @@ ref table 材料_年平均稼働量_仕入
 ref table 材料_値上げイベント_仕入
 ref table 材料_月別純増減_仕入
 ref table 材料_移動平均単価_月次
+ref table 材料番号ブリッジ
 
 ref cultureInfo ja-JP
 
