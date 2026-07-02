@@ -515,5 +515,5 @@ relationship d4e5f6a7-b8c9-4012-de45-fa67bc890123
 
 relationship e5f6a7b8-c9d0-4123-ef56-ab78cd901234
 	fromColumn: 材料_移動平均単価_月次.F_材料番号
-	toColumn: 材料情報.F_在庫材料番号
+	toColumn: 材料情報.F_材料番号
 
