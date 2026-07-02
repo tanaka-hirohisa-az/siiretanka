@@ -122,10 +122,10 @@ table 材料_月別純増減_仕入
 	partition 材料_月別純増減_仕入 = calculated
 		mode: import
 		source =
-
+				
 				VAR __Ev =
 				    '材料_値上げイベント_仕入'
-
+				
 				VAR __Base =
 				    SUMMARIZE (
 				        __Ev,
@@ -134,24 +134,24 @@ table 材料_月別純増減_仕入
 				        [F_仕入先番号],
 				        [月次キー]
 				    )
-
+				
 				RETURN
 				    ADDCOLUMNS (
 				        __Base,
-
+				
 				        "F_仕入先略称",
 				            LOOKUPVALUE (
 				                'TB_仕入先情報'[F_仕入先略称],
 				                'TB_仕入先情報'[F_仕入先番号], [F_仕入先番号]
 				            ),
-
+				
 				        "月内イベント件数",
 				            VAR k = [月次キー]
 				            RETURN
 				                COUNTROWS (
 				                    FILTER ( __Ev, [月次キー] = k )
 				                ),
-
+				
 				        "月内最初開始日",
 				            VAR k = [月次キー]
 				            RETURN
@@ -159,7 +159,7 @@ table 材料_月別純増減_仕入
 				                    FILTER ( __Ev, [月次キー] = k ),
 				                    [F_開始日]
 				                ),
-
+				
 				        "月内最終開始日",
 				            VAR k = [月次キー]
 				            RETURN
@@ -167,7 +167,7 @@ table 材料_月別純増減_仕入
 				                    FILTER ( __Ev, [月次キー] = k ),
 				                    [F_開始日]
 				                ),
-
+				
 				        "月初時点単価",
 				            VAR k = [月次キー]
 				            VAR dFirst =
@@ -184,7 +184,7 @@ table 材料_月別純増減_仕入
 				                    ),
 				                    [前回単価]
 				                ),
-
+				
 				        "月内最終単価",
 				            VAR k = [月次キー]
 				            VAR dLast =
@@ -201,7 +201,7 @@ table 材料_月別純増減_仕入
 				                    ),
 				                    [F_契約単価]
 				                ),
-
+				
 				        "純増減額",
 				            VAR k = [月次キー]
 				            RETURN
@@ -209,7 +209,7 @@ table 材料_月別純増減_仕入
 				                    FILTER ( __Ev, [月次キー] = k ),
 				                    [値上げ額]
 				                ),
-
+				
 				        "月別_純値上げ額合計_材料",
 				            VAR k = [月次キー]
 				            RETURN
@@ -217,7 +217,7 @@ table 材料_月別純増減_仕入
 				                    FILTER ( __Ev, [月次キー] = k && [値上げ額] > 0 ),
 				                    [値上げ額]
 				                ),
-
+				
 				        "月別_純値下げ額合計_材料",
 				            VAR k = [月次キー]
 				            RETURN

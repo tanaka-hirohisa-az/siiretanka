@@ -2,31 +2,31 @@ table 材料_値上げイベント_仕入
 	lineageTag: a0b1c2d3-e4f5-4a67-8b9c-0d1e2f3a4b5c
 
 	measure 月別_単価改定額ABS_合計_材料_仕入 = ```
-
+			
 			SUMX (
 			    '材料_値上げイベント_仕入',
 			    ABS ( '材料_値上げイベント_仕入'[値上げ額] )
 			)
-
+			
 			```
 		lineageTag: a1b2c3d4-e5f6-4a78-9b0c-1d2e3f4a5b6c
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 1件あたり_単価改定額ABS_平均_材料_仕入 = ```
-
+			
 			AVERAGEX (
 			    '材料_値上げイベント_仕入',
 			    ABS ( '材料_値上げイベント_仕入'[値上げ額] )
 			)
-
+			
 			```
 		lineageTag: b2c3d4e5-f6a7-4b89-0c1d-2e3f4a5b6c7d
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 月別_値上げ額_合計_材料_仕入 =
-
+			
 			CALCULATE (
 			    SUM ( '材料_値上げイベント_仕入'[値上げ額] ),
 			    '材料_値上げイベント_仕入'[値上げ額] > 0
@@ -36,7 +36,7 @@ table 材料_値上げイベント_仕入
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 月別_値下げ額_合計_材料_仕入 =
-
+			
 			CALCULATE (
 			    SUM ( '材料_値上げイベント_仕入'[値上げ額] ),
 			    '材料_値上げイベント_仕入'[値上げ額] < 0
@@ -46,7 +46,7 @@ table 材料_値上げイベント_仕入
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 1件あたり_値上げ額_平均_材料_仕入 =
-
+			
 			AVERAGEX (
 			    FILTER ( '材料_値上げイベント_仕入', '材料_値上げイベント_仕入'[値上げ額] > 0 ),
 			    '材料_値上げイベント_仕入'[値上げ額]
@@ -56,7 +56,7 @@ table 材料_値上げイベント_仕入
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 1件あたり_値下げ額_平均_材料_仕入 =
-
+			
 			AVERAGEX (
 			    FILTER ( '材料_値上げイベント_仕入', '材料_値上げイベント_仕入'[値上げ額] < 0 ),
 			    '材料_値上げイベント_仕入'[値上げ額]
@@ -66,7 +66,7 @@ table 材料_値上げイベント_仕入
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 月別_純増減額合計_材料_明細_仕入 =
-
+			
 			SUMX (
 			    VALUES ( '材料_値上げイベント_仕入'[月次キー] ),
 			    CALCULATE (
@@ -80,7 +80,7 @@ table 材料_値上げイベント_仕入
 		lineageTag: a7b8c9d0-e1f2-4034-5b6c-7d8e9f0a1b2c
 
 	measure 月別_純値上げ額合計_材料_明細_仕入 =
-
+			
 			SUMX (
 			    VALUES ( '材料_値上げイベント_仕入'[月次キー] ),
 			    CALCULATE (
@@ -96,7 +96,7 @@ table 材料_値上げイベント_仕入
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 月別_純値下げ額合計_材料_明細_仕入 =
-
+			
 			SUMX (
 			    VALUES ( '材料_値上げイベント_仕入'[月次キー] ),
 			    CALCULATE (
@@ -319,64 +319,64 @@ table 材料_値上げイベント_仕入
 	partition 材料_値上げイベント_仕入 = calculated
 		mode: import
 		source =
-
+				
 				VAR __Ev0 =
 				    FILTER (
 				        '材料_仕入単価履歴',
 				        NOT ISBLANK ( '材料_仕入単価履歴'[値上げ額] )
 				            && '材料_仕入単価履歴'[値上げ額] <> 0
 				    )
-
+				
 				VAR __EvWithQty =
 				    ADDCOLUMNS (
 				        __Ev0,
-
+				
 				        "月次キー",
 				            FORMAT ( [F_開始月], "yyyymmdd" ) & "|"
 				                & [F_材料番号] & "|"
 				                & [F_仕入先番号],
-
+				
 				        "直近12か月稼働量",
 				            LOOKUPVALUE (
 				                '材料_年平均稼働量_仕入'[直近12か月稼働量],
 				                '材料_年平均稼働量_仕入'[F_材料番号], [F_材料番号]
 				            )
 				    )
-
+				
 				RETURN
 				    ADDCOLUMNS (
 				        __EvWithQty,
-
+				
 				        "値上げ率",
 				            DIVIDE ( [値上げ額], [前回単価] ),
-
+				
 				        "改定方向",
 				            IF ( [値上げ額] > 0, "値上げ", "値下げ" ),
-
+				
 				        "絶対値上げ額",
 				            ABS ( [値上げ額] ),
-
+				
 				        "外れ値フラグ",
 				            IF ( ABS ( [値上げ額] ) >= 50000, 1, 0 ),
-
+				
 				        "年間予測影響額",
 				            [値上げ額] * [直近12か月稼働量],
-
+				
 				        "値上げ額_値上げのみ",
 				            IF ( [値上げ額] > 0, [値上げ額], BLANK () ),
-
+				
 				        "値下げ額_値下げのみ",
 				            IF ( [値上げ額] < 0, [値上げ額], BLANK () ),
-
+				
 				        "値下げ額_値下げのみ_絶対値",
 				            IF ( [値上げ額] < 0, ABS ( [値上げ額] ), BLANK () ),
-
+				
 				        "年間予測影響額_値上げのみ",
 				            IF ( [値上げ額] > 0, [値上げ額] * [直近12か月稼働量], BLANK () ),
-
+				
 				        "年間予測影響額_値下げのみ",
 				            IF ( [値上げ額] < 0, [値上げ額] * [直近12か月稼働量], BLANK () ),
-
+				
 				        "年間予測影響額_値下げのみ_絶対値",
 				            IF ( [値上げ額] < 0, ABS ( [値上げ額] * [直近12か月稼働量] ), BLANK () )
 				    )

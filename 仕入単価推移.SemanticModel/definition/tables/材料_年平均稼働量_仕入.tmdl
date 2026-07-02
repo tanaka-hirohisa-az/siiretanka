@@ -32,16 +32,16 @@ table 材料_年平均稼働量_仕入
 	partition 材料_年平均稼働量_仕入 = calculated
 		mode: import
 		source =
-
+				
 				VAR __End0 =
 				    EOMONTH ( TODAY (), -1 )
-
+				
 				VAR __Periods =
 				    SELECTCOLUMNS (
 				        GENERATESERIES ( 0, 4, 1 ),
 				        "p", [Value]
 				    )
-
+				
 				VAR __Ev0 =
 				    FILTER (
 				        'TB_仕入実績情報',
@@ -49,7 +49,7 @@ table 材料_年平均稼働量_仕入
 				            && NOT ISBLANK ( 'TB_仕入実績情報'[F_仕入日] )
 				            && NOT ISBLANK ( 'TB_仕入実績情報'[F_仕入数] )
 				    )
-
+				
 				VAR __Ev =
 				    ADDCOLUMNS (
 				        __Ev0,
@@ -64,7 +64,7 @@ table 材料_年平均稼働量_仕入
 				        "__日付", DATEVALUE ( 'TB_仕入実績情報'[F_仕入日] ),
 				        "__数",   'TB_仕入実績情報'[F_仕入数]
 				    )
-
+				
 				VAR __ByMatPeriod =
 				    ADDCOLUMNS (
 				        CROSSJOIN (
@@ -90,7 +90,7 @@ table 材料_年平均稼働量_仕入
 				                    0
 				                )
 				    )
-
+				
 				VAR __Agg =
 				    GROUPBY (
 				        __ByMatPeriod,
@@ -103,7 +103,7 @@ table 材料_年平均稼働量_仕入
 				                IF ( [p] = 0, [年稼働合計_12M] )
 				            )
 				    )
-
+				
 				RETURN
 				    SELECTCOLUMNS (
 				        __Agg,

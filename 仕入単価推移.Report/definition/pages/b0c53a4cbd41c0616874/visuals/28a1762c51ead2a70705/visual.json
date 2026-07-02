@@ -196,7 +196,7 @@
                                   "Entity": "tbl_calendar"
                                 }
                               },
-                              "Property": "年月_yy年MM月"
+                              "Property": "年_yyyy年"
                             }
                           }
                         ],
