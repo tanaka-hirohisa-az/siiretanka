@@ -76,7 +76,7 @@
       ]
     },
     "syncGroup": {
-      "groupName": "分類名_契約単価",
+      "groupName": "分類名",
       "fieldChanges": true,
       "filterChanges": true
     },

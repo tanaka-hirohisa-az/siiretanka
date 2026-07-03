@@ -4,5 +4,87 @@
   "displayName": "材料_契約単価_トレンド",
   "displayOption": "FitToPage",
   "height": 720,
-  "width": 1280
+  "width": 1280,
+  "visualInteractions": [
+    {
+      "source": "e5f6a7b8c9d0123456ef",
+      "target": "f6a7b8c9d0e1234567f0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "e5f6a7b8c9d0123456ef",
+      "target": "a7b8c9d0e1f2345678a1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "e5f6a7b8c9d0123456ef",
+      "target": "b8c9d0e1f2a3456789b2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "f6a7b8c9d0e1234567f0",
+      "target": "e5f6a7b8c9d0123456ef",
+      "type": "DataFilter"
+    },
+    {
+      "source": "f6a7b8c9d0e1234567f0",
+      "target": "a7b8c9d0e1f2345678a1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "f6a7b8c9d0e1234567f0",
+      "target": "b8c9d0e1f2a3456789b2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "a7b8c9d0e1f2345678a1",
+      "target": "e5f6a7b8c9d0123456ef",
+      "type": "DataFilter"
+    },
+    {
+      "source": "a7b8c9d0e1f2345678a1",
+      "target": "f6a7b8c9d0e1234567f0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "a7b8c9d0e1f2345678a1",
+      "target": "b8c9d0e1f2a3456789b2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "b8c9d0e1f2a3456789b2",
+      "target": "e5f6a7b8c9d0123456ef",
+      "type": "DataFilter"
+    },
+    {
+      "source": "b8c9d0e1f2a3456789b2",
+      "target": "f6a7b8c9d0e1234567f0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "b8c9d0e1f2a3456789b2",
+      "target": "a7b8c9d0e1f2345678a1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "e1f2a3b4c5d6789012e5",
+      "target": "e5f6a7b8c9d0123456ef",
+      "type": "DataFilter"
+    },
+    {
+      "source": "e1f2a3b4c5d6789012e5",
+      "target": "f6a7b8c9d0e1234567f0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "e1f2a3b4c5d6789012e5",
+      "target": "a7b8c9d0e1f2345678a1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "e1f2a3b4c5d6789012e5",
+      "target": "b8c9d0e1f2a3456789b2",
+      "type": "DataFilter"
+    }
+  ]
 }

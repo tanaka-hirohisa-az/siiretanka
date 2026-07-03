@@ -47,6 +47,23 @@
             }
           ]
         }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "tbl_calendar"
+                  }
+                },
+                "Property": "年_yyyy年"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
       }
     },
     "objects": {

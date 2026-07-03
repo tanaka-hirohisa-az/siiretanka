@@ -76,7 +76,7 @@
       ]
     },
     "syncGroup": {
-      "groupName": "在庫場所_契約単価",
+      "groupName": "在庫場所",
       "fieldChanges": true,
       "filterChanges": true
     },

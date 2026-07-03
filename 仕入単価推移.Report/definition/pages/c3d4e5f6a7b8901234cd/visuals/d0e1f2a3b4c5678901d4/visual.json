@@ -76,7 +76,7 @@
       ]
     },
     "syncGroup": {
-      "groupName": "在庫材料番号_契約単価",
+      "groupName": "在庫材料番号",
       "fieldChanges": true,
       "filterChanges": true
     },
