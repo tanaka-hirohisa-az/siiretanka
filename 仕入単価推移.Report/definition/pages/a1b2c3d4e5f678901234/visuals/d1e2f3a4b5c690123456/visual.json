@@ -23,21 +23,6 @@
                       "Entity": "tbl_calendar"
                     }
                   },
-                  "Property": "年_yyyy年"
-                }
-              },
-              "queryRef": "tbl_calendar.年_yyyy年",
-              "nativeQueryRef": "年_yyyy年",
-              "active": true
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "tbl_calendar"
-                    }
-                  },
                   "Property": "年月_yy年MM月"
                 }
               },
@@ -47,6 +32,23 @@
             }
           ]
         }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "tbl_calendar"
+                  }
+                },
+                "Property": "年月_yy年MM月"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
       }
     },
     "objects": {

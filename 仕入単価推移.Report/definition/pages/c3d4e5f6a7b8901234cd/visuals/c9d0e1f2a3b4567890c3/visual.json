@@ -3,9 +3,9 @@
   "name": "c9d0e1f2a3b4567890c3",
   "position": {
     "x": 0,
-    "y": 136.28140703517587,
+    "y": 223.28140703517587,
     "z": 5000,
-    "height": 243.6180904522613,
+    "height": 156.61809045226133,
     "width": 137.48743718592965,
     "tabOrder": 5000
   },
@@ -15,21 +15,6 @@
       "queryState": {
         "Values": {
           "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "tbl_calendar"
-                    }
-                  },
-                  "Property": "年_yyyy年"
-                }
-              },
-              "queryRef": "tbl_calendar.年_yyyy年",
-              "nativeQueryRef": "年_yyyy年",
-              "active": true
-            },
             {
               "field": {
                 "Column": {
@@ -58,7 +43,7 @@
                     "Entity": "tbl_calendar"
                   }
                 },
-                "Property": "年_yyyy年"
+                "Property": "年月_yy年MM月"
               }
             },
             "direction": "Descending"
