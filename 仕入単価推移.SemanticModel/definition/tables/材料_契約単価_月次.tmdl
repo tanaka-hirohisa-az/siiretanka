@@ -42,70 +42,70 @@ table 材料_契約単価_月次
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column 前月契約単価
+	column 契約単価_前月契約単価
 		lineageTag: d0e1f2a3-b4c5-4367-8e9f-0a1b7b7b7b7b
 		summarizeBy: none
 		isNameInferred
-		sourceColumn: [前月契約単価]
+		sourceColumn: [契約単価_前月契約単価]
 
 		annotation SummarizationSetBy = Automatic
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column 値上げ額
+	column 契約単価_値上げ額
 		lineageTag: e1f2a3b4-c5d6-4478-9f0a-1b2c8c8c8c8c
 		summarizeBy: sum
 		isNameInferred
-		sourceColumn: [値上げ額]
+		sourceColumn: [契約単価_値上げ額]
 
 		annotation SummarizationSetBy = Automatic
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column 値上げ率
+	column 契約単価_値上げ率
 		formatString: 0.00%;-0.00%;0.00%
 		lineageTag: f2a3b4c5-d6e7-4589-0a1b-2c3d9d9d9d9d
 		summarizeBy: sum
 		isNameInferred
-		sourceColumn: [値上げ率]
+		sourceColumn: [契約単価_値上げ率]
 
 		annotation SummarizationSetBy = Automatic
 
-	column 年間予測影響額
+	column 契約単価_年間予測影響額
 		lineageTag: a3b4c5d6-e7f8-4690-1b2c-3d4eaeaeaeae
 		summarizeBy: sum
 		isNameInferred
-		sourceColumn: [年間予測影響額]
+		sourceColumn: [契約単価_年間予測影響額]
 
 		annotation SummarizationSetBy = Automatic
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column 年間予測影響額_値上げのみ
+	column 契約単価_年間予測影響額_値上げのみ
 		lineageTag: b4c5d6e7-f8a9-4701-2c3d-4e5fbfbfbfbf
 		summarizeBy: sum
 		isNameInferred
-		sourceColumn: [年間予測影響額_値上げのみ]
+		sourceColumn: [契約単価_年間予測影響額_値上げのみ]
 
 		annotation SummarizationSetBy = Automatic
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column 年間予測影響額_値下げのみ
+	column 契約単価_年間予測影響額_値下げのみ
 		lineageTag: c5d6e7f8-a9b0-4812-3d4e-5f6acacacaca
 		summarizeBy: sum
 		isNameInferred
-		sourceColumn: [年間予測影響額_値下げのみ]
+		sourceColumn: [契約単価_年間予測影響額_値下げのみ]
 
 		annotation SummarizationSetBy = Automatic
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column 直近12か月稼働量
+	column 契約単価_直近12か月稼働量
 		lineageTag: d6e7f8a9-b0c1-4923-4e5f-6a7bdbdbdbdb
 		summarizeBy: none
 		isNameInferred
-		sourceColumn: [直近12か月稼働量]
+		sourceColumn: [契約単価_直近12か月稼働量]
 
 		annotation SummarizationSetBy = Automatic
 
@@ -338,15 +338,15 @@ table 材料_契約単価_月次
 				        "F_材料番号",     [__材料番号],
 				        "F_開始月",       [__月],
 				        "契約単価",       [__契約単価],
-				        "前月契約単価",   [__前月単価],
-				        "値上げ額",       [__値上げ額],
-				        "値上げ率",       DIVIDE ( [__値上げ額], [__前月単価] ),
-				        "年間予測影響額", [__値上げ額] * [__稼働量],
-				        "年間予測影響額_値上げのみ",
+				        "契約単価_前月契約単価",   [__前月単価],
+				        "契約単価_値上げ額",       [__値上げ額],
+				        "契約単価_値上げ率",       DIVIDE ( [__値上げ額], [__前月単価] ),
+				        "契約単価_年間予測影響額", [__値上げ額] * [__稼働量],
+				        "契約単価_年間予測影響額_値上げのみ",
 				            IF ( [__値上げ額] > 0, [__値上げ額] * [__稼働量] ),
-				        "年間予測影響額_値下げのみ",
+				        "契約単価_年間予測影響額_値下げのみ",
 				            IF ( [__値上げ額] < 0, [__値上げ額] * [__稼働量] ),
-				        "直近12か月稼働量", [__稼働量]
+				        "契約単価_直近12か月稼働量", [__稼働量]
 				    )
 
 				```

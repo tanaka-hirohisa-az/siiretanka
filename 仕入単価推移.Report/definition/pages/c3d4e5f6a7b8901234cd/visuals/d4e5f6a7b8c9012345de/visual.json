@@ -1,6 +1,6 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
-  "name": "3bb66d9bb00c0a6e3f1a",
+  "name": "d4e5f6a7b8c9012345de",
   "position": {
     "x": 0,
     "y": 0,
@@ -22,43 +22,20 @@
                     "Column": {
                       "Expression": {
                         "SourceRef": {
-                          "Entity": "材料_移動平均単価_月次"
+                          "Entity": "材料_契約単価_月次"
                         }
                       },
-                      "Property": "値上げ額"
+                      "Property": "契約単価_値上げ額"
                     }
                   },
                   "Function": 0
                 }
               },
-              "queryRef": "Sum(材料_移動平均単価_月次.値上げ額)",
-              "nativeQueryRef": "値上げ額 の合計"
+              "queryRef": "Sum(材料_契約単価_月次.契約単価_値上げ額)",
+              "nativeQueryRef": "契約単価_値上げ額 の合計"
             }
           ]
         }
-      },
-      "sortDefinition": {
-        "sort": [
-          {
-            "field": {
-              "Aggregation": {
-                "Expression": {
-                  "Column": {
-                    "Expression": {
-                      "SourceRef": {
-                        "Entity": "材料_移動平均単価_月次"
-                      }
-                    },
-                    "Property": "値上げ額"
-                  }
-                },
-                "Function": 0
-              }
-            },
-            "direction": "Descending"
-          }
-        ],
-        "isDefaultSort": true
       }
     },
     "objects": {
@@ -136,7 +113,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'選択期間中の値上げ額の合計'"
+                  "Value": "'選択期間中の契約単価_値上げ額の合計'"
                 }
               }
             },
