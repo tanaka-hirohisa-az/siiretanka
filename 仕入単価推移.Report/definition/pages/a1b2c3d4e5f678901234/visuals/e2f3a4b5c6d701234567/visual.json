@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
-  "name": "b1c2d3e4f5a678901234",
+  "name": "e2f3a4b5c6d701234567",
   "position": {
-    "x": 0,
-    "y": 379.89949748743715,
-    "z": 11000,
-    "height": 120,
-    "width": 149,
-    "tabOrder": 11000
+    "x": 150,
+    "y": 0,
+    "z": 2001,
+    "height": 140,
+    "width": 150,
+    "tabOrder": 2001
   },
   "visual": {
     "visualType": "slicer",
@@ -23,11 +23,11 @@
                       "Entity": "材料情報"
                     }
                   },
-                  "Property": "F_在庫場所"
+                  "Property": "F_在庫材料番号"
                 }
               },
-              "queryRef": "材料情報.F_在庫場所",
-              "nativeQueryRef": "F_在庫場所",
+              "queryRef": "材料情報.F_在庫材料番号",
+              "nativeQueryRef": "F_在庫材料番号",
               "active": true
             }
           ]
@@ -76,7 +76,7 @@
       ]
     },
     "syncGroup": {
-      "groupName": "在庫場所",
+      "groupName": "在庫材料番号",
       "fieldChanges": true,
       "filterChanges": true
     },
@@ -85,7 +85,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "b3c4d5e6f7a8901234ab",
+        "name": "b1f2e3d4c5b6a7889901",
         "field": {
           "Measure": {
             "Expression": {

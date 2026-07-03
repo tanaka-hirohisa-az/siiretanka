@@ -130,6 +130,11 @@
         }
       ]
     },
+    "syncGroup": {
+      "groupName": "分類名",
+      "fieldChanges": true,
+      "filterChanges": true
+    },
     "drillFilterOtherVisuals": true
   },
   "filterConfig": {

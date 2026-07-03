@@ -1,0 +1,87 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "d1e2f3a4b5c690123456",
+  "position": {
+    "x": 0,
+    "y": 0,
+    "z": 2000,
+    "height": 140,
+    "width": 150,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tbl_calendar"
+                    }
+                  },
+                  "Property": "年_yyyy年"
+                }
+              },
+              "queryRef": "tbl_calendar.年_yyyy年",
+              "nativeQueryRef": "年_yyyy年",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tbl_calendar"
+                    }
+                  },
+                  "Property": "年月_yy年MM月"
+                }
+              },
+              "queryRef": "tbl_calendar.年月_yy年MM月",
+              "nativeQueryRef": "年月_yy年MM月",
+              "active": true
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "data": [
+        {
+          "properties": {
+            "mode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Basic'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "items": [
+        {
+          "properties": {
+            "textSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "9D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "syncGroup": {
+      "groupName": "年月_yy年MM月",
+      "fieldChanges": true,
+      "filterChanges": true
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

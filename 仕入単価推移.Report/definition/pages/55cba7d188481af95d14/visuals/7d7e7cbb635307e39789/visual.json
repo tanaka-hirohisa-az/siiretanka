@@ -75,6 +75,11 @@
         }
       ]
     },
+    "syncGroup": {
+      "groupName": "在庫材料番号",
+      "fieldChanges": true,
+      "filterChanges": true
+    },
     "drillFilterOtherVisuals": true
   },
   "filterConfig": {
