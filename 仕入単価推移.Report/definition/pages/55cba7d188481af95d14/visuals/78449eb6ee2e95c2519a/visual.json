@@ -52,6 +52,25 @@
               },
               "queryRef": "Sum(材料_移動平均単価_月次.値上げ額)",
               "nativeQueryRef": "値上げ額 の合計1"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "材料_契約単価_月次"
+                        }
+                      },
+                      "Property": "値上げ額"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(材料_契約単価_月次.値上げ額)",
+              "nativeQueryRef": "契約単価_値上げ額 の合計"
             }
           ]
         }

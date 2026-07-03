@@ -1,0 +1,354 @@
+table 材料_契約単価_月次
+	lineageTag: e5f6a7b8-c9d0-4e12-3f4a-5b6c7d8e9f2c
+
+	measure 材料使用有無_契約単価 =
+
+			IF ( COUNTROWS ( '材料_契約単価_月次' ) > 0, 1, 0 )
+		formatString: 0
+		lineageTag: d2e3f4a5-b6c7-4389-0e1f-2a3b8c9d0e1f
+
+	column F_材料番号
+		lineageTag: f6a7b8c9-d0e1-4f23-4a5b-6c7d8e9f3d3d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_材料番号]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_在庫材料番号
+		lineageTag: a7b8c9d0-e1f2-4034-5b6c-7d8e9f4e4e4e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_在庫材料番号]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_開始月
+		formatString: General Date
+		lineageTag: b8c9d0e1-f2a3-4145-6c7d-8e9f5f5f5f5f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_開始月]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 契約単価
+		lineageTag: c9d0e1f2-a3b4-4256-7d8e-9f0a6a6a6a6a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [契約単価]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 前月契約単価
+		lineageTag: d0e1f2a3-b4c5-4367-8e9f-0a1b7b7b7b7b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [前月契約単価]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 値上げ額
+		lineageTag: e1f2a3b4-c5d6-4478-9f0a-1b2c8c8c8c8c
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [値上げ額]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 値上げ率
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: f2a3b4c5-d6e7-4589-0a1b-2c3d9d9d9d9d
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [値上げ率]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 年間予測影響額
+		lineageTag: a3b4c5d6-e7f8-4690-1b2c-3d4eaeaeaeae
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [年間予測影響額]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 年間予測影響額_値上げのみ
+		lineageTag: b4c5d6e7-f8a9-4701-2c3d-4e5fbfbfbfbf
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [年間予測影響額_値上げのみ]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 年間予測影響額_値下げのみ
+		lineageTag: c5d6e7f8-a9b0-4812-3d4e-5f6acacacaca
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [年間予測影響額_値下げのみ]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 直近12か月稼働量
+		lineageTag: d6e7f8a9-b0c1-4923-4e5f-6a7bdbdbdbdb
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [直近12か月稼働量]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 材料_契約単価_月次 = calculated
+		mode: import
+		source = ```
+
+				VAR __Rev0 =
+				    FILTER (
+				        'TB_材料仕入先単価情報',
+				        NOT ISBLANK ( 'TB_材料仕入先単価情報'[F_材料番号] )
+				            && NOT ISBLANK ( 'TB_材料仕入先単価情報'[F_開始日] )
+				            && NOT ISBLANK ( 'TB_材料仕入先単価情報'[F_契約単価] )
+				    )
+
+				VAR __Rev1 =
+				    SELECTCOLUMNS (
+				        __Rev0,
+				        "__材料番号",
+				            TRIM (
+				                SUBSTITUTE (
+				                    'TB_材料仕入先単価情報'[F_材料番号],
+				                    UNICHAR ( 12288 ),
+				                    " "
+				                )
+				            ) & "",
+				        "__仕入先", 'TB_材料仕入先単価情報'[F_仕入先番号] & "",
+				        "__開始月",
+				            EOMONTH ( 'TB_材料仕入先単価情報'[F_開始日], -1 ) + 1,
+				        "__単価", 'TB_材料仕入先単価情報'[F_契約単価]
+				    )
+
+				VAR __MatSet =
+				    FILTER (
+				        DISTINCT (
+				            SELECTCOLUMNS (
+				                '材料情報',
+				                "__材料番号",
+				                    TRIM (
+				                        SUBSTITUTE (
+				                            '材料情報'[F_材料番号],
+				                            UNICHAR ( 12288 ),
+				                            " "
+				                        )
+				                    ) & ""
+				            )
+				        ),
+				        [__材料番号] <> ""
+				    )
+
+				VAR __Rev =
+				    NATURALINNERJOIN ( __Rev1, __MatSet )
+
+				VAR __MaxM =
+				    EOMONTH ( TODAY (), -1 )
+
+				VAR __MinM =
+				    MINX ( __Rev, [__開始月] )
+
+				VAR __Combo =
+				    GROUPBY (
+				        __Rev,
+				        [__材料番号],
+				        [__仕入先],
+				        "__初月", MINX ( CURRENTGROUP (), [__開始月] )
+				    )
+
+				VAR __AllMonths =
+				    SELECTCOLUMNS (
+				        GENERATESERIES ( 0, DATEDIFF ( __MinM, __MaxM, MONTH ), 1 ),
+				        "__月", EDATE ( __MinM, [Value] )
+				    )
+
+				VAR __ComboMonth =
+				    FILTER (
+				        CROSSJOIN ( __Combo, __AllMonths ),
+				        [__月] >= [__初月]
+				    )
+
+				VAR __ComboPrice =
+				    ADDCOLUMNS (
+				        __ComboMonth,
+				        "__適用単価",
+				            VAR k1 = [__材料番号]
+				            VAR k2 = [__仕入先]
+				            VAR m  = [__月]
+				            VAR lastRev =
+				                MAXX (
+				                    FILTER (
+				                        __Rev,
+				                        [__材料番号] = k1
+				                            && [__仕入先] = k2
+				                            && [__開始月] <= m
+				                    ),
+				                    [__開始月]
+				                )
+				            RETURN
+				                MAXX (
+				                    FILTER (
+				                        __Rev,
+				                        [__材料番号] = k1
+				                            && [__仕入先] = k2
+				                            && [__開始月] = lastRev
+				                    ),
+				                    [__単価]
+				                )
+				    )
+
+				VAR __ByMat =
+				    GROUPBY (
+				        __ComboPrice,
+				        [__材料番号],
+				        [__月],
+				        "__契約単価", AVERAGEX ( CURRENTGROUP (), [__適用単価] )
+				    )
+
+				VAR __WithPrev =
+				    ADDCOLUMNS (
+				        __ByMat,
+				        "__前月単価",
+				            VAR k = [__材料番号]
+				            VAR pm = EDATE ( [__月], -1 )
+				            RETURN
+				                MAXX (
+				                    FILTER ( __ByMat, [__材料番号] = k && [__月] = pm ),
+				                    [__契約単価]
+				                )
+				    )
+
+				VAR __EvQ0 =
+				    FILTER (
+				        'TB_仕入実績情報',
+				        NOT ISBLANK ( 'TB_仕入実績情報'[F_品目番号] )
+				            && NOT ISBLANK ( 'TB_仕入実績情報'[F_仕入日] )
+				            && 'TB_仕入実績情報'[F_仕入数] > 0
+				    )
+
+				VAR __EvQ1 =
+				    SELECTCOLUMNS (
+				        __EvQ0,
+				        "__材料番号",
+				            TRIM (
+				                SUBSTITUTE (
+				                    'TB_仕入実績情報'[F_品目番号],
+				                    UNICHAR ( 12288 ),
+				                    " "
+				                )
+				            ) & "",
+				        "__月",
+				            EOMONTH ( DATEVALUE ( 'TB_仕入実績情報'[F_仕入日] ), -1 ) + 1,
+				        "__数", 'TB_仕入実績情報'[F_仕入数]
+				    )
+
+				VAR __EvQM =
+				    NATURALINNERJOIN ( __EvQ1, __MatSet )
+
+				VAR __Q =
+				    GROUPBY (
+				        __EvQM,
+				        [__材料番号],
+				        [__月],
+				        "__月数計", SUMX ( CURRENTGROUP (), [__数] )
+				    )
+
+				VAR __QShift =
+				    SELECTCOLUMNS (
+				        CROSSJOIN (
+				            __Q,
+				            SELECTCOLUMNS ( GENERATESERIES ( 0, 11, 1 ), "__k", [Value] )
+				        ),
+				        "__材料番号", [__材料番号],
+				        "__基準月",   EDATE ( [__月], [__k] ),
+				        "__数c",      [__月数計]
+				    )
+
+				VAR __QAgg =
+				    GROUPBY (
+				        __QShift,
+				        [__材料番号],
+				        [__基準月],
+				        "__稼働量", SUMX ( CURRENTGROUP (), [__数c] )
+				    )
+
+				VAR __Final0 =
+				    NATURALLEFTOUTERJOIN (
+				        __WithPrev,
+				        SELECTCOLUMNS ( __QAgg, "__材料番号", [__材料番号], "__月", [__基準月], "__稼働量", [__稼働量] )
+				    )
+
+				VAR __Final =
+				    ADDCOLUMNS (
+				        __Final0,
+				        "__値上げ額",
+				            IF (
+				                NOT ISBLANK ( [__前月単価] ),
+				                [__契約単価] - [__前月単価]
+				            )
+				    )
+
+				VAR __Map0 =
+				    SELECTCOLUMNS (
+				        '材料情報',
+				        "__材料番号",
+				            TRIM (
+				                SUBSTITUTE (
+				                    '材料情報'[F_材料番号],
+				                    UNICHAR ( 12288 ),
+				                    " "
+				                )
+				            ) & "",
+				        "__在k", '材料情報'[F_在庫材料番号] & ""
+				    )
+
+				VAR __Map =
+				    GROUPBY (
+				        __Map0,
+				        [__材料番号],
+				        "__在庫番号", MAXX ( CURRENTGROUP (), [__在k] )
+				    )
+
+				VAR __J2 =
+				    NATURALLEFTOUTERJOIN ( __Final, __Map )
+
+				RETURN
+				    SELECTCOLUMNS (
+				        __J2,
+				        "F_在庫材料番号", [__在庫番号],
+				        "F_材料番号",     [__材料番号],
+				        "F_開始月",       [__月],
+				        "契約単価",       [__契約単価],
+				        "前月契約単価",   [__前月単価],
+				        "値上げ額",       [__値上げ額],
+				        "値上げ率",       DIVIDE ( [__値上げ額], [__前月単価] ),
+				        "年間予測影響額", [__値上げ額] * [__稼働量],
+				        "年間予測影響額_値上げのみ",
+				            IF ( [__値上げ額] > 0, [__値上げ額] * [__稼働量] ),
+				        "年間予測影響額_値下げのみ",
+				            IF ( [__値上げ額] < 0, [__値上げ額] * [__稼働量] ),
+				        "直近12か月稼働量", [__稼働量]
+				    )
+
+				```
+
+	annotation PBI_Id = e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0

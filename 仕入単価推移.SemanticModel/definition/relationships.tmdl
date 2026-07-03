@@ -520,3 +520,14 @@ relationship f6a7b8c9-d0e1-4234-fa67-bc89de012345
 	toCardinality: many
 	toColumn: 材料情報.材料番号_正規化
 
+relationship a1b2c3d4-e5f6-4501-a012-bc34de456789
+	fromColumn: 材料_契約単価_月次.F_開始月
+	toColumn: tbl_calendar.Date
+
+relationship b2c3d4e5-f6a7-4612-b123-cd45ef567890
+	crossFilteringBehavior: bothDirections
+	fromCardinality: many
+	fromColumn: 材料_契約単価_月次.F_材料番号
+	toCardinality: many
+	toColumn: 材料情報.材料番号_正規化
+

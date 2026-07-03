@@ -52,6 +52,25 @@
               },
               "queryRef": "Sum(材料_移動平均単価_月次.年間予測影響額)",
               "nativeQueryRef": "年間予測影響額 の合計"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "材料_契約単価_月次"
+                        }
+                      },
+                      "Property": "年間予測影響額"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(材料_契約単価_月次.年間予測影響額)",
+              "nativeQueryRef": "契約単価_年間予測影響額 の合計"
             }
           ]
         }

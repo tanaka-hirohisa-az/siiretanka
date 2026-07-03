@@ -71,6 +71,44 @@
               },
               "queryRef": "Sum(材料_移動平均単価_月次.年間予測影響額_値下げのみ)",
               "nativeQueryRef": "年間予測影響額_値下げのみ の合計"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "材料_契約単価_月次"
+                        }
+                      },
+                      "Property": "年間予測影響額_値上げのみ"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(材料_契約単価_月次.年間予測影響額_値上げのみ)",
+              "nativeQueryRef": "契約単価_年間予測影響額_値上げのみ の合計"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "材料_契約単価_月次"
+                        }
+                      },
+                      "Property": "年間予測影響額_値下げのみ"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(材料_契約単価_月次.年間予測影響額_値下げのみ)",
+              "nativeQueryRef": "契約単価_年間予測影響額_値下げのみ の合計"
             }
           ]
         },
@@ -94,6 +132,25 @@
               },
               "queryRef": "Sum(材料_移動平均単価_月次.値上げ率)",
               "nativeQueryRef": "値上げ率 の平均"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "材料_契約単価_月次"
+                        }
+                      },
+                      "Property": "値上げ率"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Sum(材料_契約単価_月次.値上げ率)",
+              "nativeQueryRef": "契約単価_値上げ率 の平均"
             }
           ]
         }
