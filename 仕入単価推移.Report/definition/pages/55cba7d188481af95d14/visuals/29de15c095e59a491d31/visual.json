@@ -20,56 +20,28 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料_値上げイベント_仕入"
+                      "Entity": "材料_移動平均単価_月次"
                     }
                   },
-                  "Property": "F_開始日"
+                  "Property": "F_在庫材料番号"
                 }
               },
-              "queryRef": "材料_値上げイベント_仕入.F_開始日",
-              "nativeQueryRef": "F_開始日1"
+              "queryRef": "材料_移動平均単価_月次.F_在庫材料番号",
+              "nativeQueryRef": "F_在庫材料番号"
             },
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料_値上げイベント_仕入"
+                      "Entity": "材料_移動平均単価_月次"
                     }
                   },
-                  "Property": "F_材料番号"
+                  "Property": "F_開始月"
                 }
               },
-              "queryRef": "材料_値上げイベント_仕入.F_材料番号",
-              "nativeQueryRef": "F_材料番号"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "品目分類情報"
-                    }
-                  },
-                  "Property": "F_分類名"
-                }
-              },
-              "queryRef": "品目分類情報.F_分類名",
-              "nativeQueryRef": "F_分類名"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "材料_値上げイベント_仕入"
-                    }
-                  },
-                  "Property": "F_仕入先略称"
-                }
-              },
-              "queryRef": "材料_値上げイベント_仕入.F_仕入先略称",
-              "nativeQueryRef": "F_仕入先略称1"
+              "queryRef": "材料_移動平均単価_月次.F_開始月",
+              "nativeQueryRef": "F_開始月"
             },
             {
               "field": {
@@ -78,17 +50,17 @@
                     "Column": {
                       "Expression": {
                         "SourceRef": {
-                          "Entity": "材料_値上げイベント_仕入"
+                          "Entity": "材料_移動平均単価_月次"
                         }
                       },
-                      "Property": "F_契約単価"
+                      "Property": "移動平均単価"
                     }
                   },
                   "Function": 0
                 }
               },
-              "queryRef": "Sum(材料_値上げイベント_仕入.F_契約単価)",
-              "nativeQueryRef": "F_契約単価 の合計"
+              "queryRef": "Sum(材料_移動平均単価_月次.移動平均単価)",
+              "nativeQueryRef": "移動平均単価 の合計"
             },
             {
               "field": {
@@ -97,17 +69,17 @@
                     "Column": {
                       "Expression": {
                         "SourceRef": {
-                          "Entity": "材料_値上げイベント_仕入"
+                          "Entity": "材料_移動平均単価_月次"
                         }
                       },
-                      "Property": "前回単価"
+                      "Property": "前月移動平均単価"
                     }
                   },
                   "Function": 0
                 }
               },
-              "queryRef": "Sum(材料_値上げイベント_仕入.前回単価)",
-              "nativeQueryRef": "前回単価 の合計1"
+              "queryRef": "Sum(材料_移動平均単価_月次.前月移動平均単価)",
+              "nativeQueryRef": "前月移動平均単価 の合計"
             },
             {
               "field": {
@@ -116,7 +88,7 @@
                     "Column": {
                       "Expression": {
                         "SourceRef": {
-                          "Entity": "材料_値上げイベント_仕入"
+                          "Entity": "材料_移動平均単価_月次"
                         }
                       },
                       "Property": "値上げ額"
@@ -125,8 +97,8 @@
                   "Function": 0
                 }
               },
-              "queryRef": "Sum(材料_値上げイベント_仕入.値上げ額)",
-              "nativeQueryRef": "値上げ額 の合計1"
+              "queryRef": "Sum(材料_移動平均単価_月次.値上げ額)",
+              "nativeQueryRef": "値上げ額 の合計"
             },
             {
               "field": {
@@ -135,7 +107,7 @@
                     "Column": {
                       "Expression": {
                         "SourceRef": {
-                          "Entity": "材料_値上げイベント_仕入"
+                          "Entity": "材料_移動平均単価_月次"
                         }
                       },
                       "Property": "値上げ率"
@@ -144,8 +116,8 @@
                   "Function": 0
                 }
               },
-              "queryRef": "Sum(材料_値上げイベント_仕入.値上げ率)",
-              "nativeQueryRef": "値上げ率 の合計1"
+              "queryRef": "Sum(材料_移動平均単価_月次.値上げ率)",
+              "nativeQueryRef": "値上げ率 の合計"
             },
             {
               "field": {
@@ -154,7 +126,45 @@
                     "Column": {
                       "Expression": {
                         "SourceRef": {
-                          "Entity": "材料_値上げイベント_仕入"
+                          "Entity": "材料_移動平均単価_月次"
+                        }
+                      },
+                      "Property": "月内仕入数"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(材料_移動平均単価_月次.月内仕入数)",
+              "nativeQueryRef": "月内仕入数 の合計"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "材料_移動平均単価_月次"
+                        }
+                      },
+                      "Property": "月内仕入金額"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(材料_移動平均単価_月次.月内仕入金額)",
+              "nativeQueryRef": "月内仕入金額 の合計"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "材料_移動平均単価_月次"
                         }
                       },
                       "Property": "年間予測影響額"
@@ -163,50 +173,27 @@
                   "Function": 0
                 }
               },
-              "queryRef": "Sum(材料_値上げイベント_仕入.年間予測影響額)",
+              "queryRef": "Sum(材料_移動平均単価_月次.年間予測影響額)",
               "nativeQueryRef": "年間予測影響額 の合計"
             },
             {
               "field": {
-                "Measure": {
+                "Aggregation": {
                   "Expression": {
-                    "SourceRef": {
-                      "Entity": "材料_値上げイベント_仕入"
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "材料_移動平均単価_月次"
+                        }
+                      },
+                      "Property": "年間予測影響額_値上げのみ"
                     }
                   },
-                  "Property": "月別_純増減額合計_材料_明細_仕入"
+                  "Function": 0
                 }
               },
-              "queryRef": "材料_値上げイベント_仕入.月別_純増減額合計_材料_明細_仕入",
-              "nativeQueryRef": "月別_純増減額合計_材料_明細_仕入"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "材料_値上げイベント_仕入"
-                    }
-                  },
-                  "Property": "月別_純値下げ額合計_材料_明細_仕入"
-                }
-              },
-              "queryRef": "材料_値上げイベント_仕入.月別_純値下げ額合計_材料_明細_仕入",
-              "nativeQueryRef": "月別_純値下げ額合計_材料_明細_仕入"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "材料_値上げイベント_仕入"
-                    }
-                  },
-                  "Property": "月別_純値上げ額合計_材料_明細_仕入"
-                }
-              },
-              "queryRef": "材料_値上げイベント_仕入.月別_純値上げ額合計_材料_明細_仕入",
-              "nativeQueryRef": "月別_純値上げ額合計_材料_明細_仕入"
+              "queryRef": "Sum(材料_移動平均単価_月次.年間予測影響額_値上げのみ)",
+              "nativeQueryRef": "年間予測影響額_値上げのみ の合計"
             },
             {
               "field": {
@@ -215,36 +202,17 @@
                     "Column": {
                       "Expression": {
                         "SourceRef": {
-                          "Entity": "材料_年平均稼働量_仕入"
+                          "Entity": "材料_移動平均単価_月次"
                         }
                       },
-                      "Property": "直近12か月稼働量"
+                      "Property": "年間予測影響額_値下げのみ"
                     }
                   },
                   "Function": 0
                 }
               },
-              "queryRef": "Sum(材料_年平均稼働量_仕入.直近12か月稼働量)",
-              "nativeQueryRef": "直近12か月稼働量 の合計"
-            },
-            {
-              "field": {
-                "Aggregation": {
-                  "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "材料_年平均稼働量_仕入"
-                        }
-                      },
-                      "Property": "過去5年平均年間稼働量"
-                    }
-                  },
-                  "Function": 0
-                }
-              },
-              "queryRef": "Sum(材料_年平均稼働量_仕入.過去5年平均年間稼働量)",
-              "nativeQueryRef": "過去5年平均年間稼働量 の合計"
+              "queryRef": "Sum(材料_移動平均単価_月次.年間予測影響額_値下げのみ)",
+              "nativeQueryRef": "年間予測影響額_値下げのみ の合計"
             }
           ]
         }
@@ -256,10 +224,10 @@
               "Column": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "品目分類情報"
+                    "Entity": "材料_移動平均単価_月次"
                   }
                 },
-                "Property": "F_分類名"
+                "Property": "F_在庫材料番号"
               }
             },
             "direction": "Ascending"
@@ -269,10 +237,10 @@
               "Column": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "材料_値上げイベント_仕入"
+                    "Entity": "材料_移動平均単価_月次"
                   }
                 },
-                "Property": "F_材料番号"
+                "Property": "F_開始月"
               }
             },
             "direction": "Ascending"
@@ -281,36 +249,6 @@
       }
     },
     "objects": {
-      "columnWidth": [
-        {
-          "properties": {
-            "value": {
-              "expr": {
-                "Literal": {
-                  "Value": "119.10638985413071D"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "材料_値上げイベント_仕入.F_仕入先略称"
-          }
-        },
-        {
-          "properties": {
-            "value": {
-              "expr": {
-                "Literal": {
-                  "Value": "110.48837703163593D"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "材料_値上げイベント_仕入.F_材料番号"
-          }
-        }
-      ],
       "columnHeaders": [
         {
           "properties": {}
@@ -318,240 +256,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "74ba15c0b4e748e3ab60",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "材料_値上げイベント_仕入"
-              }
-            },
-            "Property": "F_開始日"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "174375cc5c1df77a21aa",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "材料_値上げイベント_仕入"
-              }
-            },
-            "Property": "F_材料番号"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "3eb273b65c2aa1749f20",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "材料_値上げイベント_仕入"
-              }
-            },
-            "Property": "F_仕入先略称"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "0b155b36f92225d06482",
-        "field": {
-          "Aggregation": {
-            "Expression": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "材料_値上げイベント_仕入"
-                  }
-                },
-                "Property": "前回単価"
-              }
-            },
-            "Function": 0
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "6624dcdd989336066c3f",
-        "field": {
-          "Aggregation": {
-            "Expression": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "材料_値上げイベント_仕入"
-                  }
-                },
-                "Property": "値上げ額"
-              }
-            },
-            "Function": 0
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "35652f4f40945640f19d",
-        "field": {
-          "Aggregation": {
-            "Expression": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "材料_値上げイベント_仕入"
-                  }
-                },
-                "Property": "値上げ率"
-              }
-            },
-            "Function": 0
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "f531985cb7fcdfd7ce67",
-        "field": {
-          "Aggregation": {
-            "Expression": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "材料_値上げイベント_仕入"
-                  }
-                },
-                "Property": "F_契約単価"
-              }
-            },
-            "Function": 0
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "12424bceda0bef17d584",
-        "field": {
-          "Aggregation": {
-            "Expression": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "材料_値上げイベント_仕入"
-                  }
-                },
-                "Property": "年間予測影響額"
-              }
-            },
-            "Function": 0
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "89686a2c772f5b644bd4",
-        "field": {
-          "Aggregation": {
-            "Expression": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "材料_年平均稼働量_仕入"
-                  }
-                },
-                "Property": "直近12か月稼働量"
-              }
-            },
-            "Function": 0
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "b9a7134c976d26e8f0f5",
-        "field": {
-          "Aggregation": {
-            "Expression": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "材料_年平均稼働量_仕入"
-                  }
-                },
-                "Property": "過去5年平均年間稼働量"
-              }
-            },
-            "Function": 0
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "73ee8aa2943437c6431b",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "材料_値上げイベント_仕入"
-              }
-            },
-            "Property": "月別_純増減額合計_材料_明細_仕入"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "0b841b9b6fadc8036dd3",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "材料_値上げイベント_仕入"
-              }
-            },
-            "Property": "月別_純値下げ額合計_材料_明細_仕入"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "1b1f25b66f930b393edd",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "材料_値上げイベント_仕入"
-              }
-            },
-            "Property": "月別_純値上げ額合計_材料_明細_仕入"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "5931ae697875678fc502",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "品目分類情報"
-              }
-            },
-            "Property": "F_分類名"
-          }
-        },
-        "type": "Categorical"
-      }
-    ]
   }
 }
