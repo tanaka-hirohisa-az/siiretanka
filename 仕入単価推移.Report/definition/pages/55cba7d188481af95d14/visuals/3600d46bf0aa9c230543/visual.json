@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "3600d46bf0aa9c230543",
   "position": {
-    "x": 429.3467336683417,
+    "x": 563.3517587939699,
     "y": 239.99999999999997,
     "z": 7000,
     "height": 139.89949748743717,
-    "width": 537.8894472361809,
+    "width": 403.88944723618084,
     "tabOrder": 7000
   },
   "visual": {
@@ -20,13 +20,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料_移動平均単価_月次"
+                      "Entity": "材料_加重平均単価_月次"
                     }
                   },
                   "Property": "F_材料番号"
                 }
               },
-              "queryRef": "材料_移動平均単価_月次.F_材料番号",
+              "queryRef": "材料_加重平均単価_月次.F_材料番号",
               "nativeQueryRef": "F_材料番号",
               "active": true
             }
@@ -41,7 +41,7 @@
                     "Column": {
                       "Expression": {
                         "SourceRef": {
-                          "Entity": "材料_移動平均単価_月次"
+                          "Entity": "材料_加重平均単価_月次"
                         }
                       },
                       "Property": "年間予測影響額"
@@ -50,7 +50,7 @@
                   "Function": 0
                 }
               },
-              "queryRef": "Sum(材料_移動平均単価_月次.年間予測影響額)",
+              "queryRef": "Sum(材料_加重平均単価_月次.年間予測影響額)",
               "nativeQueryRef": "年間予測影響額 の合計"
             }
           ]
@@ -65,7 +65,7 @@
                   "Column": {
                     "Expression": {
                       "SourceRef": {
-                        "Entity": "材料_移動平均単価_月次"
+                        "Entity": "材料_加重平均単価_月次"
                       }
                     },
                     "Property": "年間予測影響額"

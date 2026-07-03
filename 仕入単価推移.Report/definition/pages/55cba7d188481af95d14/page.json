@@ -1,7 +1,7 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
   "name": "55cba7d188481af95d14",
-  "displayName": "材料 の複製",
+  "displayName": "材料(加重平均単価)",
   "displayOption": "FitToPage",
   "height": 720,
   "width": 1280,

@@ -1,9 +1,9 @@
-table 材料_移動平均単価_月次
+table 材料_加重平均単価_月次
 	lineageTag: d4e5f6a7-b8c9-4d01-2e3f-4a5b6c7d8e9a
 
-	measure 材料使用有無_移動平均 =
+	measure 材料使用有無_加重平均 =
 
-			IF ( COUNTROWS ( '材料_移動平均単価_月次' ) > 0, 1, 0 )
+			IF ( COUNTROWS ( '材料_加重平均単価_月次' ) > 0, 1, 0 )
 		formatString: 0
 		lineageTag: c1d2e3f4-a5b6-4278-9d0e-1f2a7b8c9d0e
 
@@ -24,21 +24,21 @@ table 材料_移動平均単価_月次
 
 		annotation SummarizationSetBy = Automatic
 
-	column 移動平均単価
+	column 加重平均単価
 		lineageTag: a7b8c9d0-e1f2-4034-5b6c-7d8e9f3b4c5d
 		summarizeBy: none
 		isNameInferred
-		sourceColumn: [移動平均単価]
+		sourceColumn: [加重平均単価]
 
 		annotation SummarizationSetBy = Automatic
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column 前月移動平均単価
+	column 前月加重平均単価
 		lineageTag: b8c9d0e1-f2a3-4145-6c7d-8e9f4c5d6e7f
 		summarizeBy: none
 		isNameInferred
-		sourceColumn: [前月移動平均単価]
+		sourceColumn: [前月加重平均単価]
 
 		annotation SummarizationSetBy = Automatic
 
@@ -131,7 +131,7 @@ table 材料_移動平均単価_月次
 
 		annotation SummarizationSetBy = Automatic
 
-	partition 材料_移動平均単価_月次 = calculated
+	partition 材料_加重平均単価_月次 = calculated
 		mode: import
 		source = ```
 
@@ -225,7 +225,7 @@ table 材料_移動平均単価_月次
 				            [__基準月] <= [__終月]
 				                && [__数計] > 0
 				        ),
-				        "__移動平均単価", DIVIDE ( [__額計], [__数計] )
+				        "__加重平均単価", DIVIDE ( [__額計], [__数計] )
 				    )
 
 				VAR __PrevT =
@@ -233,7 +233,7 @@ table 材料_移動平均単価_月次
 				        __Agg,
 				        "__材料番号", [__材料番号],
 				        "__基準月",   EDATE ( [__基準月], 1 ),
-				        "__前月単価", [__移動平均単価]
+				        "__前月単価", [__加重平均単価]
 				    )
 
 				VAR __Cur =
@@ -257,7 +257,7 @@ table 材料_移動平均単価_月次
 				        "__値上げ額",
 				            IF (
 				                NOT ISBLANK ( [__前月単価] ),
-				                [__移動平均単価] - [__前月単価]
+				                [__加重平均単価] - [__前月単価]
 				            ),
 				        "__稼働量", [__数計]
 				    )
@@ -292,8 +292,8 @@ table 材料_移動平均単価_月次
 				        "F_在庫材料番号", [__在庫番号],
 				        "F_材料番号",     [__材料番号],
 				        "F_開始月",       [__基準月],
-				        "移動平均単価",   [__移動平均単価],
-				        "前月移動平均単価", [__前月単価],
+				        "加重平均単価",   [__加重平均単価],
+				        "前月加重平均単価", [__前月単価],
 				        "月内仕入数",     [__月内数],
 				        "月内仕入金額",   [__月内額],
 				        "値上げ額",       [__値上げ額],

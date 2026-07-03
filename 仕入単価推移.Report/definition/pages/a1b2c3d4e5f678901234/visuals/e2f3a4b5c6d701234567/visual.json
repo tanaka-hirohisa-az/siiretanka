@@ -90,10 +90,10 @@
           "Measure": {
             "Expression": {
               "SourceRef": {
-                "Entity": "材料_移動平均単価_月次"
+                "Entity": "材料_加重平均単価_月次"
               }
             },
-            "Property": "材料使用有無_移動平均"
+            "Property": "材料使用有無_加重平均"
           }
         },
         "type": "Advanced",
@@ -102,7 +102,7 @@
           "From": [
             {
               "Name": "m",
-              "Entity": "材料_移動平均単価_月次",
+              "Entity": "材料_加重平均単価_月次",
               "Type": 0
             }
           ],
@@ -118,7 +118,7 @@
                           "Source": "m"
                         }
                       },
-                      "Property": "材料使用有無_移動平均"
+                      "Property": "材料使用有無_加重平均"
                     }
                   },
                   "Right": {

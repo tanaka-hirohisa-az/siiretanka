@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "b1c2d3e4f5a678901234",
   "position": {
-    "x": 0,
-    "y": 379.89949748743715,
+    "x": 429.35175879396985,
+    "y": 240,
     "z": 11000,
-    "height": 120,
-    "width": 149,
+    "height": 139.89949748743715,
+    "width": 130,
     "tabOrder": 11000
   },
   "visual": {
@@ -90,10 +90,10 @@
           "Measure": {
             "Expression": {
               "SourceRef": {
-                "Entity": "材料_移動平均単価_月次"
+                "Entity": "材料_加重平均単価_月次"
               }
             },
-            "Property": "材料使用有無_移動平均"
+            "Property": "材料使用有無_加重平均"
           }
         },
         "type": "Advanced",
@@ -102,7 +102,7 @@
           "From": [
             {
               "Name": "m",
-              "Entity": "材料_移動平均単価_月次",
+              "Entity": "材料_加重平均単価_月次",
               "Type": 0
             }
           ],
@@ -118,7 +118,7 @@
                           "Source": "m"
                         }
                       },
-                      "Property": "材料使用有無_移動平均"
+                      "Property": "材料使用有無_加重平均"
                     }
                   },
                   "Right": {

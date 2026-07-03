@@ -20,13 +20,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料_移動平均単価_月次"
+                      "Entity": "材料_加重平均単価_月次"
                     }
                   },
                   "Property": "F_材料番号"
                 }
               },
-              "queryRef": "材料_移動平均単価_月次.F_材料番号",
+              "queryRef": "材料_加重平均単価_月次.F_材料番号",
               "nativeQueryRef": "F_材料番号",
               "active": true
             }
@@ -41,7 +41,7 @@
                     "Column": {
                       "Expression": {
                         "SourceRef": {
-                          "Entity": "材料_移動平均単価_月次"
+                          "Entity": "材料_加重平均単価_月次"
                         }
                       },
                       "Property": "値上げ率"
@@ -50,7 +50,7 @@
                   "Function": 0
                 }
               },
-              "queryRef": "Sum(材料_移動平均単価_月次.値上げ率)",
+              "queryRef": "Sum(材料_加重平均単価_月次.値上げ率)",
               "nativeQueryRef": "値上げ率 の合計"
             }
           ]
@@ -65,7 +65,7 @@
                   "Column": {
                     "Expression": {
                       "SourceRef": {
-                        "Entity": "材料_移動平均単価_月次"
+                        "Entity": "材料_加重平均単価_月次"
                       }
                     },
                     "Property": "値上げ率"
