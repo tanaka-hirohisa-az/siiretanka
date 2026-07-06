@@ -530,3 +530,14 @@ relationship b2c3d4e5-f6a7-4612-b123-cd45ef567890
 	toCardinality: many
 	toColumn: 材料情報.材料番号_正規化
 
+relationship e1f2a3b4-c5d6-4701-b123-cd45ef567891
+	fromColumn: 材料_単価比較_月次.F_開始月
+	toColumn: tbl_calendar.Date
+
+relationship f2a3b4c5-d6e7-4802-c234-de56fa789012
+	crossFilteringBehavior: bothDirections
+	fromCardinality: many
+	fromColumn: 材料_単価比較_月次.F_材料番号
+	toCardinality: many
+	toColumn: 材料情報.材料番号_正規化
+
