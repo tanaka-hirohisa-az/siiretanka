@@ -34,11 +34,11 @@ table 材料_加重平均単価_月次
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column 前月加重平均単価
+	column 前回加重平均単価
 		lineageTag: b8c9d0e1-f2a3-4145-6c7d-8e9f4c5d6e7f
 		summarizeBy: none
 		isNameInferred
-		sourceColumn: [前月加重平均単価]
+		sourceColumn: [前回加重平均単価]
 
 		annotation SummarizationSetBy = Automatic
 
@@ -134,7 +134,6 @@ table 材料_加重平均単価_月次
 	partition 材料_加重平均単価_月次 = calculated
 		mode: import
 		source = ```
-
 				VAR __Ev0 =
 				    FILTER (
 				        'TB_仕入実績情報',
@@ -190,11 +189,12 @@ table 材料_加重平均単価_月次
 				        "__月額計", SUMX ( CURRENTGROUP (), [__額] )
 				    )
 
+				// 加重平均単価の窓：直近6ヶ月（基準月を含む）
 				VAR __Shift =
 				    SELECTCOLUMNS (
 				        CROSSJOIN (
 				            __M,
-				            SELECTCOLUMNS ( GENERATESERIES ( 0, 11, 1 ), "__k", [Value] )
+				            SELECTCOLUMNS ( GENERATESERIES ( 0, 5, 1 ), "__k", [Value] )
 				        ),
 				        "__材料番号", [__材料番号],
 				        "__基準月",   EDATE ( [__月], [__k] ),
@@ -209,6 +209,26 @@ table 材料_加重平均単価_月次
 				        [__基準月],
 				        "__数計", SUMX ( CURRENTGROUP (), [__数c] ),
 				        "__額計", SUMX ( CURRENTGROUP (), [__額c] )
+				    )
+
+				// 稼働量の窓：年間予測影響額用に直近12ヶ月を維持
+				VAR __Shift12 =
+				    SELECTCOLUMNS (
+				        CROSSJOIN (
+				            __M,
+				            SELECTCOLUMNS ( GENERATESERIES ( 0, 11, 1 ), "__k12", [Value] )
+				        ),
+				        "__材料番号", [__材料番号],
+				        "__基準月",   EDATE ( [__月], [__k12] ),
+				        "__数12c",    [__月数計]
+				    )
+
+				VAR __Agg12 =
+				    GROUPBY (
+				        __Shift12,
+				        [__材料番号],
+				        [__基準月],
+				        "__稼働量", SUMX ( CURRENTGROUP (), [__数12c] )
 				    )
 
 				VAR __Mats =
@@ -247,19 +267,50 @@ table 材料_加重平均単価_月次
 
 				VAR __J =
 				    NATURALLEFTOUTERJOIN (
-				        NATURALLEFTOUTERJOIN ( __Agg, __PrevT ),
-				        __Cur
+				        NATURALLEFTOUTERJOIN (
+				            NATURALLEFTOUTERJOIN ( __Agg, __PrevT ),
+				            __Cur
+				        ),
+				        __Agg12
 				    )
 
+				// 前回加重平均単価：
+				//   通常は前月時点の6ヶ月加重平均。
+				//   前月に窓内仕入がない場合（6ヶ月超の空白明け）は、
+				//   それ以前で最も近い仕入月の月内加重平均にフォールバックする。
 				VAR __Final =
 				    ADDCOLUMNS (
 				        __J,
-				        "__値上げ額",
+				        "__前回単価",
 				            IF (
 				                NOT ISBLANK ( [__前月単価] ),
-				                [__加重平均単価] - [__前月単価]
-				            ),
-				        "__稼働量", [__数計]
+				                [__前月単価],
+				                VAR __mat = [__材料番号]
+				                VAR __bm  = [__基準月]
+				                VAR __pm =
+				                    MAXX (
+				                        FILTER ( __M, [__材料番号] = __mat && [__月] < __bm ),
+				                        [__月]
+				                    )
+				                RETURN
+				                    IF (
+				                        NOT ISBLANK ( __pm ),
+				                        MAXX (
+				                            FILTER ( __M, [__材料番号] = __mat && [__月] = __pm ),
+				                            DIVIDE ( [__月額計], [__月数計] )
+				                        )
+				                    )
+				            )
+				    )
+
+				VAR __Final2 =
+				    ADDCOLUMNS (
+				        __Final,
+				        "__値上げ額",
+				            IF (
+				                NOT ISBLANK ( [__前回単価] ),
+				                [__加重平均単価] - [__前回単価]
+				            )
 				    )
 
 				VAR __Map0 =
@@ -284,7 +335,7 @@ table 材料_加重平均単価_月次
 				    )
 
 				VAR __J2 =
-				    NATURALLEFTOUTERJOIN ( __Final, __Map )
+				    NATURALLEFTOUTERJOIN ( __Final2, __Map )
 
 				RETURN
 				    SELECTCOLUMNS (
@@ -293,11 +344,11 @@ table 材料_加重平均単価_月次
 				        "F_材料番号",     [__材料番号],
 				        "F_開始月",       [__基準月],
 				        "加重平均単価",   [__加重平均単価],
-				        "前月加重平均単価", [__前月単価],
+				        "前回加重平均単価", [__前回単価],
 				        "月内仕入数",     [__月内数],
 				        "月内仕入金額",   [__月内額],
 				        "値上げ額",       [__値上げ額],
-				        "値上げ率",       DIVIDE ( [__値上げ額], [__前月単価] ),
+				        "値上げ率",       DIVIDE ( [__値上げ額], [__前回単価] ),
 				        "年間予測影響額", [__値上げ額] * [__稼働量],
 				        "年間予測影響額_値上げのみ",
 				            IF ( [__値上げ額] > 0, [__値上げ額] * [__稼働量] ),
@@ -305,7 +356,6 @@ table 材料_加重平均単価_月次
 				            IF ( [__値上げ額] < 0, [__値上げ額] * [__稼働量] ),
 				        "直近12か月稼働量", [__稼働量]
 				    )
-
 				```
 
 	annotation PBI_Id = d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9

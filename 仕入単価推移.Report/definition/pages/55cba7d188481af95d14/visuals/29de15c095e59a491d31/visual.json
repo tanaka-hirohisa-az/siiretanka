@@ -72,14 +72,14 @@
                           "Entity": "材料_加重平均単価_月次"
                         }
                       },
-                      "Property": "前月加重平均単価"
+                      "Property": "前回加重平均単価"
                     }
                   },
                   "Function": 0
                 }
               },
-              "queryRef": "Sum(材料_加重平均単価_月次.前月加重平均単価)",
-              "nativeQueryRef": "前月加重平均単価 の合計"
+              "queryRef": "Sum(材料_加重平均単価_月次.前回加重平均単価)",
+              "nativeQueryRef": "前回加重平均単価 の合計"
             },
             {
               "field": {
