@@ -20,13 +20,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料情報"
+                      "Entity": "材料_加重平均単価_月次"
                     }
                   },
                   "Property": "F_在庫材料番号"
                 }
               },
-              "queryRef": "材料情報.F_在庫材料番号",
+              "queryRef": "材料_加重平均単価_月次.F_在庫材料番号",
               "nativeQueryRef": "F_在庫材料番号",
               "active": true
             },
@@ -359,7 +359,7 @@
               "Column": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "材料情報"
+                    "Entity": "材料_加重平均単価_月次"
                   }
                 },
                 "Property": "F_在庫材料番号"
