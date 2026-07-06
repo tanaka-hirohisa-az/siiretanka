@@ -9,12 +9,16 @@ table 材料_契約単価_月次
 
 	measure 契約単価_対応月 =
 
+			VAR __mat = SELECTEDVALUE ( '材料_加重平均単価_月次'[F_材料番号] )
 			VAR __mon = SELECTEDVALUE ( '材料_加重平均単価_月次'[F_開始月] )
 			RETURN
 			    IF (
-			        NOT ISBLANK ( __mon ),
+			        NOT ISBLANK ( __mat ) && NOT ISBLANK ( __mon ),
 			        CALCULATE (
 			            SUM ( '材料_契約単価_月次'[契約単価] ),
+			            REMOVEFILTERS ( '材料情報' ),
+			            REMOVEFILTERS ( '材料_契約単価_月次' ),
+			            TREATAS ( { __mat }, '材料_契約単価_月次'[F_材料番号] ),
 			            TREATAS ( { __mon }, '材料_契約単価_月次'[F_開始月] )
 			        )
 			    )
@@ -23,12 +27,16 @@ table 材料_契約単価_月次
 
 	measure 契約単価_前月契約単価_対応月 =
 
+			VAR __mat = SELECTEDVALUE ( '材料_加重平均単価_月次'[F_材料番号] )
 			VAR __mon = SELECTEDVALUE ( '材料_加重平均単価_月次'[F_開始月] )
 			RETURN
 			    IF (
-			        NOT ISBLANK ( __mon ),
+			        NOT ISBLANK ( __mat ) && NOT ISBLANK ( __mon ),
 			        CALCULATE (
 			            SUM ( '材料_契約単価_月次'[契約単価_前月契約単価] ),
+			            REMOVEFILTERS ( '材料情報' ),
+			            REMOVEFILTERS ( '材料_契約単価_月次' ),
+			            TREATAS ( { __mat }, '材料_契約単価_月次'[F_材料番号] ),
 			            TREATAS ( { __mon }, '材料_契約単価_月次'[F_開始月] )
 			        )
 			    )
@@ -37,12 +45,16 @@ table 材料_契約単価_月次
 
 	measure 契約単価_値上げ額_対応月 =
 
+			VAR __mat = SELECTEDVALUE ( '材料_加重平均単価_月次'[F_材料番号] )
 			VAR __mon = SELECTEDVALUE ( '材料_加重平均単価_月次'[F_開始月] )
 			RETURN
 			    IF (
-			        NOT ISBLANK ( __mon ),
+			        NOT ISBLANK ( __mat ) && NOT ISBLANK ( __mon ),
 			        CALCULATE (
 			            SUM ( '材料_契約単価_月次'[契約単価_値上げ額] ),
+			            REMOVEFILTERS ( '材料情報' ),
+			            REMOVEFILTERS ( '材料_契約単価_月次' ),
+			            TREATAS ( { __mat }, '材料_契約単価_月次'[F_材料番号] ),
 			            TREATAS ( { __mon }, '材料_契約単価_月次'[F_開始月] )
 			        )
 			    )
@@ -57,12 +69,16 @@ table 材料_契約単価_月次
 
 	measure 契約単価_年間予測影響額_対応月 =
 
+			VAR __mat = SELECTEDVALUE ( '材料_加重平均単価_月次'[F_材料番号] )
 			VAR __mon = SELECTEDVALUE ( '材料_加重平均単価_月次'[F_開始月] )
 			RETURN
 			    IF (
-			        NOT ISBLANK ( __mon ),
+			        NOT ISBLANK ( __mat ) && NOT ISBLANK ( __mon ),
 			        CALCULATE (
 			            SUM ( '材料_契約単価_月次'[契約単価_年間予測影響額] ),
+			            REMOVEFILTERS ( '材料情報' ),
+			            REMOVEFILTERS ( '材料_契約単価_月次' ),
+			            TREATAS ( { __mat }, '材料_契約単価_月次'[F_材料番号] ),
 			            TREATAS ( { __mon }, '材料_契約単価_月次'[F_開始月] )
 			        )
 			    )
@@ -71,12 +87,16 @@ table 材料_契約単価_月次
 
 	measure 契約単価_年間予測影響額_値上げのみ_対応月 =
 
+			VAR __mat = SELECTEDVALUE ( '材料_加重平均単価_月次'[F_材料番号] )
 			VAR __mon = SELECTEDVALUE ( '材料_加重平均単価_月次'[F_開始月] )
 			RETURN
 			    IF (
-			        NOT ISBLANK ( __mon ),
+			        NOT ISBLANK ( __mat ) && NOT ISBLANK ( __mon ),
 			        CALCULATE (
 			            SUM ( '材料_契約単価_月次'[契約単価_年間予測影響額_値上げのみ] ),
+			            REMOVEFILTERS ( '材料情報' ),
+			            REMOVEFILTERS ( '材料_契約単価_月次' ),
+			            TREATAS ( { __mat }, '材料_契約単価_月次'[F_材料番号] ),
 			            TREATAS ( { __mon }, '材料_契約単価_月次'[F_開始月] )
 			        )
 			    )
@@ -85,12 +105,16 @@ table 材料_契約単価_月次
 
 	measure 契約単価_年間予測影響額_値下げのみ_対応月 =
 
+			VAR __mat = SELECTEDVALUE ( '材料_加重平均単価_月次'[F_材料番号] )
 			VAR __mon = SELECTEDVALUE ( '材料_加重平均単価_月次'[F_開始月] )
 			RETURN
 			    IF (
-			        NOT ISBLANK ( __mon ),
+			        NOT ISBLANK ( __mat ) && NOT ISBLANK ( __mon ),
 			        CALCULATE (
 			            SUM ( '材料_契約単価_月次'[契約単価_年間予測影響額_値下げのみ] ),
+			            REMOVEFILTERS ( '材料情報' ),
+			            REMOVEFILTERS ( '材料_契約単価_月次' ),
+			            TREATAS ( { __mat }, '材料_契約単価_月次'[F_材料番号] ),
 			            TREATAS ( { __mon }, '材料_契約単価_月次'[F_開始月] )
 			        )
 			    )
