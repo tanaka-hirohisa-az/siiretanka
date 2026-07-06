@@ -7,6 +7,96 @@ table 材料_契約単価_月次
 		formatString: 0
 		lineageTag: d2e3f4a5-b6c7-4389-0e1f-2a3b8c9d0e1f
 
+	measure 契約単価_対応月 =
+
+			VAR __mon = SELECTEDVALUE ( '材料_加重平均単価_月次'[F_開始月] )
+			RETURN
+			    IF (
+			        NOT ISBLANK ( __mon ),
+			        CALCULATE (
+			            SUM ( '材料_契約単価_月次'[契約単価] ),
+			            TREATAS ( { __mon }, '材料_契約単価_月次'[F_開始月] )
+			        )
+			    )
+		formatString: 0.00
+		lineageTag: a1b2c3d4-e5f6-4001-8a9b-0c1d2e3f4a51
+
+	measure 契約単価_前月契約単価_対応月 =
+
+			VAR __mon = SELECTEDVALUE ( '材料_加重平均単価_月次'[F_開始月] )
+			RETURN
+			    IF (
+			        NOT ISBLANK ( __mon ),
+			        CALCULATE (
+			            SUM ( '材料_契約単価_月次'[契約単価_前月契約単価] ),
+			            TREATAS ( { __mon }, '材料_契約単価_月次'[F_開始月] )
+			        )
+			    )
+		formatString: 0.00
+		lineageTag: a2b2c3d4-e5f6-4002-8a9b-0c1d2e3f4a52
+
+	measure 契約単価_値上げ額_対応月 =
+
+			VAR __mon = SELECTEDVALUE ( '材料_加重平均単価_月次'[F_開始月] )
+			RETURN
+			    IF (
+			        NOT ISBLANK ( __mon ),
+			        CALCULATE (
+			            SUM ( '材料_契約単価_月次'[契約単価_値上げ額] ),
+			            TREATAS ( { __mon }, '材料_契約単価_月次'[F_開始月] )
+			        )
+			    )
+		formatString: 0.00
+		lineageTag: a3b2c3d4-e5f6-4003-8a9b-0c1d2e3f4a53
+
+	measure 契約単価_値上げ率_対応月 =
+
+			DIVIDE ( [契約単価_値上げ額_対応月], [契約単価_前月契約単価_対応月] )
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: a4b2c3d4-e5f6-4004-8a9b-0c1d2e3f4a54
+
+	measure 契約単価_年間予測影響額_対応月 =
+
+			VAR __mon = SELECTEDVALUE ( '材料_加重平均単価_月次'[F_開始月] )
+			RETURN
+			    IF (
+			        NOT ISBLANK ( __mon ),
+			        CALCULATE (
+			            SUM ( '材料_契約単価_月次'[契約単価_年間予測影響額] ),
+			            TREATAS ( { __mon }, '材料_契約単価_月次'[F_開始月] )
+			        )
+			    )
+		formatString: 0.00
+		lineageTag: a5b2c3d4-e5f6-4005-8a9b-0c1d2e3f4a55
+
+	measure 契約単価_年間予測影響額_値上げのみ_対応月 =
+
+			VAR __mon = SELECTEDVALUE ( '材料_加重平均単価_月次'[F_開始月] )
+			RETURN
+			    IF (
+			        NOT ISBLANK ( __mon ),
+			        CALCULATE (
+			            SUM ( '材料_契約単価_月次'[契約単価_年間予測影響額_値上げのみ] ),
+			            TREATAS ( { __mon }, '材料_契約単価_月次'[F_開始月] )
+			        )
+			    )
+		formatString: 0.00
+		lineageTag: a6b2c3d4-e5f6-4006-8a9b-0c1d2e3f4a56
+
+	measure 契約単価_年間予測影響額_値下げのみ_対応月 =
+
+			VAR __mon = SELECTEDVALUE ( '材料_加重平均単価_月次'[F_開始月] )
+			RETURN
+			    IF (
+			        NOT ISBLANK ( __mon ),
+			        CALCULATE (
+			            SUM ( '材料_契約単価_月次'[契約単価_年間予測影響額_値下げのみ] ),
+			            TREATAS ( { __mon }, '材料_契約単価_月次'[F_開始月] )
+			        )
+			    )
+		formatString: 0.00
+		lineageTag: a7b2c3d4-e5f6-4007-8a9b-0c1d2e3f4a57
+
 	column F_材料番号
 		lineageTag: f6a7b8c9-d0e1-4f23-4a5b-6c7d8e9f3d3d
 		summarizeBy: none

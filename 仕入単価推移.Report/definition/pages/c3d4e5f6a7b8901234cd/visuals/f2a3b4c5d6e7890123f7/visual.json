@@ -35,14 +35,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "tbl_calendar"
+                      "Entity": "材料_加重平均単価_月次"
                     }
                   },
-                  "Property": "年月_yy年MM月"
+                  "Property": "F_開始月"
                 }
               },
-              "queryRef": "tbl_calendar.年月_yy年MM月",
-              "nativeQueryRef": "年月_yy年MM月",
+              "queryRef": "材料_加重平均単価_月次.F_開始月",
+              "nativeQueryRef": "F_開始月",
               "active": true
             },
             {
@@ -218,136 +218,101 @@
             },
             {
               "field": {
-                "Aggregation": {
+                "Measure": {
                   "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "材料_契約単価_月次"
-                        }
-                      },
-                      "Property": "契約単価"
+                    "SourceRef": {
+                      "Entity": "材料_契約単価_月次"
                     }
                   },
-                  "Function": 0
+                  "Property": "契約単価_対応月"
                 }
               },
-              "queryRef": "Sum(材料_契約単価_月次.契約単価)",
-              "nativeQueryRef": "契約単価 の合計"
+              "queryRef": "材料_契約単価_月次.契約単価_対応月",
+              "nativeQueryRef": "契約単価_対応月"
             },
             {
               "field": {
-                "Aggregation": {
+                "Measure": {
                   "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "材料_契約単価_月次"
-                        }
-                      },
-                      "Property": "契約単価_前月契約単価"
+                    "SourceRef": {
+                      "Entity": "材料_契約単価_月次"
                     }
                   },
-                  "Function": 0
+                  "Property": "契約単価_前月契約単価_対応月"
                 }
               },
-              "queryRef": "Sum(材料_契約単価_月次.契約単価_前月契約単価)",
-              "nativeQueryRef": "契約単価_前月契約単価 の合計"
+              "queryRef": "材料_契約単価_月次.契約単価_前月契約単価_対応月",
+              "nativeQueryRef": "契約単価_前月契約単価_対応月"
             },
             {
               "field": {
-                "Aggregation": {
+                "Measure": {
                   "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "材料_契約単価_月次"
-                        }
-                      },
-                      "Property": "契約単価_値上げ額"
+                    "SourceRef": {
+                      "Entity": "材料_契約単価_月次"
                     }
                   },
-                  "Function": 0
+                  "Property": "契約単価_値上げ額_対応月"
                 }
               },
-              "queryRef": "Sum(材料_契約単価_月次.契約単価_値上げ額)",
-              "nativeQueryRef": "契約単価_値上げ額 の合計"
+              "queryRef": "材料_契約単価_月次.契約単価_値上げ額_対応月",
+              "nativeQueryRef": "契約単価_値上げ額_対応月"
             },
             {
               "field": {
-                "Aggregation": {
+                "Measure": {
                   "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "材料_契約単価_月次"
-                        }
-                      },
-                      "Property": "契約単価_値上げ率"
+                    "SourceRef": {
+                      "Entity": "材料_契約単価_月次"
                     }
                   },
-                  "Function": 0
+                  "Property": "契約単価_値上げ率_対応月"
                 }
               },
-              "queryRef": "Sum(材料_契約単価_月次.契約単価_値上げ率)",
-              "nativeQueryRef": "契約単価_値上げ率 の合計"
+              "queryRef": "材料_契約単価_月次.契約単価_値上げ率_対応月",
+              "nativeQueryRef": "契約単価_値上げ率_対応月"
             },
             {
               "field": {
-                "Aggregation": {
+                "Measure": {
                   "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "材料_契約単価_月次"
-                        }
-                      },
-                      "Property": "契約単価_年間予測影響額"
+                    "SourceRef": {
+                      "Entity": "材料_契約単価_月次"
                     }
                   },
-                  "Function": 0
+                  "Property": "契約単価_年間予測影響額_対応月"
                 }
               },
-              "queryRef": "Sum(材料_契約単価_月次.契約単価_年間予測影響額)",
-              "nativeQueryRef": "契約単価_年間予測影響額 の合計"
+              "queryRef": "材料_契約単価_月次.契約単価_年間予測影響額_対応月",
+              "nativeQueryRef": "契約単価_年間予測影響額_対応月"
             },
             {
               "field": {
-                "Aggregation": {
+                "Measure": {
                   "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "材料_契約単価_月次"
-                        }
-                      },
-                      "Property": "契約単価_年間予測影響額_値上げのみ"
+                    "SourceRef": {
+                      "Entity": "材料_契約単価_月次"
                     }
                   },
-                  "Function": 0
+                  "Property": "契約単価_年間予測影響額_値上げのみ_対応月"
                 }
               },
-              "queryRef": "Sum(材料_契約単価_月次.契約単価_年間予測影響額_値上げのみ)",
-              "nativeQueryRef": "契約単価_年間予測影響額_値上げのみ の合計"
+              "queryRef": "材料_契約単価_月次.契約単価_年間予測影響額_値上げのみ_対応月",
+              "nativeQueryRef": "契約単価_年間予測影響額_値上げのみ_対応月"
             },
             {
               "field": {
-                "Aggregation": {
+                "Measure": {
                   "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "材料_契約単価_月次"
-                        }
-                      },
-                      "Property": "契約単価_年間予測影響額_値下げのみ"
+                    "SourceRef": {
+                      "Entity": "材料_契約単価_月次"
                     }
                   },
-                  "Function": 0
+                  "Property": "契約単価_年間予測影響額_値下げのみ_対応月"
                 }
               },
-              "queryRef": "Sum(材料_契約単価_月次.契約単価_年間予測影響額_値下げのみ)",
-              "nativeQueryRef": "契約単価_年間予測影響額_値下げのみ の合計"
+              "queryRef": "材料_契約単価_月次.契約単価_年間予測影響額_値下げのみ_対応月",
+              "nativeQueryRef": "契約単価_年間予測影響額_値下げのみ_対応月"
             }
           ]
         }
@@ -372,10 +337,10 @@
               "Column": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "tbl_calendar"
+                    "Entity": "材料_加重平均単価_月次"
                   }
                 },
-                "Property": "年月_yy年MM月"
+                "Property": "F_開始月"
               }
             },
             "direction": "Ascending"
