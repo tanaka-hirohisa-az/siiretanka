@@ -26,7 +26,7 @@
                   "Property": "F_開始日"
                 }
               },
-              "queryRef": "納入品目_値上げイベント_拡張2.F_開始日",
+              "queryRef": "納入品目_値上げイベント.F_開始日",
               "nativeQueryRef": "F_開始日"
             },
             {
@@ -40,7 +40,7 @@
                   "Property": "F_納入品目番号"
                 }
               },
-              "queryRef": "納入品目_値上げイベント_拡張2.F_納入品目番号",
+              "queryRef": "納入品目_値上げイベント.F_納入品目番号",
               "nativeQueryRef": "F_納入品目番号"
             },
             {
@@ -68,7 +68,7 @@
                   "Property": "F_仕入先略称"
                 }
               },
-              "queryRef": "納入品目_値上げイベント_拡張2.F_仕入先略称",
+              "queryRef": "納入品目_値上げイベント.F_仕入先略称",
               "nativeQueryRef": "F_仕入先略称"
             },
             {
@@ -87,7 +87,7 @@
                   "Function": 0
                 }
               },
-              "queryRef": "Sum(納入品目_値上げイベント_拡張2.F_契約単価)",
+              "queryRef": "Sum(納入品目_値上げイベント.F_契約単価)",
               "nativeQueryRef": "F_契約単価 の合計"
             },
             {
@@ -106,7 +106,7 @@
                   "Function": 0
                 }
               },
-              "queryRef": "Sum(納入品目_値上げイベント_拡張2.前回単価)",
+              "queryRef": "Sum(納入品目_値上げイベント.前回単価)",
               "nativeQueryRef": "前回単価 の合計"
             },
             {
@@ -125,7 +125,7 @@
                   "Function": 0
                 }
               },
-              "queryRef": "Sum(納入品目_値上げイベント_拡張2.値上げ額)",
+              "queryRef": "Sum(納入品目_値上げイベント.値上げ額)",
               "nativeQueryRef": "値上げ額 の合計"
             },
             {
@@ -144,7 +144,7 @@
                   "Function": 0
                 }
               },
-              "queryRef": "Sum(納入品目_値上げイベント_拡張2.値上げ率)",
+              "queryRef": "Sum(納入品目_値上げイベント.値上げ率)",
               "nativeQueryRef": "値上げ率 の合計"
             },
             {
