@@ -535,7 +535,6 @@ relationship e1f2a3b4-c5d6-4701-b123-cd45ef567891
 	toColumn: tbl_calendar.Date
 
 relationship f2a3b4c5-d6e7-4802-c234-de56fa789012
-	crossFilteringBehavior: bothDirections
 	fromCardinality: many
 	fromColumn: 材料_単価比較_月次.F_材料番号
 	toCardinality: many
