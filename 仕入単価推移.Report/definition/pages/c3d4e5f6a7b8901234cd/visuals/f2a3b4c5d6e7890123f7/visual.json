@@ -20,28 +20,30 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料_加重平均単価_月次"
+                      "Entity": "材料情報"
                     }
                   },
                   "Property": "F_在庫材料番号"
                 }
               },
-              "queryRef": "材料_加重平均単価_月次.F_在庫材料番号",
-              "nativeQueryRef": "F_在庫材料番号"
+              "queryRef": "材料情報.F_在庫材料番号",
+              "nativeQueryRef": "F_在庫材料番号",
+              "active": true
             },
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料_加重平均単価_月次"
+                      "Entity": "tbl_calendar"
                     }
                   },
-                  "Property": "F_開始月"
+                  "Property": "年月_yy年MM月"
                 }
               },
-              "queryRef": "材料_加重平均単価_月次.F_開始月",
-              "nativeQueryRef": "F_開始月"
+              "queryRef": "tbl_calendar.年月_yy年MM月",
+              "nativeQueryRef": "年月_yy年MM月",
+              "active": true
             },
             {
               "field": {
@@ -357,7 +359,7 @@
               "Column": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "材料_加重平均単価_月次"
+                    "Entity": "材料情報"
                   }
                 },
                 "Property": "F_在庫材料番号"
@@ -370,10 +372,10 @@
               "Column": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "材料_加重平均単価_月次"
+                    "Entity": "tbl_calendar"
                   }
                 },
-                "Property": "F_開始月"
+                "Property": "年月_yy年MM月"
               }
             },
             "direction": "Ascending"
