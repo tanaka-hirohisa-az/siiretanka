@@ -222,6 +222,39 @@ table 材料_加重平均単価_月次
 
 		annotation SummarizationSetBy = Automatic
 
+	column 年度基準単価 =
+			VAR __janDate = DATE ( YEAR ( [F_開始月] ), 1, 1 )
+			RETURN
+			    LOOKUPVALUE (
+			        '材料_加重平均単価_月次'[前回加重平均単価],
+			        '材料_加重平均単価_月次'[F_材料番号], [F_材料番号],
+			        '材料_加重平均単価_月次'[F_開始月], __janDate
+			    )
+		dataType: double
+		formatString: 0.00
+		lineageTag: f1a2b3c4-d5e6-4f70-8192-a3b4c5d6e7fa
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 年初来値上げ額 =
+			IF ( NOT ISBLANK ( [年度基準単価] ), [加重平均単価] - [年度基準単価] )
+		dataType: double
+		formatString: 0.00
+		lineageTag: f2b3c4d5-e6f7-4081-9203-b4c5d6e7f8ab
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 年初来影響額 =
+			IF ( NOT ISBLANK ( [年初来値上げ額] ), [年初来値上げ額] * [直近12か月稼働量] )
+		dataType: double
+		formatString: 0.00
+		lineageTag: f3c4d5e6-f7a8-4192-a314-c5d6e7f8a9bc
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 材料_加重平均単価_月次 = calculated
 		mode: import
 		source = ```

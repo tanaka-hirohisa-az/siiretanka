@@ -1,0 +1,100 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "e3f4a5b6c7d8901234e3",
+  "position": {
+    "x": 967.2361809045226,
+    "y": 0,
+    "z": 4000,
+    "height": 197.78894472361807,
+    "width": 312.3618090452261,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "品目分類情報"
+                    }
+                  },
+                  "Property": "F_分類名"
+                }
+              },
+              "queryRef": "品目分類情報.F_分類名",
+              "nativeQueryRef": "F_分類名",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "材料_加重平均単価_月次"
+                        }
+                      },
+                      "Property": "年初来影響額"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(材料_加重平均単価_月次.年初来影響額)",
+              "nativeQueryRef": "年初来影響額 の合計"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "材料_加重平均単価_月次"
+                      }
+                    },
+                    "Property": "年初来影響額"
+                  }
+                },
+                "Function": 0
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "objects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'分類別 年初来影響額'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
