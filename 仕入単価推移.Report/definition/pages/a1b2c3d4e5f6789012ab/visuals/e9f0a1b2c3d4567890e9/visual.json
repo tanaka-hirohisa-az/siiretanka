@@ -1,0 +1,222 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "e9f0a1b2c3d4567890e9",
+  "position": {
+    "x": 0,
+    "y": 379.89949748743715,
+    "z": 2000,
+    "height": 340.1005025125628,
+    "width": 1279.5979899497486,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "材料_加重平均単価_月次"
+                    }
+                  },
+                  "Property": "F_在庫材料番号"
+                }
+              },
+              "queryRef": "材料_加重平均単価_月次.F_在庫材料番号",
+              "nativeQueryRef": "F_在庫材料番号"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "材料_加重平均単価_月次"
+                    }
+                  },
+                  "Property": "F_開始月"
+                }
+              },
+              "queryRef": "材料_加重平均単価_月次.F_開始月",
+              "nativeQueryRef": "F_開始月"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "材料_加重平均単価_月次"
+                        }
+                      },
+                      "Property": "加重平均単価"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(材料_加重平均単価_月次.加重平均単価)",
+              "nativeQueryRef": "加重平均単価 の合計"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "材料_加重平均単価_月次"
+                        }
+                      },
+                      "Property": "年度基準単価"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(材料_加重平均単価_月次.年度基準単価)",
+              "nativeQueryRef": "年度基準単価 の合計"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "材料_加重平均単価_月次"
+                        }
+                      },
+                      "Property": "年初来値上げ額"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(材料_加重平均単価_月次.年初来値上げ額)",
+              "nativeQueryRef": "年初来値上げ額 の合計"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "材料_加重平均単価_月次"
+                        }
+                      },
+                      "Property": "年初来影響額"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(材料_加重平均単価_月次.年初来影響額)",
+              "nativeQueryRef": "年初来影響額 の合計"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "材料_加重平均単価_月次"
+                        }
+                      },
+                      "Property": "月内仕入数"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(材料_加重平均単価_月次.月内仕入数)",
+              "nativeQueryRef": "月内仕入数 の合計"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "材料_加重平均単価_月次"
+                        }
+                      },
+                      "Property": "月内仕入金額"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(材料_加重平均単価_月次.月内仕入金額)",
+              "nativeQueryRef": "月内仕入金額 の合計"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "材料_加重平均単価_月次"
+                        }
+                      },
+                      "Property": "直近12か月稼働量"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(材料_加重平均単価_月次.直近12か月稼働量)",
+              "nativeQueryRef": "直近12か月稼働量 の合計"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "材料_加重平均単価_月次"
+                  }
+                },
+                "Property": "F_在庫材料番号"
+              }
+            },
+            "direction": "Ascending"
+          },
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "材料_加重平均単価_月次"
+                  }
+                },
+                "Property": "F_開始月"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "columnHeaders": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
