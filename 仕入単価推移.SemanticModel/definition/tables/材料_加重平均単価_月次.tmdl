@@ -255,6 +255,33 @@ table 材料_加重平均単価_月次
 
 		annotation SummarizationSetBy = Automatic
 
+	column 年初来影響額_値上げのみ =
+			IF ( [年初来値上げ額] > 0, [年初来影響額] )
+		dataType: double
+		formatString: 0.00
+		lineageTag: f4d5e6f7-a8b9-4203-b425-d6e7f8a9b0cd
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 年初来影響額_値下げのみ =
+			IF ( [年初来値上げ額] < 0, [年初来影響額] )
+		dataType: double
+		formatString: 0.00
+		lineageTag: f5e6f7a8-b9c0-4314-c536-e7f8a9b0c1de
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 年初来値上げ率 =
+			DIVIDE ( [年初来値上げ額], [年度基準単価] )
+		dataType: double
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: f6f7a8b9-c0d1-4425-d647-f8a9b0c1d2ef
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 材料_加重平均単価_月次 = calculated
 		mode: import
 		source = ```

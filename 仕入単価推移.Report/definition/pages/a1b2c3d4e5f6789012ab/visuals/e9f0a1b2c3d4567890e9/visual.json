@@ -129,6 +129,44 @@
                           "Entity": "材料_加重平均単価_月次"
                         }
                       },
+                      "Property": "年初来影響額_値上げのみ"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(材料_加重平均単価_月次.年初来影響額_値上げのみ)",
+              "nativeQueryRef": "年初来影響額_値上げのみ の合計"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "材料_加重平均単価_月次"
+                        }
+                      },
+                      "Property": "年初来影響額_値下げのみ"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(材料_加重平均単価_月次.年初来影響額_値下げのみ)",
+              "nativeQueryRef": "年初来影響額_値下げのみ の合計"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "材料_加重平均単価_月次"
+                        }
+                      },
                       "Property": "月内仕入数"
                     }
                   },
