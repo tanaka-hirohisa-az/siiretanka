@@ -127,16 +127,7 @@
                   "Value": "true"
                 }
               }
-            }
-          }
-        }
-      ]
-    },
-    "drillFilterOtherVisuals": true,
-    "objects": {
-      "title": [
-        {
-          "properties": {
+            },
             "text": {
               "expr": {
                 "Literal": {
@@ -147,6 +138,7 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
   }
 }

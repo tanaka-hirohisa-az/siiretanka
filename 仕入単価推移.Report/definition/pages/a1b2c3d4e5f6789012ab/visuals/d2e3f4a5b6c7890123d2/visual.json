@@ -128,15 +128,7 @@
                   "Value": "true"
                 }
               }
-            }
-          }
-        }
-      ]
-    },
-    "objects": {
-      "title": [
-        {
-          "properties": {
+            },
             "text": {
               "expr": {
                 "Literal": {
