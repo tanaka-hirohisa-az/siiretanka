@@ -111,6 +111,123 @@ table 材料_契約単価_月次
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	column 加重平均単価 =
+			LOOKUPVALUE (
+			    '材料_加重平均単価_月次'[加重平均単価],
+			    '材料_加重平均単価_月次'[F_材料番号], [F_材料番号],
+			    '材料_加重平均単価_月次'[F_開始月], [F_開始月]
+			)
+		dataType: double
+		formatString: 0.00
+		lineageTag: f1a2b3c4-d5e6-4f80-9192-a3b4c5d6e7f9
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 前回加重平均単価 =
+			LOOKUPVALUE (
+			    '材料_加重平均単価_月次'[前回加重平均単価],
+			    '材料_加重平均単価_月次'[F_材料番号], [F_材料番号],
+			    '材料_加重平均単価_月次'[F_開始月], [F_開始月]
+			)
+		dataType: double
+		formatString: 0.00
+		lineageTag: f2b3c4d5-e6f7-4091-a203-b4c5d6e7f8aa
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 加重平均_値上げ額 =
+			LOOKUPVALUE (
+			    '材料_加重平均単価_月次'[値上げ額],
+			    '材料_加重平均単価_月次'[F_材料番号], [F_材料番号],
+			    '材料_加重平均単価_月次'[F_開始月], [F_開始月]
+			)
+		dataType: double
+		formatString: 0.00
+		lineageTag: f3c4d5e6-f7a8-41a2-b314-c5d6e7f8a9bb
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 加重平均_値上げ率 =
+			LOOKUPVALUE (
+			    '材料_加重平均単価_月次'[値上げ率],
+			    '材料_加重平均単価_月次'[F_材料番号], [F_材料番号],
+			    '材料_加重平均単価_月次'[F_開始月], [F_開始月]
+			)
+		dataType: double
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: f4d5e6f7-a8b9-42b3-c425-d6e7f8a9b0cc
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 月内仕入数 =
+			LOOKUPVALUE (
+			    '材料_加重平均単価_月次'[月内仕入数],
+			    '材料_加重平均単価_月次'[F_材料番号], [F_材料番号],
+			    '材料_加重平均単価_月次'[F_開始月], [F_開始月]
+			)
+		dataType: double
+		formatString: 0.00
+		lineageTag: f5e6f7a8-b9c0-43c4-d536-e7f8a9b0c1dd
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 月内仕入金額 =
+			LOOKUPVALUE (
+			    '材料_加重平均単価_月次'[月内仕入金額],
+			    '材料_加重平均単価_月次'[F_材料番号], [F_材料番号],
+			    '材料_加重平均単価_月次'[F_開始月], [F_開始月]
+			)
+		dataType: double
+		formatString: 0.00
+		lineageTag: f6f7a8b9-c0d1-44d5-e647-f8a9b0c1d2ee
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 加重平均_年間予測影響額 =
+			LOOKUPVALUE (
+			    '材料_加重平均単価_月次'[年間予測影響額],
+			    '材料_加重平均単価_月次'[F_材料番号], [F_材料番号],
+			    '材料_加重平均単価_月次'[F_開始月], [F_開始月]
+			)
+		dataType: double
+		formatString: 0.00
+		lineageTag: f7a8b9c0-d1e2-45e6-f758-a9b0c1d2e3ff
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 加重平均_年間予測影響額_値上げのみ =
+			LOOKUPVALUE (
+			    '材料_加重平均単価_月次'[年間予測影響額_値上げのみ],
+			    '材料_加重平均単価_月次'[F_材料番号], [F_材料番号],
+			    '材料_加重平均単価_月次'[F_開始月], [F_開始月]
+			)
+		dataType: double
+		formatString: 0.00
+		lineageTag: f8b9c0d1-e2f3-46f7-a869-b0c1d2e3f400
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 加重平均_年間予測影響額_値下げのみ =
+			LOOKUPVALUE (
+			    '材料_加重平均単価_月次'[年間予測影響額_値下げのみ],
+			    '材料_加重平均単価_月次'[F_材料番号], [F_材料番号],
+			    '材料_加重平均単価_月次'[F_開始月], [F_開始月]
+			)
+		dataType: double
+		formatString: 0.00
+		lineageTag: f9c0d1e2-f3a4-4708-b970-c1d2e3f40011
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 材料_契約単価_月次 = calculated
 		mode: import
 		source = ```
