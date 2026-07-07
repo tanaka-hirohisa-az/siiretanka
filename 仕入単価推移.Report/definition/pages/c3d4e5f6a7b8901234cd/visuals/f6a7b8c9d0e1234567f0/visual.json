@@ -80,6 +80,21 @@
         "isDefaultSort": true
       }
     },
-    "drillFilterOtherVisuals": true
+    "drillFilterOtherVisuals": true,
+    "objects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'材料別 契約単価の値上げ額'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
   }
 }

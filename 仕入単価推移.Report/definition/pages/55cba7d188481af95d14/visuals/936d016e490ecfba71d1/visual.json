@@ -79,6 +79,21 @@
         ]
       }
     },
-    "drillFilterOtherVisuals": true
+    "drillFilterOtherVisuals": true,
+    "objects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'材料別 加重平均単価の値上げ率'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
   }
 }

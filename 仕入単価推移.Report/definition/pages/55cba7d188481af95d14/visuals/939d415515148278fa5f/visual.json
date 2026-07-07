@@ -132,6 +132,21 @@
         }
       ]
     },
-    "drillFilterOtherVisuals": true
+    "drillFilterOtherVisuals": true,
+    "objects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'月別 加重平均単価の値上げ・値下げ影響額と値上げ率'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
   }
 }
