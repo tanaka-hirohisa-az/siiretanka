@@ -36,22 +36,17 @@
           "projections": [
             {
               "field": {
-                "Aggregation": {
+                "Measure": {
                   "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "納入品目_値上げイベント"
-                        }
-                      },
-                      "Property": "年間予測影響額"
+                    "SourceRef": {
+                      "Entity": "納入品目_値上げイベント"
                     }
                   },
-                  "Function": 0
+                  "Property": "年間予測影響額_最新月_品目イベント"
                 }
               },
-              "queryRef": "Sum(納入品目_値上げイベント.年間予測影響額)",
-              "nativeQueryRef": "年間予測影響額 の合計"
+              "queryRef": "納入品目_値上げイベント.年間予測影響額_最新月_品目イベント",
+              "nativeQueryRef": "年間予測影響額_最新月_品目イベント"
             }
           ]
         }
@@ -60,18 +55,13 @@
         "sort": [
           {
             "field": {
-              "Aggregation": {
+              "Measure": {
                 "Expression": {
-                  "Column": {
-                    "Expression": {
-                      "SourceRef": {
-                        "Entity": "納入品目_値上げイベント"
-                      }
-                    },
-                    "Property": "年間予測影響額"
+                  "SourceRef": {
+                    "Entity": "納入品目_値上げイベント"
                   }
                 },
-                "Function": 0
+                "Property": "年間予測影響額_最新月_品目イベント"
               }
             },
             "direction": "Descending"

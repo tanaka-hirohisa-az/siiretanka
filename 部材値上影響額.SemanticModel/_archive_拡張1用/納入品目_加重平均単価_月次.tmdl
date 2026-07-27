@@ -1,0 +1,322 @@
+table 納入品目_加重平均単価_月次
+	lineageTag: 3e7a1c5b-8d2f-4460-9b3e-6a4c8f1d2e50
+
+	measure PL影響額_部材値上_品目 =
+			CALCULATE (
+			    SUM ( '納入品目_加重平均単価_月次'[月次影響額_実績] ),
+			    '納入品目_加重平均単価_月次'[基準断裂フラグ] = 0
+			)
+		formatString: #,0
+		lineageTag: 4f8b2d6c-9e3a-4571-ac4f-7b5d9a2e3f61
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure PL影響額_部材値上_合計 = [PL影響額_部材値上] + [PL影響額_部材値上_品目]
+		formatString: #,0
+		lineageTag: 5a9c3e7d-0f4b-4682-bd5a-8c6e0b3f4a72
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column F_納入品目番号
+		lineageTag: 6b0d4f8e-1a5c-4793-ce6b-9d7f1c4a5b83
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_納入品目番号]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_開始月
+		formatString: General Date
+		lineageTag: 7c1e5a9f-2b6d-4804-df7c-0e8a2d5b6c94
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_開始月]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 加重平均単価
+		lineageTag: 8d2f6b0a-3c7e-4915-e08d-1f9b3e6c7d05
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [加重平均単価]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 前回加重平均単価
+		lineageTag: 9e3a7c1b-4d8f-4a26-f19e-2a0c4f7d8e16
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [前回加重平均単価]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 月内仕入数
+		lineageTag: 0f4b8d2c-5e9a-4b37-a20f-3b1d5a8e9f27
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [月内仕入数]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 月内仕入金額
+		lineageTag: 1a5c9e3d-6f0b-4c48-b31a-4c2e6b9f0a38
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [月内仕入金額]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 年度基準単価_補完 =
+			VAR __item = '納入品目_加重平均単価_月次'[F_納入品目番号]
+			VAR __y = YEAR ( '納入品目_加重平均単価_月次'[F_開始月] )
+			VAR __firstM =
+			    MINX (
+			        FILTER (
+			            '納入品目_加重平均単価_月次',
+			            '納入品目_加重平均単価_月次'[F_納入品目番号] = __item
+			                && YEAR ( '納入品目_加重平均単価_月次'[F_開始月] ) = __y
+			        ),
+			        '納入品目_加重平均単価_月次'[F_開始月]
+			    )
+			RETURN
+			    LOOKUPVALUE (
+			        '納入品目_加重平均単価_月次'[前回加重平均単価],
+			        '納入品目_加重平均単価_月次'[F_納入品目番号], __item,
+			        '納入品目_加重平均単価_月次'[F_開始月], __firstM
+			    )
+		dataType: double
+		formatString: 0.00
+		lineageTag: 2b6d0f4e-7a1c-4d59-c42b-5d3f7c0a1b49
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 月次影響額_実績 =
+			IF (
+			    NOT ISBLANK ( '納入品目_加重平均単価_月次'[月内仕入数] )
+			        && NOT ISBLANK ( '納入品目_加重平均単価_月次'[年度基準単価_補完] ),
+			    '納入品目_加重平均単価_月次'[月内仕入金額]
+			        - '納入品目_加重平均単価_月次'[年度基準単価_補完] * '納入品目_加重平均単価_月次'[月内仕入数]
+			)
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 3c7e1a5f-8b2d-4e60-d53c-6e4a8d1b2c50
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 基準断裂フラグ =
+			VAR __r =
+			    DIVIDE (
+			        '納入品目_加重平均単価_月次'[加重平均単価] - '納入品目_加重平均単価_月次'[年度基準単価_補完],
+			        '納入品目_加重平均単価_月次'[年度基準単価_補完]
+			    )
+			RETURN
+			    IF (
+			        NOT ISBLANK ( '納入品目_加重平均単価_月次'[月次影響額_実績] )
+			            && __r <= -0.5
+			            && '納入品目_加重平均単価_月次'[月次影響額_実績] <= -1000000,
+			        1,
+			        0
+			    )
+		dataType: int64
+		formatString: 0
+		lineageTag: 5e8a1c6f-3d9b-4345-f6ba-7e0d3a4c5b6d
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 納入品目_加重平均単価_月次 = calculated
+		mode: import
+		source =
+				
+				VAR __Ev0 =
+				    FILTER (
+				        'TB_仕入実績情報',
+				        NOT ISBLANK ( 'TB_仕入実績情報'[F_品目番号] )
+				            && NOT ISBLANK ( 'TB_仕入実績情報'[F_仕入日] )
+				            && 'TB_仕入実績情報'[F_仕入数] > 0
+				    )
+				
+				VAR __Ev =
+				    SELECTCOLUMNS (
+				        __Ev0,
+				        "__品目番号",
+				            TRIM (
+				                SUBSTITUTE (
+				                    'TB_仕入実績情報'[F_品目番号],
+				                    UNICHAR ( 12288 ),
+				                    " "
+				                )
+				            ) & "",
+				        "__月",
+				            EOMONTH ( DATEVALUE ( 'TB_仕入実績情報'[F_仕入日] ), -1 ) + 1,
+				        "__数", 'TB_仕入実績情報'[F_仕入数],
+				        "__額", 'TB_仕入実績情報'[F_仕入数] * 'TB_仕入実績情報'[F_単価]
+				    )
+				
+				VAR __ItemSet0 =
+				    FILTER (
+				        DISTINCT (
+				            SELECTCOLUMNS (
+				                '納入品目情報',
+				                "__品目番号",
+				                    TRIM (
+				                        SUBSTITUTE (
+				                            '納入品目情報'[F_納入品目番号],
+				                            UNICHAR ( 12288 ),
+				                            " "
+				                        )
+				                    ) & ""
+				            )
+				        ),
+				        [__品目番号] <> ""
+				    )
+				
+				// 材料マスタにも登録されている品番は材料側テーブルで集計されるため
+				// 二重計上を避けるべく除外する（材料側優先）
+				VAR __MatKeys =
+				    FILTER (
+				        DISTINCT (
+				            SELECTCOLUMNS (
+				                '材料情報',
+				                "__品目番号",
+				                    TRIM (
+				                        SUBSTITUTE (
+				                            '材料情報'[F_材料番号],
+				                            UNICHAR ( 12288 ),
+				                            " "
+				                        )
+				                    ) & ""
+				            )
+				        ),
+				        [__品目番号] <> ""
+				    )
+				
+				VAR __ItemSet =
+				    EXCEPT ( __ItemSet0, __MatKeys )
+				
+				VAR __EvM =
+				    NATURALINNERJOIN ( __Ev, __ItemSet )
+				
+				VAR __M =
+				    GROUPBY (
+				        __EvM,
+				        [__品目番号],
+				        [__月],
+				        "__月数計", SUMX ( CURRENTGROUP (), [__数] ),
+				        "__月額計", SUMX ( CURRENTGROUP (), [__額] )
+				    )
+				
+				// 加重平均単価の窓：直近6ヶ月（基準月を含む）
+				VAR __Shift =
+				    SELECTCOLUMNS (
+				        CROSSJOIN (
+				            __M,
+				            SELECTCOLUMNS ( GENERATESERIES ( 0, 5, 1 ), "__k", [Value] )
+				        ),
+				        "__品目番号", [__品目番号],
+				        "__基準月",   EDATE ( [__月], [__k] ),
+				        "__数c",      [__月数計],
+				        "__額c",      [__月額計]
+				    )
+				
+				VAR __Agg0 =
+				    GROUPBY (
+				        __Shift,
+				        [__品目番号],
+				        [__基準月],
+				        "__数計", SUMX ( CURRENTGROUP (), [__数c] ),
+				        "__額計", SUMX ( CURRENTGROUP (), [__額c] )
+				    )
+				
+				VAR __Items =
+				    GROUPBY (
+				        __M,
+				        [__品目番号],
+				        "__終月", MAXX ( CURRENTGROUP (), [__月] )
+				    )
+				
+				VAR __Agg =
+				    ADDCOLUMNS (
+				        FILTER (
+				            NATURALINNERJOIN ( __Agg0, __Items ),
+				            [__基準月] <= [__終月]
+				                && [__数計] > 0
+				        ),
+				        "__加重平均単価", DIVIDE ( [__額計], [__数計] )
+				    )
+				
+				VAR __PrevT =
+				    SELECTCOLUMNS (
+				        __Agg,
+				        "__品目番号", [__品目番号],
+				        "__基準月",   EDATE ( [__基準月], 1 ),
+				        "__前月単価", [__加重平均単価]
+				    )
+				
+				VAR __Cur =
+				    SELECTCOLUMNS (
+				        __M,
+				        "__品目番号", [__品目番号],
+				        "__基準月",   [__月],
+				        "__月内数",   [__月数計],
+				        "__月内額",   [__月額計]
+				    )
+				
+				VAR __J =
+				    NATURALLEFTOUTERJOIN (
+				        NATURALLEFTOUTERJOIN ( __Agg, __PrevT ),
+				        __Cur
+				    )
+				
+				// 前回加重平均単価：
+				//   通常は前月時点の6ヶ月加重平均。
+				//   前月に窓内仕入がない場合（6ヶ月超の空白明け）は、
+				//   それ以前で最も近い仕入月の月内加重平均にフォールバックする。
+				VAR __Final =
+				    ADDCOLUMNS (
+				        __J,
+				        "__前回単価",
+				            IF (
+				                NOT ISBLANK ( [__前月単価] ),
+				                [__前月単価],
+				                VAR __it = [__品目番号]
+				                VAR __bm  = [__基準月]
+				                VAR __pm =
+				                    MAXX (
+				                        FILTER ( __M, [__品目番号] = __it && [__月] < __bm ),
+				                        [__月]
+				                    )
+				                RETURN
+				                    IF (
+				                        NOT ISBLANK ( __pm ),
+				                        MAXX (
+				                            FILTER ( __M, [__品目番号] = __it && [__月] = __pm ),
+				                            DIVIDE ( [__月額計], [__月数計] )
+				                        )
+				                    )
+				            )
+				    )
+				
+				RETURN
+				    SELECTCOLUMNS (
+				        __Final,
+				        "F_納入品目番号",   [__品目番号],
+				        "F_開始月",         [__基準月],
+				        "加重平均単価",     [__加重平均単価],
+				        "前回加重平均単価", [__前回単価],
+				        "月内仕入数",       [__月内数],
+				        "月内仕入金額",     [__月内額]
+				    )
+
+	annotation PBI_Id = 3e7a1c5b8d2f44609b3e6a4c8f1d2e50
+

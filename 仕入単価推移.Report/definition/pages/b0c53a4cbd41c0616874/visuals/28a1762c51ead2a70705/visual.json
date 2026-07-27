@@ -129,13 +129,6 @@
       "data": [
         {
           "properties": {
-            "startDate": {
-              "expr": {
-                "Literal": {
-                  "Value": "datetime'2024-08-03T23:59:59.999'"
-                }
-              }
-            },
             "mode": {
               "expr": {
                 "Literal": {

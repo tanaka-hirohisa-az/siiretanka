@@ -1,0 +1,270 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "09ce189a773f2f404a48",
+  "position": {
+    "x": 0,
+    "y": 379.89949748743715,
+    "z": 2000,
+    "height": 340.1005025125628,
+    "width": 1279.5979899497486,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "材料_値上げイベント"
+                    }
+                  },
+                  "Property": "F_開始日"
+                }
+              },
+              "queryRef": "材料_値上げイベント.F_開始日",
+              "nativeQueryRef": "改定日"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "材料_値上げイベント"
+                    }
+                  },
+                  "Property": "F_材料番号"
+                }
+              },
+              "queryRef": "材料_値上げイベント.F_材料番号",
+              "nativeQueryRef": "材料番号"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "品目分類情報"
+                    }
+                  },
+                  "Property": "F_分類名"
+                }
+              },
+              "queryRef": "品目分類情報.F_分類名",
+              "nativeQueryRef": "分類名"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "材料_値上げイベント"
+                    }
+                  },
+                  "Property": "F_仕入先略称"
+                }
+              },
+              "queryRef": "材料_値上げイベント.F_仕入先略称",
+              "nativeQueryRef": "仕入先略称"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "材料_値上げイベント"
+                        }
+                      },
+                      "Property": "前回単価"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(材料_値上げイベント.前回単価)",
+              "nativeQueryRef": "改定前単価"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "材料_値上げイベント"
+                        }
+                      },
+                      "Property": "F_契約単価"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(材料_値上げイベント.F_契約単価)",
+              "nativeQueryRef": "改定後単価"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "材料_値上げイベント"
+                        }
+                      },
+                      "Property": "値上げ額"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(材料_値上げイベント.値上げ額)",
+              "nativeQueryRef": "値上げ額"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "材料_値上げイベント"
+                        }
+                      },
+                      "Property": "値上げ率"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(材料_値上げイベント.値上げ率)",
+              "nativeQueryRef": "値上げ率"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "材料_年平均稼働量"
+                        }
+                      },
+                      "Property": "直近12か月稼働量"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(材料_年平均稼働量.直近12か月稼働量)",
+              "nativeQueryRef": "直近12か月稼働量"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "材料_値上げイベント"
+                        }
+                      },
+                      "Property": "年間予測影響額"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(材料_値上げイベント.年間予測影響額)",
+              "nativeQueryRef": "年間予測影響額"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "材料_値上げイベント"
+                  }
+                },
+                "Property": "F_開始日"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "119.10638985413071D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "材料_値上げイベント.F_仕入先略称"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "110.48837703163593D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "材料_値上げイベント.F_材料番号"
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'明細（契約改定イベント）'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

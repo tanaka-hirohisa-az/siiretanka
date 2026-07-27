@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "部材値上影響額"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "d41b9e73-2c6f-48a1-b5d2-7f8e3a9c1b6d"
+  }
+}

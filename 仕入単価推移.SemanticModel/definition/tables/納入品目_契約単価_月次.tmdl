@@ -1,0 +1,402 @@
+table 納入品目_契約単価_月次
+	lineageTag: 7c0e2a4b-1d6f-4901-c2f4-5b8d0e2a4c6f
+
+	measure 月割年初来影響_品目契約 =
+			// Excel転記用: その時点の品目契約ベース年初来影響額(年額)÷12。基準断裂行は除外
+			DIVIDE (
+			    CALCULATE (
+			        SUM ( '納入品目_契約単価_月次'[契約単価_年初来影響額] ),
+			        '納入品目_契約単価_月次'[契約単価_基準断裂フラグ] = 0
+			    ),
+			    12
+			)
+		formatString: #,0
+		lineageTag: 8d1f3b5c-2e7a-4012-d3a5-6c9e1f3b5d7a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column F_納入品目番号
+		lineageTag: 9e2a4c6d-3f8b-4123-e4b6-7d0f2a4c6e8b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_納入品目番号]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_開始月
+		formatString: General Date
+		lineageTag: 0f3b5d7e-4a9c-4234-f5c7-8e1a3b5d7f9c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_開始月]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 契約単価
+		formatString: #,0.00
+		lineageTag: 1a4c6e8f-5b0d-4345-a6d8-9f2b4c6e8a0d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [契約単価]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 契約単価_前月契約単価
+		formatString: #,0.00
+		lineageTag: 2b5d7f9a-6c1e-4456-b7e9-0a3c5d7f9b1e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [契約単価_前月契約単価]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 契約単価_値上げ額
+		formatString: #,0.00
+		lineageTag: 3c6e8a0b-7d2f-4567-c8fa-1b4d6e8a0c2f
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [契約単価_値上げ額]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 契約単価_値上げ率
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 4d7f9b1c-8e3a-4678-d9ab-2c5e7f9b1d3a
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [契約単価_値上げ率]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 契約単価_年間予測影響額
+		formatString: #,0
+		lineageTag: 5e8a0c2d-9f4b-4789-eabc-3d6f8a0c2e4b
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [契約単価_年間予測影響額]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 契約単価_直近12か月稼働量
+		formatString: #,0
+		lineageTag: 6f9b1d3e-0a5c-4890-fbcd-4e7a9b1d3f5c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [契約単価_直近12か月稼働量]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 契約単価_年度基準 =
+			// 年初来影響の基準: その年の最初の行の前月契約単価(≒前年末水準)
+			VAR __item = '納入品目_契約単価_月次'[F_納入品目番号]
+			VAR __y = YEAR ( '納入品目_契約単価_月次'[F_開始月] )
+			VAR __firstM =
+			    MINX (
+			        FILTER (
+			            '納入品目_契約単価_月次',
+			            '納入品目_契約単価_月次'[F_納入品目番号] = __item
+			                && YEAR ( '納入品目_契約単価_月次'[F_開始月] ) = __y
+			        ),
+			        '納入品目_契約単価_月次'[F_開始月]
+			    )
+			RETURN
+			    LOOKUPVALUE (
+			        '納入品目_契約単価_月次'[契約単価_前月契約単価],
+			        '納入品目_契約単価_月次'[F_納入品目番号], __item,
+			        '納入品目_契約単価_月次'[F_開始月], __firstM
+			    )
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 7a0c2e4f-1b6d-4901-acde-5f8b0c2e4a6d
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 契約単価_年初来値上げ額 =
+			IF (
+			    NOT ISBLANK ( [契約単価_年度基準] ),
+			    '納入品目_契約単価_月次'[契約単価] - [契約単価_年度基準]
+			)
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 8b1d3f5a-2c7e-4012-bdef-6a9c1d3f5b7e
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 契約単価_年初来影響額 =
+			IF (
+			    NOT ISBLANK ( [契約単価_年初来値上げ額] ),
+			    [契約単価_年初来値上げ額] * '納入品目_契約単価_月次'[契約単価_直近12か月稼働量]
+			)
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 9c2e4a6b-3d8f-4123-cefa-7b0d2e4a6c8f
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 契約単価_基準断裂フラグ =
+			VAR __r = DIVIDE ( [契約単価_年初来値上げ額], [契約単価_年度基準] )
+			RETURN
+			    IF (
+			        NOT ISBLANK ( [契約単価_年初来影響額] )
+			            && __r <= -0.5
+			            && [契約単価_年初来影響額] <= -1000000,
+			        1,
+			        0
+			    )
+		dataType: int64
+		formatString: 0
+		lineageTag: 0d3f5b7c-4e9a-4234-dfab-8c1e3f5b7d9a
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 納入品目_契約単価_月次 = calculated
+		mode: import
+		source = ```
+				
+				VAR __Rev0 =
+				    FILTER (
+				        'TB_納入品目仕入先単価情報',
+				        NOT ISBLANK ( 'TB_納入品目仕入先単価情報'[F_納入品目番号] )
+				            && NOT ISBLANK ( 'TB_納入品目仕入先単価情報'[F_開始日] )
+				            && NOT ISBLANK ( 'TB_納入品目仕入先単価情報'[F_契約単価] )
+				            // 入力ミスの異常日付(例: 0214年)を除外。月次スパインの爆発防止
+				            && 'TB_納入品目仕入先単価情報'[F_開始日] >= DATE ( 1990, 1, 1 )
+				            && 'TB_納入品目仕入先単価情報'[F_開始日] <= TODAY () + 366
+				    )
+				
+				VAR __Rev1 =
+				    SELECTCOLUMNS (
+				        __Rev0,
+				        "__品目番号",
+				            TRIM (
+				                SUBSTITUTE (
+				                    'TB_納入品目仕入先単価情報'[F_納入品目番号],
+				                    UNICHAR ( 12288 ),
+				                    " "
+				                )
+				            ) & "",
+				        "__仕入先", 'TB_納入品目仕入先単価情報'[F_仕入先番号] & "",
+				        "__開始月",
+				            EOMONTH ( 'TB_納入品目仕入先単価情報'[F_開始日], -1 ) + 1,
+				        "__単価", 'TB_納入品目仕入先単価情報'[F_契約単価]
+				    )
+				
+				VAR __ItemSet =
+				    FILTER (
+				        DISTINCT (
+				            SELECTCOLUMNS (
+				                '納入品目情報',
+				                "__品目番号",
+				                    TRIM (
+				                        SUBSTITUTE (
+				                            '納入品目情報'[F_納入品目番号],
+				                            UNICHAR ( 12288 ),
+				                            " "
+				                        )
+				                    ) & ""
+				            )
+				        ),
+				        [__品目番号] <> ""
+				    )
+				
+				VAR __Rev =
+				    NATURALINNERJOIN ( __Rev1, __ItemSet )
+				
+				VAR __MaxM =
+				    EOMONTH ( TODAY (), -1 )
+				
+				// 月次スパインの開始を2018年1月にクランプ(それ以前の改定はキャリーインで単価に反映される)
+				VAR __MinM0 =
+				    MINX ( __Rev, [__開始月] )
+				
+				VAR __MinM =
+				    IF ( __MinM0 < DATE ( 2018, 1, 1 ), DATE ( 2018, 1, 1 ), __MinM0 )
+				
+				VAR __Combo =
+				    GROUPBY (
+				        __Rev,
+				        [__品目番号],
+				        [__仕入先],
+				        "__初月", MINX ( CURRENTGROUP (), [__開始月] )
+				    )
+				
+				VAR __AllMonths =
+				    SELECTCOLUMNS (
+				        GENERATESERIES ( 0, DATEDIFF ( __MinM, __MaxM, MONTH ), 1 ),
+				        "__月", EDATE ( __MinM, [Value] )
+				    )
+				
+				VAR __ComboMonth =
+				    FILTER (
+				        CROSSJOIN ( __Combo, __AllMonths ),
+				        [__月] >= [__初月]
+				    )
+				
+				// 仕入先ごとに「最終改定月|単価」の固定桁テキストを作る。
+				// 後段で文字列MAXを取ると、最新改定の単価(同月改定なら高い方)が選ばれる
+				VAR __ComboPrice =
+				    ADDCOLUMNS (
+				        __ComboMonth,
+				        "__適用K",
+				            VAR k1 = [__品目番号]
+				            VAR k2 = [__仕入先]
+				            VAR m  = [__月]
+				            VAR lastRev =
+				                MAXX (
+				                    FILTER (
+				                        __Rev,
+				                        [__品目番号] = k1
+				                            && [__仕入先] = k2
+				                            && [__開始月] <= m
+				                    ),
+				                    [__開始月]
+				                )
+				            VAR p =
+				                MAXX (
+				                    FILTER (
+				                        __Rev,
+				                        [__品目番号] = k1
+				                            && [__仕入先] = k2
+				                            && [__開始月] = lastRev
+				                    ),
+				                    [__単価]
+				                )
+				            RETURN
+				                IF (
+				                    NOT ISBLANK ( p ),
+				                    FORMAT ( lastRev, "yyyymmdd" ) & "|"
+				                        & FORMAT ( p, "000000000000.000000" )
+				                )
+				    )
+				
+				// 仕入先間の集約: 単純平均をやめ、最新改定の契約単価を採用
+				VAR __ByItem0 =
+				    GROUPBY (
+				        __ComboPrice,
+				        [__品目番号],
+				        [__月],
+				        "__selK", MAXX ( CURRENTGROUP (), [__適用K] )
+				    )
+				
+				VAR __ByItem =
+				    SELECTCOLUMNS (
+				        FILTER ( __ByItem0, NOT ISBLANK ( [__selK] ) ),
+				        "__品目番号", [__品目番号],
+				        "__月",       [__月],
+				        "__契約単価", VALUE ( MID ( [__selK], 10, 30 ) )
+				    )
+				
+				VAR __WithPrev =
+				    ADDCOLUMNS (
+				        __ByItem,
+				        "__前月単価",
+				            VAR k = [__品目番号]
+				            VAR pm = EDATE ( [__月], -1 )
+				            RETURN
+				                MAXX (
+				                    FILTER ( __ByItem, [__品目番号] = k && [__月] = pm ),
+				                    [__契約単価]
+				                )
+				    )
+				
+				VAR __EvQ0 =
+				    FILTER (
+				        'TB_仕入実績情報',
+				        NOT ISBLANK ( 'TB_仕入実績情報'[F_品目番号] )
+				            && NOT ISBLANK ( 'TB_仕入実績情報'[F_仕入日] )
+				            && 'TB_仕入実績情報'[F_仕入数] > 0
+				    )
+				
+				VAR __EvQ1 =
+				    SELECTCOLUMNS (
+				        __EvQ0,
+				        "__品目番号",
+				            TRIM (
+				                SUBSTITUTE (
+				                    'TB_仕入実績情報'[F_品目番号],
+				                    UNICHAR ( 12288 ),
+				                    " "
+				                )
+				            ) & "",
+				        "__月",
+				            EOMONTH ( DATEVALUE ( 'TB_仕入実績情報'[F_仕入日] ), -1 ) + 1,
+				        "__数", 'TB_仕入実績情報'[F_仕入数]
+				    )
+				
+				VAR __EvQM =
+				    NATURALINNERJOIN ( __EvQ1, __ItemSet )
+				
+				VAR __Q =
+				    GROUPBY (
+				        __EvQM,
+				        [__品目番号],
+				        [__月],
+				        "__月数計", SUMX ( CURRENTGROUP (), [__数] )
+				    )
+				
+				VAR __QShift =
+				    SELECTCOLUMNS (
+				        CROSSJOIN (
+				            __Q,
+				            SELECTCOLUMNS ( GENERATESERIES ( 0, 11, 1 ), "__k", [Value] )
+				        ),
+				        "__品目番号", [__品目番号],
+				        "__基準月",   EDATE ( [__月], [__k] ),
+				        "__数c",      [__月数計]
+				    )
+				
+				VAR __QAgg =
+				    GROUPBY (
+				        __QShift,
+				        [__品目番号],
+				        [__基準月],
+				        "__稼働量", SUMX ( CURRENTGROUP (), [__数c] )
+				    )
+				
+				VAR __Final0 =
+				    NATURALLEFTOUTERJOIN (
+				        __WithPrev,
+				        SELECTCOLUMNS ( __QAgg, "__品目番号", [__品目番号], "__月", [__基準月], "__稼働量", [__稼働量] )
+				    )
+				
+				VAR __Final =
+				    ADDCOLUMNS (
+				        __Final0,
+				        "__値上げ額",
+				            IF (
+				                NOT ISBLANK ( [__前月単価] ),
+				                [__契約単価] - [__前月単価]
+				            )
+				    )
+				
+				RETURN
+				    SELECTCOLUMNS (
+				        __Final,
+				        "F_納入品目番号",   [__品目番号],
+				        "F_開始月",         [__月],
+				        "契約単価",         [__契約単価],
+				        "契約単価_前月契約単価",   [__前月単価],
+				        "契約単価_値上げ額",       [__値上げ額],
+				        "契約単価_値上げ率",       DIVIDE ( [__値上げ額], [__前月単価] ),
+				        "契約単価_年間予測影響額", [__値上げ額] * [__稼働量],
+				        "契約単価_直近12か月稼働量", [__稼働量]
+				    )
+				
+				```
+
+	annotation PBI_Id = 7c0e2a4b1d6f4901c2f45b8d0e2a4c6f
+

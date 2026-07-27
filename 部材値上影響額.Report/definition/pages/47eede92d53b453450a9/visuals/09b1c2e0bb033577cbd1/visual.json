@@ -1,0 +1,844 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "09b1c2e0bb033577cbd1",
+  "position": {
+    "x": 9.3464158816051111,
+    "y": 0,
+    "z": 0,
+    "height": 719.67402288359358,
+    "width": 1271.1125598982951,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "TB_仕入実績情報"
+                    }
+                  },
+                  "Property": "F_インボイス番号"
+                }
+              },
+              "queryRef": "TB_仕入実績情報.F_インボイス番号",
+              "nativeQueryRef": "F_インボイス番号"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "TB_仕入実績情報"
+                    }
+                  },
+                  "Property": "F_勘定年月"
+                }
+              },
+              "queryRef": "TB_仕入実績情報.F_勘定年月",
+              "nativeQueryRef": "F_勘定年月"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "TB_仕入実績情報"
+                    }
+                  },
+                  "Property": "F_完納区分"
+                }
+              },
+              "queryRef": "TB_仕入実績情報.F_完納区分",
+              "nativeQueryRef": "F_完納区分"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "TB_仕入実績情報"
+                        }
+                      },
+                      "Property": "F_間接税額"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(TB_仕入実績情報.F_間接税額)",
+              "nativeQueryRef": "F_間接税額 の合計"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "TB_仕入実績情報"
+                        }
+                      },
+                      "Property": "F_金額"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(TB_仕入実績情報.F_金額)",
+              "nativeQueryRef": "F_金額 の合計"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "TB_仕入実績情報"
+                    }
+                  },
+                  "Property": "F_更新日"
+                }
+              },
+              "queryRef": "TB_仕入実績情報.F_更新日",
+              "nativeQueryRef": "F_更新日"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "TB_仕入実績情報"
+                    }
+                  },
+                  "Property": "F_在庫場所"
+                }
+              },
+              "queryRef": "TB_仕入実績情報.F_在庫場所",
+              "nativeQueryRef": "F_在庫場所"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "TB_仕入実績情報"
+                        }
+                      },
+                      "Property": "F_仕入数"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(TB_仕入実績情報.F_仕入数)",
+              "nativeQueryRef": "F_仕入数 の合計"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "TB_仕入実績情報"
+                    }
+                  },
+                  "Property": "F_仕入先元帳"
+                }
+              },
+              "queryRef": "TB_仕入実績情報.F_仕入先元帳",
+              "nativeQueryRef": "F_仕入先元帳"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "TB_仕入実績情報"
+                    }
+                  },
+                  "Property": "F_仕入日"
+                }
+              },
+              "queryRef": "TB_仕入実績情報.F_仕入日",
+              "nativeQueryRef": "F_仕入日"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "TB_仕入実績情報"
+                        }
+                      },
+                      "Property": "F_仕入番号"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(TB_仕入実績情報.F_仕入番号)",
+              "nativeQueryRef": "F_仕入番号 の合計"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "TB_仕入実績情報"
+                    }
+                  },
+                  "Property": "F_指示先納品書番号"
+                }
+              },
+              "queryRef": "TB_仕入実績情報.F_指示先納品書番号",
+              "nativeQueryRef": "F_指示先納品書番号"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "TB_仕入実績情報"
+                    }
+                  },
+                  "Property": "F_指示先番号"
+                }
+              },
+              "queryRef": "TB_仕入実績情報.F_指示先番号",
+              "nativeQueryRef": "F_指示先番号"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "TB_仕入実績情報"
+                    }
+                  },
+                  "Property": "F_支払明細"
+                }
+              },
+              "queryRef": "TB_仕入実績情報.F_支払明細",
+              "nativeQueryRef": "F_支払明細"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "TB_仕入実績情報"
+                        }
+                      },
+                      "Property": "F_自社手配番号"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(TB_仕入実績情報.F_自社手配番号)",
+              "nativeQueryRef": "F_自社手配番号 の合計"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "TB_仕入実績情報"
+                    }
+                  },
+                  "Property": "F_手配区分"
+                }
+              },
+              "queryRef": "TB_仕入実績情報.F_手配区分",
+              "nativeQueryRef": "F_手配区分"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "TB_仕入実績情報"
+                    }
+                  },
+                  "Property": "F_照会項目"
+                }
+              },
+              "queryRef": "TB_仕入実績情報.F_照会項目",
+              "nativeQueryRef": "F_照会項目"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "TB_仕入実績情報"
+                        }
+                      },
+                      "Property": "F_単価"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(TB_仕入実績情報.F_単価)",
+              "nativeQueryRef": "F_単価 の合計"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "TB_仕入実績情報"
+                    }
+                  },
+                  "Property": "F_担当者"
+                }
+              },
+              "queryRef": "TB_仕入実績情報.F_担当者",
+              "nativeQueryRef": "F_担当者"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "TB_仕入実績情報"
+                    }
+                  },
+                  "Property": "F_日付１"
+                }
+              },
+              "queryRef": "TB_仕入実績情報.F_日付１",
+              "nativeQueryRef": "F_日付１"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "TB_仕入実績情報"
+                    }
+                  },
+                  "Property": "F_日付２"
+                }
+              },
+              "queryRef": "TB_仕入実績情報.F_日付２",
+              "nativeQueryRef": "F_日付２"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "TB_仕入実績情報"
+                    }
+                  },
+                  "Property": "F_日付３"
+                }
+              },
+              "queryRef": "TB_仕入実績情報.F_日付３",
+              "nativeQueryRef": "F_日付３"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "TB_仕入実績情報"
+                    }
+                  },
+                  "Property": "F_備考"
+                }
+              },
+              "queryRef": "TB_仕入実績情報.F_備考",
+              "nativeQueryRef": "F_備考"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "TB_仕入実績情報"
+                    }
+                  },
+                  "Property": "F_備考２"
+                }
+              },
+              "queryRef": "TB_仕入実績情報.F_備考２",
+              "nativeQueryRef": "F_備考２"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "TB_仕入実績情報"
+                    }
+                  },
+                  "Property": "F_品目番号"
+                }
+              },
+              "queryRef": "TB_仕入実績情報.F_品目番号",
+              "nativeQueryRef": "F_品目番号"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "53c686d365fed4b6de34",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "TB_仕入実績情報"
+              }
+            },
+            "Property": "F_インボイス番号"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "8c3bb9bc8b9c31a975a2",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "TB_仕入実績情報"
+              }
+            },
+            "Property": "F_勘定年月"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "4804175ce2943e775433",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "TB_仕入実績情報"
+                  }
+                },
+                "Property": "F_間接税額"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "92fbad465c30f8b4dde8",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "TB_仕入実績情報"
+                  }
+                },
+                "Property": "F_金額"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "ff440c78d8279a4e47c7",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "TB_仕入実績情報"
+              }
+            },
+            "Property": "F_在庫場所"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "9c69a8a9f648ce4d95ca",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "TB_仕入実績情報"
+                  }
+                },
+                "Property": "F_仕入数"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "2dd4115565ce222a1953",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "TB_仕入実績情報"
+              }
+            },
+            "Property": "F_仕入先元帳"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "3159ef3c77c3516d2bbc",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "TB_仕入実績情報"
+              }
+            },
+            "Property": "F_仕入日"
+          }
+        },
+        "type": "Advanced",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "t",
+              "Entity": "TB_仕入実績情報",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Or": {
+                  "Left": {
+                    "StartsWith": {
+                      "Left": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "t"
+                            }
+                          },
+                          "Property": "F_仕入日"
+                        }
+                      },
+                      "Right": {
+                        "Literal": {
+                          "Value": "'2026'"
+                        }
+                      }
+                    }
+                  },
+                  "Right": {
+                    "StartsWith": {
+                      "Left": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "t"
+                            }
+                          },
+                          "Property": "F_仕入日"
+                        }
+                      },
+                      "Right": {
+                        "Literal": {
+                          "Value": "'2025'"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "91c291b70f3bff75a7ba",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "TB_仕入実績情報"
+              }
+            },
+            "Property": "F_完納区分"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "33a516e3c85d50f8f6f5",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "TB_仕入実績情報"
+                  }
+                },
+                "Property": "F_仕入番号"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "4e1b10f4362900a3dbb9",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "TB_仕入実績情報"
+              }
+            },
+            "Property": "F_指示先納品書番号"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "231a6b9975f86670c22d",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "TB_仕入実績情報"
+              }
+            },
+            "Property": "F_指示先番号"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "fd99473a1f2df1493c91",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "TB_仕入実績情報"
+              }
+            },
+            "Property": "F_支払明細"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "0c994afcc9399c4e9892",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "TB_仕入実績情報"
+                  }
+                },
+                "Property": "F_自社手配番号"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "e57d7de7dfc81dc57719",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "TB_仕入実績情報"
+              }
+            },
+            "Property": "F_手配区分"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "c6081730b1e7323c5250",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "TB_仕入実績情報"
+              }
+            },
+            "Property": "F_照会項目"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "afdc23197bcec466388b",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "TB_仕入実績情報"
+                  }
+                },
+                "Property": "F_単価"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "8a2d148054b08ab57b9a",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "TB_仕入実績情報"
+              }
+            },
+            "Property": "F_担当者"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "694a14b5ae1b99273069",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "TB_仕入実績情報"
+              }
+            },
+            "Property": "F_日付１"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "44209fd11939274ce568",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "TB_仕入実績情報"
+              }
+            },
+            "Property": "F_日付２"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "cfdc293598869feab84b",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "TB_仕入実績情報"
+              }
+            },
+            "Property": "F_日付３"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "8abee5263a76f084a334",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "TB_仕入実績情報"
+              }
+            },
+            "Property": "F_備考"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "4dff84ce512afa04b775",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "TB_仕入実績情報"
+              }
+            },
+            "Property": "F_備考２"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "1720b5c8960deb9d653f",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "TB_仕入実績情報"
+              }
+            },
+            "Property": "F_品目番号"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "3d329d471520b352ea22",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "TB_仕入実績情報"
+              }
+            },
+            "Property": "F_更新日"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

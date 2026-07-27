@@ -11,58 +11,6 @@
       "type": "SharedResources"
     }
   },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "169b9ba38067d9393016",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "TW_納入品目在庫履歴"
-              }
-            },
-            "Property": "F_備考"
-          }
-        },
-        "type": "Advanced",
-        "filter": {
-          "Version": 2,
-          "From": [
-            {
-              "Name": "t",
-              "Entity": "TW_納入品目在庫履歴",
-              "Type": 0
-            }
-          ],
-          "Where": [
-            {
-              "Condition": {
-                "Contains": {
-                  "Left": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Source": "t"
-                        }
-                      },
-                      "Property": "F_備考"
-                    }
-                  },
-                  "Right": {
-                    "Literal": {
-                      "Value": "'RBX:'"
-                    }
-                  }
-                }
-              }
-            }
-          ]
-        },
-        "howCreated": "User"
-      }
-    ]
-  },
   "objects": {
     "section": [
       {

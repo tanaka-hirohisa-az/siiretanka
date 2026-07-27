@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "部材値上影響額"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "8c7a3f21-5b4e-4d29-a6c8-1e9f2b3d4c5a"
+  }
+}

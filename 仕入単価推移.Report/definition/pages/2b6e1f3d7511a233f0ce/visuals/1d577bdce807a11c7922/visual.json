@@ -136,21 +136,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'選択期間中の値上げ額の合計'"
-                }
-              }
-            },
-            "alignment": {
-              "expr": {
-                "Literal": {
-                  "Value": "'center'"
-                }
-              }
-            },
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "16D"
+                  "Value": "'契約改定幅の合計（単価差）'"
                 }
               }
             }

@@ -5,35 +5,9 @@
       "ordinal": 0,
       "scrollPosition": {
         "x": 0,
-        "y": 12810
+        "y": 12808.00048828125
       },
       "nodes": [
-        {
-          "location": {
-            "x": 2981.0010442767975,
-            "y": 24818.747729336985
-          },
-          "nodeIndex": "TB_材料在庫明細情報",
-          "nodeLineageTag": "9cc8cc58-2751-46a9-815b-90326dc16d02",
-          "size": {
-            "height": 300,
-            "width": 234
-          },
-          "zIndex": 18
-        },
-        {
-          "location": {
-            "x": 284,
-            "y": 25904.560035718459
-          },
-          "nodeIndex": "TB_材料手配残",
-          "nodeLineageTag": "9f1f9e18-4de7-493c-b471-c8ee8ea99baa",
-          "size": {
-            "height": 300,
-            "width": 234
-          },
-          "zIndex": 19
-        },
         {
           "location": {
             "x": 366.347834882389,
@@ -101,43 +75,6 @@
         },
         {
           "location": {
-            "x": 1486,
-            "y": 25906.560035718459
-          },
-          "nodeIndex": "明細_自動倉庫_稼働",
-          "nodeLineageTag": "8b3cdf08-c70b-4bf1-b3b6-6a0621fbbd34",
-          "size": {
-            "height": 200,
-            "width": 234
-          },
-          "zIndex": 6
-        },
-        {
-          "location": {
-            "x": 1770,
-            "y": 26185.560035718459
-          },
-          "nodeIndex": "材料一覧_稼働判定",
-          "size": {
-            "height": 200,
-            "width": 234
-          },
-          "zIndex": 7
-        },
-        {
-          "location": {
-            "x": 2054,
-            "y": 26185.560035718459
-          },
-          "nodeIndex": "明細_材料在庫_稼働",
-          "size": {
-            "height": 200,
-            "width": 234
-          },
-          "zIndex": 8
-        },
-        {
-          "location": {
             "x": 2956.3830500146937,
             "y": 26060.926512248578
           },
@@ -164,19 +101,6 @@
         },
         {
           "location": {
-            "x": 3190.3830500146937,
-            "y": 26127.3488612285
-          },
-          "nodeIndex": "TB_得意先情報",
-          "nodeLineageTag": "55b8c755-0a39-4e54-8a47-bc128679d97c",
-          "size": {
-            "height": 300,
-            "width": 234
-          },
-          "zIndex": 11
-        },
-        {
-          "location": {
             "x": 2388,
             "y": 26090.911623028172
           },
@@ -190,18 +114,6 @@
         },
         {
           "location": {
-            "x": 1221,
-            "y": 26466.560035718459
-          },
-          "nodeIndex": "品目一覧_稼働判定",
-          "size": {
-            "height": 200,
-            "width": 234
-          },
-          "zIndex": 13
-        },
-        {
-          "location": {
             "x": 3253.7564349906374,
             "y": 25821.825271058424
           },
@@ -212,31 +124,6 @@
             "width": 234
           },
           "zIndex": 14
-        },
-        {
-          "location": {
-            "x": 4326.3830500146942,
-            "y": 25831.690202831389
-          },
-          "nodeIndex": "Dim_納入品目",
-          "size": {
-            "height": 200,
-            "width": 234
-          },
-          "zIndex": 15
-        },
-        {
-          "location": {
-            "x": 4610.3830500146942,
-            "y": 25691.190202831389
-          },
-          "nodeIndex": "Dim_仕入先",
-          "nodeLineageTag": "3e8f6ea5-13fb-41f7-8224-5ecc739b23d6",
-          "size": {
-            "height": 200,
-            "width": 234
-          },
-          "zIndex": 16
         },
         {
           "location": {
@@ -343,19 +230,6 @@
         },
         {
           "location": {
-            "x": 1050.6359911377135,
-            "y": 25546.35371058642
-          },
-          "nodeIndex": "BEI品目情報",
-          "nodeLineageTag": "cd483ce7-e9c1-44ce-9c4d-b092a232247b",
-          "size": {
-            "height": 300,
-            "width": 234
-          },
-          "zIndex": 1
-        },
-        {
-          "location": {
             "x": 2187.740505875825,
             "y": 24882.339221712715
           },
@@ -407,12 +281,9 @@
           "zIndex": 0
         },
         {
-          "location": {
-            "x": 5462.3830500146942,
-            "y": 9106.2578969105361
-          },
-          "nodeIndex": "材料_月別純増減_仕入",
-          "nodeLineageTag": "b5c6d7e8-f9a0-4b12-3c4d-5e6f7a8b9c0d",
+          "location": {},
+          "nodeIndex": "材料_加重平均単価_月次",
+          "nodeLineageTag": "d4e5f6a7-b8c9-4d01-2e3f-4a5b6c7d8e9a",
           "size": {
             "height": 300,
             "width": 234
@@ -420,12 +291,9 @@
           "zIndex": 0
         },
         {
-          "location": {
-            "x": 5228.3830500146942,
-            "y": 9056.2578969105361
-          },
-          "nodeIndex": "材料_値上げイベント_仕入",
-          "nodeLineageTag": "a0b1c2d3-e4f5-4a67-8b9c-0d1e2f3a4b5c",
+          "location": {},
+          "nodeIndex": "材料_契約単価_月次",
+          "nodeLineageTag": "e5f6a7b8-c9d0-4e12-3f4a-5b6c7d8e9f2c",
           "size": {
             "height": 300,
             "width": 234
@@ -433,14 +301,11 @@
           "zIndex": 0
         },
         {
-          "location": {
-            "x": 4944.3830500146942,
-            "y": 9130.2578969105361
-          },
-          "nodeIndex": "材料_年平均稼働量_仕入",
-          "nodeLineageTag": "b1a2c3d4-e5f6-4a78-9b0c-d1e2f3a4b5c6",
+          "location": {},
+          "nodeIndex": "納入品目_契約単価_月次",
+          "nodeLineageTag": "7c0e2a4b-1d6f-4901-c2f4-5b8d0e2a4c6f",
           "size": {
-            "height": 152,
+            "height": 300,
             "width": 234
           },
           "zIndex": 0

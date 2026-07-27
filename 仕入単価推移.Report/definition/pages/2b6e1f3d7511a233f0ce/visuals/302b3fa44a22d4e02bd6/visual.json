@@ -79,6 +79,28 @@
         ]
       }
     },
-    "drillFilterOtherVisuals": true
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'材料別 契約改定率（期間単純和）'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
   }
 }
