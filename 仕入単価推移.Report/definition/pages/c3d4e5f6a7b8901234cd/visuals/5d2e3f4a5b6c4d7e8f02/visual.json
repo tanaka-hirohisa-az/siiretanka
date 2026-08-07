@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
-  "name": "f2a3b4c5d6e7890123f7",
+  "name": "5d2e3f4a5b6c4d7e8f02",
   "position": {
-    "x": 0,
-    "y": 379.89949748743715,
-    "z": 2000,
-    "height": 340.1005025125628,
-    "width": 1279.5979899497486,
-    "tabOrder": 2000
+    "x": 210,
+    "y": 730,
+    "z": 7100,
+    "height": 250,
+    "width": 1070,
+    "tabOrder": 7100
   },
   "visual": {
     "visualType": "tableEx",
@@ -20,13 +20,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料_契約単価_月次"
+                      "Entity": "材料情報"
                     }
                   },
                   "Property": "F_在庫材料番号"
                 }
               },
-              "queryRef": "材料_契約単価_月次.F_在庫材料番号",
+              "queryRef": "材料情報.F_在庫材料番号",
               "nativeQueryRef": "在庫材料番号"
             },
             {
@@ -34,13 +34,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料_契約単価_月次"
+                      "Entity": "材料_仕入先別_月次"
                     }
                   },
                   "Property": "F_開始月"
                 }
               },
-              "queryRef": "材料_契約単価_月次.F_開始月",
+              "queryRef": "材料_仕入先別_月次.F_開始月",
               "nativeQueryRef": "開始月"
             },
             {
@@ -48,14 +48,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "品目分類情報"
+                      "Entity": "材料_仕入先別_月次"
                     }
                   },
-                  "Property": "F_分類名"
+                  "Property": "F_仕入先略称"
                 }
               },
-              "queryRef": "品目分類情報.F_分類名",
-              "nativeQueryRef": "分類名"
+              "queryRef": "材料_仕入先別_月次.F_仕入先略称",
+              "nativeQueryRef": "仕入先"
             },
             {
               "field": {
@@ -64,83 +64,7 @@
                     "Column": {
                       "Expression": {
                         "SourceRef": {
-                          "Entity": "材料_契約単価_月次"
-                        }
-                      },
-                      "Property": "契約単価"
-                    }
-                  },
-                  "Function": 0
-                }
-              },
-              "queryRef": "Sum(材料_契約単価_月次.契約単価)",
-              "nativeQueryRef": "契約単価"
-            },
-            {
-              "field": {
-                "Aggregation": {
-                  "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "材料_契約単価_月次"
-                        }
-                      },
-                      "Property": "加重平均単価"
-                    }
-                  },
-                  "Function": 0
-                }
-              },
-              "queryRef": "Sum(材料_契約単価_月次.加重平均単価)",
-              "nativeQueryRef": "実績加重平均単価"
-            },
-            {
-              "field": {
-                "Aggregation": {
-                  "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "材料_契約単価_月次"
-                        }
-                      },
-                      "Property": "契約差額"
-                    }
-                  },
-                  "Function": 0
-                }
-              },
-              "queryRef": "Sum(材料_契約単価_月次.契約差額)",
-              "nativeQueryRef": "契約差額"
-            },
-            {
-              "field": {
-                "Aggregation": {
-                  "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "材料_契約単価_月次"
-                        }
-                      },
-                      "Property": "契約差率"
-                    }
-                  },
-                  "Function": 0
-                }
-              },
-              "queryRef": "Sum(材料_契約単価_月次.契約差率)",
-              "nativeQueryRef": "契約差率"
-            },
-            {
-              "field": {
-                "Aggregation": {
-                  "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "材料_契約単価_月次"
+                          "Entity": "材料_仕入先別_月次"
                         }
                       },
                       "Property": "月内仕入数"
@@ -149,7 +73,7 @@
                   "Function": 0
                 }
               },
-              "queryRef": "Sum(材料_契約単価_月次.月内仕入数)",
+              "queryRef": "Sum(材料_仕入先別_月次.月内仕入数)",
               "nativeQueryRef": "月内仕入数"
             },
             {
@@ -159,7 +83,7 @@
                     "Column": {
                       "Expression": {
                         "SourceRef": {
-                          "Entity": "材料_契約単価_月次"
+                          "Entity": "材料_仕入先別_月次"
                         }
                       },
                       "Property": "月内仕入金額"
@@ -168,41 +92,87 @@
                   "Function": 0
                 }
               },
-              "queryRef": "Sum(材料_契約単価_月次.月内仕入金額)",
+              "queryRef": "Sum(材料_仕入先別_月次.月内仕入金額)",
               "nativeQueryRef": "月内仕入金額"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "材料_仕入先別_月次"
+                        }
+                      },
+                      "Property": "月内単価"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(材料_仕入先別_月次.月内単価)",
+              "nativeQueryRef": "月内単価"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "材料_仕入先別_月次"
+                        }
+                      },
+                      "Property": "同月の取引社数"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(材料_仕入先別_月次.同月の取引社数)",
+              "nativeQueryRef": "同月の取引社数"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "材料_仕入先別_月次"
+                        }
+                      },
+                      "Property": "最安社との単価差"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(材料_仕入先別_月次.最安社との単価差)",
+              "nativeQueryRef": "最安社との単価差"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "材料_仕入先別_月次"
+                        }
+                      },
+                      "Property": "最安社との差額"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(材料_仕入先別_月次.最安社との差額)",
+              "nativeQueryRef": "最安社との差額"
             }
           ]
         }
-      },
-      "sortDefinition": {
-        "sort": [
-          {
-            "field": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "材料_契約単価_月次"
-                  }
-                },
-                "Property": "F_在庫材料番号"
-              }
-            },
-            "direction": "Ascending"
-          },
-          {
-            "field": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "材料_契約単価_月次"
-                  }
-                },
-                "Property": "F_開始月"
-              }
-            },
-            "direction": "Ascending"
-          }
-        ]
       }
     },
     "objects": {
@@ -212,7 +182,6 @@
         }
       ]
     },
-    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -227,13 +196,14 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'明細（契約単価と実績単価の乖離）'"
+                  "Value": "'明細（仕入先別の実績単価。同月に複数社から買っている材料は最安社との差が出ます）'"
                 }
               }
             }
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
   }
 }

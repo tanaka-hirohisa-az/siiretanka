@@ -36,17 +36,22 @@
           "projections": [
             {
               "field": {
-                "Measure": {
+                "Aggregation": {
                   "Expression": {
-                    "SourceRef": {
-                      "Entity": "材料_加重平均単価_月次"
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "材料_加重平均単価_月次"
+                        }
+                      },
+                      "Property": "年間予測影響額"
                     }
                   },
-                  "Property": "年間予測影響額_最新月"
+                  "Function": 0
                 }
               },
-              "queryRef": "材料_加重平均単価_月次.年間予測影響額_最新月",
-              "nativeQueryRef": "年間予測影響額_最新月"
+              "queryRef": "Sum(材料_加重平均単価_月次.年間予測影響額)",
+              "nativeQueryRef": "年間予測影響額"
             }
           ]
         }
@@ -75,10 +80,17 @@
       "title": [
         {
           "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'材料別 加重平均単価の年間予測影響額（直近月時点）'"
+                  "Value": "'材料別 加重平均単価の年間予測影響額（期間合計）'"
                 }
               }
             }
