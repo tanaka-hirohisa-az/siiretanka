@@ -67,8 +67,7 @@ table 材料_仕入単価履歴
 		formatString: #,0.00
 		lineageTag: 9a1b2c3d-4e5f-4607-8192-a3b4c5d6e7f4
 
-	measure 履歴_値上げ率 =
-			DIVIDE ( [履歴_単価差], [履歴_前単価] )
+	measure 履歴_値上げ率 = DIVIDE ( [履歴_単価差], [履歴_前単価] )
 		formatString: 0.00%;-0.00%;0.00%
 		lineageTag: 9a1b2c3d-4e5f-4607-8192-a3b4c5d6e7f2
 

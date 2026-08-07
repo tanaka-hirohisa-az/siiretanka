@@ -7,83 +7,213 @@
   "width": 1280,
   "visualInteractions": [
     {
-      "source": "e5f6a7b8c9d0123456ef",
-      "target": "f6a7b8c9d0e1234567f0",
-      "type": "DataFilter"
-    },
-    {
-      "source": "e5f6a7b8c9d0123456ef",
+      "source": "5d2e3f4a5b6c4d7e8f02",
       "target": "a7b8c9d0e1f2345678a1",
-      "type": "DataFilter"
+      "type": "NoFilter"
     },
     {
-      "source": "e5f6a7b8c9d0123456ef",
+      "source": "5d2e3f4a5b6c4d7e8f02",
       "target": "b8c9d0e1f2a3456789b2",
-      "type": "DataFilter"
+      "type": "NoFilter"
     },
     {
-      "source": "f6a7b8c9d0e1234567f0",
+      "source": "5d2e3f4a5b6c4d7e8f02",
+      "target": "d4e5f6a7b8c9012345de",
+      "type": "NoFilter"
+    },
+    {
+      "source": "5d2e3f4a5b6c4d7e8f02",
       "target": "e5f6a7b8c9d0123456ef",
-      "type": "DataFilter"
+      "type": "NoFilter"
     },
     {
-      "source": "f6a7b8c9d0e1234567f0",
-      "target": "a7b8c9d0e1f2345678a1",
-      "type": "DataFilter"
+      "source": "5d2e3f4a5b6c4d7e8f02",
+      "target": "f2a3b4c5d6e7890123f7",
+      "type": "NoFilter"
     },
     {
-      "source": "f6a7b8c9d0e1234567f0",
-      "target": "b8c9d0e1f2a3456789b2",
-      "type": "DataFilter"
+      "source": "5d2e3f4a5b6c4d7e8f02",
+      "target": "f6a7b8c9d0e1234567f0",
+      "type": "NoFilter"
     },
     {
       "source": "a7b8c9d0e1f2345678a1",
-      "target": "e5f6a7b8c9d0123456ef",
-      "type": "DataFilter"
-    },
-    {
-      "source": "a7b8c9d0e1f2345678a1",
-      "target": "f6a7b8c9d0e1234567f0",
+      "target": "5d2e3f4a5b6c4d7e8f02",
       "type": "DataFilter"
     },
     {
       "source": "a7b8c9d0e1f2345678a1",
       "target": "b8c9d0e1f2a3456789b2",
+      "type": "HighlightFilter"
+    },
+    {
+      "source": "a7b8c9d0e1f2345678a1",
+      "target": "d4e5f6a7b8c9012345de",
       "type": "DataFilter"
     },
     {
-      "source": "b8c9d0e1f2a3456789b2",
+      "source": "a7b8c9d0e1f2345678a1",
       "target": "e5f6a7b8c9d0123456ef",
+      "type": "HighlightFilter"
+    },
+    {
+      "source": "a7b8c9d0e1f2345678a1",
+      "target": "f2a3b4c5d6e7890123f7",
       "type": "DataFilter"
     },
     {
-      "source": "b8c9d0e1f2a3456789b2",
+      "source": "a7b8c9d0e1f2345678a1",
       "target": "f6a7b8c9d0e1234567f0",
+      "type": "HighlightFilter"
+    },
+    {
+      "source": "b8c9d0e1f2a3456789b2",
+      "target": "5d2e3f4a5b6c4d7e8f02",
       "type": "DataFilter"
     },
     {
       "source": "b8c9d0e1f2a3456789b2",
       "target": "a7b8c9d0e1f2345678a1",
+      "type": "HighlightFilter"
+    },
+    {
+      "source": "b8c9d0e1f2a3456789b2",
+      "target": "d4e5f6a7b8c9012345de",
       "type": "DataFilter"
     },
     {
-      "source": "e1f2a3b4c5d6789012e5",
+      "source": "b8c9d0e1f2a3456789b2",
       "target": "e5f6a7b8c9d0123456ef",
+      "type": "HighlightFilter"
+    },
+    {
+      "source": "b8c9d0e1f2a3456789b2",
+      "target": "f2a3b4c5d6e7890123f7",
       "type": "DataFilter"
     },
     {
-      "source": "e1f2a3b4c5d6789012e5",
+      "source": "b8c9d0e1f2a3456789b2",
       "target": "f6a7b8c9d0e1234567f0",
-      "type": "DataFilter"
+      "type": "HighlightFilter"
     },
     {
-      "source": "e1f2a3b4c5d6789012e5",
+      "source": "d4e5f6a7b8c9012345de",
+      "target": "5d2e3f4a5b6c4d7e8f02",
+      "type": "NoFilter"
+    },
+    {
+      "source": "d4e5f6a7b8c9012345de",
       "target": "a7b8c9d0e1f2345678a1",
-      "type": "DataFilter"
+      "type": "NoFilter"
     },
     {
-      "source": "e1f2a3b4c5d6789012e5",
+      "source": "d4e5f6a7b8c9012345de",
       "target": "b8c9d0e1f2a3456789b2",
+      "type": "NoFilter"
+    },
+    {
+      "source": "d4e5f6a7b8c9012345de",
+      "target": "e5f6a7b8c9d0123456ef",
+      "type": "NoFilter"
+    },
+    {
+      "source": "d4e5f6a7b8c9012345de",
+      "target": "f2a3b4c5d6e7890123f7",
+      "type": "NoFilter"
+    },
+    {
+      "source": "d4e5f6a7b8c9012345de",
+      "target": "f6a7b8c9d0e1234567f0",
+      "type": "NoFilter"
+    },
+    {
+      "source": "e5f6a7b8c9d0123456ef",
+      "target": "5d2e3f4a5b6c4d7e8f02",
+      "type": "DataFilter"
+    },
+    {
+      "source": "e5f6a7b8c9d0123456ef",
+      "target": "a7b8c9d0e1f2345678a1",
+      "type": "HighlightFilter"
+    },
+    {
+      "source": "e5f6a7b8c9d0123456ef",
+      "target": "b8c9d0e1f2a3456789b2",
+      "type": "HighlightFilter"
+    },
+    {
+      "source": "e5f6a7b8c9d0123456ef",
+      "target": "d4e5f6a7b8c9012345de",
+      "type": "DataFilter"
+    },
+    {
+      "source": "e5f6a7b8c9d0123456ef",
+      "target": "f2a3b4c5d6e7890123f7",
+      "type": "DataFilter"
+    },
+    {
+      "source": "e5f6a7b8c9d0123456ef",
+      "target": "f6a7b8c9d0e1234567f0",
+      "type": "HighlightFilter"
+    },
+    {
+      "source": "f2a3b4c5d6e7890123f7",
+      "target": "5d2e3f4a5b6c4d7e8f02",
+      "type": "NoFilter"
+    },
+    {
+      "source": "f2a3b4c5d6e7890123f7",
+      "target": "a7b8c9d0e1f2345678a1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "f2a3b4c5d6e7890123f7",
+      "target": "b8c9d0e1f2a3456789b2",
+      "type": "NoFilter"
+    },
+    {
+      "source": "f2a3b4c5d6e7890123f7",
+      "target": "d4e5f6a7b8c9012345de",
+      "type": "NoFilter"
+    },
+    {
+      "source": "f2a3b4c5d6e7890123f7",
+      "target": "e5f6a7b8c9d0123456ef",
+      "type": "NoFilter"
+    },
+    {
+      "source": "f2a3b4c5d6e7890123f7",
+      "target": "f6a7b8c9d0e1234567f0",
+      "type": "NoFilter"
+    },
+    {
+      "source": "f6a7b8c9d0e1234567f0",
+      "target": "5d2e3f4a5b6c4d7e8f02",
+      "type": "DataFilter"
+    },
+    {
+      "source": "f6a7b8c9d0e1234567f0",
+      "target": "a7b8c9d0e1f2345678a1",
+      "type": "HighlightFilter"
+    },
+    {
+      "source": "f6a7b8c9d0e1234567f0",
+      "target": "b8c9d0e1f2a3456789b2",
+      "type": "HighlightFilter"
+    },
+    {
+      "source": "f6a7b8c9d0e1234567f0",
+      "target": "d4e5f6a7b8c9012345de",
+      "type": "DataFilter"
+    },
+    {
+      "source": "f6a7b8c9d0e1234567f0",
+      "target": "e5f6a7b8c9d0123456ef",
+      "type": "HighlightFilter"
+    },
+    {
+      "source": "f6a7b8c9d0e1234567f0",
+      "target": "f2a3b4c5d6e7890123f7",
       "type": "DataFilter"
     }
   ]

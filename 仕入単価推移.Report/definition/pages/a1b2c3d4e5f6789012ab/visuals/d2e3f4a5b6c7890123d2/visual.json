@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "d2e3f4a5b6c7890123d2",
   "position": {
-    "x": 0.0,
-    "y": 130.0,
+    "x": 0,
+    "y": 130,
     "z": 1000,
-    "height": 260.0,
-    "width": 920.0,
+    "height": 260,
+    "width": 920,
     "tabOrder": 1000
   },
   "visual": {
@@ -42,11 +42,11 @@
                       "Entity": "材料_契約単価_月次"
                     }
                   },
-                  "Property": "材料_値上げ_電線"
+                  "Property": "材料_値上げ"
                 }
               },
-              "queryRef": "材料_契約単価_月次.材料_値上げ_電線",
-              "nativeQueryRef": "材料_値上げ_電線"
+              "queryRef": "材料_契約単価_月次.材料_値上げ",
+              "nativeQueryRef": "材料_値上げ"
             },
             {
               "field": {
@@ -56,11 +56,11 @@
                       "Entity": "材料_契約単価_月次"
                     }
                   },
-                  "Property": "材料_値上げ_電線以外"
+                  "Property": "材料_値下げ"
                 }
               },
-              "queryRef": "材料_契約単価_月次.材料_値上げ_電線以外",
-              "nativeQueryRef": "材料_値上げ_電線以外"
+              "queryRef": "材料_契約単価_月次.材料_値下げ",
+              "nativeQueryRef": "材料_値下げ"
             }
           ]
         },
@@ -71,14 +71,14 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "納入品目_契約単価_月次"
+                      "Entity": "材料_契約単価_月次"
                     }
                   },
-                  "Property": "品目_値上げ"
+                  "Property": "材料_正味"
                 }
               },
-              "queryRef": "納入品目_契約単価_月次.品目_値上げ",
-              "nativeQueryRef": "品目_値上げ"
+              "queryRef": "材料_契約単価_月次.材料_正味",
+              "nativeQueryRef": "材料_正味"
             }
           ]
         }
@@ -110,7 +110,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'月別 転記額（円/月・値上がりのみ）: 積み上げ＝材料を電線／電線以外に分けたもの、折れ線＝納入品目'"
+                  "Value": "'月別 契約単価の年初来影響額（円/月）: 上向き＝値上げ分（No.5/6への転記対象）、下向き＝値下げ分（転記対象外）、折れ線＝正味。集計表で電線／電線以外を選ぶと該当分が強調されます'"
                 }
               }
             }

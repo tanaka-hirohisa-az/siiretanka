@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "e9f0a1b2c3d4567890e9",
   "position": {
-    "x": 0.0,
-    "y": 580.0,
+    "x": 0,
+    "y": 580,
     "z": 2000,
-    "height": 140.0,
-    "width": 1280.0,
+    "height": 140,
+    "width": 1280,
     "tabOrder": 2000
   },
   "visual": {
@@ -42,20 +42,6 @@
               },
               "queryRef": "tbl_calendar.年月_表示",
               "nativeQueryRef": "年月"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "品目分類情報"
-                    }
-                  },
-                  "Property": "F_分類名"
-                }
-              },
-              "queryRef": "品目分類情報.F_分類名",
-              "nativeQueryRef": "分類名"
             },
             {
               "field": {
@@ -98,20 +84,6 @@
               },
               "queryRef": "材料_契約単価_月次.契約単価_年度基準比",
               "nativeQueryRef": "契約単価_年度基準比"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "材料_加重平均単価_月次"
-                    }
-                  },
-                  "Property": "実績_年初単価"
-                }
-              },
-              "queryRef": "材料_加重平均単価_月次.実績_年初単価",
-              "nativeQueryRef": "実績_年初単価"
             },
             {
               "field": {
@@ -168,34 +140,6 @@
               },
               "queryRef": "材料_契約単価_月次.月割年初来影響_材料契約",
               "nativeQueryRef": "月割年初来影響_材料契約"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "材料_加重平均単価_月次"
-                    }
-                  },
-                  "Property": "月割年初来影響_材料実績"
-                }
-              },
-              "queryRef": "材料_加重平均単価_月次.月割年初来影響_材料実績",
-              "nativeQueryRef": "月割年初来影響_材料実績"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "材料_契約単価_月次"
-                    }
-                  },
-                  "Property": "月割影響額差_契約実績"
-                }
-              },
-              "queryRef": "材料_契約単価_月次.月割影響額差_契約実績",
-              "nativeQueryRef": "月割影響額差_契約実績"
             }
           ]
         }

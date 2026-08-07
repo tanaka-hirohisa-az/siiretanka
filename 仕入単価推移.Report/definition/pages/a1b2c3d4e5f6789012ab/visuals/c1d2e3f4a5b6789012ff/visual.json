@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
-  "name": "f4a5b6c7d8e9012345f4",
+  "name": "c1d2e3f4a5b6789012ff",
   "position": {
     "x": 920,
-    "y": 0,
-    "z": 3000,
+    "y": 290,
+    "z": 3100,
     "height": 290,
     "width": 360,
-    "tabOrder": 3000
+    "tabOrder": 3100
   },
   "visual": {
     "visualType": "clusteredBarChart",
@@ -42,11 +42,11 @@
                       "Entity": "材料_契約単価_月次"
                     }
                   },
-                  "Property": "材料_値上げ"
+                  "Property": "材料_値下げ"
                 }
               },
-              "queryRef": "材料_契約単価_月次.材料_値上げ",
-              "nativeQueryRef": "材料_値上げ"
+              "queryRef": "材料_契約単価_月次.材料_値下げ",
+              "nativeQueryRef": "材料_値下げ"
             }
           ]
         }
@@ -61,10 +61,10 @@
                     "Entity": "材料_契約単価_月次"
                   }
                 },
-                "Property": "材料_値上げ"
+                "Property": "材料_値下げ"
               }
             },
-            "direction": "Descending"
+            "direction": "Ascending"
           }
         ],
         "isDefaultSort": true
@@ -77,7 +77,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'検知① 値上げが大きい材料（円/月）'"
+                  "Value": "'検知② 値下げが大きい材料（円/月・転記対象外）'"
                 }
               }
             }

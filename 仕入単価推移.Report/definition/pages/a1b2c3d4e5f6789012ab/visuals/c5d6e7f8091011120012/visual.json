@@ -1,37 +1,18 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "c5d6e7f8091011120012",
   "position": {
-    "x": 0.0,
-    "y": 390.0,
+    "x": 0,
+    "y": 390,
     "z": 10000,
-    "height": 190.0,
-    "width": 920.0,
+    "height": 190,
+    "width": 920,
     "tabOrder": 10000
   },
   "visual": {
     "visualType": "pivotTable",
     "query": {
       "queryState": {
-        "Rows": {
-          "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "品目分類情報"
-                    }
-                  },
-                  "Property": "電線区分"
-                }
-              },
-              "queryRef": "品目分類情報.電線区分",
-              "nativeQueryRef": "電線区分",
-              "active": true
-            }
-          ]
-        },
         "Columns": {
           "projections": [
             {
@@ -51,6 +32,25 @@
             }
           ]
         },
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "材料情報"
+                    }
+                  },
+                  "Property": "電線区分_転記"
+                }
+              },
+              "queryRef": "材料情報.電線区分_転記",
+              "nativeQueryRef": "電線区分",
+              "active": true
+            }
+          ]
+        },
         "Values": {
           "projections": [
             {
@@ -61,25 +61,11 @@
                       "Entity": "材料_契約単価_月次"
                     }
                   },
-                  "Property": "材料_値上げ"
+                  "Property": "転記額_材料"
                 }
               },
-              "queryRef": "材料_契約単価_月次.材料_値上げ",
-              "nativeQueryRef": "材料_値上げ"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "納入品目_契約単価_月次"
-                    }
-                  },
-                  "Property": "品目_値上げ"
-                }
-              },
-              "queryRef": "納入品目_契約単価_月次.品目_値上げ",
-              "nativeQueryRef": "品目_値上げ"
+              "queryRef": "材料_契約単価_月次.転記額_材料",
+              "nativeQueryRef": "転記額_材料"
             }
           ]
         }
@@ -109,7 +95,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Excel転記用: 電線区分×月 月割影響額（円/月・契約単価・値上がりのみ）。エクセルは同額を負で記録'"
+                  "Value": "'Excel転記用: 電線区分×月 月割影響額（円/月・材料のみ・契約単価・値上がりのみ）。符号はエクセルに合わせて値上がりがマイナス。◎PLヒット案件まとめ No.5(電線)/No.6(電線以外)にそのまま転記できます'"
                 }
               }
             }

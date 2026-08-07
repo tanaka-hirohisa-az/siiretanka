@@ -243,6 +243,24 @@ table 材料情報
 
 		annotation SummarizationSetBy = Automatic
 
+	column 電線区分_転記 =
+			// 転記表・月チャート用の電線区分。
+			// 品目分類情報 に対応する分類がない材料(F_品目分類 が空、または 999 のように
+			// 分類マスタに無いコード)は、マトリックス上で名前のない空白行になっていた。
+			// 転記表に名前のない行を出さないため、引けないものは電線以外に寄せる。
+			COALESCE (
+			    LOOKUPVALUE (
+			        '品目分類情報'[電線区分],
+			        '品目分類情報'[F_番号], '材料情報'[F_品目分類]
+			    ),
+			    "電線以外"
+			)
+		dataType: string
+		lineageTag: 3c4d5e6f-7081-4293-a4b5-c6d7e8f90a12
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 材料情報 = m
 		mode: import
 		source =
