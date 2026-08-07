@@ -98,3 +98,7 @@ relationship 5d2e3f4a-5b6c-4d7e-8f90-1a2b3c4d5e71
 	fromColumn: 材料_仕入先別_月次.F_材料番号
 	toColumn: 材料情報.材料番号_正規化
 
+relationship c7d8e9f0-a1b2-4734-c890-de56fa678901
+	toCardinality: many
+	fromColumn: 材料_仕入単価履歴.F_材料番号
+	toColumn: 材料情報.材料番号_正規化

@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "材料情報.F_材料番号",
-              "nativeQueryRef": "F_材料番号"
+              "nativeQueryRef": "F_材料番号",
+              "active": true
             }
           ]
         }

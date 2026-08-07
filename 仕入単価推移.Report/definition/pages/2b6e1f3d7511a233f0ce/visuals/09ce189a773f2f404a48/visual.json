@@ -48,20 +48,6 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "品目分類情報"
-                    }
-                  },
-                  "Property": "F_分類名"
-                }
-              },
-              "queryRef": "品目分類情報.F_分類名",
-              "nativeQueryRef": "分類名"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
                       "Entity": "材料_仕入単価履歴"
                     }
                   },
@@ -192,36 +178,7 @@
       }
     },
     "objects": {
-      "columnWidth": [
-        {
-          "properties": {
-            "value": {
-              "expr": {
-                "Literal": {
-                  "Value": "119.10638985413071D"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "材料_値上げイベント.F_仕入先略称"
-          }
-        },
-        {
-          "properties": {
-            "value": {
-              "expr": {
-                "Literal": {
-                  "Value": "110.48837703163593D"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "材料_値上げイベント.F_材料番号"
-          }
-        }
-      ],
+      "columnWidth": [],
       "columnHeaders": [
         {
           "properties": {}
@@ -235,7 +192,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'明細（契約単価の全履歴）: 仕入先ごとの初回登録も含む。区分＝新規登録／値上げ／値下げ'"
+                  "Value": "'明細（契約単価の全履歴）: 選んだ材料の全期間・全仕入先。区分＝新規登録／値上げ／値下げ'"
                 }
               }
             }
