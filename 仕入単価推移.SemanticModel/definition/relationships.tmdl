@@ -35,11 +35,6 @@ relationship 4336ffa2-b93b-9d9f-d68b-49a68e92334a
 	fromColumn: 納入品目_値上げイベント.F_開始日
 	toColumn: tbl_calendar.Date
 
-relationship 96f474cb-085a-9786-b2d3-412ba60c6b06
-	crossFilteringBehavior: bothDirections
-	fromColumn: 材料_値上げイベント.F_材料番号
-	toColumn: 材料_年平均稼働量.F_材料番号
-
 relationship 94fb1fa0-5b2e-6952-78f4-17362bf91b3c
 	fromColumn: 材料_値上げイベント.F_開始日
 	toColumn: tbl_calendar.Date
@@ -93,4 +88,13 @@ relationship d4e5f6a7-b8c9-4834-d345-ef67ab789012
 	crossFilteringBehavior: bothDirections
 	fromColumn: 納入品目_契約単価_月次.F_納入品目番号
 	toColumn: 納入品目情報.F_納入品目番号
+
+relationship 5d2e3f4a-5b6c-4d7e-8f90-1a2b3c4d5e70
+	fromColumn: 材料_仕入先別_月次.F_開始月
+	toColumn: tbl_calendar.Date
+
+relationship 5d2e3f4a-5b6c-4d7e-8f90-1a2b3c4d5e71
+	toCardinality: many
+	fromColumn: 材料_仕入先別_月次.F_材料番号
+	toColumn: 材料情報.材料番号_正規化
 

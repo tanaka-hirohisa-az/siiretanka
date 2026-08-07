@@ -1,0 +1,145 @@
+/// 稼働量の単一の定義。仕入実績(F_仕入数)を、基準月から遡る直近12か月で合計する。
+/// 変動ベース(材料_値上げイベント)と月次ベースの双方がこのテーブルを参照する。
+/// 旧来、変動ベースは材料_年平均稼働量(出庫実績・EOMONTH(TODAY(),-1)起点の材料ごと固定値)を
+/// 使っており、(1)出所が月次ベースと違う (2)改定月ではなく今日を起点にしている
+/// という2つの問題があった。
+table 材料_月次稼働量
+	lineageTag: 7c1a2b3d-4e5f-4061-9273-8a4b5c6d7e80
+
+	column F_材料番号
+		lineageTag: 7c1a2b3d-4e5f-4061-9273-8a4b5c6d7e81
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_材料番号]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_開始月
+		formatString: yyyy/mm
+		lineageTag: 7c1a2b3d-4e5f-4061-9273-8a4b5c6d7e82
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_開始月]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 直近12か月稼働量
+		formatString: #,0
+		lineageTag: 7c1a2b3d-4e5f-4061-9273-8a4b5c6d7e83
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [直近12か月稼働量]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 材料_月次稼働量 = calculated
+		mode: import
+		source =
+				VAR __Ev0 =
+				    FILTER (
+				        'TB_仕入実績情報',
+				        NOT ISBLANK ( 'TB_仕入実績情報'[F_品目番号] )
+				            && NOT ISBLANK ( 'TB_仕入実績情報'[F_仕入日] )
+				            && 'TB_仕入実績情報'[F_仕入数] > 0
+				    )
+				
+				VAR __Ev =
+				    SELECTCOLUMNS (
+				        __Ev0,
+				        "__材料番号",
+				            TRIM (
+				                SUBSTITUTE (
+				                    'TB_仕入実績情報'[F_品目番号],
+				                    UNICHAR ( 12288 ),
+				                    " "
+				                )
+				            ) & "",
+				        "__月",
+				            EOMONTH ( DATEVALUE ( 'TB_仕入実績情報'[F_仕入日] ), -1 ) + 1,
+				        "__数", 'TB_仕入実績情報'[F_仕入数]
+				    )
+				
+				VAR __MatSet =
+				    FILTER (
+				        DISTINCT (
+				            SELECTCOLUMNS (
+				                '材料情報',
+				                "__材料番号",
+				                    TRIM (
+				                        SUBSTITUTE (
+				                            '材料情報'[F_材料番号],
+				                            UNICHAR ( 12288 ),
+				                            " "
+				                        )
+				                    ) & ""
+				            )
+				        ),
+				        [__材料番号] <> ""
+				    )
+				
+				VAR __EvM =
+				    NATURALINNERJOIN ( __Ev, __MatSet )
+				
+				VAR __M =
+				    GROUPBY (
+				        __EvM,
+				        [__材料番号],
+				        [__月],
+				        "__月数計", SUMX ( CURRENTGROUP (), [__数] )
+				    )
+				
+				// 仕入のあった月の数量を、その月から11か月先まで展開する。
+				// 基準月Mの稼働量 = M-11 〜 M の仕入数合計 になる。
+				VAR __Shift12 =
+				    SELECTCOLUMNS (
+				        CROSSJOIN (
+				            __M,
+				            SELECTCOLUMNS ( GENERATESERIES ( 0, 11, 1 ), "__k12", [Value] )
+				        ),
+				        "__材料番号", [__材料番号],
+				        "__基準月",   EDATE ( [__月], [__k12] ),
+				        "__数12c",    [__月数計]
+				    )
+				
+				VAR __Agg12 =
+				    GROUPBY (
+				        __Shift12,
+				        [__材料番号],
+				        [__基準月],
+				        "__稼働量", SUMX ( CURRENTGROUP (), [__数12c] )
+				    )
+				
+				// 【将来月の扱い】データのある最終仕入月より先の月は、その最終月の稼働量で固定する。
+				// 12ヶ月窓は「その月から遡る12ヶ月」なので、未着の月が窓に入ると数量が目減りし、
+				// 値上がりが収まったかのように右肩下がりに見えてしまう(データ未着による見かけの減衰)。
+				// 実績が入るたび後ろから埋まるが、今表示される将来月が過少になるため固定する。
+				// エクセル(◎PLヒット案件まとめ)も直近実績を横置きしており、扱いを揃えている。
+				VAR __Cutoff = MAXX ( __M, [__月] )
+				
+				VAR __AtCutoff =
+				    SELECTCOLUMNS (
+				        FILTER ( __Agg12, [__基準月] = __Cutoff ),
+				        "__材料番号", [__材料番号],
+				        "__固定稼働量", [__稼働量]
+				    )
+				
+				VAR __Joined =
+				    NATURALLEFTOUTERJOIN ( __Agg12, __AtCutoff )
+				
+				RETURN
+				    SELECTCOLUMNS (
+				        __Joined,
+				        "F_材料番号",      [__材料番号],
+				        "F_開始月",        [__基準月],
+				        "直近12か月稼働量",
+				            IF (
+				                [__基準月] > __Cutoff,
+				                COALESCE ( [__固定稼働量], [__稼働量] ),
+				                [__稼働量]
+				            )
+				    )
+
+	annotation PBI_Id = 7c1a2b3d4e5f406192738a4b5c6d7e80
+

@@ -1,0 +1,40 @@
+/// 1行だけの補助テーブル。仕入実績の最終月・最終日をここで一度だけ求める。
+/// tbl_calendar の実績月フラグから参照する。
+/// 重い集計をカレンダーの各行で繰り返さず、1回で済ませるための切り出し。
+table データ基準
+	lineageTag: 2f6a7b8c-9d0e-4f12-a345-6b7c8d9e0f10
+
+	column 最終仕入月
+		formatString: yyyy/mm
+		lineageTag: 2f6a7b8c-9d0e-4f12-a345-6b7c8d9e0f11
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [最終仕入月]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 最終仕入日
+		formatString: yyyy/mm/dd
+		lineageTag: 2f6a7b8c-9d0e-4f12-a345-6b7c8d9e0f12
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [最終仕入日]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition データ基準 = calculated
+		mode: import
+		source =
+				VAR __MaxDate =
+				    MAXX (
+				        'TB_仕入実績情報',
+				        DATEVALUE ( 'TB_仕入実績情報'[F_仕入日] )
+				    )
+				RETURN
+				    ROW (
+				        "最終仕入月", EOMONTH ( __MaxDate, -1 ) + 1,
+				        "最終仕入日", __MaxDate
+				    )
+
+	annotation PBI_Id = 2f6a7b8c9d0e4f12a3456b7c8d9e0f10
+

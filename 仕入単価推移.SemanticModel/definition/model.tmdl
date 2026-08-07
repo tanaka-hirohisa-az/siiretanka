@@ -24,7 +24,6 @@ ref table 納入品目_仕入単価履歴
 ref table 納入品目_値上げイベント
 ref table 材料_仕入単価履歴
 ref table 材料_値上げイベント
-ref table 材料_年平均稼働量
 ref table tbl_calendar
 ref table 納入品目_年平均稼働量
 ref table 納入品目_月別純増減
@@ -36,6 +35,9 @@ ref table TB_仕入実績情報
 ref table 材料_加重平均単価_月次
 ref table 材料_契約単価_月次
 ref table 納入品目_契約単価_月次
+ref table 材料_月次稼働量
+ref table 材料_仕入先別_月次
+ref table データ基準
 
 ref cultureInfo ja-JP
 

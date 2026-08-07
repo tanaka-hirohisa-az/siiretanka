@@ -7,15 +7,7 @@ table 材料_加重平均単価_月次
 		formatString: 0
 		lineageTag: c1d2e3f4-a5b6-4278-9d0e-1f2a7b8c9d0e
 
-	measure 月割年初来影響_材料実績 =
-			// Excel転記用: その時点の年初来影響額(年額)÷12。基準断裂行は除外
-			DIVIDE (
-			    CALCULATE (
-			        SUM ( '材料_加重平均単価_月次'[年初来影響額] ),
-			        '材料_加重平均単価_月次'[基準断裂フラグ] = 0
-			    ),
-			    12
-			)
+	measure 月割年初来影響_材料実績 = DIVIDE ( SUM ( '材料_加重平均単価_月次'[年初来影響額] ), 12 )
 		formatString: #,0
 		lineageTag: 6c2e8a4f-1d9b-4356-a7c3-2f5e8b9d0a1c
 
@@ -58,6 +50,23 @@ table 材料_加重平均単価_月次
 		lineageTag: 9e4a2c1b-3d7f-4890-a1b2-6c3e5f7a8b9d
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 実績単価_年度基準比 =
+			// 年度基準単価に対する当月実績単価の倍率。確認用の表示専用で、影響額の計算には使わない。
+			DIVIDE (
+			    SUM ( '材料_加重平均単価_月次'[加重平均単価] ),
+			    SUM ( '材料_加重平均単価_月次'[年度基準単価] )
+			)
+		formatString: #,0.00"倍"
+		lineageTag: 8f1e2d3c-4b5a-4697-8071-2c3d4e5f6a72
+
+	measure 実績_年初単価 = MAX ( '材料_加重平均単価_月次'[年度基準単価] )
+		formatString: #,0.00
+		lineageTag: 4b2c3d4e-5f60-4172-8283-9a0b1c2d3e21
+
+	measure 実績_当月単価 = MAX ( '材料_加重平均単価_月次'[加重平均単価] )
+		formatString: #,0.00
+		lineageTag: 4b2c3d4e-5f60-4172-8283-9a0b1c2d3e22
 
 	column F_材料番号
 		lineageTag: e5f6a7b8-c9d0-4e12-3f4a-5b6c7d8e9f1b
@@ -192,97 +201,6 @@ table 材料_加重平均単価_月次
 
 		annotation SummarizationSetBy = Automatic
 
-	column 契約単価 =
-			LOOKUPVALUE (
-			    '材料_契約単価_月次'[契約単価],
-			    '材料_契約単価_月次'[F_材料番号], [F_材料番号],
-			    '材料_契約単価_月次'[F_開始月], [F_開始月]
-			)
-		dataType: double
-		formatString: #,0.00
-		lineageTag: e1a2b3c4-d5e6-4f70-8192-a3b4c5d6e7f8
-		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
-	column 契約単価_前月契約単価 =
-			LOOKUPVALUE (
-			    '材料_契約単価_月次'[契約単価_前月契約単価],
-			    '材料_契約単価_月次'[F_材料番号], [F_材料番号],
-			    '材料_契約単価_月次'[F_開始月], [F_開始月]
-			)
-		dataType: double
-		formatString: #,0.00
-		lineageTag: e2b3c4d5-e6f7-4081-9203-b4c5d6e7f8a9
-		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
-	column 契約単価_値上げ額 =
-			LOOKUPVALUE (
-			    '材料_契約単価_月次'[契約単価_値上げ額],
-			    '材料_契約単価_月次'[F_材料番号], [F_材料番号],
-			    '材料_契約単価_月次'[F_開始月], [F_開始月]
-			)
-		dataType: double
-		formatString: #,0.00
-		lineageTag: e3c4d5e6-f7a8-4192-a314-c5d6e7f8a9b0
-		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
-	column 契約単価_値上げ率 =
-			LOOKUPVALUE (
-			    '材料_契約単価_月次'[契約単価_値上げ率],
-			    '材料_契約単価_月次'[F_材料番号], [F_材料番号],
-			    '材料_契約単価_月次'[F_開始月], [F_開始月]
-			)
-		dataType: double
-		formatString: 0.00%;-0.00%;0.00%
-		lineageTag: e4d5e6f7-a8b9-42a3-b425-d6e7f8a9b0c1
-		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
-	column 契約単価_年間予測影響額 =
-			LOOKUPVALUE (
-			    '材料_契約単価_月次'[契約単価_年間予測影響額],
-			    '材料_契約単価_月次'[F_材料番号], [F_材料番号],
-			    '材料_契約単価_月次'[F_開始月], [F_開始月]
-			)
-		dataType: double
-		formatString: #,0.00
-		lineageTag: e5e6f7a8-b9c0-43b4-c536-e7f8a9b0c1d2
-		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
-	column 契約単価_年間予測影響額_値上げのみ =
-			LOOKUPVALUE (
-			    '材料_契約単価_月次'[契約単価_年間予測影響額_値上げのみ],
-			    '材料_契約単価_月次'[F_材料番号], [F_材料番号],
-			    '材料_契約単価_月次'[F_開始月], [F_開始月]
-			)
-		dataType: double
-		formatString: #,0.00
-		lineageTag: e6f7a8b9-c0d1-44c5-d647-f8a9b0c1d2e3
-		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
-	column 契約単価_年間予測影響額_値下げのみ =
-			LOOKUPVALUE (
-			    '材料_契約単価_月次'[契約単価_年間予測影響額_値下げのみ],
-			    '材料_契約単価_月次'[F_材料番号], [F_材料番号],
-			    '材料_契約単価_月次'[F_開始月], [F_開始月]
-			)
-		dataType: double
-		formatString: #,0.00
-		lineageTag: e7a8b9c0-d1e2-45d6-e758-a9b0c1d2e3f4
-		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
 	column 年度基準単価 =
 			// 年初(1月)に行が無い材料も対象に含めるため、
 			// 「その年の最初の行」の前回加重平均単価を年度基準とする
@@ -351,25 +269,6 @@ table 材料_加重平均単価_月次
 
 		annotation SummarizationSetBy = Automatic
 
-	column 基準断裂フラグ =
-			// 単価が年初比で半減以上かつ影響額が-100万円以上の行は
-			// 単位変更等の基準断裂とみなす(値上げ方向は除外しない)
-			VAR __r = DIVIDE ( [年初来値上げ額], [年度基準単価] )
-			RETURN
-			    IF (
-			        NOT ISBLANK ( '材料_加重平均単価_月次'[年初来影響額] )
-			            && __r <= -0.5
-			            && '材料_加重平均単価_月次'[年初来影響額] <= -1000000,
-			        1,
-			        0
-			    )
-		dataType: int64
-		formatString: 0
-		lineageTag: 4d7f0b5e-2c8a-4234-e5a9-6d9c2f3b4a5c
-		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
 	partition 材料_加重平均単価_月次 = calculated
 		mode: import
 		source =
@@ -428,46 +327,65 @@ table 材料_加重平均単価_月次
 				        "__月額計", SUMX ( CURRENTGROUP (), [__額] )
 				    )
 				
-				// 加重平均単価の窓：直近6ヶ月（基準月を含む）
-				VAR __Shift =
+				// 【スパイン】仕入のあった月から、その年の12月まで行を作る。
+				// 旧: 仕入月+5ヶ月の窓、かつ「その材料の最終仕入月」で打ち切っていた。
+				//     そのため3月に最後に買った材料は4月以降レポートから消え、値上がりが続いて
+				//     いるのに影響額がゼロになっていた。年初来影響額は一度積み上がれば年内は
+				//     残る性質の数字であり、打ち切りは誤り。
+				// 新: 各仕入月を同一暦年内の12月まで前方展開する。年をまたぐ引き継ぎはしない
+				//     (年初来影響額は YEAR() で暦年リセットするため)。
+				//
+				// 【単価】重なった月は「最も新しい仕入月」の実単価を採る。
+				// 旧は窓内の数量・金額を合計して割る6ヶ月移動平均で、値上がり局面では当月価格を
+				// 下回り値上げ額が過小になっていた(実測: エクセル比 電線0.60倍・電線以外0.30倍)。
+				// 例) ES2000-NO.2-B9-0-STK は 2026/02 に 135円→864円 だが 6ヶ月平均では226円。
+				VAR __ShiftBase =
 				    SELECTCOLUMNS (
 				        CROSSJOIN (
 				            __M,
-				            SELECTCOLUMNS ( GENERATESERIES ( 0, 5, 1 ), "__k", [Value] )
+				            SELECTCOLUMNS ( GENERATESERIES ( 0, 11, 1 ), "__k", [Value] )
 				        ),
 				        "__材料番号", [__材料番号],
+				        "__購入月",   [__月],
 				        "__基準月",   EDATE ( [__月], [__k] ),
 				        "__数c",      [__月数計],
 				        "__額c",      [__月額計]
 				    )
 				
-				VAR __Agg0 =
+				// 同一暦年内に限定する
+				VAR __Shift =
+				    FILTER ( __ShiftBase, YEAR ( [__基準月] ) = YEAR ( [__購入月] ) )
+				
+				VAR __Agg0a =
 				    GROUPBY (
 				        __Shift,
 				        [__材料番号],
 				        [__基準月],
-				        "__数計", SUMX ( CURRENTGROUP (), [__数c] ),
-				        "__額計", SUMX ( CURRENTGROUP (), [__額c] )
+				        "__数計",   SUMX ( CURRENTGROUP (), [__数c] ),
+				        "__額計",   SUMX ( CURRENTGROUP (), [__額c] ),
+				        "__仕入月", MAXX ( CURRENTGROUP (), [__購入月] )
 				    )
+				
+				// 仕入月ごとの実単価（月内金額 ÷ 月内数量）
+				VAR __PriceByMonth =
+				    SELECTCOLUMNS (
+				        __M,
+				        "__材料番号", [__材料番号],
+				        "__仕入月",   [__月],
+				        "__当月単価", DIVIDE ( [__月額計], [__月数計] )
+				    )
+				
+				VAR __Agg0 =
+				    NATURALLEFTOUTERJOIN ( __Agg0a, __PriceByMonth )
 				
 				// 稼働量の窓：年間予測影響額用に直近12ヶ月を維持
-				VAR __Shift12 =
-				    SELECTCOLUMNS (
-				        CROSSJOIN (
-				            __M,
-				            SELECTCOLUMNS ( GENERATESERIES ( 0, 11, 1 ), "__k12", [Value] )
-				        ),
-				        "__材料番号", [__材料番号],
-				        "__基準月",   EDATE ( [__月], [__k12] ),
-				        "__数12c",    [__月数計]
-				    )
-				
 				VAR __Agg12 =
-				    GROUPBY (
-				        __Shift12,
-				        [__材料番号],
-				        [__基準月],
-				        "__稼働量", SUMX ( CURRENTGROUP (), [__数12c] )
+				    // 稼働量は 材料_月次稼働量 に一本化した(同一計算の三重定義を解消)
+				    SELECTCOLUMNS (
+				        '材料_月次稼働量',
+				        "__材料番号", '材料_月次稼働量'[F_材料番号] & "",
+				        "__基準月",   EDATE ( '材料_月次稼働量'[F_開始月], 0 ),
+				        "__稼働量",   '材料_月次稼働量'[直近12か月稼働量] * 1
 				    )
 				
 				VAR __Mats =
@@ -477,14 +395,11 @@ table 材料_加重平均単価_月次
 				        "__終月", MAXX ( CURRENTGROUP (), [__月] )
 				    )
 				
+				// 最終仕入月での打ち切りは廃止した(スパインのコメント参照)
 				VAR __Agg =
 				    ADDCOLUMNS (
-				        FILTER (
-				            NATURALINNERJOIN ( __Agg0, __Mats ),
-				            [__基準月] <= [__終月]
-				                && [__数計] > 0
-				        ),
-				        "__加重平均単価", DIVIDE ( [__額計], [__数計] )
+				        FILTER ( __Agg0, [__数計] > 0 ),
+				        "__加重平均単価", [__当月単価]
 				    )
 				
 				VAR __PrevT =

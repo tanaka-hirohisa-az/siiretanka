@@ -1,6 +1,26 @@
 table 材料_仕入単価履歴
 	lineageTag: 1082d04a-de8f-4bbf-832c-b825d2b29920
 
+	measure 履歴_区分 =
+			// 前回単価が無い行＝その仕入先で最初に登録された単価。
+			// 材料_値上げイベント はこの行を持たないため、仕入先ごとの推移が追えなかった。
+			SWITCH (
+			    TRUE (),
+			    ISBLANK ( MAX ( '材料_仕入単価履歴'[前回単価] ) ), "新規登録",
+			    MAX ( '材料_仕入単価履歴'[値上げ額] ) > 0, "値上げ",
+			    MAX ( '材料_仕入単価履歴'[値上げ額] ) < 0, "値下げ",
+			    "変更なし"
+			)
+		lineageTag: 9a1b2c3d-4e5f-4607-8192-a3b4c5d6e7f1
+
+	measure 履歴_値上げ率 =
+			DIVIDE (
+			    SUM ( '材料_仕入単価履歴'[値上げ額] ),
+			    SUM ( '材料_仕入単価履歴'[前回単価] )
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 9a1b2c3d-4e5f-4607-8192-a3b4c5d6e7f2
+
 	column F_材料番号
 		lineageTag: d67b95fc-78c8-4ca6-9f1d-325377ee18aa
 		summarizeBy: none

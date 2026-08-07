@@ -5,3 +5,5 @@
 .env
 *.zip
 *.bak
+# Power BI Desktop が自動生成する組み込みテーマ集(4MB)。レポート定義から参照されない
+**/StaticResources/SharedResources/BuiltInThemes/

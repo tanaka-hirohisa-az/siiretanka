@@ -1,0 +1,199 @@
+/// 仕入先最適化用。材料 × 仕入先 × 月 の実績単価。
+/// 既存の月次テーブル(材料 × 月)とは粒度が違うため別テーブルにしている。
+/// 粒度に仕入先を入れると材料単位の年初来影響額が「単価差×数量」の分解和になり
+/// 材料単位の値と一致しなくなるため、既存テーブルの粒度は変更しない。
+/// 仕入先キーは実績側の F_指示先番号(296種中295種が TB_仕入先情報 に一致)。
+/// 社間比較は計算テーブル内で集合演算により一度だけ求める(行ごとの自己走査はしない)。
+table 材料_仕入先別_月次
+	lineageTag: 5d2e3f4a-5b6c-4d7e-8f90-1a2b3c4d5e60
+
+	column F_材料番号
+		lineageTag: 5d2e3f4a-5b6c-4d7e-8f90-1a2b3c4d5e61
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_材料番号]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_仕入先番号
+		lineageTag: 5d2e3f4a-5b6c-4d7e-8f90-1a2b3c4d5e62
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_仕入先番号]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_開始月
+		formatString: yyyy/mm
+		lineageTag: 5d2e3f4a-5b6c-4d7e-8f90-1a2b3c4d5e63
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [F_開始月]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 月内仕入数
+		formatString: #,0
+		lineageTag: 5d2e3f4a-5b6c-4d7e-8f90-1a2b3c4d5e64
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [月内仕入数]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 月内仕入金額
+		formatString: #,0
+		lineageTag: 5d2e3f4a-5b6c-4d7e-8f90-1a2b3c4d5e65
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [月内仕入金額]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 月内単価
+		formatString: #,0.00
+		lineageTag: 5d2e3f4a-5b6c-4d7e-8f90-1a2b3c4d5e66
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [月内単価]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 同月の取引社数
+		formatString: 0
+		lineageTag: 5d2e3f4a-5b6c-4d7e-8f90-1a2b3c4d5e67
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [同月の取引社数]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 最安社との単価差
+		formatString: #,0.00
+		lineageTag: 5d2e3f4a-5b6c-4d7e-8f90-1a2b3c4d5e68
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [最安社との単価差]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 最安社との差額
+		formatString: #,0
+		lineageTag: 5d2e3f4a-5b6c-4d7e-8f90-1a2b3c4d5e69
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [最安社との差額]
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_仕入先略称 =
+			LOOKUPVALUE (
+			    'TB_仕入先情報'[F_仕入先略称],
+			    'TB_仕入先情報'[F_仕入先番号], [F_仕入先番号]
+			)
+		dataType: string
+		lineageTag: 5d2e3f4a-5b6c-4d7e-8f90-1a2b3c4d5e6a
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 材料_仕入先別_月次 = calculated
+		mode: import
+		source =
+				VAR __Ev0 =
+				    FILTER (
+				        'TB_仕入実績情報',
+				        NOT ISBLANK ( 'TB_仕入実績情報'[F_品目番号] )
+				            && NOT ISBLANK ( 'TB_仕入実績情報'[F_仕入日] )
+				            && 'TB_仕入実績情報'[F_仕入数] > 0
+				    )
+				
+				VAR __Ev =
+				    SELECTCOLUMNS (
+				        __Ev0,
+				        "__材料番号",
+				            TRIM (
+				                SUBSTITUTE (
+				                    'TB_仕入実績情報'[F_品目番号],
+				                    UNICHAR ( 12288 ),
+				                    " "
+				                )
+				            ) & "",
+				        "__仕入先番号", TRIM ( 'TB_仕入実績情報'[F_指示先番号] ) & "",
+				        "__月",
+				            EOMONTH ( DATEVALUE ( 'TB_仕入実績情報'[F_仕入日] ), -1 ) + 1,
+				        "__数", 'TB_仕入実績情報'[F_仕入数],
+				        "__額", 'TB_仕入実績情報'[F_仕入数] * 'TB_仕入実績情報'[F_単価]
+				    )
+				
+				VAR __MatSet =
+				    FILTER (
+				        DISTINCT (
+				            SELECTCOLUMNS (
+				                '材料情報',
+				                "__材料番号",
+				                    TRIM (
+				                        SUBSTITUTE (
+				                            '材料情報'[F_材料番号],
+				                            UNICHAR ( 12288 ),
+				                            " "
+				                        )
+				                    ) & ""
+				            )
+				        ),
+				        [__材料番号] <> ""
+				    )
+				
+				VAR __EvM =
+				    NATURALINNERJOIN ( __Ev, __MatSet )
+				
+				VAR __G0 =
+				    GROUPBY (
+				        __EvM,
+				        [__材料番号],
+				        [__仕入先番号],
+				        [__月],
+				        "__数計", SUMX ( CURRENTGROUP (), [__数] ),
+				        "__額計", SUMX ( CURRENTGROUP (), [__額] )
+				    )
+				
+				VAR __G =
+				    SELECTCOLUMNS (
+				        __G0,
+				        "__材料番号",   [__材料番号],
+				        "__仕入先番号", [__仕入先番号],
+				        "__月",         [__月],
+				        "__数計",       [__数計],
+				        "__額計",       [__額計],
+				        "__単価",       DIVIDE ( [__額計], [__数計] )
+				    )
+				
+				// 材料×月ごとに、最安単価と取引社数を一度だけ求める
+				VAR __Min =
+				    GROUPBY (
+				        __G,
+				        [__材料番号],
+				        [__月],
+				        "__最安", MINX ( CURRENTGROUP (), [__単価] ),
+				        "__社数", COUNTX ( CURRENTGROUP (), 1 )
+				    )
+				
+				VAR __J =
+				    NATURALLEFTOUTERJOIN ( __G, __Min )
+				
+				RETURN
+				    SELECTCOLUMNS (
+				        __J,
+				        "F_材料番号",       [__材料番号],
+				        "F_仕入先番号",     [__仕入先番号],
+				        "F_開始月",         [__月],
+				        "月内仕入数",       [__数計],
+				        "月内仕入金額",     [__額計],
+				        "月内単価",         [__単価],
+				        "同月の取引社数",   [__社数],
+				        "最安社との単価差", IF ( [__社数] > 1, [__単価] - [__最安] ),
+				        "最安社との差額",   IF ( [__社数] > 1, ( [__単価] - [__最安] ) * [__数計] )
+				    )
+
+	annotation PBI_Id = 5d2e3f4a5b6c4d7e8f901a2b3c4d5e60
+

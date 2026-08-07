@@ -248,7 +248,17 @@ table 材料情報
 		source =
 				let
 				    ソース = Sql.Database("ob7e4ay7l6juflutzrdmf3fx4i-5je6jcvp7ozufin2iqecmsnlgi.datawarehouse.fabric.microsoft.com", "dw_bee_genka-00001"),
-				    dbo_材料情報 = ソース{[Schema="dbo",Item="材料情報"]}[Data]
+				    dbo_材料情報 = ソース{[Schema="dbo",Item="材料情報"]}[Data],
+				    // 【レポート仕様】ダミー品目コードの除外
+				    // Z-99999 は単一の材料ではなく雑区分の受け皿として運用されているコード。
+				    // 同一コード内に単価 7.6円〜454,197円(約6万倍)および負値が混在し、
+				    // 同月に最大35社からの購入が計上されるため、材料単位の単価比較・
+				    // 影響額算定のいずれも成立しない。マスタ段階で落とすことで、
+				    // ここから材料集合を取る全計算テーブルに一律で効く。
+				    ダミーコード除外 = Table.SelectRows(
+				        dbo_材料情報,
+				        each Text.Trim(Text.From([F_材料番号])) <> "Z-99999"
+				    )
 				in
-				    dbo_材料情報
+				    ダミーコード除外
 
