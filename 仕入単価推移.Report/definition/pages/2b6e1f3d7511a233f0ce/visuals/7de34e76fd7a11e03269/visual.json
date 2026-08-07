@@ -20,15 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料_値上げイベント"
+                      "Entity": "材料情報"
                     }
                   },
                   "Property": "F_材料番号"
                 }
               },
-              "queryRef": "材料_値上げイベント.F_材料番号",
-              "nativeQueryRef": "F_材料番号",
-              "active": true
+              "queryRef": "材料情報.F_材料番号",
+              "nativeQueryRef": "F_材料番号"
             }
           ]
         }

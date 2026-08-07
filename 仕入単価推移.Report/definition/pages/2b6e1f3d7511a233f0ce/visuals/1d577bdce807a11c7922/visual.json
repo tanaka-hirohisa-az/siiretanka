@@ -126,17 +126,10 @@
       "title": [
         {
           "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'契約改定幅の合計（単価差）'"
+                  "Value": "'契約改定幅の合計（単価差・仕入先ごとの改定のみ）'"
                 }
               }
             }

@@ -84,17 +84,10 @@
       "title": [
         {
           "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'材料別 契約改定率（期間単純和）'"
+                  "Value": "'材料別 契約改定率（仕入先ごとの改定のみ・期間単純和）'"
                 }
               }
             }
