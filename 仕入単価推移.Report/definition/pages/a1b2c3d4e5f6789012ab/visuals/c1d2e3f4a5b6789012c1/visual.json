@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "c1d2e3f4a5b6789012c1",
   "position": {
-    "x": 0,
-    "y": 0,
+    "x": 0.0,
+    "y": 0.0,
     "z": 9000,
-    "height": 136.28140703517587,
-    "width": 429.3467336683417,
+    "height": 130.0,
+    "width": 240.0,
     "tabOrder": 9000
   },
   "visual": {
@@ -20,14 +20,14 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料_加重平均単価_月次"
+                      "Entity": "材料_契約単価_月次"
                     }
                   },
-                  "Property": "年初来影響額_最新月"
+                  "Property": "契約_月割値上げ_最新実績月"
                 }
               },
-              "queryRef": "材料_加重平均単価_月次.年初来影響額_最新月",
-              "nativeQueryRef": "年初来影響額_最新月"
+              "queryRef": "材料_契約単価_月次.契約_月割値上げ_最新実績月",
+              "nativeQueryRef": "契約_月割値上げ_最新実績月"
             }
           ]
         }
@@ -116,31 +116,10 @@
       "title": [
         {
           "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'年初来影響額（直近月時点）'"
-                }
-              }
-            },
-            "alignment": {
-              "expr": {
-                "Literal": {
-                  "Value": "'center'"
-                }
-              }
-            },
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "16D"
+                  "Value": "'転記額（材料・値上がりのみ・円/月・直近実績月）'"
                 }
               }
             }

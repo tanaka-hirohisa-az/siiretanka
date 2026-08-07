@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "d2e3f4a5b6c7890123d2",
   "position": {
-    "x": 429.3467336683417,
-    "y": 0,
+    "x": 0.0,
+    "y": 130.0,
     "z": 1000,
-    "height": 239.99999999999997,
-    "width": 537.8894472361809,
+    "height": 260.0,
+    "width": 920.0,
     "tabOrder": 1000
   },
   "visual": {
@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料_加重平均単価_月次"
+                      "Entity": "tbl_calendar"
                     }
                   },
-                  "Property": "F_開始月"
+                  "Property": "年月_表示"
                 }
               },
-              "queryRef": "材料_加重平均単価_月次.F_開始月",
-              "nativeQueryRef": "F_開始月",
+              "queryRef": "tbl_calendar.年月_表示",
+              "nativeQueryRef": "年月",
               "active": true
             }
           ]
@@ -36,41 +36,31 @@
           "projections": [
             {
               "field": {
-                "Aggregation": {
+                "Measure": {
                   "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "材料_加重平均単価_月次"
-                        }
-                      },
-                      "Property": "年初来影響額_値上げのみ"
+                    "SourceRef": {
+                      "Entity": "材料_契約単価_月次"
                     }
                   },
-                  "Function": 0
+                  "Property": "材料_値上げ_電線"
                 }
               },
-              "queryRef": "Sum(材料_加重平均単価_月次.年初来影響額_値上げのみ)",
-              "nativeQueryRef": "年初来影響額_値上げのみ の合計"
+              "queryRef": "材料_契約単価_月次.材料_値上げ_電線",
+              "nativeQueryRef": "材料_値上げ_電線"
             },
             {
               "field": {
-                "Aggregation": {
+                "Measure": {
                   "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "材料_加重平均単価_月次"
-                        }
-                      },
-                      "Property": "年初来影響額_値下げのみ"
+                    "SourceRef": {
+                      "Entity": "材料_契約単価_月次"
                     }
                   },
-                  "Function": 0
+                  "Property": "材料_値上げ_電線以外"
                 }
               },
-              "queryRef": "Sum(材料_加重平均単価_月次.年初来影響額_値下げのみ)",
-              "nativeQueryRef": "年初来影響額_値下げのみ の合計"
+              "queryRef": "材料_契約単価_月次.材料_値上げ_電線以外",
+              "nativeQueryRef": "材料_値上げ_電線以外"
             }
           ]
         },
@@ -78,22 +68,17 @@
           "projections": [
             {
               "field": {
-                "Aggregation": {
+                "Measure": {
                   "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "材料_加重平均単価_月次"
-                        }
-                      },
-                      "Property": "年初来値上げ率"
+                    "SourceRef": {
+                      "Entity": "納入品目_契約単価_月次"
                     }
                   },
-                  "Function": 1
+                  "Property": "品目_値上げ"
                 }
               },
-              "queryRef": "Sum(材料_加重平均単価_月次.年初来値上げ率)",
-              "nativeQueryRef": "年初来値上げ率 の平均"
+              "queryRef": "納入品目_契約単価_月次.品目_値上げ",
+              "nativeQueryRef": "品目_値上げ"
             }
           ]
         }
@@ -105,10 +90,10 @@
               "Column": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "材料_加重平均単価_月次"
+                    "Entity": "tbl_calendar"
                   }
                 },
-                "Property": "F_開始月"
+                "Property": "年月_表示"
               }
             },
             "direction": "Ascending"
@@ -122,17 +107,10 @@
       "title": [
         {
           "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'月別 年初来影響額（値上げ・値下げ）と年初来値上げ率'"
+                  "Value": "'月別 転記額（円/月・値上がりのみ）: 積み上げ＝材料を電線／電線以外に分けたもの、折れ線＝納入品目'"
                 }
               }
             }

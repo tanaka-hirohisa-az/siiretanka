@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "c5d6e7f8091011120012",
   "position": {
-    "x": 0,
-    "y": 380,
+    "x": 0.0,
+    "y": 390.0,
     "z": 10000,
-    "height": 180,
-    "width": 1280,
+    "height": 190.0,
+    "width": 920.0,
     "tabOrder": 10000
   },
   "visual": {
@@ -42,11 +42,11 @@
                       "Entity": "tbl_calendar"
                     }
                   },
-                  "Property": "年月_yy年MM月"
+                  "Property": "年月_表示"
                 }
               },
-              "queryRef": "tbl_calendar.年月_yy年MM月",
-              "nativeQueryRef": "年月_yy年MM月",
+              "queryRef": "tbl_calendar.年月_表示",
+              "nativeQueryRef": "年月_表示",
               "active": true
             }
           ]
@@ -58,28 +58,14 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料_加重平均単価_月次"
-                    }
-                  },
-                  "Property": "月割年初来影響_材料実績"
-                }
-              },
-              "queryRef": "材料_加重平均単価_月次.月割年初来影響_材料実績",
-              "nativeQueryRef": "月割年初来影響_材料実績"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
                       "Entity": "材料_契約単価_月次"
                     }
                   },
-                  "Property": "月割年初来影響_材料契約"
+                  "Property": "材料_値上げ"
                 }
               },
-              "queryRef": "材料_契約単価_月次.月割年初来影響_材料契約",
-              "nativeQueryRef": "月割年初来影響_材料契約"
+              "queryRef": "材料_契約単価_月次.材料_値上げ",
+              "nativeQueryRef": "材料_値上げ"
             },
             {
               "field": {
@@ -89,11 +75,11 @@
                       "Entity": "納入品目_契約単価_月次"
                     }
                   },
-                  "Property": "月割年初来影響_品目契約"
+                  "Property": "品目_値上げ"
                 }
               },
-              "queryRef": "納入品目_契約単価_月次.月割年初来影響_品目契約",
-              "nativeQueryRef": "月割年初来影響_品目契約"
+              "queryRef": "納入品目_契約単価_月次.品目_値上げ",
+              "nativeQueryRef": "品目_値上げ"
             }
           ]
         }
@@ -120,17 +106,10 @@
       "title": [
         {
           "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Excel転記用: 電線区分×月 月割影響額（各月時点の年初来影響額÷12。契約単価は最新改定を採用。材料は実績/契約の両建て、品目は契約ベース）'"
+                  "Value": "'Excel転記用: 電線区分×月 月割影響額（円/月・契約単価・値上がりのみ）。エクセルは同額を負で記録'"
                 }
               }
             }

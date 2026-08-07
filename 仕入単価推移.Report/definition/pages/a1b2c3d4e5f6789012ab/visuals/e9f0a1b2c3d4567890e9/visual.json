@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "e9f0a1b2c3d4567890e9",
   "position": {
-    "x": 0,
-    "y": 560,
+    "x": 0.0,
+    "y": 580.0,
     "z": 2000,
-    "height": 160,
-    "width": 1279.5979899497486,
+    "height": 140.0,
+    "width": 1280.0,
     "tabOrder": 2000
   },
   "visual": {
@@ -20,28 +20,28 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料_加重平均単価_月次"
+                      "Entity": "材料情報"
                     }
                   },
-                  "Property": "F_在庫材料番号"
+                  "Property": "F_材料番号"
                 }
               },
-              "queryRef": "材料_加重平均単価_月次.F_在庫材料番号",
-              "nativeQueryRef": "在庫材料番号"
+              "queryRef": "材料情報.F_材料番号",
+              "nativeQueryRef": "材料番号"
             },
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料_加重平均単価_月次"
+                      "Entity": "tbl_calendar"
                     }
                   },
-                  "Property": "F_開始月"
+                  "Property": "年月_表示"
                 }
               },
-              "queryRef": "材料_加重平均単価_月次.F_開始月",
-              "nativeQueryRef": "開始月"
+              "queryRef": "tbl_calendar.年月_表示",
+              "nativeQueryRef": "年月"
             },
             {
               "field": {
@@ -59,136 +59,143 @@
             },
             {
               "field": {
-                "Aggregation": {
+                "Measure": {
                   "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "材料_加重平均単価_月次"
-                        }
-                      },
-                      "Property": "年度基準単価"
+                    "SourceRef": {
+                      "Entity": "材料_契約単価_月次"
                     }
                   },
-                  "Function": 0
+                  "Property": "契約_年初単価"
                 }
               },
-              "queryRef": "Sum(材料_加重平均単価_月次.年度基準単価)",
-              "nativeQueryRef": "年度基準単価"
+              "queryRef": "材料_契約単価_月次.契約_年初単価",
+              "nativeQueryRef": "契約_年初単価"
             },
             {
               "field": {
-                "Aggregation": {
+                "Measure": {
                   "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "材料_加重平均単価_月次"
-                        }
-                      },
-                      "Property": "加重平均単価"
+                    "SourceRef": {
+                      "Entity": "材料_契約単価_月次"
                     }
                   },
-                  "Function": 0
+                  "Property": "契約_当月単価"
                 }
               },
-              "queryRef": "Sum(材料_加重平均単価_月次.加重平均単価)",
-              "nativeQueryRef": "加重平均単価"
+              "queryRef": "材料_契約単価_月次.契約_当月単価",
+              "nativeQueryRef": "契約_当月単価"
             },
             {
               "field": {
-                "Aggregation": {
+                "Measure": {
                   "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "材料_加重平均単価_月次"
-                        }
-                      },
-                      "Property": "年初来値上げ額"
+                    "SourceRef": {
+                      "Entity": "材料_契約単価_月次"
                     }
                   },
-                  "Function": 0
+                  "Property": "契約単価_年度基準比"
                 }
               },
-              "queryRef": "Sum(材料_加重平均単価_月次.年初来値上げ額)",
-              "nativeQueryRef": "年初来値上げ額"
+              "queryRef": "材料_契約単価_月次.契約単価_年度基準比",
+              "nativeQueryRef": "契約単価_年度基準比"
             },
             {
               "field": {
-                "Aggregation": {
+                "Measure": {
                   "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "材料_加重平均単価_月次"
-                        }
-                      },
-                      "Property": "直近12か月稼働量"
+                    "SourceRef": {
+                      "Entity": "材料_加重平均単価_月次"
                     }
                   },
-                  "Function": 0
+                  "Property": "実績_年初単価"
                 }
               },
-              "queryRef": "Sum(材料_加重平均単価_月次.直近12か月稼働量)",
-              "nativeQueryRef": "直近12か月稼働量"
+              "queryRef": "材料_加重平均単価_月次.実績_年初単価",
+              "nativeQueryRef": "実績_年初単価"
             },
             {
               "field": {
-                "Aggregation": {
+                "Measure": {
                   "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "材料_加重平均単価_月次"
-                        }
-                      },
-                      "Property": "年初来影響額"
+                    "SourceRef": {
+                      "Entity": "材料_加重平均単価_月次"
                     }
                   },
-                  "Function": 0
+                  "Property": "実績_当月単価"
                 }
               },
-              "queryRef": "Sum(材料_加重平均単価_月次.年初来影響額)",
-              "nativeQueryRef": "年初来影響額"
+              "queryRef": "材料_加重平均単価_月次.実績_当月単価",
+              "nativeQueryRef": "実績_当月単価"
             },
             {
               "field": {
-                "Aggregation": {
+                "Measure": {
                   "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "材料_加重平均単価_月次"
-                        }
-                      },
-                      "Property": "月内仕入数"
+                    "SourceRef": {
+                      "Entity": "材料_加重平均単価_月次"
                     }
                   },
-                  "Function": 0
+                  "Property": "実績単価_年度基準比"
                 }
               },
-              "queryRef": "Sum(材料_加重平均単価_月次.月内仕入数)",
-              "nativeQueryRef": "月内仕入数"
+              "queryRef": "材料_加重平均単価_月次.実績単価_年度基準比",
+              "nativeQueryRef": "実績単価_年度基準比"
             },
             {
               "field": {
-                "Aggregation": {
+                "Measure": {
                   "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "材料_加重平均単価_月次"
-                        }
-                      },
-                      "Property": "月内仕入金額"
+                    "SourceRef": {
+                      "Entity": "材料_契約単価_月次"
                     }
                   },
-                  "Function": 0
+                  "Property": "稼働量_直近12か月"
                 }
               },
-              "queryRef": "Sum(材料_加重平均単価_月次.月内仕入金額)",
-              "nativeQueryRef": "月内仕入金額"
+              "queryRef": "材料_契約単価_月次.稼働量_直近12か月",
+              "nativeQueryRef": "稼働量_直近12か月"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "材料_契約単価_月次"
+                    }
+                  },
+                  "Property": "月割年初来影響_材料契約"
+                }
+              },
+              "queryRef": "材料_契約単価_月次.月割年初来影響_材料契約",
+              "nativeQueryRef": "月割年初来影響_材料契約"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "材料_加重平均単価_月次"
+                    }
+                  },
+                  "Property": "月割年初来影響_材料実績"
+                }
+              },
+              "queryRef": "材料_加重平均単価_月次.月割年初来影響_材料実績",
+              "nativeQueryRef": "月割年初来影響_材料実績"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "材料_契約単価_月次"
+                    }
+                  },
+                  "Property": "月割影響額差_契約実績"
+                }
+              },
+              "queryRef": "材料_契約単価_月次.月割影響額差_契約実績",
+              "nativeQueryRef": "月割影響額差_契約実績"
             }
           ]
         }
@@ -200,28 +207,16 @@
               "Column": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "材料_加重平均単価_月次"
+                    "Entity": "tbl_calendar"
                   }
                 },
-                "Property": "F_在庫材料番号"
-              }
-            },
-            "direction": "Ascending"
-          },
-          {
-            "field": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "材料_加重平均単価_月次"
-                  }
-                },
-                "Property": "F_開始月"
+                "Property": "年月_表示"
               }
             },
             "direction": "Ascending"
           }
-        ]
+        ],
+        "isDefaultSort": true
       }
     },
     "objects": {
@@ -229,8 +224,36 @@
         {
           "properties": {}
         }
+      ],
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
       ]
     },
-    "drillFilterOtherVisuals": true
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'明細: 選んだ材料の月次推移。契約と実績の倍率が揃っていれば実在の値上げ'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
   }
 }
