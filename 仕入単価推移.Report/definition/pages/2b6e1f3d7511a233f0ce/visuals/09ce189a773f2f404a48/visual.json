@@ -73,22 +73,17 @@
             },
             {
               "field": {
-                "Aggregation": {
+                "Measure": {
                   "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "材料_仕入単価履歴"
-                        }
-                      },
-                      "Property": "前回単価"
+                    "SourceRef": {
+                      "Entity": "材料_仕入単価履歴"
                     }
                   },
-                  "Function": 0
+                  "Property": "履歴_前単価"
                 }
               },
-              "queryRef": "Sum(材料_仕入単価履歴.前回単価)",
-              "nativeQueryRef": "前回単価"
+              "queryRef": "材料_仕入単価履歴.履歴_前単価",
+              "nativeQueryRef": "履歴_前単価"
             },
             {
               "field": {
@@ -111,22 +106,17 @@
             },
             {
               "field": {
-                "Aggregation": {
+                "Measure": {
                   "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "材料_仕入単価履歴"
-                        }
-                      },
-                      "Property": "値上げ額"
+                    "SourceRef": {
+                      "Entity": "材料_仕入単価履歴"
                     }
                   },
-                  "Function": 0
+                  "Property": "履歴_単価差"
                 }
               },
-              "queryRef": "Sum(材料_仕入単価履歴.値上げ額)",
-              "nativeQueryRef": "値上げ額"
+              "queryRef": "材料_仕入単価履歴.履歴_単価差",
+              "nativeQueryRef": "履歴_単価差"
             },
             {
               "field": {
@@ -192,7 +182,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'明細（契約単価の全履歴）: 選んだ材料の全期間・全仕入先。区分＝新規登録／値上げ／値下げ'"
+                  "Value": "'明細（契約単価の全履歴）: 選んだ材料の全期間・全仕入先を表示。年月スライサーはこの表には効きません（過去の単価と比べる必要があるため全期間を出しています）'"
                 }
               }
             }
