@@ -40,4 +40,5 @@ ref table 材料_仕入先別_月次
 ref table データ基準
 
 ref cultureInfo ja-JP
-
+ref table 手配_影響額_月次
+ref table 倉庫分類

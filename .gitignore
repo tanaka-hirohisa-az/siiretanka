@@ -9,3 +9,7 @@
 **/StaticResources/SharedResources/BuiltInThemes/
 ◎PLヒット案件まとめ_rev6 (1).xlsx
 粗利確認_仕様書_ver1.2.docx
+
+# 分析用に抽出した元データ(サイズが大きく、DWから再生成可能)
+*元データ抽出_*/
+倉庫マスタ のコピー.csv

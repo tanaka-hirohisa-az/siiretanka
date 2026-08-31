@@ -1,0 +1,145 @@
+/// 手配データ(PRONES.TB_材料手配残情報)から算出した値上げ影響額。
+/// 影響額＝(当月の外貨単価−基準の外貨単価)×単価変動月のレート×(直近12か月手配数÷12)
+/// 外貨で差を取ってから換算するため、為替変動は影響額に含まれない。
+/// 通貨は仕入先番号末尾で判定(D=USD / E=EUR / 他=JPY)。358社すべてで通貨は固定。
+table 手配_影響額_月次
+	lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d8e9f1
+
+	column 年月
+		dataType: string
+		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d800a
+		summarizeBy: none
+		sourceColumn: 年月
+
+		annotation SummarizationSetBy = Automatic
+
+	column 年月日
+		dataType: dateTime
+		formatString: yyyy/mm
+		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d801a
+		summarizeBy: none
+		sourceColumn: 年月日
+
+		annotation SummarizationSetBy = Automatic
+
+	column 倉庫番号
+		dataType: string
+		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d802a
+		summarizeBy: none
+		sourceColumn: 倉庫番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column 材料番号
+		dataType: string
+		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d803a
+		summarizeBy: none
+		sourceColumn: 材料番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column 仕入先番号
+		dataType: string
+		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d804a
+		summarizeBy: none
+		sourceColumn: 仕入先番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column 通貨
+		dataType: string
+		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d805a
+		summarizeBy: none
+		sourceColumn: 通貨
+
+		annotation SummarizationSetBy = Automatic
+
+	column 基準単価外貨
+		dataType: double
+		formatString: #,0.0000
+		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d806a
+		summarizeBy: none
+		sourceColumn: 基準単価外貨
+
+		annotation SummarizationSetBy = Automatic
+
+	column 当月単価外貨
+		dataType: double
+		formatString: #,0.0000
+		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d807a
+		summarizeBy: none
+		sourceColumn: 当月単価外貨
+
+		annotation SummarizationSetBy = Automatic
+
+	column 単価差外貨
+		dataType: double
+		formatString: #,0.0000
+		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d808a
+		summarizeBy: none
+		sourceColumn: 単価差外貨
+
+		annotation SummarizationSetBy = Automatic
+
+	column 適用レート
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d809a
+		summarizeBy: none
+		sourceColumn: 適用レート
+
+		annotation SummarizationSetBy = Automatic
+
+	column 単価変動月
+		dataType: string
+		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d810a
+		summarizeBy: none
+		sourceColumn: 単価変動月
+
+		annotation SummarizationSetBy = Automatic
+
+	column 月次数量
+		dataType: double
+		formatString: #,0.0
+		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d811a
+		summarizeBy: sum
+		sourceColumn: 月次数量
+
+		annotation SummarizationSetBy = Automatic
+
+	column 影響額外貨
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d812a
+		summarizeBy: sum
+		sourceColumn: 影響額外貨
+
+		annotation SummarizationSetBy = Automatic
+
+	column 影響額円貨
+		dataType: double
+		formatString: #,0
+		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d813a
+		summarizeBy: sum
+		sourceColumn: 影響額円貨
+
+		annotation SummarizationSetBy = Automatic
+
+	column 基準区分
+		dataType: string
+		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d814a
+		summarizeBy: none
+		sourceColumn: 基準区分
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 手配_影響額_月次 = m
+		mode: import
+		source =
+				let
+				    ソース = Oracle.Database("(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=banshu-srv)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=prones)))"),
+				    結果 = Value.NativeQuery(ソース, "WITH ord AS (SELECT TRIM(F_材料番号) AS mat, TRIM(F_在庫場所) AS wh, TRIM(F_指示先番号) AS sup, SUBSTR(F_手配日,1,7) AS ym, F_手配単価 AS px, F_手配数 AS qty, CASE WHEN TRIM(F_指示先番号) LIKE '%D' THEN 'USD' WHEN TRIM(F_指示先番号) LIKE '%E' THEN 'EUR' ELSE 'JPY' END AS cur FROM PRONES.TB_材料手配残情報 WHERE NVL(F_手配単価,0)>0 AND NVL(F_手配数,0)>0 AND F_手配日 >= '2025/01/01'), rate AS (SELECT F_勘定年月 AS ym, TRIM(F_通貨コード) AS cur, MAX(F_当月レート) AS rt FROM PRONES.TB_外貨仕入実績情報 WHERE NVL(F_当月レート,0)>0 GROUP BY F_勘定年月, TRIM(F_通貨コード)), mo AS (SELECT mat, wh, cur, ym, MAX(sup) AS sup, ROUND(SUM(px*qty)/SUM(qty),6) AS px_fc, SUM(qty) AS q FROM ord GROUP BY mat, wh, cur, ym), chg AS (SELECT m.*, LAG(px_fc) OVER (PARTITION BY mat, wh, cur ORDER BY ym) AS prev_fc, CASE WHEN cur='JPY' THEN 1 ELSE NVL((SELECT rt FROM rate r WHERE r.ym=m.ym AND r.cur=m.cur), (SELECT MIN(rt) FROM rate r2 WHERE r2.cur=m.cur)) END AS rt_m FROM mo m), held AS (SELECT c.mat, c.wh, c.cur, c.ym, c.sup, c.q, c.px_fc, LAST_VALUE(CASE WHEN c.prev_fc IS NULL OR ABS(c.px_fc-c.prev_fc)>0.000001 THEN c.px_fc END IGNORE NULLS) OVER (PARTITION BY c.mat, c.wh, c.cur ORDER BY c.ym ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS px_hold, LAST_VALUE(CASE WHEN c.prev_fc IS NULL OR ABS(c.px_fc-c.prev_fc)>0.000001 THEN c.rt_m END IGNORE NULLS) OVER (PARTITION BY c.mat, c.wh, c.cur ORDER BY c.ym ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS rt_hold, LAST_VALUE(CASE WHEN c.prev_fc IS NULL OR ABS(c.px_fc-c.prev_fc)>0.000001 THEN c.ym END IGNORE NULLS) OVER (PARTITION BY c.mat, c.wh, c.cur ORDER BY c.ym ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS chg_ym FROM chg c), b25 AS (SELECT mat, wh, cur, ROUND(SUM(px_hold*q)/SUM(q),6) AS bp FROM held WHERE ym LIKE '2025%' GROUP BY mat, wh, cur), f26 AS (SELECT mat, wh, cur, MIN(ym) AS fy FROM held WHERE ym >= '2026/01' GROUP BY mat, wh, cur), fb AS (SELECT f.mat, f.wh, f.cur, h.px_hold AS bp FROM f26 f JOIN held h ON h.mat=f.mat AND h.wh=f.wh AND h.cur=f.cur AND h.ym=f.fy), q12 AS (SELECT a.mat, a.wh, a.cur, a.ym, ROUND(SUM(b.q)/12,4) AS q_m FROM held a JOIN held b ON b.mat=a.mat AND b.wh=a.wh AND b.cur=a.cur AND b.ym <= a.ym AND b.ym > TO_CHAR(ADD_MONTHS(TO_DATE(a.ym||'/01','YYYY/MM/DD'),-12),'YYYY/MM') WHERE a.ym >= '2026/01' GROUP BY a.mat, a.wh, a.cur, a.ym) SELECT h.ym AS 年月, TO_DATE(h.ym||'/01','YYYY/MM/DD') AS 年月日, h.wh AS 倉庫番号, h.mat AS 材料番号, h.sup AS 仕入先番号, h.cur AS 通貨, NVL(b.bp, fbx.bp) AS 基準単価外貨, h.px_hold AS 当月単価外貨, ROUND(h.px_hold - NVL(b.bp, fbx.bp),6) AS 単価差外貨, h.rt_hold AS 適用レート, h.chg_ym AS 単価変動月, q.q_m AS 月次数量, ROUND((h.px_hold - NVL(b.bp, fbx.bp)) * q.q_m, 4) AS 影響額外貨, ROUND((h.px_hold - NVL(b.bp, fbx.bp)) * h.rt_hold * q.q_m) AS 影響額円貨, CASE WHEN b.bp IS NOT NULL THEN '前年実績基準' ELSE '当年初回基準' END AS 基準区分 FROM held h JOIN q12 q ON q.mat=h.mat AND q.wh=h.wh AND q.cur=h.cur AND q.ym=h.ym LEFT JOIN b25 b ON b.mat=h.mat AND b.wh=h.wh AND b.cur=h.cur LEFT JOIN fb fbx ON fbx.mat=h.mat AND fbx.wh=h.wh AND fbx.cur=h.cur WHERE h.ym >= '2026/01'")
+				in
+				    結果
+
+	annotation PBI_ResultType = Table
