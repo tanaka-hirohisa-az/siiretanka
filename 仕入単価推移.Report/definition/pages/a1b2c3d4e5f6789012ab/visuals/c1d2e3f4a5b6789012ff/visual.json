@@ -20,13 +20,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料情報"
+                      "Entity": "手配_影響額_月次"
                     }
                   },
-                  "Property": "F_材料番号"
+                  "Property": "材料番号"
                 }
               },
-              "queryRef": "材料情報.F_材料番号",
+              "queryRef": "手配_影響額_月次.材料番号",
               "nativeQueryRef": "材料番号",
               "active": true
             }
@@ -39,14 +39,14 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料_契約単価_月次"
+                      "Entity": "手配_影響額_月次"
                     }
                   },
-                  "Property": "材料_値下げ"
+                  "Property": "影響額_値下げのみ"
                 }
               },
-              "queryRef": "材料_契約単価_月次.材料_値下げ",
-              "nativeQueryRef": "材料_値下げ"
+              "queryRef": "手配_影響額_月次.影響額_値下げのみ",
+              "nativeQueryRef": "影響額_値下げのみ"
             }
           ]
         }
@@ -58,10 +58,10 @@
               "Measure": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "材料_契約単価_月次"
+                    "Entity": "手配_影響額_月次"
                   }
                 },
-                "Property": "材料_値下げ"
+                "Property": "影響額_値下げのみ"
               }
             },
             "direction": "Ascending"

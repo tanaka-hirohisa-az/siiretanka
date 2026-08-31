@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "d8e9f0a1b2c3456789d8",
   "position": {
-    "x": 750,
-    "y": 0,
+    "x": 632.0,
+    "y": 0.0,
     "z": 11000,
-    "height": 130,
-    "width": 170,
+    "height": 130.0,
+    "width": 144.0,
     "tabOrder": 11000
   },
   "visual": {
@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料情報"
+                      "Entity": "手配_影響額_月次"
                     }
                   },
-                  "Property": "F_在庫場所"
+                  "Property": "倉庫番号"
                 }
               },
-              "queryRef": "材料情報.F_在庫場所",
-              "nativeQueryRef": "F_在庫場所",
+              "queryRef": "手配_影響額_月次.倉庫番号",
+              "nativeQueryRef": "倉庫番号",
               "active": true
             }
           ]
@@ -81,58 +81,5 @@
       "filterChanges": true
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "a8b9c0d1e2f3456789ab",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "材料_加重平均単価_月次"
-              }
-            },
-            "Property": "材料使用有無_加重平均"
-          }
-        },
-        "type": "Advanced",
-        "filter": {
-          "Version": 2,
-          "From": [
-            {
-              "Name": "m",
-              "Entity": "材料_加重平均単価_月次",
-              "Type": 0
-            }
-          ],
-          "Where": [
-            {
-              "Condition": {
-                "Comparison": {
-                  "ComparisonKind": 0,
-                  "Left": {
-                    "Measure": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Source": "m"
-                        }
-                      },
-                      "Property": "材料使用有無_加重平均"
-                    }
-                  },
-                  "Right": {
-                    "Literal": {
-                      "Value": "1L"
-                    }
-                  }
-                }
-              }
-            }
-          ]
-        },
-        "howCreated": "User"
-      }
-    ]
   }
 }

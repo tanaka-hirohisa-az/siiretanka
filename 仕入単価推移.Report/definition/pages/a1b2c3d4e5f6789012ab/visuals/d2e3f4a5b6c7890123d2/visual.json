@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "d2e3f4a5b6c7890123d2",
   "position": {
     "x": 0,
-    "y": 130,
+    "y": 130.0,
     "z": 1000,
-    "height": 260,
-    "width": 920,
+    "height": 310.0,
+    "width": 920.1134798838656,
     "tabOrder": 1000
   },
   "visual": {
@@ -39,28 +39,28 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料_契約単価_月次"
+                      "Entity": "手配_影響額_月次"
                     }
                   },
-                  "Property": "材料_値上げ"
+                  "Property": "影響額_値上げのみ"
                 }
               },
-              "queryRef": "材料_契約単価_月次.材料_値上げ",
-              "nativeQueryRef": "材料_値上げ"
+              "queryRef": "手配_影響額_月次.影響額_値上げのみ",
+              "nativeQueryRef": "影響額_値上げのみ"
             },
             {
               "field": {
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料_契約単価_月次"
+                      "Entity": "手配_影響額_月次"
                     }
                   },
-                  "Property": "材料_値下げ"
+                  "Property": "影響額_値下げのみ"
                 }
               },
-              "queryRef": "材料_契約単価_月次.材料_値下げ",
-              "nativeQueryRef": "材料_値下げ"
+              "queryRef": "手配_影響額_月次.影響額_値下げのみ",
+              "nativeQueryRef": "影響額_値下げのみ"
             }
           ]
         },
@@ -71,14 +71,14 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料_契約単価_月次"
+                      "Entity": "手配_影響額_月次"
                     }
                   },
-                  "Property": "材料_正味"
+                  "Property": "影響額"
                 }
               },
-              "queryRef": "材料_契約単価_月次.材料_正味",
-              "nativeQueryRef": "材料_正味"
+              "queryRef": "手配_影響額_月次.影響額",
+              "nativeQueryRef": "影響額"
             }
           ]
         }
@@ -102,7 +102,6 @@
         "isDefaultSort": true
       }
     },
-    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -110,13 +109,74 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'月別 契約単価の年初来影響額（円/月）: 上向き＝値上げ分（No.5/6への転記対象）、下向き＝値下げ分（転記対象外）、折れ線＝正味。集計表で電線／電線以外を選ぶと該当分が強調されます'"
+                  "Value": "'月別 値上げ影響額（円/月・手配ベース）: 上向き＝値上げ分（転記対象）、下向き＝値下げ分、折れ線＝正味'"
                 }
               }
             }
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "09138f150ca6368434db",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "tbl_calendar"
+              }
+            },
+            "Property": "年月_表示"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "0c054c936e743f7bcd2c",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "材料_契約単価_月次"
+              }
+            },
+            "Property": "材料_値上げ"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "c9bd14f9ee9752f10b44",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "材料_契約単価_月次"
+              }
+            },
+            "Property": "材料_値下げ"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "30a61937511df10309a2",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "材料_契約単価_月次"
+              }
+            },
+            "Property": "材料_正味"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

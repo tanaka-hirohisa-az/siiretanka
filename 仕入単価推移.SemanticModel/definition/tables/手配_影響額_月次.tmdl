@@ -5,6 +5,55 @@
 table 手配_影響額_月次
 	lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d8e9f1
 
+	measure 影響額 =
+			SUM ( '手配_影響額_月次'[影響額円貨] )
+		formatString: #,0
+		lineageTag: 4e5f6071-8293-43a4-b5c6-d7e8f9a0b101
+
+	measure 影響額_値上げのみ =
+			// 転記対象。エクセル No.5/6 は値上がり分のみを記録する
+			// (値下がりは No.11 部品購入原価低減 等が別項目で持つ)。
+			CALCULATE (
+			    SUM ( '手配_影響額_月次'[影響額円貨] ),
+			    '手配_影響額_月次'[単価差外貨] > 0
+			)
+		formatString: #,0
+		lineageTag: 4e5f6071-8293-43a4-b5c6-d7e8f9a0b102
+
+	measure 影響額_値下げのみ =
+			CALCULATE (
+			    SUM ( '手配_影響額_月次'[影響額円貨] ),
+			    '手配_影響額_月次'[単価差外貨] < 0
+			)
+		formatString: #,0
+		lineageTag: 4e5f6071-8293-43a4-b5c6-d7e8f9a0b103
+
+	measure 転記額 =
+			// 集計表(Excel転記用)専用。エクセルは利益への影響で記録するため符号を反転する。
+			-[影響額_値上げのみ]
+		formatString: #,0
+		lineageTag: 4e5f6071-8293-43a4-b5c6-d7e8f9a0b104
+
+	measure 影響額_最新実績月 =
+			// カード用。選択範囲の最終月。データのある最終月を超えない。
+			VAR __Sel =
+			    CALCULATE (
+			        MAX ( '手配_影響額_月次'[年月] ),
+			        ALLSELECTED ( '手配_影響額_月次'[年月] )
+			    )
+			RETURN
+			    CALCULATE ( [影響額_値上げのみ], '手配_影響額_月次'[年月] = __Sel )
+		formatString: #,0
+		lineageTag: 4e5f6071-8293-43a4-b5c6-d7e8f9a0b105
+
+	measure 手配額_円貨 =
+			SUMX (
+			    '手配_影響額_月次',
+			    '手配_影響額_月次'[当月単価外貨] * '手配_影響額_月次'[適用レート] * '手配_影響額_月次'[月次数量]
+			)
+		formatString: #,0
+		lineageTag: 4e5f6071-8293-43a4-b5c6-d7e8f9a0b106
+
 	column 年月
 		dataType: string
 		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d800a
@@ -143,3 +192,4 @@ table 手配_影響額_月次
 				    結果
 
 	annotation PBI_ResultType = Table
+

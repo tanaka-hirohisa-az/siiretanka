@@ -1,9 +1,9 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "e9f0a1b2c3d4567890e9",
   "position": {
     "x": 0,
-    "y": 580,
+    "y": 579.8584329997559,
     "z": 2000,
     "height": 140,
     "width": 1280,
@@ -20,13 +20,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料情報"
+                      "Entity": "手配_影響額_月次"
                     }
                   },
-                  "Property": "F_材料番号"
+                  "Property": "材料番号"
                 }
               },
-              "queryRef": "材料情報.F_材料番号",
+              "queryRef": "手配_影響額_月次.材料番号",
               "nativeQueryRef": "材料番号"
             },
             {
@@ -45,101 +45,171 @@
             },
             {
               "field": {
-                "Measure": {
+                "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料_契約単価_月次"
+                      "Entity": "手配_影響額_月次"
                     }
                   },
-                  "Property": "契約_年初単価"
+                  "Property": "倉庫番号"
                 }
               },
-              "queryRef": "材料_契約単価_月次.契約_年初単価",
-              "nativeQueryRef": "契約_年初単価"
+              "queryRef": "手配_影響額_月次.倉庫番号",
+              "nativeQueryRef": "倉庫"
             },
             {
               "field": {
-                "Measure": {
+                "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料_契約単価_月次"
+                      "Entity": "倉庫分類"
                     }
                   },
-                  "Property": "契約_当月単価"
+                  "Property": "区分"
                 }
               },
-              "queryRef": "材料_契約単価_月次.契約_当月単価",
-              "nativeQueryRef": "契約_当月単価"
+              "queryRef": "倉庫分類.区分",
+              "nativeQueryRef": "区分"
             },
             {
               "field": {
-                "Measure": {
+                "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料_契約単価_月次"
+                      "Entity": "手配_影響額_月次"
                     }
                   },
-                  "Property": "契約単価_年度基準比"
+                  "Property": "通貨"
                 }
               },
-              "queryRef": "材料_契約単価_月次.契約単価_年度基準比",
-              "nativeQueryRef": "契約単価_年度基準比"
+              "queryRef": "手配_影響額_月次.通貨",
+              "nativeQueryRef": "通貨"
             },
             {
               "field": {
-                "Measure": {
+                "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料_加重平均単価_月次"
+                      "Entity": "手配_影響額_月次"
                     }
                   },
-                  "Property": "実績_当月単価"
+                  "Property": "基準区分"
                 }
               },
-              "queryRef": "材料_加重平均単価_月次.実績_当月単価",
-              "nativeQueryRef": "実績_当月単価"
+              "queryRef": "手配_影響額_月次.基準区分",
+              "nativeQueryRef": "基準区分"
             },
             {
               "field": {
-                "Measure": {
+                "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料_加重平均単価_月次"
+                      "Entity": "手配_影響額_月次"
                     }
                   },
-                  "Property": "実績単価_年度基準比"
+                  "Property": "基準単価外貨"
                 }
               },
-              "queryRef": "材料_加重平均単価_月次.実績単価_年度基準比",
-              "nativeQueryRef": "実績単価_年度基準比"
+              "queryRef": "手配_影響額_月次.基準単価外貨",
+              "nativeQueryRef": "基準単価(外貨)"
             },
             {
               "field": {
-                "Measure": {
+                "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料_契約単価_月次"
+                      "Entity": "手配_影響額_月次"
                     }
                   },
-                  "Property": "稼働量_直近12か月"
+                  "Property": "当月単価外貨"
                 }
               },
-              "queryRef": "材料_契約単価_月次.稼働量_直近12か月",
-              "nativeQueryRef": "稼働量_直近12か月"
+              "queryRef": "手配_影響額_月次.当月単価外貨",
+              "nativeQueryRef": "当月単価(外貨)"
             },
             {
               "field": {
-                "Measure": {
+                "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料_契約単価_月次"
+                      "Entity": "手配_影響額_月次"
                     }
                   },
-                  "Property": "月割年初来影響_材料契約"
+                  "Property": "単価差外貨"
                 }
               },
-              "queryRef": "材料_契約単価_月次.月割年初来影響_材料契約",
-              "nativeQueryRef": "月割年初来影響_材料契約"
+              "queryRef": "手配_影響額_月次.単価差外貨",
+              "nativeQueryRef": "単価差(外貨)"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "手配_影響額_月次"
+                    }
+                  },
+                  "Property": "適用レート"
+                }
+              },
+              "queryRef": "手配_影響額_月次.適用レート",
+              "nativeQueryRef": "レート"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "手配_影響額_月次"
+                    }
+                  },
+                  "Property": "単価変動月"
+                }
+              },
+              "queryRef": "手配_影響額_月次.単価変動月",
+              "nativeQueryRef": "単価変動月"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "手配_影響額_月次"
+                    }
+                  },
+                  "Property": "月次数量"
+                }
+              },
+              "queryRef": "手配_影響額_月次.月次数量",
+              "nativeQueryRef": "月次数量"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "手配_影響額_月次"
+                    }
+                  },
+                  "Property": "影響額外貨"
+                }
+              },
+              "queryRef": "手配_影響額_月次.影響額外貨",
+              "nativeQueryRef": "影響額(外貨)"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "手配_影響額_月次"
+                    }
+                  },
+                  "Property": "影響額円貨"
+                }
+              },
+              "queryRef": "手配_影響額_月次.影響額円貨",
+              "nativeQueryRef": "影響額(円貨)"
             }
           ]
         }
@@ -183,7 +253,6 @@
         }
       ]
     },
-    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -191,13 +260,144 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'明細: 選んだ材料の月次推移。契約と実績の倍率が揃っていれば実在の値上げ'"
+                  "Value": "'明細: 外貨額と円貨額を別々に表示。単価差は外貨で取り、単価変動月のレートで換算'"
                 }
               }
             }
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "a1eabb46fc618864bc63",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "材料情報"
+              }
+            },
+            "Property": "F_材料番号"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "999599fdb62e814d3747",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "tbl_calendar"
+              }
+            },
+            "Property": "年月_表示"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "2ca2e4f048f01b85dd1c",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "材料_契約単価_月次"
+              }
+            },
+            "Property": "契約_年初単価"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "100808afc8eb83fec321",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "材料_契約単価_月次"
+              }
+            },
+            "Property": "契約_当月単価"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "79e9e405a45232383e6c",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "材料_契約単価_月次"
+              }
+            },
+            "Property": "契約単価_年度基準比"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "f93f5454809477a0218c",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "材料_加重平均単価_月次"
+              }
+            },
+            "Property": "実績_当月単価"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "181103a3cbdae0ae8539",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "材料_加重平均単価_月次"
+              }
+            },
+            "Property": "実績単価_年度基準比"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "49b70517a44fc9e42a6b",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "材料_契約単価_月次"
+              }
+            },
+            "Property": "稼働量_直近12か月"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "1758fd1cef08df5b7e8e",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "材料_契約単価_月次"
+              }
+            },
+            "Property": "月割年初来影響_材料契約"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

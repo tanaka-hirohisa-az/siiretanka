@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "b6c7d8e9f0a1234567b6",
   "position": {
-    "x": 410,
-    "y": 0,
+    "x": 344.0,
+    "y": 0.0,
     "z": 8000,
-    "height": 130,
-    "width": 170,
+    "height": 130.0,
+    "width": 144.0,
     "tabOrder": 8000
   },
   "visual": {
@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "品目分類情報"
+                      "Entity": "倉庫分類"
                     }
                   },
-                  "Property": "F_分類名"
+                  "Property": "区分"
                 }
               },
-              "queryRef": "品目分類情報.F_分類名",
-              "nativeQueryRef": "F_分類名",
+              "queryRef": "倉庫分類.区分",
+              "nativeQueryRef": "区分",
               "active": true
             }
           ]
@@ -85,94 +85,54 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "d5e6f7a8b9c0123456de",
+        "name": "kubun_default",
         "field": {
-          "Measure": {
+          "Column": {
             "Expression": {
               "SourceRef": {
-                "Entity": "品目分類情報"
+                "Entity": "倉庫分類"
               }
             },
-            "Property": "分類使用有無_材料"
+            "Property": "区分"
           }
         },
-        "type": "Advanced",
+        "type": "Categorical",
         "filter": {
           "Version": 2,
           "From": [
             {
-              "Name": "品",
-              "Entity": "品目分類情報",
+              "Name": "w",
+              "Entity": "倉庫分類",
               "Type": 0
             }
           ],
           "Where": [
             {
               "Condition": {
-                "Comparison": {
-                  "ComparisonKind": 0,
-                  "Left": {
-                    "Measure": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Source": "品"
+                "Not": {
+                  "Expression": {
+                    "In": {
+                      "Expressions": [
+                        {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Source": "w"
+                              }
+                            },
+                            "Property": "区分"
+                          }
                         }
-                      },
-                      "Property": "分類使用有無_材料"
-                    }
-                  },
-                  "Right": {
-                    "Literal": {
-                      "Value": "1L"
-                    }
-                  }
-                }
-              }
-            }
-          ]
-        },
-        "howCreated": "User"
-      },
-      {
-        "name": "e6f7a8b9c0d1234567ef",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "材料_加重平均単価_月次"
-              }
-            },
-            "Property": "材料使用有無_加重平均"
-          }
-        },
-        "type": "Advanced",
-        "filter": {
-          "Version": 2,
-          "From": [
-            {
-              "Name": "m",
-              "Entity": "材料_加重平均単価_月次",
-              "Type": 0
-            }
-          ],
-          "Where": [
-            {
-              "Condition": {
-                "Comparison": {
-                  "ComparisonKind": 0,
-                  "Left": {
-                    "Measure": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Source": "m"
-                        }
-                      },
-                      "Property": "材料使用有無_加重平均"
-                    }
-                  },
-                  "Right": {
-                    "Literal": {
-                      "Value": "1L"
+                      ],
+                      "Values": [
+                        [
+                          {
+                            "Literal": {
+                              "Value": "'国内管理用倉庫区分'"
+                            }
+                          }
+                        ]
+                      ]
                     }
                   }
                 }
