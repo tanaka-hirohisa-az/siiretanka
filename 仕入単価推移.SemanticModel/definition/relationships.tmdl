@@ -111,3 +111,18 @@ relationship e5f60a1b-9203-44b5-c6d7-ef8a9b0c1d23
 	fromColumn: 手配_影響額_月次.年月日
 	toColumn: tbl_calendar.Date
 
+relationship a1b2c3d4-1111-4001-8001-000000000001
+	fromColumn: 仕入実績_影響額_月次.材料番号
+	toColumn: 材料分類.材料番号
+
+relationship a1b2c3d4-1111-4002-8002-000000000002
+	fromColumn: 仕入実績_影響額_月次.倉庫番号
+	toColumn: 倉庫分類.倉庫番号
+
+relationship a1b2c3d4-1111-4003-8003-000000000003
+	fromColumn: 仕入実績_影響額_月次.仕入先番号
+	toColumn: 仕入先分類.仕入先番号
+
+relationship a1b2c3d4-1111-4004-8004-000000000004
+	fromColumn: 仕入実績_影響額_月次.年月日
+	toColumn: tbl_calendar.Date
