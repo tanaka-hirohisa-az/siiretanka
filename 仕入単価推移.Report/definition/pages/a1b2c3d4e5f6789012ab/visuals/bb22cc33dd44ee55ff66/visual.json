@@ -117,7 +117,7 @@
       ]
     },
     "syncGroup": {
-      "groupName": "異常値区分",
+      "groupName": "単価判定",
       "fieldChanges": true,
       "filterChanges": true
     },

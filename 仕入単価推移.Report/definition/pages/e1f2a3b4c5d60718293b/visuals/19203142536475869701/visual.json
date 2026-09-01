@@ -48,13 +48,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "手配_影響額_月次"
+                      "Entity": "材料分類"
                     }
                   },
                   "Property": "分類名"
                 }
               },
-              "queryRef": "手配_影響額_月次.分類名",
+              "queryRef": "材料分類.分類名",
               "nativeQueryRef": "分類名"
             },
             {

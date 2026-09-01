@@ -117,7 +117,7 @@
       ]
     },
     "syncGroup": {
-      "groupName": "対象区分",
+      "groupName": "部材区分",
       "fieldChanges": true,
       "filterChanges": true
     },
