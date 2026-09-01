@@ -194,7 +194,7 @@ table tbl_calendar
 		annotation SummarizationSetBy = Automatic
 
 	/// 月軸の表示用。実績が未着の月には (見込) を付ける。
-	/// 転記時に実績と見込みを取り違えないよう、列見出しそのものに印を出す。
+	/// 実績と見込みを取り違えないよう、列見出しそのものに印を出す。
 	column 年月_表示 =
 			'tbl_calendar'[年月_yy年MM月]
 			    & IF ( 'tbl_calendar'[実績月フラグ] = 0, "(見込)", "" )
