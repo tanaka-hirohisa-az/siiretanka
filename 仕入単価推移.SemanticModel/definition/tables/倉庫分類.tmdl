@@ -47,3 +47,4 @@ table 倉庫分類
 				    型変換
 
 	annotation PBI_ResultType = Table
+

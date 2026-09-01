@@ -8,7 +8,7 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 0
 
-annotation PBI_QueryOrder = ["TB_材料入出庫実績情報","TB_納入品目改造指示情報","TW_自動倉庫","TW_納入品目在庫履歴","TB_統合出荷情報","TB_納入品目仕入先単価情報","TB_仕入先情報","TB_材料仕入先単価情報","tbl_calendar","材料情報","納入品目情報","品目分類情報","TB_仕入実績情報"]
+annotation PBI_QueryOrder = ["TB_材料入出庫実績情報","TB_納入品目改造指示情報","TW_自動倉庫","TW_納入品目在庫履歴","TB_統合出荷情報","TB_納入品目仕入先単価情報","TB_仕入先情報","TB_材料仕入先単価情報","tbl_calendar","材料情報","納入品目情報","品目分類情報","TB_仕入実績情報","手配_影響額_月次","倉庫分類"]
 
 annotation PBI_ProTooling = ["DevMode"]
 
@@ -38,7 +38,8 @@ ref table 納入品目_契約単価_月次
 ref table 材料_月次稼働量
 ref table 材料_仕入先別_月次
 ref table データ基準
-
-ref cultureInfo ja-JP
 ref table 手配_影響額_月次
 ref table 倉庫分類
+
+ref cultureInfo ja-JP
+
