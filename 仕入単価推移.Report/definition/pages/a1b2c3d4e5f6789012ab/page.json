@@ -79,7 +79,7 @@
     {
       "source": "f4a5b6c7d8e9012345f4",
       "target": "d2e3f4a5b6c7890123d2",
-      "type": "HighlightFilter"
+      "type": "DataFilter"
     },
     {
       "source": "f4a5b6c7d8e9012345f4",
@@ -104,7 +104,7 @@
     {
       "source": "c1d2e3f4a5b6789012ff",
       "target": "d2e3f4a5b6c7890123d2",
-      "type": "HighlightFilter"
+      "type": "DataFilter"
     },
     {
       "source": "c1d2e3f4a5b6789012ff",
@@ -129,7 +129,7 @@
     {
       "source": "c5d6e7f8091011120012",
       "target": "d2e3f4a5b6c7890123d2",
-      "type": "HighlightFilter"
+      "type": "DataFilter"
     },
     {
       "source": "c5d6e7f8091011120012",
