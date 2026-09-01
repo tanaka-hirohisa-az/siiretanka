@@ -47,8 +47,9 @@ table 仕入実績_影響額_月次
 		formatString: #,0
 		lineageTag: 5f607182-93a4-45b6-c7d8-e9f0a1b2c107
 
-	measure 影響額_最新実績月 =
-			// カード用。選択範囲の最終月。データのある最終月を超えない。
+	measure 転記額_選択最終月 =
+			// カード用。選択している年月のうち最終月のみを集計する。
+			// 実績月に限定していないので、見込月が選択範囲に入っていればその月を表示する。
 			VAR __Sel =
 			    CALCULATE (
 			        MAX ( '仕入実績_影響額_月次'[年月] ),
@@ -163,16 +164,6 @@ table 仕入実績_影響額_月次
 
 		annotation SummarizationSetBy = Automatic
 
-	column 単価判定_順
-		dataType: int64
-		formatString: 0
-		lineageTag: 5f607182-93a4-45b6-c7d8-e9f0a1b2c2a1
-		summarizeBy: none
-		sourceColumn: 異常値区分_順
-		isHidden
-
-		annotation SummarizationSetBy = Automatic
-
 	column 基準区分
 		dataType: string
 		lineageTag: 5f607182-93a4-45b6-c7d8-e9f0a1b2c212
@@ -186,6 +177,16 @@ table 仕入実績_影響額_月次
 		lineageTag: 5f607182-93a4-45b6-c7d8-e9f0a1b2c213
 		summarizeBy: none
 		sourceColumn: 基準年月
+
+		annotation SummarizationSetBy = Automatic
+
+	column 単価判定_順
+		dataType: double
+		isHidden
+		formatString: 0
+		lineageTag: 5f607182-93a4-45b6-c7d8-e9f0a1b2c2a1
+		summarizeBy: sum
+		sourceColumn: 異常値区分_順
 
 		annotation SummarizationSetBy = Automatic
 
