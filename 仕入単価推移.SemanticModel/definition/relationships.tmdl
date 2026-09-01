@@ -134,3 +134,4 @@ relationship a1b2c3d4-1111-4005-8005-000000000005
 relationship a1b2c3d4-1111-4006-8006-000000000006
 	fromColumn: 手配_影響額_月次.仕入先番号
 	toColumn: 仕入先分類.仕入先番号
+

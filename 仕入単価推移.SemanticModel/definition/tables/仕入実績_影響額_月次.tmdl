@@ -6,8 +6,7 @@
 table 仕入実績_影響額_月次
 	lineageTag: 5f607182-93a4-45b6-c7d8-e9f0a1b2c3d4
 
-	measure 影響額_合計 =
-			SUM ( '仕入実績_影響額_月次'[影響額] )
+	measure 影響額_合計 = SUM ( '仕入実績_影響額_月次'[影響額] )
 		formatString: #,0
 		lineageTag: 5f607182-93a4-45b6-c7d8-e9f0a1b2c101
 
@@ -34,8 +33,7 @@ table 仕入実績_影響額_月次
 		formatString: #,0
 		lineageTag: 5f607182-93a4-45b6-c7d8-e9f0a1b2c104
 
-	measure 仕入額_合計 =
-			SUM ( '仕入実績_影響額_月次'[仕入額] )
+	measure 仕入額_合計 = SUM ( '仕入実績_影響額_月次'[仕入額] )
 		formatString: #,0
 		lineageTag: 5f607182-93a4-45b6-c7d8-e9f0a1b2c105
 
@@ -45,8 +43,7 @@ table 仕入実績_影響額_月次
 		formatString: 0.0%
 		lineageTag: 5f607182-93a4-45b6-c7d8-e9f0a1b2c106
 
-	measure 純影響額 =
-			[影響額_値上げのみ] + [影響額_値下げのみ]
+	measure 純影響額 = [影響額_値上げのみ] + [影響額_値下げのみ]
 		formatString: #,0
 		lineageTag: 5f607182-93a4-45b6-c7d8-e9f0a1b2c107
 
@@ -157,11 +154,22 @@ table 仕入実績_影響額_月次
 
 		annotation SummarizationSetBy = Automatic
 
-	column 異常値区分
+	column 単価判定
 		dataType: string
 		lineageTag: 5f607182-93a4-45b6-c7d8-e9f0a1b2c211
 		summarizeBy: none
 		sourceColumn: 異常値区分
+		sortByColumn: 単価判定_順
+
+		annotation SummarizationSetBy = Automatic
+
+	column 単価判定_順
+		dataType: int64
+		formatString: 0
+		lineageTag: 5f607182-93a4-45b6-c7d8-e9f0a1b2c2a1
+		summarizeBy: none
+		sourceColumn: 異常値区分_順
+		isHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -186,8 +194,9 @@ table 仕入実績_影響額_月次
 		source =
 				let
 				    ソース = Oracle.Database("(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=banshu-srv)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=prones)))"),
-				    結果 = Value.NativeQuery(ソース, "WITH w AS (SELECT TRIM(F_品目番号) AS mat, TRIM(F_指示先番号) AS sup, TRIM(F_在庫場所) AS wh, F_勘定年月 AS ym, SUM(F_仕入数) AS q, SUM(F_金額) AS amt FROM PRONES.TB_仕入実績情報 WHERE F_勘定年月 >= '2025/01' AND NVL(F_仕入数,0)<>0 AND NVL(F_金額,0)<>0 GROUP BY TRIM(F_品目番号), TRIM(F_指示先番号), TRIM(F_在庫場所), F_勘定年月), wm AS (SELECT w.*, SUM(q) OVER (PARTITION BY mat, sup, ym) AS mq, SUM(amt) OVER (PARTITION BY mat, sup, ym) AS mamt FROM w), mo AS (SELECT DISTINCT mat, sup, ym, mq, mamt, mamt/mq AS upx FROM wm WHERE mq<>0 AND mamt<>0), b AS (SELECT mat, sup, NVL(MAX(CASE WHEN ym LIKE '2025%' THEN ym END), MIN(ym)) AS bym, COUNT(CASE WHEN ym LIKE '2025%' THEN 1 END) AS mc25, CASE WHEN MAX(CASE WHEN ym LIKE '2025%' THEN ym END) IS NOT NULL THEN '前年最終月' ELSE '当年初回' END AS bkind FROM mo GROUP BY mat, sup), bx AS (SELECT b.mat, b.sup, b.bym, b.bkind, b.mc25, p.upx AS bpx, p.mq AS bq FROM b JOIN mo p ON p.mat=b.mat AND p.sup=b.sup AND p.ym=b.bym) SELECT x.ym AS 年月, TO_DATE(x.ym||'/01','YYYY/MM/DD') AS 年月日, x.mat AS 材料番号, x.sup AS 仕入先番号, x.wh AS 倉庫番号, ROUND(bx.bpx,6) AS 基準単価, ROUND(x.mamt/x.mq,6) AS 当月単価, ROUND(x.mamt/x.mq - bx.bpx,6) AS 単価差, x.q AS 数量, x.amt AS 仕入額, ROUND((x.mamt/x.mq - bx.bpx)*x.q,2) AS 影響額, CASE WHEN bx.mc25=1 AND bx.bkind='前年最終月' AND bx.bq<5 THEN 'スポット(5個未満)' WHEN x.mamt/x.mq > bx.bpx*3 OR x.mamt/x.mq < bx.bpx/3 THEN '基準比3倍超・1/3未満' ELSE '正常' END AS 異常値区分, bx.bkind AS 基準区分, bx.bym AS 基準年月 FROM wm x JOIN bx ON bx.mat=x.mat AND bx.sup=x.sup WHERE x.ym >= '2026/01' AND x.mq<>0 AND bx.bpx<>0")
+				    結果 = Value.NativeQuery(ソース, "WITH w AS (SELECT TRIM(F_品目番号) AS mat, TRIM(F_指示先番号) AS sup, TRIM(F_在庫場所) AS wh, F_勘定年月 AS ym, SUM(F_仕入数) AS q, SUM(F_金額) AS amt FROM PRONES.TB_仕入実績情報 WHERE F_勘定年月 >= '2025/01' AND NVL(F_仕入数,0)<>0 AND NVL(F_金額,0)<>0 GROUP BY TRIM(F_品目番号), TRIM(F_指示先番号), TRIM(F_在庫場所), F_勘定年月), wm AS (SELECT w.*, SUM(q) OVER (PARTITION BY mat, sup, ym) AS mq, SUM(amt) OVER (PARTITION BY mat, sup, ym) AS mamt FROM w), mo AS (SELECT DISTINCT mat, sup, ym, mq, mamt, mamt/mq AS upx FROM wm WHERE mq<>0 AND mamt<>0), b AS (SELECT mat, sup, NVL(MAX(CASE WHEN ym LIKE '2025%' THEN ym END), MIN(ym)) AS bym, COUNT(CASE WHEN ym LIKE '2025%' THEN 1 END) AS mc25, CASE WHEN MAX(CASE WHEN ym LIKE '2025%' THEN ym END) IS NOT NULL THEN '前年最終月' ELSE '当年初回' END AS bkind FROM mo GROUP BY mat, sup), bx AS (SELECT b.mat, b.sup, b.bym, b.bkind, b.mc25, p.upx AS bpx, p.mq AS bq FROM b JOIN mo p ON p.mat=b.mat AND p.sup=b.sup AND p.ym=b.bym) SELECT x.ym AS 年月, TO_DATE(x.ym||'/01','YYYY/MM/DD') AS 年月日, x.mat AS 材料番号, x.sup AS 仕入先番号, x.wh AS 倉庫番号, ROUND(bx.bpx,6) AS 基準単価, ROUND(x.mamt/x.mq,6) AS 当月単価, ROUND(x.mamt/x.mq - bx.bpx,6) AS 単価差, x.q AS 数量, x.amt AS 仕入額, ROUND((x.mamt/x.mq - bx.bpx)*x.q,2) AS 影響額, CASE WHEN bx.mc25=1 AND bx.bkind='前年最終月' AND bx.bq<5 THEN 'スポット(5個未満)' WHEN x.mamt/x.mq > bx.bpx*3 OR x.mamt/x.mq < bx.bpx/3 THEN '基準比3倍超・1/3未満' ELSE '正常' END AS 異常値区分, CASE WHEN bx.mc25=1 AND bx.bkind='前年最終月' AND bx.bq<5 THEN 3 WHEN x.mamt/x.mq > bx.bpx*3 OR x.mamt/x.mq < bx.bpx/3 THEN 2 ELSE 1 END AS 異常値区分_順, bx.bkind AS 基準区分, bx.bym AS 基準年月 FROM wm x JOIN bx ON bx.mat=x.mat AND bx.sup=x.sup WHERE x.ym >= '2026/01' AND x.mq<>0 AND bx.bpx<>0")
 				in
 				    結果
 
 	annotation PBI_ResultType = Table
+

@@ -5,8 +5,7 @@
 table 手配_影響額_月次
 	lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d8e9f1
 
-	measure 影響額 =
-			SUM ( '手配_影響額_月次'[影響額円貨] )
+	measure 影響額 = SUM ( '手配_影響額_月次'[影響額円貨] )
 		formatString: #,0
 		lineageTag: 4e5f6071-8293-43a4-b5c6-d7e8f9a0b101
 
@@ -84,22 +83,6 @@ table 手配_影響額_月次
 		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d803a
 		summarizeBy: none
 		sourceColumn: 材料番号
-
-		annotation SummarizationSetBy = Automatic
-
-	column 電線区分
-		dataType: string
-		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d8f01a
-		summarizeBy: none
-		sourceColumn: 電線区分
-
-		annotation SummarizationSetBy = Automatic
-
-	column 分類名
-		dataType: string
-		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d8f02a
-		summarizeBy: none
-		sourceColumn: 分類名
 
 		annotation SummarizationSetBy = Automatic
 
@@ -195,6 +178,22 @@ table 手配_影響額_月次
 		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d814a
 		summarizeBy: none
 		sourceColumn: 基準区分
+
+		annotation SummarizationSetBy = Automatic
+
+	column 電線区分
+		dataType: string
+		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d8f01a
+		summarizeBy: none
+		sourceColumn: 電線区分
+
+		annotation SummarizationSetBy = Automatic
+
+	column 分類名
+		dataType: string
+		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d8f02a
+		summarizeBy: none
+		sourceColumn: 分類名
 
 		annotation SummarizationSetBy = Automatic
 

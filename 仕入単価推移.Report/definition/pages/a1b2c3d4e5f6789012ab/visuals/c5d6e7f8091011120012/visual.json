@@ -13,38 +13,6 @@
     "visualType": "pivotTable",
     "query": {
       "queryState": {
-        "Rows": {
-          "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "材料分類"
-                    }
-                  },
-                  "Property": "電線区分"
-                }
-              },
-              "queryRef": "材料分類.電線区分",
-              "nativeQueryRef": "電線区分"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "倉庫分類"
-                    }
-                  },
-                  "Property": "仕向け区分"
-                }
-              },
-              "queryRef": "倉庫分類.仕向け区分",
-              "nativeQueryRef": "仕向け区分"
-            }
-          ]
-        },
         "Columns": {
           "projections": [
             {
@@ -59,7 +27,42 @@
                 }
               },
               "queryRef": "tbl_calendar.年月_表示",
-              "nativeQueryRef": "年月"
+              "nativeQueryRef": "年月",
+              "active": true
+            }
+          ]
+        },
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "材料分類"
+                    }
+                  },
+                  "Property": "電線区分"
+                }
+              },
+              "queryRef": "材料分類.電線区分",
+              "nativeQueryRef": "電線区分",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "倉庫分類"
+                    }
+                  },
+                  "Property": "仕向け区分"
+                }
+              },
+              "queryRef": "倉庫分類.仕向け区分",
+              "nativeQueryRef": "仕向け区分",
+              "active": false
             }
           ]
         },

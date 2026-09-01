@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "bb22cc33dd44ee55ff66",
   "position": {
-    "x": 816.0,
-    "y": 0.0,
+    "x": 816,
+    "y": 0,
     "z": 5400,
-    "height": 130.0,
-    "width": 154.0,
+    "height": 130,
+    "width": 154,
     "tabOrder": 5400
   },
   "visual": {
@@ -23,11 +23,11 @@
                       "Entity": "仕入実績_影響額_月次"
                     }
                   },
-                  "Property": "異常値区分"
+                  "Property": "単価判定"
                 }
               },
-              "queryRef": "仕入実績_影響額_月次.異常値区分",
-              "nativeQueryRef": "異常値区分",
+              "queryRef": "仕入実績_影響額_月次.単価判定",
+              "nativeQueryRef": "単価判定",
               "active": true
             }
           ]
@@ -57,6 +57,47 @@
                   "Value": "true"
                 }
               }
+            },
+            "filter": {
+              "filter": {
+                "Version": 2,
+                "From": [
+                  {
+                    "Name": "仕",
+                    "Entity": "仕入実績_影響額_月次",
+                    "Type": 0
+                  }
+                ],
+                "Where": [
+                  {
+                    "Condition": {
+                      "In": {
+                        "Expressions": [
+                          {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "仕"
+                                }
+                              },
+                              "Property": "異常値区分"
+                            }
+                          }
+                        ],
+                        "Values": [
+                          [
+                            {
+                              "Literal": {
+                                "Value": "'正常'"
+                              }
+                            }
+                          ]
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
             }
           }
         }
@@ -81,5 +122,23 @@
       "filterChanges": true
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "7039e870918afd761bab",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "仕入実績_影響額_月次"
+              }
+            },
+            "Property": "単価判定"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
   }
 }
