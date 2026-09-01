@@ -76,11 +76,11 @@
                       "Entity": "仕入実績_影響額_月次"
                     }
                   },
-                  "Property": "利益影響額_値上げ分"
+                  "Property": "PLヒット額_値上げ分"
                 }
               },
-              "queryRef": "仕入実績_影響額_月次.利益影響額_値上げ分",
-              "nativeQueryRef": "利益影響額_値上げ分"
+              "queryRef": "仕入実績_影響額_月次.PLヒット額_値上げ分",
+              "nativeQueryRef": "PLヒット額_値上げ分"
             }
           ]
         }
