@@ -1,4 +1,6 @@
 /// 仕入実績に登場する材料の分類ディメンション。材料番号は一意。
+/// Oracle は大文字小文字を区別するが Power BI は区別しないため、UPPER でまとめる
+/// (AVSS05Br-B と AVSS05BR-B のような表記ゆれが3組ある)。
 /// 対象区分: 参照エクセルが集計対象としている品目分類かどうか。
 /// 対象外＝工場消耗品・梱包材料・ダミー・その他原材料/完成品・分類なし・ハーネス系・
 /// バッテリーCABLE・圧着機パーツ・９９９。製品に組み込まれない品目を指す。
@@ -43,7 +45,7 @@ table 材料分類
 		source =
 				let
 				    ソース = Oracle.Database("(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=banshu-srv)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=prones)))"),
-				    結果 = Value.NativeQuery(ソース, "WITH ml AS (SELECT DISTINCT TRIM(F_品目番号) AS mat FROM PRONES.TB_仕入実績情報 WHERE F_勘定年月 >= '2025/01'), mc AS (SELECT TRIM(m.F_材料番号) AS mat, NVL(TRIM(c.F_分類名),'(分類なし)') AS bunrui FROM PRONES.TB_材料情報 m LEFT JOIN PRONES.TB_品目分類情報 c ON TRIM(c.F_番号)=TRIM(m.F_品目分類)), j AS (SELECT ml.mat, MAX(NVL(mc.bunrui,'(分類なし)')) AS bunrui FROM ml LEFT JOIN mc ON mc.mat=ml.mat GROUP BY ml.mat) SELECT j.mat AS 材料番号, j.bunrui AS 分類名, CASE WHEN j.bunrui IN ('電線材料','電線類') THEN '電線' ELSE '電線以外' END AS 電線区分, CASE WHEN j.bunrui IN ('(分類なし)','その他原材料','その他完成品','ダミー','ハーネス（切断）','ハ－ネス(雑品)','バッテリーCABLE','圧着機パ－ツ','工場消耗品','梱包材料','９９９') THEN '対象外' ELSE '対象' END AS 対象区分 FROM j")
+				    結果 = Value.NativeQuery(ソース, "WITH ml AS (SELECT DISTINCT TRIM(F_品目番号) AS mat FROM PRONES.TB_仕入実績情報 WHERE F_勘定年月 >= '2025/01'), mc AS (SELECT TRIM(m.F_材料番号) AS mat, NVL(TRIM(c.F_分類名),'(分類なし)') AS bunrui FROM PRONES.TB_材料情報 m LEFT JOIN PRONES.TB_品目分類情報 c ON TRIM(c.F_番号)=TRIM(m.F_品目分類)), j AS (SELECT MAX(ml.mat) AS mat, MAX(NVL(mc.bunrui,'(分類なし)')) AS bunrui FROM ml LEFT JOIN mc ON mc.mat=ml.mat GROUP BY UPPER(ml.mat)) SELECT j.mat AS 材料番号, j.bunrui AS 分類名, CASE WHEN j.bunrui IN ('電線材料','電線類') THEN '電線' ELSE '電線以外' END AS 電線区分, CASE WHEN j.bunrui IN ('(分類なし)','その他原材料','その他完成品','ダミー','ハーネス（切断）','ハ－ネス(雑品)','バッテリーCABLE','圧着機パ－ツ','工場消耗品','梱包材料','９９９') THEN '対象外' ELSE '対象' END AS 対象区分 FROM j")
 				in
 				    結果
 
