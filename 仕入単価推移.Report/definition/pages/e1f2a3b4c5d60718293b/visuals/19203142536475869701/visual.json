@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
-  "name": "e9f0a1b2c3d4567890e9",
+  "name": "19203142536475869701",
   "position": {
-    "x": 0,
-    "y": 580,
-    "z": 2000,
-    "height": 140,
-    "width": 1280,
-    "tabOrder": 2000
+    "x": 0.0,
+    "y": 430.0,
+    "z": 3000,
+    "height": 290.0,
+    "width": 1280.0,
+    "tabOrder": 3000
   },
   "visual": {
     "visualType": "tableEx",
@@ -90,27 +90,27 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "仕入実績_影響額_月次"
+                      "Entity": "手配_影響額_月次"
                     }
                   },
-                  "Property": "基準単価"
+                  "Property": "前月単価"
                 }
               },
-              "queryRef": "仕入実績_影響額_月次.基準単価",
-              "nativeQueryRef": "基準単価"
+              "queryRef": "手配_影響額_月次.前月単価",
+              "nativeQueryRef": "前月単価"
             },
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "仕入実績_影響額_月次"
+                      "Entity": "手配_影響額_月次"
                     }
                   },
                   "Property": "当月単価"
                 }
               },
-              "queryRef": "仕入実績_影響額_月次.当月単価",
+              "queryRef": "手配_影響額_月次.当月単価",
               "nativeQueryRef": "当月単価"
             },
             {
@@ -118,13 +118,27 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "仕入実績_影響額_月次"
+                      "Entity": "手配_影響額_月次"
+                    }
+                  },
+                  "Property": "基準単価"
+                }
+              },
+              "queryRef": "手配_影響額_月次.基準単価",
+              "nativeQueryRef": "基準単価"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "手配_影響額_月次"
                     }
                   },
                   "Property": "単価差"
                 }
               },
-              "queryRef": "仕入実績_影響額_月次.単価差",
+              "queryRef": "手配_影響額_月次.単価差",
               "nativeQueryRef": "単価差"
             },
             {
@@ -132,13 +146,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "仕入実績_影響額_月次"
+                      "Entity": "手配_影響額_月次"
                     }
                   },
                   "Property": "数量"
                 }
               },
-              "queryRef": "仕入実績_影響額_月次.数量",
+              "queryRef": "手配_影響額_月次.数量",
               "nativeQueryRef": "数量"
             },
             {
@@ -146,13 +160,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "仕入実績_影響額_月次"
+                      "Entity": "手配_影響額_月次"
                     }
                   },
                   "Property": "影響額"
                 }
               },
-              "queryRef": "仕入実績_影響額_月次.影響額",
+              "queryRef": "手配_影響額_月次.影響額",
               "nativeQueryRef": "影響額"
             },
             {
@@ -160,28 +174,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "仕入実績_影響額_月次"
+                      "Entity": "手配_影響額_月次"
                     }
                   },
-                  "Property": "基準区分"
+                  "Property": "変動区分"
                 }
               },
-              "queryRef": "仕入実績_影響額_月次.基準区分",
-              "nativeQueryRef": "基準区分"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "仕入実績_影響額_月次"
-                    }
-                  },
-                  "Property": "基準年月"
-                }
-              },
-              "queryRef": "仕入実績_影響額_月次.基準年月",
-              "nativeQueryRef": "基準年月"
+              "queryRef": "手配_影響額_月次.変動区分",
+              "nativeQueryRef": "変動区分"
             }
           ]
         }
@@ -193,10 +193,10 @@
               "Column": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "仕入実績_影響額_月次"
+                    "Entity": "手配_影響額_月次"
                   }
                 },
-                "Property": "影響額"
+                "Property": "単価差"
               }
             },
             "direction": "Descending"
@@ -205,26 +205,6 @@
         "isDefaultSort": true
       }
     },
-    "objects": {
-      "columnHeaders": [
-        {
-          "properties": {}
-        }
-      ],
-      "total": [
-        {
-          "properties": {
-            "totals": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          }
-        }
-      ]
-    },
     "visualContainerObjects": {
       "title": [
         {
@@ -232,7 +212,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'明細: 単価は材料×仕入先で算出、数量は倉庫別。影響額＝単価差×数量'"
+                  "Value": "'手配ベース明細: 前月単価との比較で単価変動を検知する。金額は参考値（未完納を含み、実績とは月がずれる）'"
                 }
               }
             }

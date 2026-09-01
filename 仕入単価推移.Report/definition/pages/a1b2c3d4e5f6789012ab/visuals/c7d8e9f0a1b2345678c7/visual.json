@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "c7d8e9f0a1b2345678c7",
   "position": {
-    "x": 776.0,
+    "x": 1124.0,
     "y": 0.0,
-    "z": 6000,
+    "z": 5600,
     "height": 130.0,
-    "width": 144.0,
-    "tabOrder": 6000
+    "width": 154.0,
+    "tabOrder": 5600
   },
   "visual": {
     "visualType": "slicer",
@@ -20,13 +20,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "手配_影響額_月次"
+                      "Entity": "材料分類"
                     }
                   },
                   "Property": "材料番号"
                 }
               },
-              "queryRef": "手配_影響額_月次.材料番号",
+              "queryRef": "材料分類.材料番号",
               "nativeQueryRef": "材料番号",
               "active": true
             }
@@ -76,7 +76,7 @@
       ]
     },
     "syncGroup": {
-      "groupName": "在庫材料番号",
+      "groupName": "材料番号",
       "fieldChanges": true,
       "filterChanges": true
     },

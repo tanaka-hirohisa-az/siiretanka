@@ -1,0 +1,53 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "f1a2b3c4d5e60718291a",
+  "position": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 1000,
+    "height": 130.0,
+    "width": 200.0,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "手配_影響額_月次"
+                    }
+                  },
+                  "Property": "上昇検知件数"
+                }
+              },
+              "queryRef": "手配_影響額_月次.上昇検知件数",
+              "nativeQueryRef": "上昇検知件数"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'当月に単価が上がった件数（材料×仕入先×倉庫）'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

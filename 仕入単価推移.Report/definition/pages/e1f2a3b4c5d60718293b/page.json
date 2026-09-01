@@ -1,0 +1,55 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "e1f2a3b4c5d60718293b",
+  "displayName": "先行検知（手配ベース）",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "objects": {
+    "outspacePane": [
+      {
+        "properties": {
+          "width": {
+            "expr": {
+              "Literal": {
+                "Value": "191L"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "f1a2b3c4d5e60718291a",
+      "target": "0819203142536475860b",
+      "type": "NoFilter"
+    },
+    {
+      "source": "f1a2b3c4d5e60718291a",
+      "target": "19203142536475869701",
+      "type": "NoFilter"
+    },
+    {
+      "source": "0819203142536475860b",
+      "target": "f1a2b3c4d5e60718291a",
+      "type": "NoFilter"
+    },
+    {
+      "source": "0819203142536475860b",
+      "target": "19203142536475869701",
+      "type": "DataFilter"
+    },
+    {
+      "source": "19203142536475869701",
+      "target": "f1a2b3c4d5e60718291a",
+      "type": "NoFilter"
+    },
+    {
+      "source": "19203142536475869701",
+      "target": "0819203142536475860b",
+      "type": "NoFilter"
+    }
+  ]
+}

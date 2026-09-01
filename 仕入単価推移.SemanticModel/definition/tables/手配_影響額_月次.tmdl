@@ -1,55 +1,49 @@
-/// 手配データ(PRONES.TB_材料手配残情報)から算出した値上げ影響額。
-/// 影響額＝(当月の外貨単価−基準の外貨単価)×単価変動月のレート×(直近12か月手配数÷12)
-/// 外貨で差を取ってから換算するため、為替変動は影響額に含まれない。
-/// 通貨は仕入先番号末尾で判定(D=USD / E=EUR / 他=JPY)。358社すべてで通貨は固定。
+/// 手配データ(PRONES.TB_材料手配残情報)から算出した単価変動の先行検知用テーブル。
+/// 転記には使わない。転記は 仕入実績_影響額_月次 を使う。
+/// 手配日は発注日、仕入実績の勘定年月は計上月であり、中央値で1か月ずれる。
+/// 2%超の単価変動を両データが捉えた781組では、手配が先行60.6%・同月32.8%・遅行6.7%。
+/// 一方で月次の影響額は実績と最大60%ずれ、未完納(2026/01-07で手配額の17.3%)も含むため
+/// 金額そのものは参考値。計算ルールは実績側と完全に同一に揃えてある。
+/// 外貨建ては全体の0.02%しかないため為替換算は行わない(手配単価をそのまま使う)。
 table 手配_影響額_月次
 	lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d8e9f1
 
-	measure 影響額 =
-			SUM ( '手配_影響額_月次'[影響額円貨] )
+	measure 影響額_合計 =
+			SUM ( '手配_影響額_月次'[影響額] )
 		formatString: #,0
 		lineageTag: 4e5f6071-8293-43a4-b5c6-d7e8f9a0b101
 
 	measure 影響額_値上げのみ =
-			// 転記対象。エクセル No.5/6 は値上がり分のみを記録する
-			// (値下がりは No.11 部品購入原価低減 等が別項目で持つ)。
 			CALCULATE (
-			    SUM ( '手配_影響額_月次'[影響額円貨] ),
-			    '手配_影響額_月次'[単価差外貨] > 0
+			    SUM ( '手配_影響額_月次'[影響額] ),
+			    '手配_影響額_月次'[単価差] > 0
 			)
 		formatString: #,0
 		lineageTag: 4e5f6071-8293-43a4-b5c6-d7e8f9a0b102
 
 	measure 影響額_値下げのみ =
 			CALCULATE (
-			    SUM ( '手配_影響額_月次'[影響額円貨] ),
-			    '手配_影響額_月次'[単価差外貨] < 0
+			    SUM ( '手配_影響額_月次'[影響額] ),
+			    '手配_影響額_月次'[単価差] < 0
 			)
 		formatString: #,0
 		lineageTag: 4e5f6071-8293-43a4-b5c6-d7e8f9a0b103
 
-	measure 転記額 =
-			// 集計表(Excel転記用)専用。エクセルは利益への影響で記録するため符号を反転する。
-			-[影響額_値上げのみ]
+	measure 手配額_合計 =
+			SUM ( '手配_影響額_月次'[手配額] )
 		formatString: #,0
 		lineageTag: 4e5f6071-8293-43a4-b5c6-d7e8f9a0b104
 
-	measure 影響額_最新実績月 =
-			// カード用。選択範囲の最終月。データのある最終月を超えない。
-			VAR __Sel =
-			    CALCULATE (
-			        MAX ( '手配_影響額_月次'[年月] ),
-			        ALLSELECTED ( '手配_影響額_月次'[年月] )
-			    )
-			RETURN
-			    CALCULATE ( [影響額_値上げのみ], '手配_影響額_月次'[年月] = __Sel )
-		formatString: #,0
+	measure 値上げ率 =
+			DIVIDE ( [影響額_値上げのみ], [手配額_合計] )
+		formatString: 0.0%
 		lineageTag: 4e5f6071-8293-43a4-b5c6-d7e8f9a0b105
 
-	measure 手配額_円貨 =
-			SUMX (
-			    '手配_影響額_月次',
-			    '手配_影響額_月次'[当月単価外貨] * '手配_影響額_月次'[適用レート] * '手配_影響額_月次'[月次数量]
+	measure 上昇検知件数 =
+			// 当月に単価が上がった材料×仕入先×倉庫の件数。実績より先に立つ。
+			CALCULATE (
+			    COUNTROWS ( '手配_影響額_月次' ),
+			    '手配_影響額_月次'[変動区分] = "前月比 上昇"
 			)
 		formatString: #,0
 		lineageTag: 4e5f6071-8293-43a4-b5c6-d7e8f9a0b106
@@ -71,122 +65,106 @@ table 手配_影響額_月次
 
 		annotation SummarizationSetBy = Automatic
 
-	column 倉庫番号
-		dataType: string
-		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d802a
-		summarizeBy: none
-		sourceColumn: 倉庫番号
-
-		annotation SummarizationSetBy = Automatic
-
 	column 材料番号
 		dataType: string
-		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d803a
+		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d802a
 		summarizeBy: none
 		sourceColumn: 材料番号
 
 		annotation SummarizationSetBy = Automatic
 
-	column 電線区分
-		dataType: string
-		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d8f01a
-		summarizeBy: none
-		sourceColumn: 電線区分
-
-		annotation SummarizationSetBy = Automatic
-
-	column 分類名
-		dataType: string
-		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d8f02a
-		summarizeBy: none
-		sourceColumn: 分類名
-
-		annotation SummarizationSetBy = Automatic
-
 	column 仕入先番号
 		dataType: string
-		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d804a
+		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d803a
 		summarizeBy: none
 		sourceColumn: 仕入先番号
 
 		annotation SummarizationSetBy = Automatic
 
-	column 通貨
+	column 倉庫番号
 		dataType: string
+		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d804a
+		summarizeBy: none
+		sourceColumn: 倉庫番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column 基準単価
+		dataType: double
+		formatString: #,0.000000
 		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d805a
 		summarizeBy: none
-		sourceColumn: 通貨
+		sourceColumn: 基準単価
 
 		annotation SummarizationSetBy = Automatic
 
-	column 基準単価外貨
+	column 当月単価
 		dataType: double
-		formatString: #,0.0000
+		formatString: #,0.000000
 		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d806a
 		summarizeBy: none
-		sourceColumn: 基準単価外貨
+		sourceColumn: 当月単価
 
 		annotation SummarizationSetBy = Automatic
 
-	column 当月単価外貨
+	column 前月単価
 		dataType: double
-		formatString: #,0.0000
+		formatString: #,0.000000
 		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d807a
 		summarizeBy: none
-		sourceColumn: 当月単価外貨
+		sourceColumn: 前月単価
 
 		annotation SummarizationSetBy = Automatic
 
-	column 単価差外貨
+	column 単価差
 		dataType: double
-		formatString: #,0.0000
+		formatString: #,0.000000
 		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d808a
 		summarizeBy: none
-		sourceColumn: 単価差外貨
+		sourceColumn: 単価差
 
 		annotation SummarizationSetBy = Automatic
 
-	column 適用レート
-		dataType: double
-		formatString: #,0.00
-		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d809a
-		summarizeBy: none
-		sourceColumn: 適用レート
-
-		annotation SummarizationSetBy = Automatic
-
-	column 単価変動月
-		dataType: string
-		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d810a
-		summarizeBy: none
-		sourceColumn: 単価変動月
-
-		annotation SummarizationSetBy = Automatic
-
-	column 月次数量
-		dataType: double
-		formatString: #,0.0
-		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d811a
-		summarizeBy: sum
-		sourceColumn: 月次数量
-
-		annotation SummarizationSetBy = Automatic
-
-	column 影響額外貨
-		dataType: double
-		formatString: #,0.00
-		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d812a
-		summarizeBy: sum
-		sourceColumn: 影響額外貨
-
-		annotation SummarizationSetBy = Automatic
-
-	column 影響額円貨
+	column 数量
 		dataType: double
 		formatString: #,0
+		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d809a
+		summarizeBy: none
+		sourceColumn: 数量
+
+		annotation SummarizationSetBy = Automatic
+
+	column 手配額
+		dataType: double
+		formatString: #,0
+		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d810a
+		summarizeBy: none
+		sourceColumn: 手配額
+
+		annotation SummarizationSetBy = Automatic
+
+	column 影響額
+		dataType: double
+		formatString: #,0
+		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d811a
+		summarizeBy: none
+		sourceColumn: 影響額
+
+		annotation SummarizationSetBy = Automatic
+
+	column 変動区分
+		dataType: string
+		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d812a
+		summarizeBy: none
+		sourceColumn: 変動区分
+
+		annotation SummarizationSetBy = Automatic
+
+	column 異常値区分
+		dataType: string
 		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d813a
-		summarizeBy: sum
-		sourceColumn: 影響額円貨
+		summarizeBy: none
+		sourceColumn: 異常値区分
 
 		annotation SummarizationSetBy = Automatic
 
@@ -198,14 +176,21 @@ table 手配_影響額_月次
 
 		annotation SummarizationSetBy = Automatic
 
+	column 基準年月
+		dataType: string
+		lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d815a
+		summarizeBy: none
+		sourceColumn: 基準年月
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 手配_影響額_月次 = m
 		mode: import
 		source =
 				let
 				    ソース = Oracle.Database("(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=banshu-srv)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=prones)))"),
-				    結果 = Value.NativeQuery(ソース, "WITH ord AS (SELECT TRIM(F_材料番号) AS mat, TRIM(F_在庫場所) AS wh, TRIM(F_指示先番号) AS sup, SUBSTR(F_手配日,1,7) AS ym, F_手配単価 AS px, F_手配数 AS qty, CASE WHEN TRIM(F_指示先番号) LIKE '%D' THEN 'USD' WHEN TRIM(F_指示先番号) LIKE '%E' THEN 'EUR' ELSE 'JPY' END AS cur FROM PRONES.TB_材料手配残情報 WHERE NVL(F_手配単価,0)>0 AND NVL(F_手配数,0)>0 AND F_手配日 >= '2025/01/01'), cls AS (SELECT TRIM(m.F_材料番号) AS mat, NVL(c.F_分類名,'(分類なし)') AS bunrui, CASE WHEN c.F_分類名 IN ('電線材料','電線類') THEN '電線' ELSE '電線以外' END AS den FROM PRONES.TB_材料情報 m LEFT JOIN PRONES.TB_品目分類情報 c ON TRIM(c.F_番号)=TRIM(m.F_品目分類)), rate AS (SELECT F_勘定年月 AS ym, TRIM(F_通貨コード) AS cur, MAX(F_当月レート) AS rt FROM PRONES.TB_外貨仕入実績情報 WHERE NVL(F_当月レート,0)>0 GROUP BY F_勘定年月, TRIM(F_通貨コード)), mo AS (SELECT mat, wh, cur, ym, MAX(sup) AS sup, ROUND(SUM(px*qty)/SUM(qty),6) AS px_fc, SUM(qty) AS q FROM ord GROUP BY mat, wh, cur, ym), chg AS (SELECT m.*, LAG(px_fc) OVER (PARTITION BY mat, wh, cur ORDER BY ym) AS prev_fc, CASE WHEN cur='JPY' THEN 1 ELSE NVL((SELECT rt FROM rate r WHERE r.ym=m.ym AND r.cur=m.cur), (SELECT MIN(rt) FROM rate r2 WHERE r2.cur=m.cur)) END AS rt_m FROM mo m), held AS (SELECT c.mat, c.wh, c.cur, c.ym, c.sup, c.q, c.px_fc, LAST_VALUE(CASE WHEN c.prev_fc IS NULL OR ABS(c.px_fc-c.prev_fc)>0.000001 THEN c.px_fc END IGNORE NULLS) OVER (PARTITION BY c.mat, c.wh, c.cur ORDER BY c.ym ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS px_hold, LAST_VALUE(CASE WHEN c.prev_fc IS NULL OR ABS(c.px_fc-c.prev_fc)>0.000001 THEN c.rt_m END IGNORE NULLS) OVER (PARTITION BY c.mat, c.wh, c.cur ORDER BY c.ym ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS rt_hold, LAST_VALUE(CASE WHEN c.prev_fc IS NULL OR ABS(c.px_fc-c.prev_fc)>0.000001 THEN c.ym END IGNORE NULLS) OVER (PARTITION BY c.mat, c.wh, c.cur ORDER BY c.ym ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS chg_ym FROM chg c), b25 AS (SELECT mat, wh, cur, ROUND(SUM(px_hold*q)/SUM(q),6) AS bp FROM held WHERE ym LIKE '2025%' GROUP BY mat, wh, cur), f26 AS (SELECT mat, wh, cur, MIN(ym) AS fy FROM held WHERE ym >= '2026/01' GROUP BY mat, wh, cur), fb AS (SELECT f.mat, f.wh, f.cur, h.px_hold AS bp FROM f26 f JOIN held h ON h.mat=f.mat AND h.wh=f.wh AND h.cur=f.cur AND h.ym=f.fy), q12 AS (SELECT a.mat, a.wh, a.cur, a.ym, ROUND(SUM(b.q)/12,4) AS q_m FROM held a JOIN held b ON b.mat=a.mat AND b.wh=a.wh AND b.cur=a.cur AND b.ym <= a.ym AND b.ym > TO_CHAR(ADD_MONTHS(TO_DATE(a.ym||'/01','YYYY/MM/DD'),-12),'YYYY/MM') WHERE a.ym >= '2026/01' GROUP BY a.mat, a.wh, a.cur, a.ym) SELECT h.ym AS 年月, TO_DATE(h.ym||'/01','YYYY/MM/DD') AS 年月日, h.wh AS 倉庫番号, h.mat AS 材料番号, NVL(cl.den,'電線以外') AS 電線区分, NVL(cl.bunrui,'(分類なし)') AS 分類名, h.sup AS 仕入先番号, h.cur AS 通貨, NVL(b.bp, fbx.bp) AS 基準単価外貨, h.px_hold AS 当月単価外貨, ROUND(h.px_hold - NVL(b.bp, fbx.bp),6) AS 単価差外貨, h.rt_hold AS 適用レート, h.chg_ym AS 単価変動月, q.q_m AS 月次数量, ROUND((h.px_hold - NVL(b.bp, fbx.bp)) * q.q_m, 4) AS 影響額外貨, ROUND((h.px_hold - NVL(b.bp, fbx.bp)) * h.rt_hold * q.q_m) AS 影響額円貨, CASE WHEN b.bp IS NOT NULL THEN '前年実績基準' ELSE '当年初回基準' END AS 基準区分 FROM held h JOIN q12 q ON q.mat=h.mat AND q.wh=h.wh AND q.cur=h.cur AND q.ym=h.ym LEFT JOIN b25 b ON b.mat=h.mat AND b.wh=h.wh AND b.cur=h.cur LEFT JOIN fb fbx ON fbx.mat=h.mat AND fbx.wh=h.wh AND fbx.cur=h.cur LEFT JOIN cls cl ON cl.mat=h.mat WHERE h.ym >= '2026/01'")
+				    結果 = Value.NativeQuery(ソース, "WITH w AS (SELECT TRIM(F_材料番号) AS mat, TRIM(F_指示先番号) AS sup, TRIM(F_在庫場所) AS wh, SUBSTR(F_手配日,1,7) AS ym, SUM(F_手配数) AS q, SUM(F_手配単価*F_手配数) AS amt FROM PRONES.TB_材料手配残情報 WHERE F_手配日 >= '2025/01/01' AND NVL(F_手配単価,0)>0 AND NVL(F_手配数,0)>0 GROUP BY TRIM(F_材料番号), TRIM(F_指示先番号), TRIM(F_在庫場所), SUBSTR(F_手配日,1,7)), wm AS (SELECT w.*, SUM(q) OVER (PARTITION BY mat, sup, ym) AS mq, SUM(amt) OVER (PARTITION BY mat, sup, ym) AS mamt FROM w), mo AS (SELECT DISTINCT mat, sup, ym, mq, mamt, mamt/mq AS upx FROM wm WHERE mq<>0), mol AS (SELECT mo.*, LAG(upx) OVER (PARTITION BY mat, sup ORDER BY ym) AS prev FROM mo), b AS (SELECT mat, sup, NVL(MAX(CASE WHEN ym LIKE '2025%' THEN ym END), MIN(ym)) AS bym, COUNT(CASE WHEN ym LIKE '2025%' THEN 1 END) AS mc25, CASE WHEN MAX(CASE WHEN ym LIKE '2025%' THEN ym END) IS NOT NULL THEN '前年最終月' ELSE '当年初回' END AS bkind FROM mo GROUP BY mat, sup), bx AS (SELECT b.mat, b.sup, b.bym, b.bkind, b.mc25, p.upx AS bpx, p.mq AS bq FROM b JOIN mo p ON p.mat=b.mat AND p.sup=b.sup AND p.ym=b.bym) SELECT x.ym AS 年月, TO_DATE(x.ym||'/01','YYYY/MM/DD') AS 年月日, x.mat AS 材料番号, x.sup AS 仕入先番号, x.wh AS 倉庫番号, ROUND(bx.bpx,6) AS 基準単価, ROUND(m.upx,6) AS 当月単価, ROUND(m.prev,6) AS 前月単価, ROUND(m.upx - bx.bpx,6) AS 単価差, x.q AS 数量, x.amt AS 手配額, ROUND((m.upx - bx.bpx)*x.q,2) AS 影響額, CASE WHEN m.prev IS NULL THEN '初回' WHEN ABS(m.upx-m.prev) <= 0.000001 THEN '据置' WHEN m.upx > m.prev THEN '前月比 上昇' ELSE '前月比 下降' END AS 変動区分, CASE WHEN bx.mc25=1 AND bx.bkind='前年最終月' AND bx.bq<5 THEN '試作基準' WHEN m.upx > bx.bpx*3 OR m.upx < bx.bpx/3 THEN '比率乖離' ELSE '対象' END AS 異常値区分, bx.bkind AS 基準区分, bx.bym AS 基準年月 FROM wm x JOIN mol m ON m.mat=x.mat AND m.sup=x.sup AND m.ym=x.ym JOIN bx ON bx.mat=x.mat AND bx.sup=x.sup WHERE x.ym >= '2026/01' AND x.mq<>0 AND bx.bpx<>0")
 				in
 				    結果
 
 	annotation PBI_ResultType = Table
-

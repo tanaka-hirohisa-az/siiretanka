@@ -1,16 +1,16 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
-  "name": "d2e3f4a5b6c7890123d2",
+  "name": "0819203142536475860b",
   "position": {
-    "x": 0,
-    "y": 130,
-    "z": 1000,
-    "height": 320,
-    "width": 912,
-    "tabOrder": 1000
+    "x": 0.0,
+    "y": 130.0,
+    "z": 2000,
+    "height": 300.0,
+    "width": 1280.0,
+    "tabOrder": 2000
   },
   "visual": {
-    "visualType": "lineStackedColumnComboChart",
+    "visualType": "lineChart",
     "query": {
       "queryState": {
         "Category": {
@@ -39,14 +39,14 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "仕入実績_影響額_月次"
+                      "Entity": "手配_影響額_月次"
                     }
                   },
                   "Property": "影響額_値上げのみ"
                 }
               },
-              "queryRef": "仕入実績_影響額_月次.影響額_値上げのみ",
-              "nativeQueryRef": "影響額_値上げのみ"
+              "queryRef": "手配_影響額_月次.影響額_値上げのみ",
+              "nativeQueryRef": "手配ベース"
             },
             {
               "field": {
@@ -56,29 +56,11 @@
                       "Entity": "仕入実績_影響額_月次"
                     }
                   },
-                  "Property": "影響額_値下げのみ"
+                  "Property": "影響額_値上げのみ"
                 }
               },
-              "queryRef": "仕入実績_影響額_月次.影響額_値下げのみ",
-              "nativeQueryRef": "影響額_値下げのみ"
-            }
-          ]
-        },
-        "Y2": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "仕入実績_影響額_月次"
-                    }
-                  },
-                  "Property": "影響額_合計"
-                }
-              },
-              "queryRef": "仕入実績_影響額_月次.影響額_合計",
-              "nativeQueryRef": "正味"
+              "queryRef": "仕入実績_影響額_月次.影響額_値上げのみ",
+              "nativeQueryRef": "仕入実績ベース"
             }
           ]
         }
@@ -91,7 +73,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'月別 値上げ影響額（円/月・仕入実績ベース）: 上向き＝値上げ分（転記対象）、下向き＝値下げ分、折れ線＝正味'"
+                  "Value": "'先行検知: 手配ベースと仕入実績ベースの値上げ影響額（円/月）。手配が先に立ち上がれば単価変動を先に捉えている'"
                 }
               }
             }

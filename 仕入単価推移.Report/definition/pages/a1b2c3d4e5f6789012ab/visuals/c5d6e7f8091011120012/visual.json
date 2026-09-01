@@ -3,10 +3,10 @@
   "name": "c5d6e7f8091011120012",
   "position": {
     "x": 0,
-    "y": 440.0,
+    "y": 450,
     "z": 10000,
-    "height": 140.0,
-    "width": 920.1134798838656,
+    "height": 130,
+    "width": 912,
     "tabOrder": 10000
   },
   "visual": {
@@ -20,14 +20,28 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
+                      "Entity": "材料分類"
+                    }
+                  },
+                  "Property": "電線区分"
+                }
+              },
+              "queryRef": "材料分類.電線区分",
+              "nativeQueryRef": "電線区分"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
                       "Entity": "倉庫分類"
                     }
                   },
-                  "Property": "区分"
+                  "Property": "仕向け区分"
                 }
               },
-              "queryRef": "倉庫分類.区分",
-              "nativeQueryRef": "区分"
+              "queryRef": "倉庫分類.仕向け区分",
+              "nativeQueryRef": "仕向け区分"
             }
           ]
         },
@@ -56,13 +70,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "手配_影響額_月次"
+                      "Entity": "仕入実績_影響額_月次"
                     }
                   },
                   "Property": "転記額"
                 }
               },
-              "queryRef": "手配_影響額_月次.転記額",
+              "queryRef": "仕入実績_影響額_月次.転記額",
               "nativeQueryRef": "転記額"
             }
           ]
@@ -78,7 +92,7 @@
                     "Entity": "tbl_calendar"
                   }
                 },
-                "Property": "年月_yy年MM月"
+                "Property": "年月_表示"
               }
             },
             "direction": "Ascending"
@@ -93,7 +107,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Excel転記用: 区分×月 値上げ影響額（円/月・値上がりのみ・符号はエクセルに合わせて負）。「日本国内」がNo.5/6の転記対象'"
+                  "Value": "'Excel転記用: 電線区分×仕向け区分×月 値上げ影響額（円/月・値上がりのみ・符号はエクセルに合わせて負）。No.5/6は全仕向けの合計'"
                 }
               }
             }
@@ -102,51 +116,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "ae15417ed3b649ab3786",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "tbl_calendar"
-              }
-            },
-            "Property": "年月_表示"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "f4010ed89f1b879696c9",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "材料情報"
-              }
-            },
-            "Property": "電線区分_転記"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "b08bbf5280a33b367018",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "材料_契約単価_月次"
-              }
-            },
-            "Property": "転記額_材料"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

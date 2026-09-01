@@ -50,6 +50,18 @@ table 仕入実績_影響額_月次
 		formatString: #,0
 		lineageTag: 5f607182-93a4-45b6-c7d8-e9f0a1b2c107
 
+	measure 影響額_最新実績月 =
+			// カード用。選択範囲の最終月。データのある最終月を超えない。
+			VAR __Sel =
+			    CALCULATE (
+			        MAX ( '仕入実績_影響額_月次'[年月] ),
+			        ALLSELECTED ( '仕入実績_影響額_月次'[年月] )
+			    )
+			RETURN
+			    CALCULATE ( -[影響額_値上げのみ], '仕入実績_影響額_月次'[年月] = __Sel )
+		formatString: #,0
+		lineageTag: 5f607182-93a4-45b6-c7d8-e9f0a1b2c108
+
 	column 年月
 		dataType: string
 		lineageTag: 5f607182-93a4-45b6-c7d8-e9f0a1b2c200

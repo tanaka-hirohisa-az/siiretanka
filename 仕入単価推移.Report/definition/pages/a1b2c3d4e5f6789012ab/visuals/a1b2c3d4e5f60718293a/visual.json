@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "a1b2c3d4e5f60718293a",
   "position": {
-    "x": 488.0,
+    "x": 970.0,
     "y": 0.0,
-    "z": 6500,
+    "z": 5500,
     "height": 130.0,
-    "width": 144.0,
-    "tabOrder": 6500
+    "width": 154.0,
+    "tabOrder": 5500
   },
   "visual": {
     "visualType": "slicer",
@@ -20,13 +20,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "手配_影響額_月次"
+                      "Entity": "仕入実績_影響額_月次"
                     }
                   },
                   "Property": "基準区分"
                 }
               },
-              "queryRef": "手配_影響額_月次.基準区分",
+              "queryRef": "仕入実績_影響額_月次.基準区分",
               "nativeQueryRef": "基準区分",
               "active": true
             }
@@ -75,6 +75,11 @@
         }
       ]
     },
-    "drillFilterOtherVisuals": true
+    "drillFilterOtherVisuals": true,
+    "syncGroup": {
+      "groupName": "基準区分",
+      "fieldChanges": true,
+      "filterChanges": true
+    }
   }
 }

@@ -3,9 +3,9 @@
   "name": "c1d2e3f4a5b6789012ff",
   "position": {
     "x": 920,
-    "y": 290,
+    "y": 354,
     "z": 3100,
-    "height": 290,
+    "height": 226,
     "width": 360,
     "tabOrder": 3100
   },
@@ -20,13 +20,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "手配_影響額_月次"
+                      "Entity": "材料分類"
                     }
                   },
                   "Property": "材料番号"
                 }
               },
-              "queryRef": "手配_影響額_月次.材料番号",
+              "queryRef": "材料分類.材料番号",
               "nativeQueryRef": "材料番号",
               "active": true
             }
@@ -39,13 +39,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "手配_影響額_月次"
+                      "Entity": "仕入実績_影響額_月次"
                     }
                   },
                   "Property": "影響額_値下げのみ"
                 }
               },
-              "queryRef": "手配_影響額_月次.影響額_値下げのみ",
+              "queryRef": "仕入実績_影響額_月次.影響額_値下げのみ",
               "nativeQueryRef": "影響額_値下げのみ"
             }
           ]
@@ -58,7 +58,7 @@
               "Measure": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "手配_影響額_月次"
+                    "Entity": "仕入実績_影響額_月次"
                   }
                 },
                 "Property": "影響額_値下げのみ"

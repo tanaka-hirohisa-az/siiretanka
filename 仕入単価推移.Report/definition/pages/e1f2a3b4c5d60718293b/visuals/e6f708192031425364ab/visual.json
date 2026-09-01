@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
-  "name": "b6c7d8e9f0a1234567b6",
+  "name": "e6f708192031425364ab",
   "position": {
-    "x": 508.0,
+    "x": 816.0,
     "y": 0.0,
-    "z": 5200,
+    "z": 5400,
     "height": 130.0,
     "width": 154.0,
-    "tabOrder": 5200
+    "tabOrder": 5400
   },
   "visual": {
     "visualType": "slicer",
@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料分類"
+                      "Entity": "手配_影響額_月次"
                     }
                   },
-                  "Property": "電線区分"
+                  "Property": "変動区分"
                 }
               },
-              "queryRef": "材料分類.電線区分",
-              "nativeQueryRef": "電線区分",
+              "queryRef": "手配_影響額_月次.変動区分",
+              "nativeQueryRef": "変動区分",
               "active": true
             }
           ]
@@ -76,7 +76,7 @@
       ]
     },
     "syncGroup": {
-      "groupName": "電線区分",
+      "groupName": "変動区分",
       "fieldChanges": true,
       "filterChanges": true
     },

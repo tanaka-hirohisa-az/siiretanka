@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "d8e9f0a1b2c3456789d8",
   "position": {
-    "x": 632.0,
+    "x": 354.0,
     "y": 0.0,
-    "z": 11000,
+    "z": 5100,
     "height": 130.0,
-    "width": 144.0,
-    "tabOrder": 11000
+    "width": 154.0,
+    "tabOrder": 5100
   },
   "visual": {
     "visualType": "slicer",
@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "手配_影響額_月次"
+                      "Entity": "倉庫分類"
                     }
                   },
-                  "Property": "倉庫番号"
+                  "Property": "仕向け区分"
                 }
               },
-              "queryRef": "手配_影響額_月次.倉庫番号",
-              "nativeQueryRef": "倉庫番号",
+              "queryRef": "倉庫分類.仕向け区分",
+              "nativeQueryRef": "仕向け区分",
               "active": true
             }
           ]
@@ -76,7 +76,7 @@
       ]
     },
     "syncGroup": {
-      "groupName": "在庫場所",
+      "groupName": "仕向け区分",
       "fieldChanges": true,
       "filterChanges": true
     },

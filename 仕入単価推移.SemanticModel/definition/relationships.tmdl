@@ -126,3 +126,11 @@ relationship a1b2c3d4-1111-4003-8003-000000000003
 relationship a1b2c3d4-1111-4004-8004-000000000004
 	fromColumn: 仕入実績_影響額_月次.年月日
 	toColumn: tbl_calendar.Date
+
+relationship a1b2c3d4-1111-4005-8005-000000000005
+	fromColumn: 手配_影響額_月次.材料番号
+	toColumn: 材料分類.材料番号
+
+relationship a1b2c3d4-1111-4006-8006-000000000006
+	fromColumn: 手配_影響額_月次.仕入先番号
+	toColumn: 仕入先分類.仕入先番号
