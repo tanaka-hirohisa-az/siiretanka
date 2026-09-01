@@ -8,12 +8,12 @@
 table 手配_影響額_月次
 	lineageTag: 2c3d4e5f-6071-4182-9394-a5b6c7d8e9f1
 
-	measure 影響額_合計 =
+	measure 影響額_合計_手配 =
 			SUM ( '手配_影響額_月次'[影響額] )
 		formatString: #,0
 		lineageTag: 4e5f6071-8293-43a4-b5c6-d7e8f9a0b101
 
-	measure 影響額_値上げのみ =
+	measure 影響額_値上げのみ_手配 =
 			CALCULATE (
 			    SUM ( '手配_影響額_月次'[影響額] ),
 			    '手配_影響額_月次'[単価差] > 0
@@ -21,7 +21,7 @@ table 手配_影響額_月次
 		formatString: #,0
 		lineageTag: 4e5f6071-8293-43a4-b5c6-d7e8f9a0b102
 
-	measure 影響額_値下げのみ =
+	measure 影響額_値下げのみ_手配 =
 			CALCULATE (
 			    SUM ( '手配_影響額_月次'[影響額] ),
 			    '手配_影響額_月次'[単価差] < 0
@@ -34,8 +34,8 @@ table 手配_影響額_月次
 		formatString: #,0
 		lineageTag: 4e5f6071-8293-43a4-b5c6-d7e8f9a0b104
 
-	measure 値上げ率 =
-			DIVIDE ( [影響額_値上げのみ], [手配額_合計] )
+	measure 値上げ率_手配 =
+			DIVIDE ( [影響額_値上げのみ_手配], [手配額_合計] )
 		formatString: 0.0%
 		lineageTag: 4e5f6071-8293-43a4-b5c6-d7e8f9a0b105
 
