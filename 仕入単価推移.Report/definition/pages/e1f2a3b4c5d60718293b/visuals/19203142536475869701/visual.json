@@ -34,13 +34,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料分類"
+                      "Entity": "手配_影響額_月次"
                     }
                   },
                   "Property": "材料番号"
                 }
               },
-              "queryRef": "材料分類.材料番号",
+              "queryRef": "手配_影響額_月次.材料番号",
               "nativeQueryRef": "材料番号"
             },
             {
@@ -48,13 +48,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "材料分類"
+                      "Entity": "手配_影響額_月次"
                     }
                   },
                   "Property": "分類名"
                 }
               },
-              "queryRef": "材料分類.分類名",
+              "queryRef": "手配_影響額_月次.分類名",
               "nativeQueryRef": "分類名"
             },
             {
@@ -93,11 +93,11 @@
                       "Entity": "手配_影響額_月次"
                     }
                   },
-                  "Property": "前月単価"
+                  "Property": "通貨"
                 }
               },
-              "queryRef": "手配_影響額_月次.前月単価",
-              "nativeQueryRef": "前月単価"
+              "queryRef": "手配_影響額_月次.通貨",
+              "nativeQueryRef": "通貨"
             },
             {
               "field": {
@@ -107,11 +107,11 @@
                       "Entity": "手配_影響額_月次"
                     }
                   },
-                  "Property": "当月単価"
+                  "Property": "基準単価外貨"
                 }
               },
-              "queryRef": "手配_影響額_月次.当月単価",
-              "nativeQueryRef": "当月単価"
+              "queryRef": "手配_影響額_月次.基準単価外貨",
+              "nativeQueryRef": "基準単価外貨"
             },
             {
               "field": {
@@ -121,11 +121,11 @@
                       "Entity": "手配_影響額_月次"
                     }
                   },
-                  "Property": "基準単価"
+                  "Property": "当月単価外貨"
                 }
               },
-              "queryRef": "手配_影響額_月次.基準単価",
-              "nativeQueryRef": "基準単価"
+              "queryRef": "手配_影響額_月次.当月単価外貨",
+              "nativeQueryRef": "当月単価外貨"
             },
             {
               "field": {
@@ -135,11 +135,11 @@
                       "Entity": "手配_影響額_月次"
                     }
                   },
-                  "Property": "単価差"
+                  "Property": "単価差外貨"
                 }
               },
-              "queryRef": "手配_影響額_月次.単価差",
-              "nativeQueryRef": "単価差"
+              "queryRef": "手配_影響額_月次.単価差外貨",
+              "nativeQueryRef": "単価差外貨"
             },
             {
               "field": {
@@ -149,11 +149,11 @@
                       "Entity": "手配_影響額_月次"
                     }
                   },
-                  "Property": "数量"
+                  "Property": "適用レート"
                 }
               },
-              "queryRef": "手配_影響額_月次.数量",
-              "nativeQueryRef": "数量"
+              "queryRef": "手配_影響額_月次.適用レート",
+              "nativeQueryRef": "適用レート"
             },
             {
               "field": {
@@ -163,11 +163,11 @@
                       "Entity": "手配_影響額_月次"
                     }
                   },
-                  "Property": "影響額"
+                  "Property": "単価変動月"
                 }
               },
-              "queryRef": "手配_影響額_月次.影響額",
-              "nativeQueryRef": "影響額"
+              "queryRef": "手配_影響額_月次.単価変動月",
+              "nativeQueryRef": "単価変動月"
             },
             {
               "field": {
@@ -177,11 +177,39 @@
                       "Entity": "手配_影響額_月次"
                     }
                   },
-                  "Property": "変動区分"
+                  "Property": "月次数量"
                 }
               },
-              "queryRef": "手配_影響額_月次.変動区分",
-              "nativeQueryRef": "変動区分"
+              "queryRef": "手配_影響額_月次.月次数量",
+              "nativeQueryRef": "月次数量"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "手配_影響額_月次"
+                    }
+                  },
+                  "Property": "影響額円貨"
+                }
+              },
+              "queryRef": "手配_影響額_月次.影響額円貨",
+              "nativeQueryRef": "影響額円貨"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "手配_影響額_月次"
+                    }
+                  },
+                  "Property": "基準区分"
+                }
+              },
+              "queryRef": "手配_影響額_月次.基準区分",
+              "nativeQueryRef": "基準区分"
             }
           ]
         }
@@ -196,7 +224,7 @@
                     "Entity": "手配_影響額_月次"
                   }
                 },
-                "Property": "単価差"
+                "Property": "影響額円貨"
               }
             },
             "direction": "Descending"
@@ -212,7 +240,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'手配ベース明細: 前月単価との比較で単価変動を検知する。金額は参考値（未完納を含み、実績とは月がずれる）'"
+                  "Value": "'手配ベース明細: 単価差は外貨で取り、単価変動月のレートで換算。金額は参考値（未完納を含み、実績とは月がずれる）'"
                 }
               }
             }

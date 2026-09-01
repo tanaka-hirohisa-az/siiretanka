@@ -23,11 +23,11 @@
                       "Entity": "手配_影響額_月次"
                     }
                   },
-                  "Property": "異常値区分"
+                  "Property": "通貨"
                 }
               },
-              "queryRef": "手配_影響額_月次.異常値区分",
-              "nativeQueryRef": "異常値区分",
+              "queryRef": "手配_影響額_月次.通貨",
+              "nativeQueryRef": "通貨",
               "active": true
             }
           ]
@@ -76,68 +76,10 @@
       ]
     },
     "syncGroup": {
-      "groupName": "異常値区分",
+      "groupName": "通貨",
       "fieldChanges": true,
       "filterChanges": true
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "異常値区分_default",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "手配_影響額_月次"
-              }
-            },
-            "Property": "異常値区分"
-          }
-        },
-        "type": "Categorical",
-        "filter": {
-          "Version": 2,
-          "From": [
-            {
-              "Name": "s",
-              "Entity": "手配_影響額_月次",
-              "Type": 0
-            }
-          ],
-          "Where": [
-            {
-              "Condition": {
-                "In": {
-                  "Expressions": [
-                    {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Source": "s"
-                          }
-                        },
-                        "Property": "異常値区分"
-                      }
-                    }
-                  ],
-                  "Values": [
-                    [
-                      {
-                        "Literal": {
-                          "Value": "'対象'"
-                        }
-                      }
-                    ]
-                  ]
-                }
-              }
-            }
-          ]
-        },
-        "howCreated": "User"
-      }
-    ]
   }
 }

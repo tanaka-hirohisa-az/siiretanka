@@ -23,11 +23,11 @@
                       "Entity": "手配_影響額_月次"
                     }
                   },
-                  "Property": "変動区分"
+                  "Property": "単価変動月"
                 }
               },
-              "queryRef": "手配_影響額_月次.変動区分",
-              "nativeQueryRef": "変動区分",
+              "queryRef": "手配_影響額_月次.単価変動月",
+              "nativeQueryRef": "単価変動月",
               "active": true
             }
           ]
@@ -76,7 +76,7 @@
       ]
     },
     "syncGroup": {
-      "groupName": "変動区分",
+      "groupName": "単価変動月",
       "fieldChanges": true,
       "filterChanges": true
     },
