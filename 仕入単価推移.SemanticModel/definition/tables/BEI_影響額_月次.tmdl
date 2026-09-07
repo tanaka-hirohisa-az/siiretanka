@@ -231,6 +231,35 @@ table BEI_影響額_月次
 
 		annotation SummarizationSetBy = Automatic
 
+	/// 当月のレートで円に換算した基準単価。基準を取った月のレートではないので、同じ基準でも月ごとに動く。
+	column 基準単価_円
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c25
+		summarizeBy: none
+		sourceColumn: 基準単価_円
+
+		annotation SummarizationSetBy = Automatic
+
+	column 当月単価_円
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c26
+		summarizeBy: none
+		sourceColumn: 当月単価_円
+
+		annotation SummarizationSetBy = Automatic
+
+	/// 当月単価_円 − 基準単価_円。これに数量を掛けると 影響額_円 に一致する。
+	column 単価差_円
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c27
+		summarizeBy: none
+		sourceColumn: 単価差_円
+
+		annotation SummarizationSetBy = Automatic
+
 	column 単価判定
 		dataType: string
 		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c21
@@ -433,10 +462,20 @@ table BEI_影響額_月次
 				            if [基準区分] = "前年最終月" and [前年計上月数] = 1 and [基準数量] < 5 then 3
 				            else if [基準単価] > 0 and ([当月単価] > [基準単価] * 3 or [当月単価] < [基準単価] / 3) then 2
 				            else 1, Int64.Type),
+				    // 基準単価も当月のレートで換算する。基準を取った月のレートで換算すると、円での単価差に
+				    // 為替の動きが混ざり、(当月単価_円 − 基準単価_円) × 数量 が 影響額_円 と合わなくなる。
+				    // このテーブルが測っているのは単価の動きなので、為替は当月に固定して分離する。
+				    // その代わり、同じ基準単価でも月によって円の値は動く。
 				    円換算 = Table.AddColumn(
-				        Table.AddColumn(計算, "影響額_円", each [影響額] / [適用レート], type number),
-				        "仕入額_円", each [仕入額] / [適用レート], type number),
-				    出力 = Table.SelectColumns(円換算, {"年月", "年月日", "出所", "品番", "品番キー", "仕入先", "セグメント", "電線区分", "基準単価", "当月単価", "単価差", "数量", "仕入額", "仕入額_円", "影響額", "影響額_円", "適用レート", "単価判定", "単価判定_順", "基準区分", "基準年月"}),
+				        Table.AddColumn(
+				            Table.AddColumn(
+				                Table.AddColumn(
+				                    Table.AddColumn(計算, "影響額_円", each [影響額] / [適用レート], type number),
+				                    "仕入額_円", each [仕入額] / [適用レート], type number),
+				                "基準単価_円", each [基準単価] / [適用レート], type number),
+				            "当月単価_円", each [当月単価] / [適用レート], type number),
+				        "単価差_円", each [単価差] / [適用レート], type number),
+				    出力 = Table.SelectColumns(円換算, {"年月", "年月日", "出所", "品番", "品番キー", "仕入先", "セグメント", "電線区分", "基準単価", "当月単価", "単価差", "数量", "仕入額", "仕入額_円", "影響額", "影響額_円", "適用レート", "基準単価_円", "当月単価_円", "単価差_円", "単価判定", "単価判定_順", "基準区分", "基準年月"}),
 				    型 = Table.TransformColumnTypes(出力, {{"年月日", type datetime}})
 				in
 				    型

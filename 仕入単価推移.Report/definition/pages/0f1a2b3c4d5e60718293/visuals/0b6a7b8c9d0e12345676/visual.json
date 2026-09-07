@@ -218,6 +218,51 @@
                       "Entity": "BEI_影響額_月次"
                     }
                   },
+                  "Property": "基準単価_円"
+                }
+              },
+              "queryRef": "BEI_影響額_月次.基準単価_円",
+              "nativeQueryRef": "基準単価_円",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "BEI_影響額_月次"
+                    }
+                  },
+                  "Property": "当月単価_円"
+                }
+              },
+              "queryRef": "BEI_影響額_月次.当月単価_円",
+              "nativeQueryRef": "当月単価_円",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "BEI_影響額_月次"
+                    }
+                  },
+                  "Property": "単価差_円"
+                }
+              },
+              "queryRef": "BEI_影響額_月次.単価差_円",
+              "nativeQueryRef": "単価差_円",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "BEI_影響額_月次"
+                    }
+                  },
                   "Property": "仕入額_円"
                 }
               },
