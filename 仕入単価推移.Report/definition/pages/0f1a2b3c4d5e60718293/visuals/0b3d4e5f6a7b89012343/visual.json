@@ -1,0 +1,90 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "0b3d4e5f6a7b89012343",
+  "position": {
+    "x": 920,
+    "y": 130,
+    "z": 3000,
+    "height": 222,
+    "width": 360,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "BEI_影響額_月次"
+                    }
+                  },
+                  "Property": "品番"
+                }
+              },
+              "queryRef": "BEI_影響額_月次.品番",
+              "nativeQueryRef": "品番",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "BEI_影響額_月次"
+                    }
+                  },
+                  "Property": "影響額_値上げのみ_円"
+                }
+              },
+              "queryRef": "BEI_影響額_月次.影響額_値上げのみ_円",
+              "nativeQueryRef": "影響額_値上げのみ_円"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "BEI_影響額_月次"
+                  }
+                },
+                "Property": "影響額_値上げのみ_円"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'検知① 値上げ影響が大きい品番（円/月）'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

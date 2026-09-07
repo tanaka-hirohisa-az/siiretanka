@@ -1,0 +1,314 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "0b6a7b8c9d0e12345676",
+  "position": {
+    "x": 0,
+    "y": 580,
+    "z": 2000,
+    "height": 140,
+    "width": 1280,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "BEI_影響額_月次"
+                    }
+                  },
+                  "Property": "年月"
+                }
+              },
+              "queryRef": "BEI_影響額_月次.年月",
+              "nativeQueryRef": "年月",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "BEI_影響額_月次"
+                    }
+                  },
+                  "Property": "品番"
+                }
+              },
+              "queryRef": "BEI_影響額_月次.品番",
+              "nativeQueryRef": "品番",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "BEI_影響額_月次"
+                    }
+                  },
+                  "Property": "出所"
+                }
+              },
+              "queryRef": "BEI_影響額_月次.出所",
+              "nativeQueryRef": "出所",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "BEI_影響額_月次"
+                    }
+                  },
+                  "Property": "仕入先"
+                }
+              },
+              "queryRef": "BEI_影響額_月次.仕入先",
+              "nativeQueryRef": "仕入先",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "BEI_影響額_月次"
+                    }
+                  },
+                  "Property": "セグメント"
+                }
+              },
+              "queryRef": "BEI_影響額_月次.セグメント",
+              "nativeQueryRef": "セグメント",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "BEI_影響額_月次"
+                    }
+                  },
+                  "Property": "電線区分"
+                }
+              },
+              "queryRef": "BEI_影響額_月次.電線区分",
+              "nativeQueryRef": "電線区分",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "BEI_影響額_月次"
+                    }
+                  },
+                  "Property": "基準単価_IDR"
+                }
+              },
+              "queryRef": "BEI_影響額_月次.基準単価_IDR",
+              "nativeQueryRef": "基準単価_IDR",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "BEI_影響額_月次"
+                    }
+                  },
+                  "Property": "当月単価_IDR"
+                }
+              },
+              "queryRef": "BEI_影響額_月次.当月単価_IDR",
+              "nativeQueryRef": "当月単価_IDR",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "BEI_影響額_月次"
+                    }
+                  },
+                  "Property": "単価差_IDR"
+                }
+              },
+              "queryRef": "BEI_影響額_月次.単価差_IDR",
+              "nativeQueryRef": "単価差_IDR",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "BEI_影響額_月次"
+                    }
+                  },
+                  "Property": "数量"
+                }
+              },
+              "queryRef": "BEI_影響額_月次.数量",
+              "nativeQueryRef": "数量",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "BEI_影響額_月次"
+                    }
+                  },
+                  "Property": "仕入額_IDR"
+                }
+              },
+              "queryRef": "BEI_影響額_月次.仕入額_IDR",
+              "nativeQueryRef": "仕入額_IDR",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "BEI_影響額_月次"
+                    }
+                  },
+                  "Property": "影響額_IDR"
+                }
+              },
+              "queryRef": "BEI_影響額_月次.影響額_IDR",
+              "nativeQueryRef": "影響額_IDR",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "BEI_影響額_月次"
+                    }
+                  },
+                  "Property": "適用レート"
+                }
+              },
+              "queryRef": "BEI_影響額_月次.適用レート",
+              "nativeQueryRef": "適用レート",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "BEI_影響額_月次"
+                    }
+                  },
+                  "Property": "仕入額_円"
+                }
+              },
+              "queryRef": "BEI_影響額_月次.仕入額_円",
+              "nativeQueryRef": "仕入額_円",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "BEI_影響額_月次"
+                    }
+                  },
+                  "Property": "影響額_円"
+                }
+              },
+              "queryRef": "BEI_影響額_月次.影響額_円",
+              "nativeQueryRef": "影響額_円",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "BEI_影響額_月次"
+                    }
+                  },
+                  "Property": "基準区分"
+                }
+              },
+              "queryRef": "BEI_影響額_月次.基準区分",
+              "nativeQueryRef": "基準区分",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "BEI_影響額_月次"
+                    }
+                  },
+                  "Property": "基準年月"
+                }
+              },
+              "queryRef": "BEI_影響額_月次.基準年月",
+              "nativeQueryRef": "基準年月",
+              "active": true
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "columnHeaders": [
+        {
+          "properties": {}
+        }
+      ],
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'明細: 単価は 出所×品番 で算出、数量はセグメント別。金額は元のIDRと適用レート、円換算後を並べて持つ'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

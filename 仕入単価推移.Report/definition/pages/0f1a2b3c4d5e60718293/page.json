@@ -1,0 +1,175 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "0f1a2b3c4d5e60718293",
+  "displayName": "値上げ影響額(BEI)",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "objects": {
+    "outspacePane": [
+      {
+        "properties": {
+          "width": {
+            "expr": {
+              "Literal": {
+                "Value": "191L"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "0b1c2d3e4f5a67890121",
+      "target": "0b2c3d4e5f6a78901232",
+      "type": "NoFilter"
+    },
+    {
+      "source": "0b1c2d3e4f5a67890121",
+      "target": "0b3d4e5f6a7b89012343",
+      "type": "NoFilter"
+    },
+    {
+      "source": "0b1c2d3e4f5a67890121",
+      "target": "0b4e5f6a7b8c90123454",
+      "type": "NoFilter"
+    },
+    {
+      "source": "0b1c2d3e4f5a67890121",
+      "target": "0b5f6a7b8c9d01234565",
+      "type": "NoFilter"
+    },
+    {
+      "source": "0b1c2d3e4f5a67890121",
+      "target": "0b6a7b8c9d0e12345676",
+      "type": "NoFilter"
+    },
+    {
+      "source": "0b2c3d4e5f6a78901232",
+      "target": "0b1c2d3e4f5a67890121",
+      "type": "DataFilter"
+    },
+    {
+      "source": "0b2c3d4e5f6a78901232",
+      "target": "0b3d4e5f6a7b89012343",
+      "type": "DataFilter"
+    },
+    {
+      "source": "0b2c3d4e5f6a78901232",
+      "target": "0b4e5f6a7b8c90123454",
+      "type": "DataFilter"
+    },
+    {
+      "source": "0b2c3d4e5f6a78901232",
+      "target": "0b5f6a7b8c9d01234565",
+      "type": "DataFilter"
+    },
+    {
+      "source": "0b2c3d4e5f6a78901232",
+      "target": "0b6a7b8c9d0e12345676",
+      "type": "DataFilter"
+    },
+    {
+      "source": "0b3d4e5f6a7b89012343",
+      "target": "0b1c2d3e4f5a67890121",
+      "type": "NoFilter"
+    },
+    {
+      "source": "0b3d4e5f6a7b89012343",
+      "target": "0b2c3d4e5f6a78901232",
+      "type": "DataFilter"
+    },
+    {
+      "source": "0b3d4e5f6a7b89012343",
+      "target": "0b4e5f6a7b8c90123454",
+      "type": "NoFilter"
+    },
+    {
+      "source": "0b3d4e5f6a7b89012343",
+      "target": "0b5f6a7b8c9d01234565",
+      "type": "NoFilter"
+    },
+    {
+      "source": "0b3d4e5f6a7b89012343",
+      "target": "0b6a7b8c9d0e12345676",
+      "type": "DataFilter"
+    },
+    {
+      "source": "0b4e5f6a7b8c90123454",
+      "target": "0b1c2d3e4f5a67890121",
+      "type": "NoFilter"
+    },
+    {
+      "source": "0b4e5f6a7b8c90123454",
+      "target": "0b2c3d4e5f6a78901232",
+      "type": "DataFilter"
+    },
+    {
+      "source": "0b4e5f6a7b8c90123454",
+      "target": "0b3d4e5f6a7b89012343",
+      "type": "NoFilter"
+    },
+    {
+      "source": "0b4e5f6a7b8c90123454",
+      "target": "0b5f6a7b8c9d01234565",
+      "type": "NoFilter"
+    },
+    {
+      "source": "0b4e5f6a7b8c90123454",
+      "target": "0b6a7b8c9d0e12345676",
+      "type": "DataFilter"
+    },
+    {
+      "source": "0b5f6a7b8c9d01234565",
+      "target": "0b1c2d3e4f5a67890121",
+      "type": "NoFilter"
+    },
+    {
+      "source": "0b5f6a7b8c9d01234565",
+      "target": "0b2c3d4e5f6a78901232",
+      "type": "DataFilter"
+    },
+    {
+      "source": "0b5f6a7b8c9d01234565",
+      "target": "0b3d4e5f6a7b89012343",
+      "type": "NoFilter"
+    },
+    {
+      "source": "0b5f6a7b8c9d01234565",
+      "target": "0b4e5f6a7b8c90123454",
+      "type": "NoFilter"
+    },
+    {
+      "source": "0b5f6a7b8c9d01234565",
+      "target": "0b6a7b8c9d0e12345676",
+      "type": "DataFilter"
+    },
+    {
+      "source": "0b6a7b8c9d0e12345676",
+      "target": "0b1c2d3e4f5a67890121",
+      "type": "NoFilter"
+    },
+    {
+      "source": "0b6a7b8c9d0e12345676",
+      "target": "0b2c3d4e5f6a78901232",
+      "type": "NoFilter"
+    },
+    {
+      "source": "0b6a7b8c9d0e12345676",
+      "target": "0b3d4e5f6a7b89012343",
+      "type": "NoFilter"
+    },
+    {
+      "source": "0b6a7b8c9d0e12345676",
+      "target": "0b4e5f6a7b8c90123454",
+      "type": "NoFilter"
+    },
+    {
+      "source": "0b6a7b8c9d0e12345676",
+      "target": "0b5f6a7b8c9d01234565",
+      "type": "NoFilter"
+    }
+  ]
+}

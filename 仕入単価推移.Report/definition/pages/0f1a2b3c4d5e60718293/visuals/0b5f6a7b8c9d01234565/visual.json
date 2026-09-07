@@ -1,0 +1,123 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "0b5f6a7b8c9d01234565",
+  "position": {
+    "x": 0,
+    "y": 450,
+    "z": 10000,
+    "height": 130,
+    "width": 912,
+    "tabOrder": 10000
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Columns": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tbl_calendar"
+                    }
+                  },
+                  "Property": "年月_yy年MM月"
+                }
+              },
+              "queryRef": "tbl_calendar.年月_yy年MM月",
+              "nativeQueryRef": "年月",
+              "active": true
+            }
+          ]
+        },
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "BEI_影響額_月次"
+                    }
+                  },
+                  "Property": "電線区分"
+                }
+              },
+              "queryRef": "BEI_影響額_月次.電線区分",
+              "nativeQueryRef": "電線区分",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "BEI_影響額_月次"
+                    }
+                  },
+                  "Property": "セグメント"
+                }
+              },
+              "queryRef": "BEI_影響額_月次.セグメント",
+              "nativeQueryRef": "セグメント",
+              "active": false
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "BEI_影響額_月次"
+                    }
+                  },
+                  "Property": "PLヒット額_値上げ分_円"
+                }
+              },
+              "queryRef": "BEI_影響額_月次.PLヒット額_値上げ分_円",
+              "nativeQueryRef": "PLヒット額_値上げ分_円"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "tbl_calendar"
+                  }
+                },
+                "Property": "年月_yy年MM月"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'集計: 電線区分×セグメント×月 PLヒット額（円/月・値上がりのみ・符号はエクセルに合わせて負）。No.7/8は全セグメントの合計'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

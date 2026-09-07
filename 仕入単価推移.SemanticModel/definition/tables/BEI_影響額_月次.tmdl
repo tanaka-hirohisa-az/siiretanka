@@ -1,0 +1,445 @@
+/// BEI(PT.Banshu Electric Indonesia)の部材仕入から算出した値上げ影響額。BEE側の 仕入実績_影響額_月次 と同じ考え方。
+/// 影響額＝(当月単価−基準単価)×その月の仕入数量。単価＝金額÷数量。
+/// 単価は 出所×品番 で算出し、セグメント(PLANT)は数量の分解軸。セグメントを単価の粒度に含めない理由は2つある。
+/// ひとつはBEE側で在庫場所を含めないのと同じで、合算したとき全体値に厳密に戻すため。
+/// もうひとつはPLANTの付け間違いが基準単価をずらして影響額そのものを壊すためで、2026年7月のASKARA分で実際に起きた。
+/// 基準単価＝前年の最終計上月の単価。前年に実績がない品番は当年の最初の月の単価(基準区分で判別)。
+/// 金額はIDR。円換算は master/為替_IDR.csv の月次レート、レートが無い月は同ファイルの「既定」(年平均)を使う。
+/// 単価判定は除外そのものではなく判定結果の保持。スライサで対象範囲を制御する。
+table BEI_影響額_月次
+	lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c40
+
+	measure 影響額_合計_円 = SUM ( 'BEI_影響額_月次'[影響額_円] )
+		formatString: #,0
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c01
+
+	measure 影響額_値上げのみ_円 =
+			// PLヒット案件まとめ No.7/No.8 に記録するのは値上がり分のみ。
+			CALCULATE (
+			    SUM ( 'BEI_影響額_月次'[影響額_円] ),
+			    'BEI_影響額_月次'[単価差_IDR] > 0
+			)
+		formatString: #,0
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c02
+
+	measure 影響額_値下げのみ_円 =
+			CALCULATE (
+			    SUM ( 'BEI_影響額_月次'[影響額_円] ),
+			    'BEI_影響額_月次'[単価差_IDR] < 0
+			)
+		formatString: #,0
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c03
+
+	measure 影響額_純額_円 = [影響額_値上げのみ_円] + [影響額_値下げのみ_円]
+		formatString: #,0
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c06
+
+	measure PLヒット額_値上げ分_円 =
+			// 集計表専用。◎PLヒット案件まとめ は利益への影響で記録するため符号を反転する。
+			-[影響額_値上げのみ_円]
+		formatString: #,0
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c04
+
+	measure PLヒット額_純額_円 =
+			// No.7 の説明欄は値上がりと値下がりの純額、No.8 は値上がりのみと書かれていて揃っていない。
+			// どちらで記入するか決まっていないので両方を持たせ、表側で選べるようにしている。
+			-[影響額_純額_円]
+		formatString: #,0
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c05
+
+	measure 仕入額_合計_円 = SUM ( 'BEI_影響額_月次'[仕入額_円] )
+		formatString: #,0
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c07
+
+	measure 値上げ率_BEI =
+			// 仕入額に対する値上げ影響の比率。品番・仕入先の突出を検知する。
+			DIVIDE ( [影響額_値上げのみ_円], [仕入額_合計_円] )
+		formatString: 0.0%
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c08
+
+	measure PLヒット額_値上げ分_選択最終月_円 =
+			// カード用。選択している年月のうち最終月のみを集計する。
+			VAR __Sel =
+			    CALCULATE (
+			        MAX ( 'BEI_影響額_月次'[年月] ),
+			        ALLSELECTED ( 'BEI_影響額_月次'[年月] )
+			    )
+			RETURN
+			    CALCULATE ( -[影響額_値上げのみ_円], 'BEI_影響額_月次'[年月] = __Sel )
+		formatString: #,0
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c09
+
+	measure 影響額_値上げのみ_IDR =
+			// 参照エクセル(BEI_材料製品_値上げ影響と価格転嫁)との突合用。あちらは百万IDR表記。
+			CALCULATE (
+			    SUM ( 'BEI_影響額_月次'[影響額_IDR] ),
+			    'BEI_影響額_月次'[単価差_IDR] > 0
+			)
+		formatString: #,0
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c0a
+
+	column 年月
+		dataType: string
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c10
+		summarizeBy: none
+		sourceColumn: 年月
+
+		annotation SummarizationSetBy = Automatic
+
+	column 年月日
+		dataType: dateTime
+		formatString: yyyy/mm
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c11
+		summarizeBy: none
+		sourceColumn: 年月日
+
+		annotation SummarizationSetBy = Automatic
+
+	/// 仕入元の系統。BEE=日本のTB播州電装からの輸入、ASK=PT.ASKARA INTERNAL、OTH=その他の現地・海外仕入先。
+	column 出所
+		dataType: string
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c12
+		summarizeBy: none
+		sourceColumn: 出所
+
+		annotation SummarizationSetBy = Automatic
+
+	column 品番
+		dataType: string
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c13
+		summarizeBy: none
+		sourceColumn: 品番
+
+		annotation SummarizationSetBy = Automatic
+
+	/// 出所と品番を連結した単価の算出単位。出所をまたぐ同一品番は仕入条件が違うため別物として扱う。
+	column 品番キー
+		dataType: string
+		isHidden
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c14
+		summarizeBy: none
+		sourceColumn: 品番キー
+
+		annotation SummarizationSetBy = Automatic
+
+	column 仕入先
+		dataType: string
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c15
+		summarizeBy: none
+		sourceColumn: 仕入先
+
+		annotation SummarizationSetBy = Automatic
+
+	/// 購買明細のPLANT列。二輪／HE輸出／HE国内。BEE側の仕向け区分(倉庫由来)とは別物で、混ぜると二重計上になる。
+	column セグメント
+		dataType: string
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c16
+		summarizeBy: none
+		sourceColumn: セグメント
+
+		annotation SummarizationSetBy = Automatic
+
+	/// BEE=JENIS BARANG、ASKARA=Product Family が WIRE のものを電線とする。
+	/// その他仕入先には分類列が無いため、電線を扱う WONDERFUL (VIETNAM) からの仕入を電線とする。
+	column 電線区分
+		dataType: string
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c17
+		summarizeBy: none
+		sourceColumn: 電線区分
+
+		annotation SummarizationSetBy = Automatic
+
+	column 基準単価_IDR
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c18
+		summarizeBy: none
+		sourceColumn: 基準単価
+
+		annotation SummarizationSetBy = Automatic
+
+	column 当月単価_IDR
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c19
+		summarizeBy: none
+		sourceColumn: 当月単価
+
+		annotation SummarizationSetBy = Automatic
+
+	column 単価差_IDR
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c1a
+		summarizeBy: none
+		sourceColumn: 単価差
+
+		annotation SummarizationSetBy = Automatic
+
+	column 数量
+		dataType: double
+		formatString: #,0
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c1b
+		summarizeBy: none
+		sourceColumn: 数量
+
+		annotation SummarizationSetBy = Automatic
+
+	column 仕入額_IDR
+		dataType: double
+		formatString: #,0
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c1c
+		summarizeBy: none
+		sourceColumn: 仕入額
+
+		annotation SummarizationSetBy = Automatic
+
+	column 仕入額_円
+		dataType: double
+		formatString: #,0
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c1d
+		summarizeBy: none
+		sourceColumn: 仕入額_円
+
+		annotation SummarizationSetBy = Automatic
+
+	column 影響額_IDR
+		dataType: double
+		formatString: #,0
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c1e
+		summarizeBy: none
+		sourceColumn: 影響額
+
+		annotation SummarizationSetBy = Automatic
+
+	column 影響額_円
+		dataType: double
+		formatString: #,0
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c1f
+		summarizeBy: none
+		sourceColumn: 影響額_円
+
+		annotation SummarizationSetBy = Automatic
+
+	/// その月に適用した IDR/JPY。master/為替_IDR.csv 由来。レートが無い月は同ファイルの「既定」(年平均)。
+	column 適用レート
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c20
+		summarizeBy: none
+		sourceColumn: 適用レート
+
+		annotation SummarizationSetBy = Automatic
+
+	column 単価判定
+		dataType: string
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c21
+		summarizeBy: none
+		sourceColumn: 単価判定
+		sortByColumn: 単価判定_順
+
+		annotation SummarizationSetBy = Automatic
+
+	column 基準区分
+		dataType: string
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c22
+		summarizeBy: none
+		sourceColumn: 基準区分
+
+		annotation SummarizationSetBy = Automatic
+
+	column 基準年月
+		dataType: string
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c23
+		summarizeBy: none
+		sourceColumn: 基準年月
+
+		annotation SummarizationSetBy = Automatic
+
+	/// 文字列の昇順では「正常」が先頭に来ないため、並び順を別列で持つ。
+	column 単価判定_順
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c24
+		summarizeBy: sum
+		sourceColumn: 単価判定_順
+
+		annotation SummarizationSetBy = Automatic
+
+	partition BEI_影響額_月次 = m
+		mode: import
+		source =
+				let
+				    フォルダ = "C:\\Users\\100172\\OneDrive - TBGR（Tokyo Boeki Holdings Corporation and group companies）\\ドキュメント\\GitHub\\siiretanka\\",
+				    前年 = "2025",
+				    当年 = "2026",
+				    // Folder.Files は再帰的に走査して .git 配下まで数えるため、直下だけを見る Folder.Contents を使う。
+				    一覧 = Table.SelectRows(Folder.Contents(フォルダ), each [Extension] = ".xlsx"),
+				    // ファイル名に対象月が入っていて毎月変わる(Jan - July → Jan - August)ため、名前ではなく年で拾い、
+				    // 同じ年のものが複数あれば更新日時が新しい方を使う。毎月の運用をファイルの置き換えだけで済ませるため。
+				    購買ファイル = (年 as text) as binary =>
+				        Table.Sort(
+				            Table.SelectRows(
+				                一覧,
+				                each Text.StartsWith([Name], "03. Purchase Detail")
+				                    and Text.Contains([Name], 年)
+				                    and not Text.StartsWith([Name], "~$")
+				            ),
+				            {{"Date modified", Order.Descending}}
+				        ){0}[Content],
+				    // 見出しは6行目、データは7行目から。列名は Column1.. のまま位置で拾う。
+				    シート = (bin as binary, 名前 as text) as table =>
+				        Table.Skip(Excel.Workbook(bin, false){[Item = 名前, Kind = "Sheet"]}[Data], 6),
+				    数値 = (v as any) as number =>
+				        if v = null then 0
+				        else if Value.Is(v, type number) then v
+				        else try Number.From(Text.Replace(Text.From(v), ",", "")) otherwise 0,
+				    文字 = (v as any) as text => if v = null then "" else Text.Upper(Text.Trim(Text.From(v))),
+				    // OTHERSシートには日付が文字列で入っている行が274件ある(2026年7月版)。日付型だけを拾うと
+				    // 1,847百万IDRが黙って落ちるため、文字列日付も年月として読む。
+				    // 2025-06-22 の104行は伝票番号が26xxxxxで前年ファイルにも同じ伝票が無いため2026年6月の誤記として扱う。
+				    // ファイル側が直ったら 誤記補正 を {} にする。
+				    誤記補正 = {{"2025-06-22", "2026-06-22"}},
+				    年月変換 = (v as any, 補正 as logical) as nullable text =>
+				        if v = null then null
+				        else if Value.Is(v, type datetime) or Value.Is(v, type date) then
+				            Date.ToText(Date.From(v), [Format = "yyyyMM"])
+				        else if Value.Is(v, type text) and Text.Length(v) >= 10 and Text.At(v, 4) = "-" then
+				            let
+				                元 = Text.Start(v, 10),
+				                当 = List.First(List.Select(誤記補正, each _{0} = 元), null),
+				                s = if 補正 and 当 <> null then 当{1} else 元
+				            in
+				                Text.Start(s, 4) & Text.Middle(s, 5, 2)
+				        else null,
+				    段名 = (v as any) as text =>
+				        let
+				            t = 文字(v)
+				        in
+				            if t = "MOTORCYCLE" then "二輪" else if t = "HE-EXPORT" then "HE輸出" else if t = "HE-DOM" then "HE国内" else t,
+				    整形 = (t as table, 出所 as text, 日c as text, 品c as text, 数c as text, 金c as text, 段c as text, 仕c as nullable text, 類c as nullable text, 補正 as logical) as table =>
+				        let
+				            付与 = Table.AddColumn(t, "行", each
+				                let
+				                    仕入先 =
+				                        if 出所 = "BEE" then "BEE (TB Banshu Electric)"
+				                        else if 出所 = "ASK" then "PT. ASKARA INTERNAL"
+				                        else 文字(Record.Field(_, 仕c)),
+				                    分類 = if 類c = null then "" else 文字(Record.Field(_, 類c))
+				                in
+				                    [
+				                        年月 = 年月変換(Record.Field(_, 日c), 補正),
+				                        出所 = 出所,
+				                        品番 = 文字(Record.Field(_, 品c)),
+				                        仕入先 = 仕入先,
+				                        電線区分 =
+				                            if 類c = null then
+				                                (if Text.Contains(仕入先, "WONDERFUL") then "電線" else "電線以外")
+				                            else
+				                                (if 分類 = "WIRE" then "電線" else "電線以外"),
+				                        セグメント = 段名(Record.Field(_, 段c)),
+				                        数量 = 数値(Record.Field(_, 数c)),
+				                        金額 = 数値(Record.Field(_, 金c))
+				                    ]),
+				            展開 = Table.ExpandRecordColumn(Table.SelectColumns(付与, {"行"}), "行", {"年月", "出所", "品番", "仕入先", "電線区分", "セグメント", "数量", "金額"}),
+				            // 年月が取れない行はピボットの集計行や空行。品番が空の行も同じ。
+				            除去 = Table.SelectRows(展開, each [年月] <> null and [品番] <> "")
+				        in
+				            除去,
+				    読込 = (年 as text, 補正 as logical) as table =>
+				        let
+				            bin = 購買ファイル(年),
+				            b = 整形(シート(bin, "TB BEE"), "BEE", "Column3", "Column8", "Column11", "Column15", "Column16", null, "Column9", 補正),
+				            a = 整形(シート(bin, "ASKARA INTERNAL"), "ASK", "Column1", "Column6", "Column11", "Column14", "Column15", null, "Column5", 補正),
+				            o = 整形(シート(bin, "OTHERS SUPPLIER"), "OTH", "Column1", "Column4", "Column5", "Column9", "Column10", "Column3", null, 補正)
+				        in
+				            Table.Combine({b, a, o}),
+				    明細 = Table.Combine({読込(前年, false), 読込(当年, true)}),
+				    キー付 = Table.AddColumn(明細, "品番キー", each [出所] & "|" & [品番], type text),
+				    月次 = Table.Group(
+				        キー付,
+				        {"品番キー", "年月"},
+				        {
+				            {"数量", each List.Sum([数量]), type number},
+				            {"金額", each List.Sum([金額]), type number},
+				            {"出所", each List.First([出所]), type text},
+				            {"品番", each List.First([品番]), type text},
+				            {"仕入先", each List.First([仕入先]), type text}
+				        }),
+				    // 同じ品番でも行によって JENIS BARANG / Product Family が WIRE だったり違ったりするものが122件ある
+				    // (SF-3 0.5R や AEX20FR など、明らかに電線のもの)。月ごとに拾うと同じ品番が月によって
+				    // 電線と電線以外を行き来して No.7/No.8 の内訳がぶれるため、品番ごとに金額の多い方へ一度だけ寄せる。
+				    区分候補 = Table.Group(キー付, {"品番キー", "電線区分"}, {{"金額", each List.Sum([金額]), type number}}),
+				    区分表 = Table.Group(区分候補, {"品番キー"}, {{"電線区分", each Table.Sort(_, {{"金額", Order.Descending}}){0}[電線区分], type text}}),
+				    有効 = Table.SelectRows(Table.AddColumn(月次, "単価", each if [数量] > 0 then [金額] / [数量] else null, type number), each [単価] <> null),
+				    前年分 = Table.SelectRows(有効, each Text.Start([年月], 4) = 前年),
+				    当年分 = Table.SelectRows(有効, each Text.Start([年月], 4) = 当年),
+				    前年集約 = Table.Group(前年分, {"品番キー"}, {{"基準年月", each List.Max([年月]), type text}, {"前年計上月数", each List.Count([年月]), Int64.Type}}),
+				    前年基準 = Table.AddColumn(
+				        Table.SelectColumns(
+				            Table.ExpandTableColumn(
+				                Table.NestedJoin(前年集約, {"品番キー", "基準年月"}, 前年分, {"品番キー", "年月"}, "m", JoinKind.Inner),
+				                "m", {"単価", "数量"}, {"基準単価", "基準数量"}),
+				            {"品番キー", "基準年月", "前年計上月数", "基準単価", "基準数量"}),
+				        "基準区分", each "前年最終月", type text),
+				    // 前年に実績が無い品番を捨てず当年初回で代用するのは、当年から取り扱いが始まった品番を
+				    // 落とすと影響額が過小になるため。どちらを使ったかは基準区分に残す。
+				    当年初回 = Table.Group(当年分, {"品番キー"}, {{"基準年月", each List.Min([年月]), type text}}),
+				    未取得 = Table.NestedJoin(当年初回, {"品番キー"}, 前年基準, {"品番キー"}, "x", JoinKind.LeftAnti),
+				    当年基準 = Table.AddColumn(
+				        Table.AddColumn(
+				            Table.SelectColumns(
+				                Table.ExpandTableColumn(
+				                    Table.NestedJoin(Table.SelectColumns(未取得, {"品番キー", "基準年月"}), {"品番キー", "基準年月"}, 当年分, {"品番キー", "年月"}, "m", JoinKind.Inner),
+				                    "m", {"単価", "数量"}, {"基準単価", "基準数量"}),
+				                {"品番キー", "基準年月", "基準単価", "基準数量"}),
+				            "前年計上月数", each 0, Int64.Type),
+				        "基準区分", each "当年初回", type text),
+				    基準 = Table.Combine({前年基準, 当年基準}),
+				    // セグメントは単価の粒度に入れず、数量と金額の分解軸としてだけ持つ。
+				    段別 = Table.Group(
+				        Table.SelectRows(キー付, each Text.Start([年月], 4) = 当年),
+				        {"品番キー", "年月", "セグメント"},
+				        {{"数量", each List.Sum([数量]), type number}, {"仕入額", each List.Sum([金額]), type number}}),
+				    単価結合 = Table.ExpandTableColumn(
+				        Table.NestedJoin(段別, {"品番キー", "年月"}, 有効, {"品番キー", "年月"}, "u", JoinKind.Inner),
+				        "u", {"単価", "出所", "品番", "仕入先"}, {"当月単価", "出所", "品番", "仕入先"}),
+				    区分結合 = Table.ExpandTableColumn(
+				        Table.NestedJoin(単価結合, {"品番キー"}, 区分表, {"品番キー"}, "w", JoinKind.Inner),
+				        "w", {"電線区分"}, {"電線区分"}),
+				    基準結合 = Table.ExpandTableColumn(
+				        Table.NestedJoin(区分結合, {"品番キー"}, 基準, {"品番キー"}, "b", JoinKind.Inner),
+				        "b", {"基準単価", "基準年月", "基準区分", "基準数量", "前年計上月数"}, {"基準単価", "基準年月", "基準区分", "基準数量", "前年計上月数"}),
+				    為替生 = Table.PromoteHeaders(Csv.Document(File.Contents(フォルダ & "master\\為替_IDR.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]), [PromoteAllScalars = true]),
+				    既定レート = Number.From(Table.SelectRows(為替生, each [年月] = "既定"){0}[レート_IDR_JPY]),
+				    月次為替 = Table.SelectRows(為替生, each [区分] = "月次"),
+				    レート表 = Record.FromList(List.Transform(月次為替[レート_IDR_JPY], Number.From), 月次為替[年月]),
+				    レート = (ym as text) as number => Record.FieldOrDefault(レート表, Text.Start(ym, 4) & "/" & Text.End(ym, 2), 既定レート),
+				    計算 = Table.AddColumn(
+				        Table.AddColumn(
+				            Table.AddColumn(
+				                Table.AddColumn(
+				                    Table.AddColumn(
+				                        Table.AddColumn(基準結合, "単価差", each [当月単価] - [基準単価], type number),
+				                        "年月日", each Date.FromText(Text.Start([年月], 4) & "-" & Text.End([年月], 2) & "-01"), type date),
+				                    "適用レート", each レート([年月]), type number),
+				                "影響額", each ([当月単価] - [基準単価]) * [数量], type number),
+				            "単価判定", each
+				                if [基準区分] = "前年最終月" and [前年計上月数] = 1 and [基準数量] < 5 then "スポット(5個未満)"
+				                else if [基準単価] > 0 and ([当月単価] > [基準単価] * 3 or [当月単価] < [基準単価] / 3) then "基準比3倍超・1/3未満"
+				                else "正常", type text),
+				        "単価判定_順", each
+				            if [基準区分] = "前年最終月" and [前年計上月数] = 1 and [基準数量] < 5 then 3
+				            else if [基準単価] > 0 and ([当月単価] > [基準単価] * 3 or [当月単価] < [基準単価] / 3) then 2
+				            else 1, Int64.Type),
+				    円換算 = Table.AddColumn(
+				        Table.AddColumn(計算, "影響額_円", each [影響額] / [適用レート], type number),
+				        "仕入額_円", each [仕入額] / [適用レート], type number),
+				    出力 = Table.SelectColumns(円換算, {"年月", "年月日", "出所", "品番", "品番キー", "仕入先", "セグメント", "電線区分", "基準単価", "当月単価", "単価差", "数量", "仕入額", "仕入額_円", "影響額", "影響額_円", "適用レート", "単価判定", "単価判定_順", "基準区分", "基準年月"}),
+				    型 = Table.TransformColumnTypes(出力, {{"年月日", type datetime}})
+				in
+				    型
+
+	annotation PBI_ResultType = Table
+

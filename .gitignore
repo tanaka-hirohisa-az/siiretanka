@@ -13,3 +13,7 @@
 # 分析用に抽出した元データ(サイズが大きく、DWから再生成可能)
 *元データ抽出_*/
 倉庫マスタ のコピー.csv
+
+# BEI側から毎月送られてくる購買明細と月次業績報告。差し替わるうえ大きいので履歴に入れない
+03. Purchase Detail *.xlsx
+【BEE・BEI】*_Monthly Performance Report untuk TBH.xlsx
