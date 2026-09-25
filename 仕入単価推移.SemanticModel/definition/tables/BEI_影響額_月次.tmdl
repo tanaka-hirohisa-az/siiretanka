@@ -231,35 +231,6 @@ table BEI_影響額_月次
 
 		annotation SummarizationSetBy = Automatic
 
-	/// 当月のレートで円に換算した基準単価。基準を取った月のレートではないので、同じ基準でも月ごとに動く。
-	column 基準単価_円
-		dataType: double
-		formatString: #,0.00
-		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c25
-		summarizeBy: none
-		sourceColumn: 基準単価_円
-
-		annotation SummarizationSetBy = Automatic
-
-	column 当月単価_円
-		dataType: double
-		formatString: #,0.00
-		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c26
-		summarizeBy: none
-		sourceColumn: 当月単価_円
-
-		annotation SummarizationSetBy = Automatic
-
-	/// 当月単価_円 − 基準単価_円。これに数量を掛けると 影響額_円 に一致する。
-	column 単価差_円
-		dataType: double
-		formatString: #,0.00
-		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c27
-		summarizeBy: none
-		sourceColumn: 単価差_円
-
-		annotation SummarizationSetBy = Automatic
-
 	column 単価判定
 		dataType: string
 		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c21
@@ -293,6 +264,35 @@ table BEI_影響額_月次
 		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c24
 		summarizeBy: sum
 		sourceColumn: 単価判定_順
+
+		annotation SummarizationSetBy = Automatic
+
+	/// 当月のレートで円に換算した基準単価。基準を取った月のレートではないので、同じ基準でも月ごとに動く。
+	column 基準単価_円
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c25
+		summarizeBy: none
+		sourceColumn: 基準単価_円
+
+		annotation SummarizationSetBy = Automatic
+
+	column 当月単価_円
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c26
+		summarizeBy: none
+		sourceColumn: 当月単価_円
+
+		annotation SummarizationSetBy = Automatic
+
+	/// 当月単価_円 − 基準単価_円。これに数量を掛けると 影響額_円 に一致する。
+	column 単価差_円
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c27
+		summarizeBy: none
+		sourceColumn: 単価差_円
 
 		annotation SummarizationSetBy = Automatic
 
