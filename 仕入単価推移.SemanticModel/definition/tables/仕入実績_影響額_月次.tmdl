@@ -33,13 +33,6 @@ table 仕入実績_影響額_月次
 		formatString: #,0
 		lineageTag: 5f607182-93a4-45b6-c7d8-e9f0a1b2c104
 
-	measure PLヒット額_純額 =
-			// 集計表専用。値上がりと値下がりの純額を PLヒット額_値上げ分 と同じ符号規則(利益への影響)で出す。
-			// 行に 改定方向 を置くと、値上げ行=値上げ分(負)・値下げ行=値下げ分(正)・総計=純額になる。
-			-[影響額_純額]
-		formatString: #,0
-		lineageTag: b0fbcdc6-4f95-4260-bf56-3575afa8bba9
-
 	measure 仕入額_合計 = SUM ( '仕入実績_影響額_月次'[仕入額] )
 		formatString: #,0
 		lineageTag: 5f607182-93a4-45b6-c7d8-e9f0a1b2c105
@@ -66,6 +59,13 @@ table 仕入実績_影響額_月次
 			    CALCULATE ( -[影響額_値上げのみ], '仕入実績_影響額_月次'[年月] = __Sel )
 		formatString: #,0
 		lineageTag: 5f607182-93a4-45b6-c7d8-e9f0a1b2c108
+
+	measure PLヒット額_純額 =
+			// 集計表専用。値上がりと値下がりの純額を PLヒット額_値上げ分 と同じ符号規則(利益への影響)で出す。
+			// 行に 改定方向 を置くと、値上げ行=値上げ分(負)・値下げ行=値下げ分(正)・総計=純額になる。
+			-[影響額_純額]
+		formatString: #,0
+		lineageTag: b0fbcdc6-4f95-4260-bf56-3575afa8bba9
 
 	column 年月
 		dataType: string
@@ -206,9 +206,9 @@ table 仕入実績_影響額_月次
 			    "変動なし"
 			)
 		dataType: string
-		sortByColumn: 改定方向_順
 		lineageTag: 61837f9b-c901-42b0-a5b4-92d1c8a21e02
 		summarizeBy: none
+		sortByColumn: 改定方向_順
 
 		annotation SummarizationSetBy = Automatic
 

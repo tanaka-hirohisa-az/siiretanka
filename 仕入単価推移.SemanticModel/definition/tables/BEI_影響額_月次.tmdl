@@ -306,9 +306,9 @@ table BEI_影響額_月次
 			    "変動なし"
 			)
 		dataType: string
-		sortByColumn: 改定方向_順
 		lineageTag: 9a07bd3b-c5fd-4e23-a1d3-1e8bf3f64900
 		summarizeBy: none
+		sortByColumn: 改定方向_順
 
 		annotation SummarizationSetBy = Automatic
 

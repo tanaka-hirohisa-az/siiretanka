@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "d2e3f4a5b6c7890123d2",
   "position": {
     "x": 0,
-    "y": 130,
+    "y": 130.47399419328079,
     "z": 1000,
-    "height": 250,
-    "width": 912,
+    "height": 229.6885939444214,
+    "width": 911.95885524678556,
     "tabOrder": 1000
   },
   "visual": {
@@ -100,5 +100,65 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "95d9d838c79693e9cf1e",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "tbl_calendar"
+              }
+            },
+            "Property": "年月_表示"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "1f8f1160d2d3d8c8f96c",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "仕入実績_影響額_月次"
+              }
+            },
+            "Property": "影響額_値上げのみ"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "d30f0a72148298b37f56",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "仕入実績_影響額_月次"
+              }
+            },
+            "Property": "影響額_値下げのみ"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "eea499161e4a2914d327",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "仕入実績_影響額_月次"
+              }
+            },
+            "Property": "影響額_合計"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

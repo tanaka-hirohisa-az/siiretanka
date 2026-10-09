@@ -1,11 +1,11 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "0b5f6a7b8c9d01234565",
   "position": {
     "x": 0,
-    "y": 380,
+    "y": 360.1625881377022,
     "z": 10000,
-    "height": 200,
+    "height": 220.17486520116134,
     "width": 912,
     "tabOrder": 10000
   },
@@ -118,6 +118,21 @@
         ]
       }
     },
+    "objects": {
+      "subTotals": [
+        {
+          "properties": {
+            "rowSubtotalsPosition": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Bottom'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
     "visualContainerObjects": {
       "title": [
         {
@@ -134,5 +149,79 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "b75ddeeb44a351ac3b12",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "tbl_calendar"
+              }
+            },
+            "Property": "年月_yy年MM月"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "895085d8d5e0ca707e39",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "BEI_影響額_月次"
+              }
+            },
+            "Property": "改定方向"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "6ad6eeac033e860223a2",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "BEI_影響額_月次"
+              }
+            },
+            "Property": "電線区分"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "26648d5b1a0396cf2616",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "BEI_影響額_月次"
+              }
+            },
+            "Property": "セグメント"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "3a7ddc942a9a4ecf36ca",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "BEI_影響額_月次"
+              }
+            },
+            "Property": "PLヒット額_純額_円"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

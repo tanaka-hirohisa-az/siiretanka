@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "c5d6e7f8091011120012",
   "position": {
     "x": 0,
-    "y": 380,
+    "y": 360.16258813770219,
     "z": 10000,
-    "height": 200,
-    "width": 912,
+    "height": 220.17486520116134,
+    "width": 911.95885524678556,
     "tabOrder": 10000
   },
   "visual": {
@@ -118,6 +118,21 @@
         ]
       }
     },
+    "objects": {
+      "subTotals": [
+        {
+          "properties": {
+            "rowSubtotalsPosition": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Bottom'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
     "visualContainerObjects": {
       "title": [
         {
@@ -134,5 +149,79 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "21f544718346912c8c42",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "tbl_calendar"
+              }
+            },
+            "Property": "年月_表示"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "77078411faf12e7d9a02",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "仕入実績_影響額_月次"
+              }
+            },
+            "Property": "改定方向"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "a04f9211060cc95e173e",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "材料分類"
+              }
+            },
+            "Property": "電線区分"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "bf1abe60c0ab9c92392f",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "倉庫分類"
+              }
+            },
+            "Property": "仕向け区分"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "6bdf18dedb01731e0475",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "仕入実績_影響額_月次"
+              }
+            },
+            "Property": "PLヒット額_純額"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }
