@@ -3,9 +3,9 @@
   "name": "c5d6e7f8091011120012",
   "position": {
     "x": 0,
-    "y": 450,
+    "y": 380,
     "z": 10000,
-    "height": 130,
+    "height": 200,
     "width": 912,
     "tabOrder": 10000
   },
@@ -34,6 +34,21 @@
         },
         "Rows": {
           "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "仕入実績_影響額_月次"
+                    }
+                  },
+                  "Property": "改定方向"
+                }
+              },
+              "queryRef": "仕入実績_影響額_月次.改定方向",
+              "nativeQueryRef": "改定方向",
+              "active": true
+            },
             {
               "field": {
                 "Column": {
@@ -76,11 +91,11 @@
                       "Entity": "仕入実績_影響額_月次"
                     }
                   },
-                  "Property": "PLヒット額_値上げ分"
+                  "Property": "PLヒット額_純額"
                 }
               },
-              "queryRef": "仕入実績_影響額_月次.PLヒット額_値上げ分",
-              "nativeQueryRef": "PLヒット額_値上げ分"
+              "queryRef": "仕入実績_影響額_月次.PLヒット額_純額",
+              "nativeQueryRef": "PLヒット額_純額"
             }
           ]
         }
@@ -110,7 +125,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'集計: 電線区分×仕向け区分×月 値上げ影響額（円/月・値上がりのみ・符号はエクセルに合わせて負）。No.5/6は全仕向けの合計'"
+                  "Value": "'集計: 改定方向×電線区分×仕向け区分×月 PLヒット額（円/月・符号はエクセルに合わせ 値上げ=負／値下げ=正、総計=純額）。No.5/6は値上げ小計'"
                 }
               }
             }

@@ -43,6 +43,7 @@ table BEI_影響額_月次
 	measure PLヒット額_純額_円 =
 			// No.7 の説明欄は値上がりと値下がりの純額、No.8 は値上がりのみと書かれていて揃っていない。
 			// どちらで記入するか決まっていないので両方を持たせ、表側で選べるようにしている。
+			// 集計表はこれを使い、行に 改定方向 を置いて 値上げ行=値上げ分・値下げ行=値下げ分・総計=純額 を出す。
 			-[影響額_純額_円]
 		formatString: #,0
 		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c05
@@ -293,6 +294,37 @@ table BEI_影響額_月次
 		lineageTag: 7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c27
 		summarizeBy: none
 		sourceColumn: 単価差_円
+
+		annotation SummarizationSetBy = Automatic
+
+	column 改定方向 =
+			// 影響額_値上げのみ_円／値下げのみ_円 と同じく単価差の符号で分ける。単価差は 出所×品番×月 で決まるのでセグメントの行で割れない。
+			SWITCH (
+			    TRUE (),
+			    'BEI_影響額_月次'[単価差_IDR] > 0, "値上げ",
+			    'BEI_影響額_月次'[単価差_IDR] < 0, "値下げ",
+			    "変動なし"
+			)
+		dataType: string
+		sortByColumn: 改定方向_順
+		lineageTag: 9a07bd3b-c5fd-4e23-a1d3-1e8bf3f64900
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 改定方向_順 =
+			// 改定方向の並び順。値上げを上にする。
+			SWITCH (
+			    TRUE (),
+			    'BEI_影響額_月次'[単価差_IDR] > 0, 1,
+			    'BEI_影響額_月次'[単価差_IDR] < 0, 2,
+			    3
+			)
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 89d43b69-40f8-46d8-a30e-3b762e68fd12
+		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 
