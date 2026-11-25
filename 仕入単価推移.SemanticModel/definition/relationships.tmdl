@@ -6,10 +6,6 @@ relationship 72e0b70b-bf4a-c5ba-2adf-3314febd481b
 	fromColumn: TB_納入品目改造指示情報.F_納入品目番号
 	toColumn: TW_自動倉庫.F_納入品目番号
 
-relationship ed2bcfa9-f79d-f62e-63df-739ab8320c27
-	fromColumn: TW_納入品目在庫履歴.F_納入品目番号
-	toColumn: TW_自動倉庫.F_納入品目番号
-
 relationship AutoDetected_b53c767e-99f2-46cd-b752-e773ece64241
 	fromColumn: TB_納入品目仕入先単価情報.F_仕入先番号
 	toColumn: TB_仕入先情報.F_仕入先番号

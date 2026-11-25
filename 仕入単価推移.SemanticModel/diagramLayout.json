@@ -283,19 +283,6 @@
         },
         {
           "location": {
-            "x": 882.0,
-            "y": 1260.0
-          },
-          "nodeIndex": "TB_材料入出庫実績情報",
-          "size": {
-            "height": 300.0,
-            "width": 234.0
-          },
-          "zIndex": 21,
-          "nodeLineageTag": "7e0ff26c-487c-4510-a321-fc937257ff4f"
-        },
-        {
-          "location": {
             "x": 1176.0,
             "y": 1260.0
           },
@@ -332,19 +319,6 @@
           },
           "zIndex": 24,
           "nodeLineageTag": "6736c21a-067f-4129-8682-c565c7105dfe"
-        },
-        {
-          "location": {
-            "x": 2058.0,
-            "y": 1260.0
-          },
-          "nodeIndex": "TW_納入品目在庫履歴",
-          "size": {
-            "height": 300.0,
-            "width": 234.0
-          },
-          "zIndex": 25,
-          "nodeLineageTag": "b40047e7-f731-4b98-966f-b7929d19f828"
         }
       ],
       "name": "すべてのテーブル",
