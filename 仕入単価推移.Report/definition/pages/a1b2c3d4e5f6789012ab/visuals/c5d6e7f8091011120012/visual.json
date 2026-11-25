@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.15.0/schema.json",
   "name": "c5d6e7f8091011120012",
   "position": {
     "x": 0,
@@ -168,7 +168,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "94702677036c605779e0",
+        "name": "469be2b712cd618608d4",
         "field": {
           "Column": {
             "Expression": {
@@ -182,7 +182,7 @@
         "type": "Categorical"
       },
       {
-        "name": "02a2dfed0030d8a9368e",
+        "name": "b4efad300d99e54a8852",
         "field": {
           "Column": {
             "Expression": {
@@ -196,7 +196,7 @@
         "type": "Categorical"
       },
       {
-        "name": "7b3a84d086a985c2a022",
+        "name": "51225c9ad823b9c5c0fe",
         "field": {
           "Column": {
             "Expression": {
@@ -210,7 +210,7 @@
         "type": "Categorical"
       },
       {
-        "name": "a1aab30461b17d24aad3",
+        "name": "6b4c563fbf83add82dcd",
         "field": {
           "Column": {
             "Expression": {
@@ -224,7 +224,7 @@
         "type": "Categorical"
       },
       {
-        "name": "db7c68ae936c46c63a02",
+        "name": "026c8a402aebeebd9724",
         "field": {
           "Measure": {
             "Expression": {
@@ -238,7 +238,7 @@
         "type": "Advanced"
       },
       {
-        "name": "a6561a161b427260ceaa",
+        "name": "1ac7f9b7c2f68e37f730",
         "field": {
           "Measure": {
             "Expression": {
