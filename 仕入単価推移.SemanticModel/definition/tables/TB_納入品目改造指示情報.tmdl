@@ -113,7 +113,14 @@ table TB_納入品目改造指示情報
 		source =
 				let
 				    ソース = Sql.Database("ob7e4ay7l6juflutzrdmf3fx4i-5je6jcvp7ozufin2iqecmsnlgi.datawarehouse.fabric.microsoft.com", "dw_bee_genka-00001"),
-				    dbo_TB_納入品目改造指示情報 = ソース{[Schema="dbo",Item="TB_納入品目改造指示情報"]}[Data]
+				    dbo_TB_納入品目改造指示情報 = ソース{[Schema="dbo",Item="TB_納入品目改造指示情報"]}[Data],
+				    // PRONES 側の入力ミスで F_手配納期 に 0212年 などの日付が入っている(2026-11-25 時点で3件)。
+				    // そのままだと更新が「警告付きで完了」になるため、1900年より前の日付は空にする。
+				    // 型を付けないと列が文字列として読み込まれるので、日付型を明示する。
+				    誤り日付の除去 = Table.TransformColumns(
+				        dbo_TB_納入品目改造指示情報,
+				        {{"F_手配納期", each if _ = null or Date.Year(_) < 1900 then null else Date.From(_), type nullable date}}
+				    )
 				in
-				    dbo_TB_納入品目改造指示情報
+				    誤り日付の除去
 
