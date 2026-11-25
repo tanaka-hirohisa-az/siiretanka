@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "0b5f6a7b8c9d01234565",
   "position": {
     "x": 0,
     "y": 360.16258813770219,
-    "z": 10000,
+    "z": 12000,
     "height": 220.17486520116134,
     "width": 912,
-    "tabOrder": 10000
+    "tabOrder": 12000
   },
   "visual": {
     "visualType": "pivotTable",
@@ -96,6 +96,21 @@
               },
               "queryRef": "BEI_影響額_月次.PLヒット額_純額_円",
               "nativeQueryRef": "PLヒット額_純額_円"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "BEI_影響額_月次"
+                    }
+                  },
+                  "Property": "仕入額比_BEI"
+                }
+              },
+              "queryRef": "BEI_影響額_月次.仕入額比_BEI",
+              "nativeQueryRef": "仕入額比_BEI",
+              "displayName": "仕入額比"
             }
           ]
         }
@@ -140,7 +155,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'集計: 改定方向×電線区分×セグメント×月 PLヒット額（円/月・符号はエクセルに合わせ 値上げ=負／値下げ=正、総計=純額）。No.7/8は全セグメントの合計（値上げのみなら値上げ小計、純額なら総計）'"
+                  "Value": "'集計: 改定方向×電線区分×セグメント×月 PLヒット額（円/月・符号はエクセルに合わせ 値上げ=負／値下げ=正、総計=純額）。No.7/8は全セグメントの合計（値上げのみなら値上げ小計、純額なら総計）。仕入額比＝影響額÷同じ区分・月の仕入総額（仕入側の符号 値上げ=正／値下げ=負）'"
                 }
               }
             }
@@ -149,79 +164,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "b75ddeeb44a351ac3b12",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "tbl_calendar"
-              }
-            },
-            "Property": "年月_yy年MM月"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "895085d8d5e0ca707e39",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "BEI_影響額_月次"
-              }
-            },
-            "Property": "改定方向"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "6ad6eeac033e860223a2",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "BEI_影響額_月次"
-              }
-            },
-            "Property": "電線区分"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "26648d5b1a0396cf2616",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "BEI_影響額_月次"
-              }
-            },
-            "Property": "セグメント"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "3a7ddc942a9a4ecf36ca",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "BEI_影響額_月次"
-              }
-            },
-            "Property": "PLヒット額_純額_円"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

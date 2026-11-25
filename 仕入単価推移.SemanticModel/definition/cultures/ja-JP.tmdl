@@ -2,8 +2,52 @@ cultureInfo ja-JP
 
 	linguisticMetadata =
 			{
-			  "Version": "1.0.0",
-			  "Language": "en-US"
+			  "Version": "2.0.0",
+			  "Language": "en-US",
+			  "Entities": {
+			    "table__.column": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "仕入実績_影響額_月次",
+			          "ConceptualProperty": "仕入額比"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "仕入額比": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "bei__.column_bei": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "BEI_影響額_月次",
+			          "ConceptualProperty": "仕入額比_BEI"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "仕入額比": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    }
+			  }
 			}
 		contentType: json
 

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "c5d6e7f8091011120012",
   "position": {
     "x": 0,
@@ -96,6 +96,21 @@
               },
               "queryRef": "仕入実績_影響額_月次.PLヒット額_純額",
               "nativeQueryRef": "PLヒット額_純額"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "仕入実績_影響額_月次"
+                    }
+                  },
+                  "Property": "仕入額比"
+                }
+              },
+              "queryRef": "仕入実績_影響額_月次.仕入額比",
+              "nativeQueryRef": "仕入額比",
+              "displayName": "仕入額比"
             }
           ]
         }
@@ -140,7 +155,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'集計: 改定方向×電線区分×仕向け区分×月 PLヒット額（円/月・符号はエクセルに合わせ 値上げ=負／値下げ=正、総計=純額）。No.5/6は値上げ小計'"
+                  "Value": "'集計: 改定方向×電線区分×仕向け区分×月 PLヒット額（円/月・符号はエクセルに合わせ 値上げ=負／値下げ=正、総計=純額）。No.5/6は値上げ小計。仕入額比＝影響額÷同じ区分・月の仕入総額（仕入側の符号 値上げ=正／値下げ=負）'"
                 }
               }
             }
@@ -153,7 +168,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "21f544718346912c8c42",
+        "name": "94702677036c605779e0",
         "field": {
           "Column": {
             "Expression": {
@@ -167,7 +182,7 @@
         "type": "Categorical"
       },
       {
-        "name": "77078411faf12e7d9a02",
+        "name": "02a2dfed0030d8a9368e",
         "field": {
           "Column": {
             "Expression": {
@@ -181,7 +196,7 @@
         "type": "Categorical"
       },
       {
-        "name": "a04f9211060cc95e173e",
+        "name": "7b3a84d086a985c2a022",
         "field": {
           "Column": {
             "Expression": {
@@ -195,7 +210,7 @@
         "type": "Categorical"
       },
       {
-        "name": "bf1abe60c0ab9c92392f",
+        "name": "a1aab30461b17d24aad3",
         "field": {
           "Column": {
             "Expression": {
@@ -209,7 +224,7 @@
         "type": "Categorical"
       },
       {
-        "name": "6bdf18dedb01731e0475",
+        "name": "db7c68ae936c46c63a02",
         "field": {
           "Measure": {
             "Expression": {
@@ -218,6 +233,20 @@
               }
             },
             "Property": "PLヒット額_純額"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "a6561a161b427260ceaa",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "仕入実績_影響額_月次"
+              }
+            },
+            "Property": "仕入額比"
           }
         },
         "type": "Advanced"
