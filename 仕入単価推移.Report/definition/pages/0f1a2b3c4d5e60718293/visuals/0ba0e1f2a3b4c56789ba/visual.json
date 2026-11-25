@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "0ba0e1f2a3b4c56789ba",
   "position": {
     "x": 662,
     "y": 0,
-    "z": 5300,
+    "z": 7000,
     "height": 130,
     "width": 154,
-    "tabOrder": 5300
+    "tabOrder": 7000
   },
   "visual": {
     "visualType": "slicer",
@@ -117,23 +117,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "flt0ba0e1f2a3b4",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "BEI_影響額_月次"
-              }
-            },
-            "Property": "単価判定"
-          }
-        },
-        "type": "Categorical"
-      }
-    ]
   }
 }
